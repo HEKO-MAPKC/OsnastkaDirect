@@ -855,6 +855,7 @@ namespace OsnastkaDirect.Models
                 //process.StartInfo.WorkingDirectory = @"c:\Fox\"; //путь к рабочей директории приложения
                 //process.StartInfo.Arguments = pSelOsn.draftGrid.ToString(); //аргументы командной строки (параметры)
                 process.Start();
+
             };
         }
         public void EditOrd()
