@@ -1,0 +1,131 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:r="clr-namespace:Microsoft.Windows.Controls.Ribbon;assembly=RibbonControlsLibrary"
+                    xmlns:controls="clr-namespace:System.Windows.Controls;assembly=PresentationFramework">
+    <controls:BooleanToVisibilityConverter x:Key="boolConv" />
+    <Style TargetType="{x:Type DataGrid}"
+           BasedOn="{StaticResource ResourceKey=NewDataGrid}"
+           x:Key="{x:Type DataGrid}">
+    </Style>
+    <Style TargetType="r:RibbonButton">
+        <!--HasDropShadow="False"
+    Placement="Relative" HorizontalOffset="15" VerticalOffset="10"-->
+        <Setter Property="ToolTipService.InitialShowDelay"
+                Value="10" />
+        <Setter Property="ToolTipService.Placement"
+                Value="Top" />
+        <Setter Property="ToolTipService.VerticalOffset"
+                Value="115" />
+    </Style>
+    <SolidColorBrush x:Key="DataGridHeaderColor"
+                     Color="#C5D0E6" />
+    <Style TargetType="DataGridRow"
+           x:Key="DataGridRowBase">
+
+        <Style.Triggers>
+            <Trigger Property="DataGridRow.IsSelected"
+                     Value="true">
+                <Setter Property="BorderBrush"
+                        Value="#FF2B579A" />
+                <Setter Property="BorderThickness"
+                        Value="0 1 0 1" />
+                <Setter Property="Height"
+                        Value="20" />
+            </Trigger>
+        </Style.Triggers>
+        <Setter Property="Height"
+                Value="20" />
+        <Setter Property="MinWidth"
+                Value="0" />
+        <Setter Property="Padding"
+                Value="0" />
+    </Style>
+    <Style TargetType="{x:Type DataGridColumnHeader}"
+           BasedOn="{StaticResource ResourceKey=NewDataGridColumn}">
+    </Style>
+    <Style TargetType="{x:Type DataGridCell}" BasedOn="{StaticResource ResourceKey=NewDataGridCell}">
+        <Style.Triggers>
+            <Trigger Property="DataGridCell.IsSelected"
+                     Value="True">
+                <Setter Property="Background">
+                    <Setter.Value>
+                        <SolidColorBrush Color="Transparent" />
+                    </Setter.Value>
+                </Setter>
+                <Setter Property="Foreground"
+                        Value="{DynamicResource
+       {x:Static SystemColors.ControlTextBrushKey}}"/>
+                <Setter Property="FontSize"
+                        Value="14" />
+                <Setter Property="FontWeight"
+                        Value="Bold" />
+            </Trigger>
+        </Style.Triggers>
+        <Setter Property="ToolTip"
+                Value="{Binding RelativeSource={RelativeSource Self},    Path=Content.Text}" />
+    </Style>
+
+    <Style TargetType="{x:Type CheckBox}"
+           BasedOn="{StaticResource ResourceKey=NewCheckBox}"
+           x:Key="{x:Type CheckBox}" />
+    <Style TargetType="{x:Type ComboBox}"
+           BasedOn="{StaticResource ResourceKey=NewComboBox}"
+           x:Key="{x:Type ComboBox}">
+        <!--<Setter Property="ComboBox.Effect">
+            <Setter.Value>
+                <DropShadowEffect Color="Black"
+                                  ShadowDepth="1"
+                                  Opacity="0.4" />
+            </Setter.Value>
+        </Setter>-->
+        <!--<Setter Property="Effect">
+            <DropShadowEffect Color="Black"
+                              ShadowDepth="1"
+                              Opacity="0.4" />
+        </Setter>-->
+    </Style>
+    <Style TargetType="{x:Type ComboBoxItem}"
+           BasedOn="{StaticResource ResourceKey=NewComboBoxItem}"
+           x:Key="{x:Type ComboBoxItem}" />
+    <Style TargetType="{x:Type RadioButton}"
+           BasedOn="{StaticResource ResourceKey=NewRadioButton}"
+           x:Key="{x:Type RadioButton}" />
+    <Style TargetType="{x:Type Button}"
+           BasedOn="{StaticResource ResourceKey=WhiteButton}"
+           x:Key="{x:Type Button}" />
+    <Style TargetType="{x:Type ProgressBar}"
+           BasedOn="{StaticResource ResourceKey=NewProgressBar}"
+           x:Key="{x:Type ProgressBar}" />
+    <Style TargetType="{x:Type Image}"
+           BasedOn="{StaticResource ResourceKey=NewImage}"
+           x:Key="{x:Type Image}" />
+    <Style TargetType="{x:Type TextBox}"
+           BasedOn="{StaticResource ResourceKey=NewTextBox}"
+           x:Key="{x:Type TextBox}" />
+    <Style TargetType="{x:Type DatePickerTextBox}"
+           BasedOn="{StaticResource ResourceKey=NewDatePickerTextBox}"
+           x:Key="{x:Type DatePickerTextBox}" />
+    <Style TargetType="{x:Type DatePicker}"
+           BasedOn="{StaticResource ResourceKey=NewDatePicker}"
+           x:Key="{x:Type DatePicker}" />
+    <Style TargetType="{x:Type ScrollBar}"
+           BasedOn="{StaticResource ResourceKey=NewScrollBar}"
+           x:Key="{x:Type ScrollBar}" />
+    <LinearGradientBrush x:Key="RainbowStyle"
+                         EndPoint="0,1">
+        <GradientStop Color="Red"
+                      Offset="0" />
+        <GradientStop Color="Orange"
+                      Offset="0.16" />
+        <GradientStop Color="Yellow"
+                      Offset="0.32" />
+        <GradientStop Color="Green"
+                      Offset="0.48" />
+        <GradientStop Color="SkyBlue"
+                      Offset="0.64" />
+        <GradientStop Color="Blue"
+                      Offset="0.80" />
+        <GradientStop Color="Purple"
+                      Offset="1" />
+    </LinearGradientBrush>
+</ResourceDictionary>

@@ -1,0 +1,38 @@
+﻿<TextBox x:Class="Metrology.EmbedResources.Controls.PlaceholderBox"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             mc:Ignorable="d"
+             GotFocus="PlaceholderBox_GotFocus"
+             LostFocus="PlaceholderBox_LostFocus"
+             Name="TB">
+    <TextBox.Template>
+        <ControlTemplate TargetType="TextBox">
+            <Grid>
+                <TextBox Name="Boxer"
+                         VerticalContentAlignment="Center"
+                         Language="{Binding Language,RelativeSource={RelativeSource TemplatedParent}}"
+                         MaxLength="{Binding MaxLength,RelativeSource={RelativeSource TemplatedParent}}"
+                         Text="{Binding Text,UpdateSourceTrigger=PropertyChanged,RelativeSource={RelativeSource TemplatedParent}, Mode=TwoWay}"
+                         ContextMenu="{Binding ContextMenu, RelativeSource={RelativeSource TemplatedParent}}"
+                         ToolTip="{Binding RelativeSource={RelativeSource Self}, Path=Text}" />
+                <TextBlock Visibility="Collapsed"
+                           IsHitTestVisible="False"
+                           VerticalAlignment="Center"
+                           Margin="3,0,0,0"
+                           Text="{Binding Placeholder, RelativeSource={RelativeSource TemplatedParent}}"
+                           FontSize="{Binding FontSize,RelativeSource={RelativeSource TemplatedParent}}"
+                           Foreground="{Binding PlaceholderColor, RelativeSource={RelativeSource TemplatedParent}}"
+                           TextAlignment="{Binding PlaceholderAlignment,RelativeSource={RelativeSource TemplatedParent}}" />
+            </Grid>
+        </ControlTemplate>
+    </TextBox.Template>
+    <!--<TextBox.Effect>
+        <DropShadowEffect Color="Black"
+                          ShadowDepth="1"
+                          Opacity="0.4" />
+    </TextBox.Effect>-->
+</TextBox>
+    
+
