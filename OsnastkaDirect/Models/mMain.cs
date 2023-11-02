@@ -205,7 +205,7 @@ namespace OsnastkaDirect.Models
             }
         }
 
-        bool CreateTabOpen = true;
+        bool CreateTabOpen = false;
         public bool pCreateTabOpen
         {
             get { return CreateTabOpen; }
@@ -219,7 +219,7 @@ namespace OsnastkaDirect.Models
             }
         }
 
-        bool ApproveTabOpen = false;
+        bool ApproveTabOpen = true;
         public bool pApproveTabOpen
         {
             get { return ApproveTabOpen; }
@@ -778,6 +778,7 @@ namespace OsnastkaDirect.Models
         }
         public void PrintBlancOrd()
         {
+            MessageBox.Show("Удалить нельзя! Техзаказ утвержден!", "Внимание!", MessageBoxButton.OK, MessageBoxImage.Warning);
             PrintDoc();
             //if (pSelOsn == null) return;
             //string Zak_1 = pSelOsn.zak_1;
@@ -855,6 +856,7 @@ namespace OsnastkaDirect.Models
                 //process.StartInfo.WorkingDirectory = @"c:\Fox\"; //путь к рабочей директории приложения
                 //process.StartInfo.Arguments = pSelOsn.draftGrid.ToString(); //аргументы командной строки (параметры)
                 process.Start();
+
             };
         }
         public void EditOrd()
