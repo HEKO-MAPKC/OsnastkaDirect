@@ -202,7 +202,7 @@ namespace OsnastkaDirect.ViewModels
                 Model.OnChangeSelFilter();
             }
             if ((_eventArgs.PropertyName == "pdateSearchAfter" || _eventArgs.PropertyName == "pdateSearchBefore") 
-                && (Model.pdateSearchAfter != null && Model.pdateSearchBefore != null))
+                && (Model.pdateSearchAfter != null || Model.pdateSearchBefore != null))
             {
                 Model.ChangeDate();
             }

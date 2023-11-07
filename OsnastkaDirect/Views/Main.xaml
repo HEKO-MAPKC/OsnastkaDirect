@@ -765,11 +765,6 @@
                         </FlowDocument>
 
                     </RichTextBox>
-                    <control:PlaceholderBox Height="26"
-                                            Width="155"
-                                            Placeholder="дата"
-                                            Text="{Binding model.pSelOsn.boss, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
-                                            Margin="705,437,160,119" />
                     <StackPanel Orientation="Horizontal"
                                 Margin="897,421,18,18">
                         <Fluent:Button Header="Аннулировать заказ"
