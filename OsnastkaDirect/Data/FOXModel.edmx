@@ -26,6 +26,21 @@
           <Property Name="dti" Type="char" MaxLength="6" />
           <Property Name="tfl" Type="nchar" MaxLength="5" />
         </EntityType>
+        <EntityType Name="iztyp">
+          <Key>
+            <PropertyRef Name="typ" />
+          </Key>
+          <Property Name="typ" Type="numeric" Precision="1" Scale="0" Nullable="false" />
+          <Property Name="iz" Type="char" MaxLength="4" />
+          <Property Name="izdel" Type="char" MaxLength="50" Nullable="false" />
+          <Property Name="izdelie" Type="char" MaxLength="30" />
+        </EntityType>
+        <EntityType Name="klados">
+          <Key>
+            <PropertyRef Name="klad" />
+          </Key>
+          <Property Name="klad" Type="char" MaxLength="3" Nullable="false" />
+        </EntityType>
         <EntityType Name="LIST_FR">
           <Key>
             <PropertyRef Name="WHAT" />
@@ -413,6 +428,8 @@
         </Function>
         <EntityContainer Name="FOXModelStoreContainer">
           <EntitySet Name="complect" EntityType="Self.complect" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="iztyp" EntityType="Self.iztyp" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="klados" EntityType="Self.klados" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="LIST_FR" EntityType="Self.LIST_FR" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="listdse" EntityType="Self.listdse" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="m_cennik" EntityType="Self.m_cennik" Schema="dbo" store:Type="Tables" />
@@ -448,6 +465,8 @@
           <EntitySet Name="proos" EntityType="FOXModel.proos" />
           <EntitySet Name="zayvka" EntityType="FOXModel.zayvka" />
           <EntitySet Name="pl_zak_t" EntityType="FOXModel.pl_zak_t" />
+          <EntitySet Name="iztyp" EntityType="FOXModel.iztyp" />
+          <EntitySet Name="klados" EntityType="FOXModel.klados" />
         </EntityContainer>
         <EntityType Name="complect">
           <Key>
@@ -851,6 +870,21 @@
           <Property Name="sz" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
           <Property Name="Screen" Type="Binary" MaxLength="Max" FixedLength="false" />
           <Property Name="FilePath" Type="String" MaxLength="100" FixedLength="true" Unicode="true" />
+        </EntityType>
+        <EntityType Name="iztyp">
+          <Key>
+            <PropertyRef Name="typ" />
+          </Key>
+          <Property Name="typ" Type="Decimal" Nullable="false" Precision="1" Scale="0" />
+          <Property Name="iz" Type="String" MaxLength="4" FixedLength="true" Unicode="false" />
+          <Property Name="izdel" Type="String" Nullable="false" MaxLength="50" FixedLength="true" Unicode="false" />
+          <Property Name="izdelie" Type="String" MaxLength="30" FixedLength="true" Unicode="false" />
+        </EntityType>
+        <EntityType Name="klados">
+          <Key>
+            <PropertyRef Name="klad" />
+          </Key>
+          <Property Name="klad" Type="String" Nullable="false" MaxLength="3" FixedLength="true" Unicode="false" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -1263,6 +1297,23 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="iztyp">
+            <EntityTypeMapping TypeName="FOXModel.iztyp">
+              <MappingFragment StoreEntitySet="iztyp">
+                <ScalarProperty Name="izdelie" ColumnName="izdelie" />
+                <ScalarProperty Name="izdel" ColumnName="izdel" />
+                <ScalarProperty Name="iz" ColumnName="iz" />
+                <ScalarProperty Name="typ" ColumnName="typ" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="klados">
+            <EntityTypeMapping TypeName="FOXModel.klados">
+              <MappingFragment StoreEntitySet="klados">
+                <ScalarProperty Name="klad" ColumnName="klad" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
@@ -1300,6 +1351,8 @@
         <EntityTypeShape EntityType="FOXModel.proos" Width="1.5" PointX="13.375" PointY="3.75" Height="8.3262337239583317" />
         <EntityTypeShape EntityType="FOXModel.zayvka" Width="1.5" PointX="5.375" PointY="13.75" />
         <EntityTypeShape EntityType="FOXModel.pl_zak_t" Width="1.5" PointX="13.375" PointY="13.75" />
+        <EntityTypeShape EntityType="FOXModel.iztyp" Width="1.5" PointX="0.75" PointY="14.75" />
+        <EntityTypeShape EntityType="FOXModel.klados" Width="1.5" PointX="2.25" PointY="14.75" />
       </Diagram>
     </Diagrams>
   </Designer>

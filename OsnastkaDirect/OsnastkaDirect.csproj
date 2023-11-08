@@ -112,6 +112,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>FOXModel.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Data\TypeProduct.cs" />
     <Compile Include="EmbedResources\Controls\BeautyCheckBox.xaml.cs">
       <DependentUpon>BeautyCheckBox.xaml</DependentUpon>
     </Compile>
@@ -120,9 +121,14 @@
     </Compile>
     <Compile Include="Models\mMain.cs" />
     <Compile Include="Models\mDialogInput.cs" />
+    <Compile Include="Models\mCheckOldOsn.cs" />
     <Compile Include="Data\Osn.cs" />
     <Compile Include="ViewModels\vmMain.cs" />
     <Compile Include="ViewModels\vmDialogInput.cs" />
+    <Compile Include="ViewModels\vmCheckOldOsn.cs" />
+    <Compile Include="Views\CheckOldOsn.xaml.cs">
+      <DependentUpon>CheckOldOsn.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\DialogInput.xaml.cs">
       <DependentUpon>DialogInput.xaml</DependentUpon>
     </Compile>
@@ -175,6 +181,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="EmbedResources\ResourceDictionary.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\CheckOldOsn.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

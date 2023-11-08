@@ -304,6 +304,38 @@ namespace OsnastkaDirect.Data
             }
         }
         private ObjectSet<pl_zak_t> _pl_zak_t;
+    
+        /// <summary>
+        /// Нет доступной документации по метаданным.
+        /// </summary>
+        public ObjectSet<iztyp> iztyp
+        {
+            get
+            {
+                if ((_iztyp == null))
+                {
+                    _iztyp = base.CreateObjectSet<iztyp>("iztyp");
+                }
+                return _iztyp;
+            }
+        }
+        private ObjectSet<iztyp> _iztyp;
+    
+        /// <summary>
+        /// Нет доступной документации по метаданным.
+        /// </summary>
+        public ObjectSet<klados> klados
+        {
+            get
+            {
+                if ((_klados == null))
+                {
+                    _klados = base.CreateObjectSet<klados>("klados");
+                }
+                return _klados;
+            }
+        }
+        private ObjectSet<klados> _klados;
 
         #endregion
 
@@ -427,6 +459,22 @@ namespace OsnastkaDirect.Data
         public void AddTopl_zak_t(pl_zak_t pl_zak_t)
         {
             base.AddObject("pl_zak_t", pl_zak_t);
+        }
+    
+        /// <summary>
+        /// Устаревший метод для добавления новых объектов в набор EntitySet iztyp. Взамен можно использовать метод .Add связанного свойства ObjectSet&lt;T&gt;.
+        /// </summary>
+        public void AddToiztyp(iztyp iztyp)
+        {
+            base.AddObject("iztyp", iztyp);
+        }
+    
+        /// <summary>
+        /// Устаревший метод для добавления новых объектов в набор EntitySet klados. Взамен можно использовать метод .Add связанного свойства ObjectSet&lt;T&gt;.
+        /// </summary>
+        public void AddToklados(klados klados)
+        {
+            base.AddObject("klados", klados);
         }
 
         #endregion
@@ -791,6 +839,194 @@ namespace OsnastkaDirect.Data
         private global::System.String _tfl;
         partial void OntflChanging(global::System.String value);
         partial void OntflChanged();
+
+        #endregion
+
+    
+    }
+    
+    /// <summary>
+    /// Нет доступной документации по метаданным.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="FOXModel", Name="iztyp")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class iztyp : EntityObject
+    {
+        #region Фабричный метод
+    
+        /// <summary>
+        /// Создание нового объекта iztyp.
+        /// </summary>
+        /// <param name="typ">Исходное значение свойства typ.</param>
+        /// <param name="izdel">Исходное значение свойства izdel.</param>
+        public static iztyp Createiztyp(global::System.Decimal typ, global::System.String izdel)
+        {
+            iztyp iztyp = new iztyp();
+            iztyp.typ = typ;
+            iztyp.izdel = izdel;
+            return iztyp;
+        }
+
+        #endregion
+
+        #region Свойства-примитивы
+    
+        /// <summary>
+        /// Нет доступной документации по метаданным.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Decimal typ
+        {
+            get
+            {
+                return _typ;
+            }
+            set
+            {
+                if (_typ != value)
+                {
+                    OntypChanging(value);
+                    ReportPropertyChanging("typ");
+                    _typ = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("typ");
+                    OntypChanged();
+                }
+            }
+        }
+        private global::System.Decimal _typ;
+        partial void OntypChanging(global::System.Decimal value);
+        partial void OntypChanged();
+    
+        /// <summary>
+        /// Нет доступной документации по метаданным.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String iz
+        {
+            get
+            {
+                return _iz;
+            }
+            set
+            {
+                OnizChanging(value);
+                ReportPropertyChanging("iz");
+                _iz = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("iz");
+                OnizChanged();
+            }
+        }
+        private global::System.String _iz;
+        partial void OnizChanging(global::System.String value);
+        partial void OnizChanged();
+    
+        /// <summary>
+        /// Нет доступной документации по метаданным.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String izdel
+        {
+            get
+            {
+                return _izdel;
+            }
+            set
+            {
+                OnizdelChanging(value);
+                ReportPropertyChanging("izdel");
+                _izdel = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("izdel");
+                OnizdelChanged();
+            }
+        }
+        private global::System.String _izdel;
+        partial void OnizdelChanging(global::System.String value);
+        partial void OnizdelChanged();
+    
+        /// <summary>
+        /// Нет доступной документации по метаданным.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String izdelie
+        {
+            get
+            {
+                return _izdelie;
+            }
+            set
+            {
+                OnizdelieChanging(value);
+                ReportPropertyChanging("izdelie");
+                _izdelie = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("izdelie");
+                OnizdelieChanged();
+            }
+        }
+        private global::System.String _izdelie;
+        partial void OnizdelieChanging(global::System.String value);
+        partial void OnizdelieChanged();
+
+        #endregion
+
+    
+    }
+    
+    /// <summary>
+    /// Нет доступной документации по метаданным.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="FOXModel", Name="klados")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class klados : EntityObject
+    {
+        #region Фабричный метод
+    
+        /// <summary>
+        /// Создание нового объекта klados.
+        /// </summary>
+        /// <param name="klad">Исходное значение свойства klad.</param>
+        public static klados Createklados(global::System.String klad)
+        {
+            klados klados = new klados();
+            klados.klad = klad;
+            return klados;
+        }
+
+        #endregion
+
+        #region Свойства-примитивы
+    
+        /// <summary>
+        /// Нет доступной документации по метаданным.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String klad
+        {
+            get
+            {
+                return _klad;
+            }
+            set
+            {
+                if (_klad != value)
+                {
+                    OnkladChanging(value);
+                    ReportPropertyChanging("klad");
+                    _klad = StructuralObject.SetValidValue(value, false);
+                    ReportPropertyChanged("klad");
+                    OnkladChanged();
+                }
+            }
+        }
+        private global::System.String _klad;
+        partial void OnkladChanging(global::System.String value);
+        partial void OnkladChanged();
 
         #endregion
 

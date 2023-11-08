@@ -232,6 +232,37 @@ namespace OsnastkaDirect.Models
                 }
             }
         }
+        //^ утверждение оснастки
+        //V открытие оснастки
+
+
+        List<klados> ListStoreRoom;
+        public List<klados> pListStoreRoom
+        {
+            get { return ListStoreRoom; }
+            set
+            {
+                if (ListStoreRoom != value)
+                {
+                    ListStoreRoom = value;
+                    OnPropertyChanged("pListStoreRoom");
+                }
+            }
+        }
+
+        List<TypeProduct> ListTypeProduct;
+        public List<TypeProduct> pListTypeProduct
+        {
+            get { return ListTypeProduct; }
+            set
+            {
+                if (ListTypeProduct != value)
+                {
+                    ListTypeProduct = value;
+                    OnPropertyChanged("pListTypeProduct");
+                }
+            }
+        }
         #endregion
 
         #region Методы
@@ -885,6 +916,13 @@ namespace OsnastkaDirect.Models
             }
 
         }
+        #endregion
+        #region Открытие заказов
+        public void LoadListStoreRoom()
+        {
+            pListStoreRoom = db.klados.OrderBy(n => n.klad).ToList();
+        }
+
         #endregion
     }
 }
