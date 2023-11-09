@@ -206,7 +206,15 @@
                 </r:RibbonGroup>
             </r:RibbonTab>
 
-            <r:RibbonTab Header="View" />
+            <r:RibbonTab Header="Техзаказ"
+                         Visibility="{Binding model.pCreateTabOpen, Converter={StaticResource boolToVisibilityConverter}}"
+                         IsSelected="{Binding model.pCreateTabOpen, Mode=OneWay}">
+                <r:RibbonGroup Header="Кладовая">
+                    <r:RibbonButton LargeImageSource="/OsnastkaDirect;component/EmbedResources/Icons/help_icon.png"
+                                    Label="Редактировать кладовые"
+                                    Command="{Binding pOpenRedactingStoreRoom}" />
+                </r:RibbonGroup>
+            </r:RibbonTab>
 
             <r:RibbonTab Header="Help" />
         </r:Ribbon>
@@ -664,10 +672,10 @@
                         </DataGrid.RowStyle>
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="Общий вид"
-                                                Binding="{Binding nOrdPrev}"
+                                                Binding="{Binding draft}"
                                                 Width="0.1*" />
                             <DataGridTextColumn Header="Наименование изделия"
-                                                Binding="{Binding nOrd}"
+                                                Binding="{Binding product}"
                                                 Width="0.1*" />
                         </DataGrid.Columns>
                     </DataGrid>
@@ -692,11 +700,8 @@
                             </Style>
                         </DataGrid.RowStyle>
                         <DataGrid.Columns>
-                            <DataGridTextColumn Header="Общий вид"
-                                                Binding="{Binding nOrdPrev}"
-                                                Width="0.1*" />
-                            <DataGridTextColumn Header="Наименование изделия"
-                                                Binding="{Binding nOrd}"
+                            <DataGridTextColumn Header="Тип продукции"
+                                                Binding="{Binding product}"
                                                 Width="0.1*" />
                         </DataGrid.Columns>
                     </DataGrid>
@@ -777,13 +782,19 @@
                                                 Placeholder="Участок"
                                                 ToolTip="{Binding Text, RelativeSource={RelativeSource Mode=Self}}"
                                                 Text="{Binding model.pSelOsn.workshop, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                        <control:PlaceholderBox Height="33"
+                        <!--<control:PlaceholderBox Height="33"
                                                 HorizontalAlignment="Left"
                                                 VerticalAlignment="Top"
                                                 Width="90"
                                                 Placeholder="Кладовая"
                                                 ToolTip="{Binding Text, RelativeSource={RelativeSource Mode=Self}}"
-                                                Text="{Binding model.pSelOsn.storeroom, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                                Text="{Binding model.pSelOsn.storeroom, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />-->
+                        <ComboBox Height="33"
+                                  VerticalAlignment="Top"
+                                  ItemsSource="{Binding model.pListStoreRoom, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                                  DisplayMemberPath="stringToShow"
+                                  SelectedItem="{Binding model.pSelStoreRoom}"
+                                  Width="90"/>
                         <control:PlaceholderBox Height="33"
                                                 Placeholder="характер"
                                                 Text="{Binding model.pSelOsn.characterOrd, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"

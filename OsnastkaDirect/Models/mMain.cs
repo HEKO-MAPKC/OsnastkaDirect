@@ -236,8 +236,8 @@ namespace OsnastkaDirect.Models
         //V открытие оснастки
 
 
-        List<klados> ListStoreRoom;
-        public List<klados> pListStoreRoom
+        ObservableCollection<klados> ListStoreRoom;
+        public ObservableCollection<klados> pListStoreRoom
         {
             get { return ListStoreRoom; }
             set
@@ -263,6 +263,20 @@ namespace OsnastkaDirect.Models
                 }
             }
         }
+
+        List<Product> ListProduct;
+        public List<Product> pListProduct
+        {
+            get { return ListProduct; }
+            set
+            {
+                if (ListProduct != value)
+                {
+                    ListProduct = value;
+                    OnPropertyChanged("pListProduct");
+                }
+            }
+        }
         #endregion
 
         #region Методы
@@ -281,6 +295,9 @@ namespace OsnastkaDirect.Models
             // Инициализация свойств
             // pName = значение;
             LoadListOsn();
+            LoadListProduct();
+            LoadListTypeProduct();
+            LoadListStoreRoom();
             //OnChangeSelFilter();
         }
         public void LoadListOsn()
@@ -920,9 +937,26 @@ namespace OsnastkaDirect.Models
         #region Открытие заказов
         public void LoadListStoreRoom()
         {
-            pListStoreRoom = db.klados.OrderBy(n => n.klad).ToList();
+            pListStoreRoom = new ObservableCollection<klados> (db.klados.OrderBy(n => n.klad).ToList());
         }
-
+        public void LoadListTypeProduct()
+        {
+            pListTypeProduct = (from i in db.iztyp
+                                select new TypeProduct
+                                {
+                                    product = i.izdelie,
+                                    type = i.iz,
+                                }).ToList();
+        }
+        public void LoadListProduct()
+        {
+            pListProduct = (from i in db.prodact
+                                select new Product
+                                {
+                                    product = i.name,
+                                    draft = i.draft,
+                                }).ToList();
+        }
         #endregion
     }
 }

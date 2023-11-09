@@ -5,9 +5,9 @@ using System.Text;
 
 namespace OsnastkaDirect.Data
 {
-    class TypeProduct
+    class Product
     {
         public string product { get; set; }
-        public string type { get; set; }
+        public decimal? draft { get; set; }
     }
 }

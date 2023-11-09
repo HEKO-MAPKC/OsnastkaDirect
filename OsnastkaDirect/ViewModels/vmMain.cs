@@ -161,6 +161,13 @@ namespace OsnastkaDirect.ViewModels
             get { return Edit ?? (Edit = new CommandBase(mEdit)); }
         }
 
+        CommandBase OpenRedactingStoreRoom;
+
+        public CommandBase pOpenRedactingStoreRoom
+        {
+            get { return OpenRedactingStoreRoom ?? (OpenRedactingStoreRoom = new CommandBase(mOpenRedactingStoreRoom)); }
+        }
+
         #endregion
 
         #region Методы
@@ -321,8 +328,8 @@ namespace OsnastkaDirect.ViewModels
 
         public void mOpenCreate()
         {
-            Model.pApproveTabOpen = false;
             Model.pCreateTabOpen = true;
+            Model.pApproveTabOpen = false;
         }
         public void mFinalApprove()
         {
@@ -348,6 +355,22 @@ namespace OsnastkaDirect.ViewModels
         public void mEdit()
         {
             Model.EditOrd();
+        }
+        #endregion
+        #region Создание техзаказов/редактирование
+        public void mOpenRedactingStoreRoom()
+        {
+
+            string name = typeof(RedactingStoreRoom).Name;
+            int index = VMLocator.CreateViewModel(name);
+
+            ((RedactingStoreRoom)VMLocator.VMs[name][index].view).Loaded += ((vmRedactingStoreRoom)VMLocator.VMs[name][index]).viewLoaded;
+            ((RedactingStoreRoom)VMLocator.VMs[name][index].view).Unloaded += (obj, args) => VMLocator.Clean((string)(((dynamic)obj).Uid));
+            
+            VMLocator.VMs[name][index].model.pListStoreRoom = Model.pListStoreRoom;
+
+            VMLocator.VMs[name][index].view.Owner = View;
+            VMLocator.VMs[name][index].view.ShowDialog();
         }
         #endregion
     }
