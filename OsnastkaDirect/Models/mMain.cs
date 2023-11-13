@@ -17,6 +17,7 @@ using System.Windows.Media.Media3D;
 using System.Windows.Data;
 using System.Security.Cryptography;
 using System.Diagnostics;
+using System.Windows.Documents;
 //
 namespace OsnastkaDirect.Models
 {
@@ -77,6 +78,20 @@ namespace OsnastkaDirect.Models
                 {
                     ListOsn = value;
                     OnPropertyChanged("pListOsn");
+                }
+            }
+        }
+
+        ObservableCollection<Osn> ListOsnNonFilters;
+        public ObservableCollection<Osn> pListOsnNonFilters
+        {
+            get { return ListOsnNonFilters; }
+            set
+            {
+                if (ListOsnNonFilters != value)
+                {
+                    ListOsnNonFilters = value;
+                    OnPropertyChanged("pListOsnNonFilters");
                 }
             }
         }
@@ -302,21 +317,34 @@ namespace OsnastkaDirect.Models
         }
         public void LoadListOsn()
         {
+            //TODO
+            // 1. DraftOsnast и DraftOsnastID путается
+            // 2. Описания напутаны!!! dop и reason перепутаны, оно влияет на то как расположено
+            // 3. Прописать каскадное удаление? не удаляется нормально и не транкейтится
+            // 4. Всё тримнуть, обрезать, типа исполнителя
+            // 5. в Течордер ссылка на оснастпро пустая
             pListOsn = null;
             pListOsnLoaded = null;
-            var _var1 = (from i in db.proos
-                              let _draftneed = i.draftzap==0 || i.draftzap == null ? i.draftosn : i.draftzap
-                              join db1 in db.listdse on
-                                   (int)(_draftneed / 1000) equals db1.DRAFT into gf1
-                              from listDse in gf1.DefaultIfEmpty().Take(1)
+            var _var1 = (from i in db.TechOrder
 
-                              join db2 in db.LIST_FR on
-                                   _draftneed equals db2.WHAT into gf
-                              from listFr in gf.DefaultIfEmpty().Take(1)
+                         join db6 in db.DraftOsnast on
+                                  /*SqlFunctions.Equals(i.zak_1,null) ? "0" :*/ i.TechOrderID equals db6.TechOrderID /*!= null ? db6.zak_1 : "0"*/  into gf6
+                         from DraftOsnastList in gf6.DefaultIfEmpty()
+                                  //where i.zak_1 != null 
+                         let _draftneed = DraftOsnastList.DraftPiece == 0 || DraftOsnastList.DraftPiece == null ? DraftOsnastList.DraftOsnast1.Value : DraftOsnastList.DraftPiece.Value
+
+
+                         join db1 in db.listdse on
+                              (int)(_draftneed / 1000) equals db1.DRAFT into gf1
+                         from listDse in gf1.DefaultIfEmpty().Take(1)
+
+                         join db2 in db.LIST_FR on
+                              _draftneed equals db2.WHAT into gf
+                         from listFr in gf.DefaultIfEmpty().Take(1)
 
                          join db3 in db.olistdse on
                                    _draftneed equals db3.draft into gf2
-                              from listDse2 in gf2.DefaultIfEmpty().Take(1)
+                         from listDse2 in gf2.DefaultIfEmpty().Take(1)
 
                          join db5 in db.prodact on
                               _draftneed equals db5.draft into gf5
@@ -325,60 +353,49 @@ namespace OsnastkaDirect.Models
                          join db4 in db.m_cennik on
                               /*SqlFunctions.StringConvert(_draftneed, 14, 2)*/SqlFunctions.StringConvert(_draftneed, 14, 2) equals db4.ocen into gf4
                          from listDse4 in gf4.DefaultIfEmpty().Take(1)
+                             //join db8 in db.pl_god on
+                             //     new
+                             //     {
+                             //         _pr1 = list7.zakaz.Value,
+                             //         _pr2 = list7.nom.Value
+                             //     } equals new
+                             //     {
+                             //         _pr1 = db8.zakaz,
+                             //         _pr2 = db8.nom
 
-                         join db6 in db.os_pro on
-                                  /*SqlFunctions.Equals(i.zak_1,null) ? "0" :*/ i.os_pro_id equals db6.id /*!= null ? db6.zak_1 : "0"*/  into gf6
-                              from list6 in gf6.DefaultIfEmpty().Take(1)
-                                  //where i.zak_1 != null 
+                             //     }
+                             //     into gf8
+                             //     from list8 in gf8.DefaultIfEmpty()
+                             //         //oborud
+                             //         //s_oper list6.rab_m
+                             //         // list6.oper,
+                             //join db9 in db.oborud on
+                             //    list6.rab_m equals db9.rab_m into gf9
+                             //from oborudlist in gf9.DefaultIfEmpty()
 
-                         join db7 in db.prod on
-                                 /*SqlFunctions.Equals(i.zak_1, null) ? "0" :*/ i.prod_id equals db7.id /*!= null ? db7.zak_1 : "0"*/ into gf7
-                              from list7 in gf7.DefaultIfEmpty().Take(1)
-                                  //where i.zak_1 != null
+                             //join db10 in db.s_oper on
+                             //    list6.oper equals db10.code into gf10
+                             //from s_operlist in gf10.DefaultIfEmpty()
 
-                         join db8 in db.pl_god on
-                              new
-                              {
-                                  _pr1 = list7.zakaz.Value,
-                                  _pr2 = list7.nom.Value
-                              } equals new
-                              {
-                                  _pr1 = db8.zakaz,
-                                  _pr2 = db8.nom
-                                  
-                              }
-                              into gf8
-                              from list8 in gf8.DefaultIfEmpty()
-                                  //oborud
-                                  //s_oper list6.rab_m
-                                  // list6.oper,
-                              join db9 in db.oborud on
-                                  list6.rab_m equals db9.rab_m into gf9
-                              from oborudlist in gf9.DefaultIfEmpty()
-                              
-                              join db10 in db.s_oper on
-                                  list6.oper equals db10.code into gf10
-                              from s_operlist in gf10.DefaultIfEmpty()
-
-                              orderby i.tzakpred descending
+                         orderby i.TechOrderID descending
                               select new Osn
                               {
-                                  draftOsn = i.draftosn,
-                                  workshop = i.cex.Trim(),
-                                  nOrdPrev = i.tzakpred,
-                                  nOrd = i.tzak,
-                                  reason = i.prichina.Trim(),
-                                  addition = i.dop,
-                                  amount = i.kol,
-                                  dateWho = i.dt_who,
-                                  who = i.who.Trim(),
-                                  returnRes = i.why_back.Trim(),
-                                  draft = i.draft,
-                                  draftRes = i.draftzap,
-                                  storeroom = i.klad,
+                                  draftOsn = DraftOsnastList.DraftOsnast1,
+                                  // workshop = i.WorkshopID,
+                                  nOrdPrev = i.TechOrderID,
+                                  nOrd = i.TechOrder1,
+                                  reason = i.ReasonProduction,
+                                  addition = i.AddInformation,
+                                  amount = i.AmountEquipmentForOper,
+                                  dateWho = i.DateCreateApplication,
+                                  who = i.AuthorTechnolog,
+                                  returnRes = i.ReasonReturnedToTechnolog,
+                                  draft = i.Draft,
+                                  draftRes = DraftOsnastList.DraftPiece,
+                                 // storeroom = DraftOsnastList.,
                                   //nameDraft = db.ExecuteFunction<string> ("GetDraftName"),
 
-                                  nameGrid = i.draftzap == null || i.draftzap == 0 ?
+                                  nameGrid = DraftOsnastList.DraftPiece == null || DraftOsnastList.DraftPiece == 0 ?
                                   listDse2 != null ? listDse2.dse.Trim() :
                                   listDse != null ? listDse.DSE.Trim() :
                                   listFr != null ? listFr.NM.Trim() :
@@ -392,46 +409,39 @@ namespace OsnastkaDirect.Models
                                   listDse4 != null ? listDse4.hm.Trim() :
                                   listDse5 != null ? listDse5.name.Trim() :
                                   "",
-                                  draftGrid = i.draftzap == null || i.draftzap == 0 ? i.draftosn : i.draftzap,
-                                  //nameRes = SqlFunctions.Replicate("0", 14 - SqlFunctions.StringConvert(i.draftzap, 14, 2).Length) + SqlFunctions.StringConvert(i.draftzap, 14, 2),
-                                  //nameOsn = listDse2 != null ? listDse2.dse.Trim() :
-                                  //listDse != null ? listDse.DSE.Trim() :
-                                  //listFr != null ? listFr.NM.Trim() :
-                                  //listDse4 != null ? listDse4.hm.Trim() : "",
-                                  //nameDraft = listDse != null ? listDse.DSE.Trim() :
-                                  //       listDse2 != null ? listDse2.dse.Trim() :
-                                  //       listFr != null ? listFr.NM.Trim() : "",
-                                  usage = i.izd,
-                                  dtSrok = i.srok,
-                                  dtIzg = i.dt_izg,
-                                  dtOk = i.dt_ok,
-                                  atConst = i.toko,
-                                  accepted = i.sog,
-                                  returned = i.back,
-                                  fioConst = i.fioko,
+                                  draftGrid = DraftOsnastList.DraftPiece == null || DraftOsnastList.DraftPiece == 0 ? DraftOsnastList.DraftOsnast1 : DraftOsnastList.DraftPiece,
 
-                                  ord700 = list7 != null ? list7.zakaz : 0,
-                                  num700 = list7 != null ? list7.nom : 0,
-                                  ordOsn = i.zakaz,
-                                  numOsn = i.num,
-                                  workPlace = list6.rab_m,
-                                  operation = list6.oper,
-                                  characterOrd = i.rem_izg,
-                                  dateNeed = list6.s_vn_11,
+                                  usage = i.NameDraftProduct,
+                                  dtSrok = i.DateLimitation,
+                                  dtIzg = i.DateAtApproval,
+                                  dtOk = DraftOsnastList.DateEmployeeFinalApproved,
+                                  atConst = i.IsAtConstructor,
+                                  accepted = DraftOsnastList.IsStatusEmployeeApproved,
+                                  returned = i.IsReturnedToTechnolog,
+                                  fioConst = DraftOsnastList.AuthorConstructorExecute,
 
-                                  date700 = list8.data,
-                                  annTab = list6.z_iz_16,
-                                  datePlan = list6.s_iz_10,
-                                  dateFact = list6.d_iz_13,
+                                 // ord700 = list7 != null ? list7.zakaz : 0,
+                                 // num700 = list7 != null ? list7.nom : 0,
+                                  ordOsn = i.FactoryOrder,
+                                  numOsn = i.FactoryNumberOrder,
+                                 // workPlace = list6.rab_m,
+                                 // operation = list6.oper,
+                                 // characterOrd = i.rem_izg,
+                                  dateNeed = DraftOsnastList.DateImplementPlan,
 
-                                  workPlaceName = oborudlist.code.Trim() + " " + oborudlist.oborud1.Trim(),
-                                  operationName = s_operlist.oper,
+                                //  date700 = list8.data,
+                                  annTab = DraftOsnastList.ANNTab,
+                                  datePlan = DraftOsnastList.DateProducePlan,
+                                  dateFact = DraftOsnastList.DateProduceFact,
 
-                                  zak_1 = i.zak_1,
-                                  id_os_pro = i.os_pro_id.Value, //ПОМЕНЯТЬ ПОТОМ НА НЕ NULL
-                                  id_prod = i.prod_id.Value,
-                                  dateBoss = i.dt_back,
-                                  boss = i.boss,
+                                 // workPlaceName = oborudlist.code.Trim() + " " + oborudlist.oborud1.Trim(),
+                                 // operationName = s_operlist.oper,
+
+                                  zak_1 = i.YearTechOrder,
+                                 // id_os_pro = i.os_pro_id.Value, //ПОМЕНЯТЬ ПОТОМ НА НЕ NULL
+                                 // id_prod = i.prod_id.Value,
+                                  dateBoss = i.DateReturnedToTechnolog,
+                                  boss = i.AuthorConstructor,
                               })/*.Distinct()*/.ToList();
             ////dtplan WITH os_pro.s_iz_10;
             //dtfact WITH os_pro.d_iz_13;
@@ -458,7 +468,7 @@ namespace OsnastkaDirect.Models
             //}
             //pListOsn = new ObservableCollection<Osn>(pListOsnLoaded);
             pListOsn = new ObservableCollection<Osn>(pListOsnLoaded);
-            OnChangeSelFilter();
+            //OnChangeSelFilter();
         }
         public void OnClickOsn()
         {
@@ -502,6 +512,7 @@ namespace OsnastkaDirect.Models
         }
         public void FindMany(bool _add = false)
         {
+            SearchByName(_add);
             SearchAllFilters();
             //if (pSearchOsn == null || pListOsnLoaded == null) return;
             //var _gridSearch = _add ? pListOsn : pListOsnLoaded;
@@ -542,12 +553,52 @@ namespace OsnastkaDirect.Models
             SearchAllFilters();
             //pListOsn = new ObservableCollection<Osn>(pListOsnLoaded.Where(i => i.dateWho >= dateSearchAfter && i.dateWho <= dateSearchBefore.AddDays(1).Date));
         }
+        public void SearchByName(bool _add=false)
+        {
+            if (pListOsn == null || pListOsnLoaded == null) return;
+            if (pListOsnNonFilters == null) pListOsnNonFilters = pListOsnLoaded;
+            if (pSearchOsn == null || pSearchOsn == "")
+            {
+                return;
+            }
+            else
+            {
+                var _list = _add ? pListOsnNonFilters.AsEnumerable() : pListOsnLoaded.AsEnumerable();
+                var _search = pSearchOsn.ToLower();
+                switch (pSelFilterSearch)//"предварительный № т/з", "№ техзаказа", "исполнитель", "чертеж оснастки", "наименование оснастки"
+                {
+                    case "предварительный № т/з":
+                        pListOsnNonFilters = new ObservableCollection<Osn>(_list.Where(i => i.nOrdPrev.ToString().ToLower().StartsWith(_search)));
+                        break;
+                    case "№ техзаказа":
+                        pListOsnNonFilters = new ObservableCollection<Osn>(_list.Where(i => i.nOrd.ToString().ToLower().StartsWith(_search)));
+                        break;
+                    case "исполнитель":
+                        pListOsnNonFilters = new ObservableCollection<Osn>(_list.Where(i => i.who.ToLower().StartsWith(_search)));
+                        break;
+                    case "чертеж оснастки":
+                        pListOsnNonFilters = new ObservableCollection<Osn>(_list.Where(i => i.draftGrid.ToString().ToLower().StartsWith(_search)));
+                        break;
+                    case "наименование оснастки":
+                        pListOsnNonFilters = new ObservableCollection<Osn>(_list.Where(i => i.nameGrid.ToLower().StartsWith(_search)));
+                        break;
+                    case "заказ номер":
+                        pListOsnNonFilters = new ObservableCollection<Osn>(_list.Where(i => string.Format("{0:####}{1:#}{2:###}", i.ord700, " ", i.num700)
+                                                    .StartsWith(_search, StringComparison.OrdinalIgnoreCase)));
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
         public void SearchAllFilters()
         {
             if (pListOsn == null || pListOsnLoaded == null) return;
-            var _list = pListOsnLoaded.Where(i => i.dateWho <= dateSearchBefore.AddDays(1).Date);
-            if (dateSearchAfter!=null)
-            _list = _list.Where(i => i.dateWho >= dateSearchAfter);
+            if (pListOsnNonFilters == null) pListOsnNonFilters = pListOsnLoaded;
+            var _list = pListOsnNonFilters.AsEnumerable();
+            _list = _list.Where(i => i.dateWho <= dateSearchBefore.AddDays(1).Date);
+            if (dateSearchAfter != null)
+                _list = _list.Where(i => i.dateWho >= dateSearchAfter);
             switch (pSelFilter)//"Всё", "Неопределенно", "Возврат", "Направлено в КО", "Возврат из КО", "Аннулировано", "На рассмотрении"};
             {
                 case "Всё":
@@ -577,38 +628,7 @@ namespace OsnastkaDirect.Models
                 default:
                     break;
             }
-            if (pSearchOsn == null || pSearchOsn == "")
-            {
-                pListOsn = new ObservableCollection<Osn>(_list);
-            }
-            else
-            {
-                var _search = pSearchOsn.ToLower();
-                switch (pSelFilterSearch)//"предварительный № т/з", "№ техзаказа", "исполнитель", "чертеж оснастки", "наименование оснастки"
-                {
-                    case "предварительный № т/з":
-                        pListOsn = new ObservableCollection<Osn>(_list.Where(i => i.nOrdPrev.ToString().ToLower().StartsWith(_search)));
-                        break;
-                    case "№ техзаказа":
-                        pListOsn = new ObservableCollection<Osn>(_list.Where(i => i.nOrd.ToString().ToLower().StartsWith(_search)));
-                        break;
-                    case "исполнитель":
-                        pListOsn = new ObservableCollection<Osn>(_list.Where(i => i.who.ToLower().StartsWith(_search)));
-                        break;
-                    case "чертеж оснастки":
-                        pListOsn = new ObservableCollection<Osn>(_list.Where(i => i.draftGrid.ToString().ToLower().StartsWith(_search)));
-                        break;
-                    case "наименование оснастки":
-                        pListOsn = new ObservableCollection<Osn>(_list.Where(i => i.nameGrid.ToLower().StartsWith(_search)));
-                        break;
-                    case "заказ номер":
-                        pListOsn = new ObservableCollection<Osn>(_list.Where(i => string.Format("{0:####}{1:#}{2:###}", i.ord700, " ", i.num700)
-                                                    .StartsWith(_search, StringComparison.OrdinalIgnoreCase)));
-                        break;
-                    default:
-                        break;
-                }
-            }
+            pListOsn = new ObservableCollection<Osn>(_list);
         }
         public void SaveChanges()
         {

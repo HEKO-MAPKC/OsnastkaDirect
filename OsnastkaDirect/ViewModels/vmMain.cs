@@ -280,6 +280,7 @@ namespace OsnastkaDirect.ViewModels
             Model.pSelFilter = "Всё";
             Model.pdateSearchBefore = DateTime.Now;
             Model.pdateSearchAfter = null;
+            Model.pListOsnNonFilters = Model.pListOsnLoaded;
             Model.pListOsn = new ObservableCollection<Osn>(Model.pListOsnLoaded);
 
         }
