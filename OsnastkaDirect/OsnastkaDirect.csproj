@@ -11,7 +11,8 @@
     <RootNamespace>OsnastkaDirect</RootNamespace>
     <AssemblyName>OsnastkaDirect</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
-    <TargetFrameworkProfile></TargetFrameworkProfile>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <WarningLevel>4</WarningLevel>
@@ -51,25 +52,29 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="ControlzEx">
-      <HintPath>C:\Users\MDKim\Desktop\ControlzEx.dll</HintPath>
+    <Reference Include="ControlzEx, Version=3.0.1.66, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\DLLs\ControlzEx.dll</HintPath>
     </Reference>
-    <Reference Include="ElsibNewLibrary">
-      <HintPath>C:\Users\MDKim\Desktop\TTNmetallom\TTNmetallom\bin\Release\ElsibNewLibrary.dll</HintPath>
+    <Reference Include="ElsibNewLibrary, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\DLLs\ElsibNewLibrary.dll</HintPath>
     </Reference>
     <Reference Include="ElsibServices, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\TTNmetallom\TTNmetallom\bin\Release\ElsibServices.dll</HintPath>
+      <HintPath>..\..\..\DLLs\ElsibServices.dll</HintPath>
     </Reference>
-    <Reference Include="Fluent">
-      <HintPath>C:\Users\MDKim\Desktop\Fluent.dll</HintPath>
+    <Reference Include="Fluent, Version=6.1.0.233, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\DLLs\Fluent.dll</HintPath>
     </Reference>
     <Reference Include="Fox, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>d:\MyDocs\DLLs\Fox.dll</HintPath>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="RibbonControlsLibrary">
-      <HintPath>..\..\Metrology\Metrology\bin\Release\RibbonControlsLibrary.dll</HintPath>
+    <Reference Include="RibbonControlsLibrary, Version=4.0.0.11019, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\DLLs\RibbonControlsLibrary.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -78,8 +83,9 @@
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
     <Reference Include="System.Windows.Forms" />
-    <Reference Include="System.Windows.Interactivity">
-      <HintPath>C:\Users\MDKim\Desktop\System.Windows.Interactivity.dll</HintPath>
+    <Reference Include="System.Windows.Interactivity, Version=3.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\DLLs\new\System.Windows.Interactivity.dll</HintPath>
     </Reference>
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
@@ -92,8 +98,9 @@
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
-    <Reference Include="ZakDocs">
-      <HintPath>..\..\SaveBlankTzak\SaveBlankTzak\bin\Release\ZakDocs.dll</HintPath>
+    <Reference Include="ZakDocs, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\DLLs\ZakDocs.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -271,7 +278,8 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PreBuildEvent></PreBuildEvent>
+    <PreBuildEvent>
+    </PreBuildEvent>
   </PropertyGroup>
   <PropertyGroup>
     <PostBuildEvent>RD /S /Q  "$(TargetDir)Inc"
