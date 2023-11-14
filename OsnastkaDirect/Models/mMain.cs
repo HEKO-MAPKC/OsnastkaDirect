@@ -109,7 +109,7 @@ namespace OsnastkaDirect.Models
             }
         }
 
-        List<string> Filter = new List<string>{"Всё", "Неопределенно", "Возврат", "Направлено в КО", "Возврат из КО", "Аннулировано", "На рассмотрении"};
+        List<string> Filter = new List<string>{"Всё", "Утверждено","Неопределенно", "Возврат", "Направлено в КО", "Возврат из КО", "Аннулировано", "На рассмотрении"};
         public List<string> pFilter
         {
             get { return Filter; }
@@ -317,12 +317,14 @@ namespace OsnastkaDirect.Models
         }
         public void LoadListOsn()
         {
-            //TODO
-            // 1. DraftOsnast и DraftOsnastID путается
-            // 2. Описания напутаны!!! dop и reason перепутаны, оно влияет на то как расположено
+            // TODO
+            // 1. DraftOsnast и поле DraftOsnast(1) путается
+            // 2. Описания напутаны!!! dop и reason перепутаны, оно влияет на то как расположено в пункте Insert + доп обрезан
             // 3. Прописать каскадное удаление? не удаляется нормально и не транкейтится
-            // 4. Всё тримнуть, обрезать, типа исполнителя
+            // 4. Всё тримнуть, обрезать, типа исполнителя, или как вообще варчар работает, он всегда в программу суёт с дополнительным местом?
             // 5. в Течордер ссылка на оснастпро пустая
+            // 6. DraftOsnast IsStatusEmployeeApproved - нулловый где то, поменять просто на false? надо бы еще сравнить на разных таблицах согласования
+            // 7. Присоединить таблицу ИЗтип iztyp к течордер?
             pListOsn = null;
             pListOsnLoaded = null;
             var _var1 = (from i in db.TechOrder
@@ -608,7 +610,7 @@ namespace OsnastkaDirect.Models
                     _list = (_list.Where(i => i.accepted == true));
                     break;
                 case "Неопределенно":
-                    _list = (_list.Where(i => i.accepted == false && i.returned == false && i.atConst == false && i.backFromConst == false && i.dtSrokIsNull == false && i.dtIzgIsNull == true));
+                    _list = (_list.Where(i => (i.accepted == null || i.accepted == false) && i.returned == false && i.atConst == false && i.backFromConst == false && i.dtSrokIsNull == false && i.dtIzgIsNull == true));
                     break;
                 case "Возврат":
                     _list = (_list.Where(i => i.returned == true));

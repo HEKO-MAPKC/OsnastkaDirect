@@ -64,8 +64,8 @@
             </r:Ribbon.HelpPaneContent>
             <!--Ribbon Application Menu-->
             <r:Ribbon.ApplicationMenu>
-
                 <r:RibbonApplicationMenu SmallImageSource="/OsnastkaDirect;component/EmbedResources/Icons/help_icon.png">
+
                     <r:RibbonApplicationMenuItem Header="Утверждение"
                                                  Width="150"
                                                  ImageSource="/OsnastkaDirect;component/EmbedResources/Icons/help_icon.png"
@@ -73,6 +73,42 @@
                     <r:RibbonApplicationMenuItem Header="Создание"
                                                  ImageSource="/OsnastkaDirect;component/EmbedResources/Icons/help_icon.png"
                                                  Command="{Binding pOpenCreate}" />
+                    <r:RibbonApplicationMenuItem Header="Save As"
+                                                      ImageSource="/OsnastkaDirect;component/EmbedResources/Icons/help_icon.png">
+                        <r:RibbonApplicationMenuItem Header="Rich Text document"
+                                                     Command="{Binding pOpenCreate}"
+                                                     ImageSource="/OsnastkaDirect;component/EmbedResources/Icons/help_icon.png"/>
+                        <r:RibbonApplicationMenuItem Header="Plain Text document"
+                                                     Command="{Binding pOpenCreate}"
+                                                     ImageSource="/OsnastkaDirect;component/EmbedResources/Icons/help_icon.png"/>
+                        <r:RibbonApplicationMenuItem Header="Other format"
+                                                     Command="{Binding pOpenCreate}"
+                                                     ImageSource="/OsnastkaDirect;component/EmbedResources/Icons/help_icon.png"/>
+                    </r:RibbonApplicationMenuItem>
+                    <r:RibbonApplicationMenu.FooterPaneContent>
+                        <DockPanel LastChildFill="False">
+                            <r:RibbonButton Command="ApplicationCommands.Close"
+                                                 Label="Exit"
+                                                 SmallImageSource="/OsnastkaDirect;component/EmbedResources/Icons/help_icon.png"
+                                                 DockPanel.Dock="Right"
+                                                 Margin="2"/>
+                        </DockPanel>
+                    </r:RibbonApplicationMenu.FooterPaneContent>
+                    <r:RibbonApplicationMenu.AuxiliaryPaneContent>
+                        <r:RibbonGallery CanUserFilter="False"
+                                              ScrollViewer.VerticalScrollBarVisibility="Auto">
+                            <r:RibbonGalleryCategory Header="Recent Documents"
+                                                          Background="Transparent"
+                                                          ItemsSource="{DynamicResource MostRecentFiles}">
+                                <r:RibbonGalleryCategory.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <StackPanel Orientation="Vertical"
+                                                    IsItemsHost="True" />
+                                    </ItemsPanelTemplate>
+                                </r:RibbonGalleryCategory.ItemsPanel>
+                            </r:RibbonGalleryCategory>
+                        </r:RibbonGallery>
+                    </r:RibbonApplicationMenu.AuxiliaryPaneContent>
                 </r:RibbonApplicationMenu>
             </r:Ribbon.ApplicationMenu>
 
