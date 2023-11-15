@@ -409,6 +409,22 @@ namespace OsnastkaDirect.Data
             }
         }
         private ObjectSet<TechOrder> _TechOrder;
+    
+        /// <summary>
+        /// Нет доступной документации по метаданным.
+        /// </summary>
+        public ObjectSet<FullDraftNameList> FullDraftNameList
+        {
+            get
+            {
+                if ((_FullDraftNameList == null))
+                {
+                    _FullDraftNameList = base.CreateObjectSet<FullDraftNameList>("FullDraftNameList");
+                }
+                return _FullDraftNameList;
+            }
+        }
+        private ObjectSet<FullDraftNameList> _FullDraftNameList;
 
         #endregion
 
@@ -580,6 +596,14 @@ namespace OsnastkaDirect.Data
         public void AddToTechOrder(TechOrder techOrder)
         {
             base.AddObject("TechOrder", techOrder);
+        }
+    
+        /// <summary>
+        /// Устаревший метод для добавления новых объектов в набор EntitySet FullDraftNameList. Взамен можно использовать метод .Add связанного свойства ObjectSet&lt;T&gt;.
+        /// </summary>
+        public void AddToFullDraftNameList(FullDraftNameList fullDraftNameList)
+        {
+            base.AddObject("FullDraftNameList", fullDraftNameList);
         }
 
         #endregion
@@ -1793,6 +1817,113 @@ namespace OsnastkaDirect.Data
 
         #endregion
 
+    }
+    
+    /// <summary>
+    /// Нет доступной документации по метаданным.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="FOXModel", Name="FullDraftNameList")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class FullDraftNameList : EntityObject
+    {
+        #region Фабричный метод
+    
+        /// <summary>
+        /// Создание нового объекта FullDraftNameList.
+        /// </summary>
+        /// <param name="draft">Исходное значение свойства Draft.</param>
+        /// <param name="isShortDraftName">Исходное значение свойства IsShortDraftName.</param>
+        public static FullDraftNameList CreateFullDraftNameList(global::System.Decimal draft, global::System.Boolean isShortDraftName)
+        {
+            FullDraftNameList fullDraftNameList = new FullDraftNameList();
+            fullDraftNameList.Draft = draft;
+            fullDraftNameList.IsShortDraftName = isShortDraftName;
+            return fullDraftNameList;
+        }
+
+        #endregion
+
+        #region Свойства-примитивы
+    
+        /// <summary>
+        /// Нет доступной документации по метаданным.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Decimal Draft
+        {
+            get
+            {
+                return _Draft;
+            }
+            set
+            {
+                if (_Draft != value)
+                {
+                    OnDraftChanging(value);
+                    ReportPropertyChanging("Draft");
+                    _Draft = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("Draft");
+                    OnDraftChanged();
+                }
+            }
+        }
+        private global::System.Decimal _Draft;
+        partial void OnDraftChanging(global::System.Decimal value);
+        partial void OnDraftChanged();
+    
+        /// <summary>
+        /// Нет доступной документации по метаданным.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String DraftName
+        {
+            get
+            {
+                return _DraftName;
+            }
+            set
+            {
+                OnDraftNameChanging(value);
+                ReportPropertyChanging("DraftName");
+                _DraftName = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("DraftName");
+                OnDraftNameChanged();
+            }
+        }
+        private global::System.String _DraftName;
+        partial void OnDraftNameChanging(global::System.String value);
+        partial void OnDraftNameChanged();
+    
+        /// <summary>
+        /// Нет доступной документации по метаданным.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Boolean IsShortDraftName
+        {
+            get
+            {
+                return _IsShortDraftName;
+            }
+            set
+            {
+                OnIsShortDraftNameChanging(value);
+                ReportPropertyChanging("IsShortDraftName");
+                _IsShortDraftName = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("IsShortDraftName");
+                OnIsShortDraftNameChanged();
+            }
+        }
+        private global::System.Boolean _IsShortDraftName;
+        partial void OnIsShortDraftNameChanging(global::System.Boolean value);
+        partial void OnIsShortDraftNameChanged();
+
+        #endregion
+
+    
     }
     
     /// <summary>

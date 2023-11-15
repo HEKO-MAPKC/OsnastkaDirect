@@ -11,7 +11,8 @@
     <RootNamespace>OsnastkaDirect</RootNamespace>
     <AssemblyName>OsnastkaDirect</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
-    <TargetFrameworkProfile></TargetFrameworkProfile>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <WarningLevel>4</WarningLevel>
@@ -117,6 +118,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>FOXModel.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Data\Osnsv.cs" />
     <Compile Include="Data\Product.cs" />
     <Compile Include="Data\TypeProduct.cs" />
     <Compile Include="EmbedResources\Controls\BeautyCheckBox.xaml.cs">
@@ -129,19 +131,19 @@
     <Compile Include="Models\mDialogInput.cs" />
     <Compile Include="Models\mCheckOldOsn.cs" />
     <Compile Include="Models\mRedactingStoreRoom.cs" />
-    <Compile Include="Models\mOpenAuxililaryOsnast.cs" />
     <Compile Include="Models\mOpenCompoundProduct.cs" />
     <Compile Include="Models\mOpenFinOrder.cs" />
     <Compile Include="Models\mOpenSparePartOsnast.cs" />
+    <Compile Include="Models\mOpenAuxililaryOsnast.cs" />
     <Compile Include="Data\Osn.cs" />
     <Compile Include="ViewModels\vmMain.cs" />
     <Compile Include="ViewModels\vmDialogInput.cs" />
     <Compile Include="ViewModels\vmCheckOldOsn.cs" />
     <Compile Include="ViewModels\vmRedactingStoreRoom.cs" />
-    <Compile Include="ViewModels\vmOpenAuxililaryOsnast.cs" />
     <Compile Include="ViewModels\vmOpenCompoundProduct.cs" />
     <Compile Include="ViewModels\vmOpenFinOrder.cs" />
     <Compile Include="ViewModels\vmOpenSparePartOsnast.cs" />
+    <Compile Include="ViewModels\vmOpenAuxililaryOsnast.cs" />
     <Compile Include="Views\CheckOldOsn.xaml.cs">
       <DependentUpon>CheckOldOsn.xaml</DependentUpon>
     </Compile>
@@ -313,7 +315,8 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PreBuildEvent></PreBuildEvent>
+    <PreBuildEvent>
+    </PreBuildEvent>
   </PropertyGroup>
   <PropertyGroup>
     <PostBuildEvent>RD /S /Q  "$(TargetDir)Inc"

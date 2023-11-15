@@ -26,6 +26,14 @@
           <Property Name="dti" Type="char" MaxLength="6" />
           <Property Name="tfl" Type="nchar" MaxLength="5" />
         </EntityType>
+        <EntityType Name="FullDraftNameList">
+          <Key>
+            <PropertyRef Name="Draft" />
+          </Key>
+          <Property Name="Draft" Type="decimal" Precision="13" Scale="2" Nullable="false" />
+          <Property Name="DraftName" Type="varchar" MaxLength="40" />
+          <Property Name="IsShortDraftName" Type="bit" Nullable="false" />
+        </EntityType>
         <EntityType Name="iztyp">
           <Key>
             <PropertyRef Name="typ" />
@@ -574,6 +582,7 @@
         </Function>
         <EntityContainer Name="FOXModelStoreContainer">
           <EntitySet Name="complect" EntityType="Self.complect" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FullDraftNameList" EntityType="Self.FullDraftNameList" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="iztyp" EntityType="Self.iztyp" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="klados" EntityType="Self.klados" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="LIST_FR" EntityType="Self.LIST_FR" Schema="dbo" store:Type="Tables" />
@@ -653,6 +662,7 @@
             <End Role="TechOrder" EntitySet="TechOrder" />
             <End Role="DraftOsnast" EntitySet="DraftOsnast" />
           </AssociationSet>
+          <EntitySet Name="FullDraftNameList" EntityType="FOXModel.FullDraftNameList" />
         </EntityContainer>
         <EntityType Name="complect">
           <Key>
@@ -1226,6 +1236,14 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="FullDraftNameList">
+          <Key>
+            <PropertyRef Name="Draft" />
+          </Key>
+          <Property Name="Draft" Type="Decimal" Nullable="false" Precision="13" Scale="2" />
+          <Property Name="DraftName" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
+          <Property Name="IsShortDraftName" Type="Boolean" Nullable="false" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1756,6 +1774,15 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="FullDraftNameList">
+            <EntityTypeMapping TypeName="FOXModel.FullDraftNameList">
+              <MappingFragment StoreEntitySet="FullDraftNameList">
+                <ScalarProperty Name="IsShortDraftName" ColumnName="IsShortDraftName" />
+                <ScalarProperty Name="DraftName" ColumnName="DraftName" />
+                <ScalarProperty Name="Draft" ColumnName="Draft" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
@@ -1803,6 +1830,7 @@
         <AssociationConnector Association="FOXModel.FK_RepairOrProduction_ReferenceInformation" />
         <AssociationConnector Association="FOXModel.FK_TypeOsnast_ReferenceInformation" />
         <AssociationConnector Association="FOXModel.FK_TechOrderID_TechOrder" />
+        <EntityTypeShape EntityType="FOXModel.FullDraftNameList" Width="1.5" PointX="9.25" PointY="5.25" />
       </Diagram>
     </Diagrams>
   </Designer>

@@ -14,11 +14,11 @@ using System.Windows.Shapes;
 namespace OsnastkaDirect.Views
 {
     /// <summary>
-    /// Логика взаимодействия для OpenAuxilaryOsnast.xaml
+    /// Логика взаимодействия для OpenAuxililaryOsnast.xaml
     /// </summary>
-    public partial class OpenAuxilaryOsnast : Window
+    public partial class OpenAuxililaryOsnast : Window
     {
-        public OpenAuxilaryOsnast()
+        public OpenAuxililaryOsnast()
         {
             InitializeComponent();
         }

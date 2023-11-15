@@ -315,16 +315,28 @@ namespace OsnastkaDirect.Models
             LoadListStoreRoom();
             //OnChangeSelFilter();
         }
+        string GetDraftName(decimal? draft)
+        {
+            var list = db.FullDraftNameList.FirstOrDefault(l => l.Draft == draft || l.Draft/1000 == draft);
+            return list != null ? list.DraftName.Trim() : string.Empty;
+        }
         public void LoadListOsn()
         {
             // TODO
-            // 1. DraftOsnast и поле DraftOsnast(1) путается
-            // 2. Описания напутаны!!! dop и reason перепутаны, оно влияет на то как расположено в пункте Insert + доп обрезан
-            // 3. Прописать каскадное удаление? не удаляется нормально и не транкейтится
+            // 0. Я не понял как оно само должно присоединяться по ключам, вроде все еще джойнить надо
+            // 1. Название таблицы DraftOsnast и поле DraftOsnast(1) путается
+            // 2.(+) Описания напутаны!!! dop и reason перепутаны, оно влияет на то как расположено в пункте Insert + доп обрезан, надо прописать определенный размер для varchar
+            // 3. Прописать каскадное удаление? не удаляется нормально и не транкейтится + при аннулировании через программу удобнее удаление (?)
             // 4. Всё тримнуть, обрезать, типа исполнителя, или как вообще варчар работает, он всегда в программу суёт с дополнительным местом?
-            // 5. в Течордер ссылка на оснастпро пустая
+            // 5. В TechOrder ссылка на DraftOsnast пустая
             // 6. DraftOsnast IsStatusEmployeeApproved - нулловый где то, поменять просто на false? надо бы еще сравнить на разных таблицах согласования
-            // 7. Присоединить таблицу ИЗтип iztyp к течордер?
+            // 7. Присоединить таблицу iztyp к TechOrder?
+            // 8. Присоединить к oborud таблице таблицу цехов/рабочих мест
+            // 9. То что таблица ReferenceCode вне схемы оснастки - это же фича?
+            // 10. Драфт нулевой или null в названии пишется то самое "ууууу", удалить с таблицы. Решить вообще что с названиями... - Решено, но нет, не решено
+            // 11. Для techorder без техзаказа нужно сделать пустую строчку в DraftOsnast, у меня пустые драфты в таблице, нужно TechOrder не джойнить, а просто оттуда from инсертить. Невозможно соединить techorder proos, ибо заказ нулевой, нужно новое поле для связи с proos - Временно решено тем что объединил по полю t.DateCreateApplication = z.dt_who
+            // 12. Я все еще понимаю как присоединить наименования драфтов ко всем трём драфтам, получается будем заполнять таблицу наименованиями сразу?
+            // 13. Почему вообще нельзя сделать truncate для таблицы TechOrder из-за внешних ключей?
             pListOsn = null;
             pListOsnLoaded = null;
             var _var1 = (from i in db.TechOrder
@@ -335,49 +347,58 @@ namespace OsnastkaDirect.Models
                                   //where i.zak_1 != null 
                          let _draftneed = DraftOsnastList.DraftPiece == 0 || DraftOsnastList.DraftPiece == null ? DraftOsnastList.DraftOsnast1.Value : DraftOsnastList.DraftPiece.Value
 
+                         //join db1 in db.FullDraftNameList
+                         //on i.Draft/1000 equals db1.Draft into gf1
+                         //from listDse in gf1.DefaultIfEmpty().Take(1)
 
-                         join db1 in db.listdse on
-                              (int)(_draftneed / 1000) equals db1.DRAFT into gf1
-                         from listDse in gf1.DefaultIfEmpty().Take(1)
+                         //join db2 in db.FullDraftNameList on
+                         //DraftOsnastList.DraftPiece equals db2.Draft into gf2
+                         //from listDsePiece in gf2.DefaultIfEmpty().Take(1)
 
-                         join db2 in db.LIST_FR on
-                              _draftneed equals db2.WHAT into gf
-                         from listFr in gf.DefaultIfEmpty().Take(1)
+                         //join db3 in db.FullDraftNameList on
+                         //DraftOsnastList.DraftOsnast1 equals db3.Draft into gf3
+                         //from listDseOsn in gf3.DefaultIfEmpty().Take(1)
+                         //let _DseGrid = DraftOsnastList.DraftPiece == 0 || DraftOsnastList.DraftPiece == null ? listDseOsn.DraftName : listDsePiece.DraftName
 
-                         join db3 in db.olistdse on
-                                   _draftneed equals db3.draft into gf2
-                         from listDse2 in gf2.DefaultIfEmpty().Take(1)
+                         //let draftgrid listDse.DraftPiece == 0 || listDsePiece.DraftPiece == null ?
+                         //join db2 in db.LIST_FR on
+                         //     _draftneed equals db2.WHAT into gf
+                         //from listFr in gf.DefaultIfEmpty().Take(1)
 
-                         join db5 in db.prodact on
-                              _draftneed equals db5.draft into gf5
-                         from listDse5 in gf5.DefaultIfEmpty().Take(1)
+                         //join db3 in db.olistdse on
+                         //          _draftneed equals db3.draft into gf2
+                         //from listDse2 in gf2.DefaultIfEmpty().Take(1)
 
-                         join db4 in db.m_cennik on
-                              /*SqlFunctions.StringConvert(_draftneed, 14, 2)*/SqlFunctions.StringConvert(_draftneed, 14, 2) equals db4.ocen into gf4
-                         from listDse4 in gf4.DefaultIfEmpty().Take(1)
-                             //join db8 in db.pl_god on
-                             //     new
-                             //     {
-                             //         _pr1 = list7.zakaz.Value,
-                             //         _pr2 = list7.nom.Value
-                             //     } equals new
-                             //     {
-                             //         _pr1 = db8.zakaz,
-                             //         _pr2 = db8.nom
+                         //join db5 in db.prodact on
+                         //     _draftneed equals db5.draft into gf5
+                         //from listDse5 in gf5.DefaultIfEmpty().Take(1)
 
-                             //     }
-                             //     into gf8
-                             //     from list8 in gf8.DefaultIfEmpty()
-                             //         //oborud
-                             //         //s_oper list6.rab_m
-                             //         // list6.oper,
-                             //join db9 in db.oborud on
-                             //    list6.rab_m equals db9.rab_m into gf9
-                             //from oborudlist in gf9.DefaultIfEmpty()
+                         //join db4 in db.m_cennik on
+                         //     /*SqlFunctions.StringConvert(_draftneed, 14, 2)*/SqlFunctions.StringConvert(_draftneed, 14, 2) equals db4.ocen into gf4
+                         //from listDse4 in gf4.DefaultIfEmpty().Take(1)
+                         //join db8 in db.pl_god on
+                         //     new
+                         //     {
+                         //         _pr1 = list7.zakaz.Value,
+                         //         _pr2 = list7.nom.Value
+                         //     } equals new
+                         //     {
+                         //         _pr1 = db8.zakaz,
+                         //         _pr2 = db8.nom
 
-                             //join db10 in db.s_oper on
-                             //    list6.oper equals db10.code into gf10
-                             //from s_operlist in gf10.DefaultIfEmpty()
+                         //     }
+                         //     into gf8
+                         //     from list8 in gf8.DefaultIfEmpty()
+                         //         //oborud
+                         //         //s_oper list6.rab_m
+                         //         // list6.oper,
+                         //join db9 in db.oborud on
+                         //    list6.rab_m equals db9.rab_m into gf9
+                         //from oborudlist in gf9.DefaultIfEmpty()
+
+                         //join db10 in db.s_oper on
+                         //    list6.oper equals db10.code into gf10
+                         //from s_operlist in gf10.DefaultIfEmpty()
 
                          orderby i.TechOrderID descending
                               select new Osn
@@ -394,24 +415,21 @@ namespace OsnastkaDirect.Models
                                   returnRes = i.ReasonReturnedToTechnolog,
                                   draft = i.Draft,
                                   draftRes = DraftOsnastList.DraftPiece,
-                                 // storeroom = DraftOsnastList.,
+                                  // storeroom = DraftOsnastList.,
                                   //nameDraft = db.ExecuteFunction<string> ("GetDraftName"),
+                                  nameGrid= GetDraftName(_draftneed),
+                                  nameDraft = GetDraftName(i.Draft),
+                                  nameOsn = GetDraftName(DraftOsnastList.DraftOsnast1),
+                                  nameRes = GetDraftName(DraftOsnastList.DraftPiece),
+                                  //nameGrid =
+                                  //_DseGrid != null ? _DseGrid.Trim() :
+                                  //"",
+                                  //draftGrid = DraftOsnastList.DraftPiece == null || DraftOsnastList.DraftPiece == 0 ? DraftOsnastList.DraftOsnast1 : DraftOsnastList.DraftPiece,
+                                  //nameDraft = listDse.DraftName,
+                                  //nameOsn= listDseOsn.DraftName,
+                                  //nameRes= listDsePiece.DraftName,
 
-                                  nameGrid = DraftOsnastList.DraftPiece == null || DraftOsnastList.DraftPiece == 0 ?
-                                  listDse2 != null ? listDse2.dse.Trim() :
-                                  listDse != null ? listDse.DSE.Trim() :
-                                  listFr != null ? listFr.NM.Trim() :
-                                  listDse4 != null ? listDse4.hm.Trim() :
-                                  listDse5 != null ? listDse5.name.Trim() :
-                                  "" 
-                                  :
-                                  listDse2 != null ? listDse2.dse.Trim() :
-                                  listDse != null ? listDse.DSE.Trim() :
-                                  listFr != null ? listFr.NM.Trim() :
-                                  listDse4 != null ? listDse4.hm.Trim() :
-                                  listDse5 != null ? listDse5.name.Trim() :
-                                  "",
-                                  draftGrid = DraftOsnastList.DraftPiece == null || DraftOsnastList.DraftPiece == 0 ? DraftOsnastList.DraftOsnast1 : DraftOsnastList.DraftPiece,
+
 
                                   usage = i.NameDraftProduct,
                                   dtSrok = i.DateLimitation,
