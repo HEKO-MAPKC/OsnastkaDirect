@@ -6,6 +6,7 @@ using System.Linq;
 //
 using Fox;
 using OsnastkaDirect.Data;
+using OsnastkaDirect.ViewModels;
 //
 namespace OsnastkaDirect.Models
 {
@@ -19,7 +20,8 @@ namespace OsnastkaDirect.Models
             /// <summary>
             /// Переменная для работы с базой данных
             /// </summary>
-            public FOXEntities db;
+        public FOXEntities db;
+        public vmMain WindowMain;
         //
         // Переменная для свойства
         //
@@ -55,6 +57,33 @@ namespace OsnastkaDirect.Models
                 }
             }
         }
+
+        Osnsv SelOsnsv;
+        public Osnsv pSelOsnsv
+        {
+            get { return SelOsnsv; }
+            set
+            {
+                if (SelOsnsv != value)
+                {
+                    SelOsnsv = value;
+                    OnPropertyChanged("pSelOsnsv");
+                }
+            }
+        }
+        string SearchOsn;
+        public string pSearchOsn
+        {
+            get { return SearchOsn; }
+            set
+            {
+                if (SearchOsn != value)
+                {
+                    SearchOsn = value;
+                    OnPropertyChanged("pSearchOsn");
+                }
+            }
+        }
         #endregion
 
         #region Методы
@@ -72,10 +101,11 @@ namespace OsnastkaDirect.Models
         }
         public void LoadOsnsv()
         {
-            pListOsnsv = (from i in db.osnsv
+            pListOsnsv = (from i in db.osnsv//.Where(j => j.draft)
                          select new Osnsv
                          {
-                             draft=i.draft
+                             draftOsn = i.draftosn,
+                             draftOsnName = i.naimosn
                          }).ToList();
         }
         #endregion

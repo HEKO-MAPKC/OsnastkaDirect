@@ -317,7 +317,8 @@ namespace OsnastkaDirect.Models
         }
         string GetDraftName(decimal? draft)
         {
-            var list = db.FullDraftNameList.FirstOrDefault(l => l.Draft == draft || l.Draft/1000 == draft);
+            if (draft == null) return string.Empty;
+            FullDraftNameList list = db.FullDraftNameList.FirstOrDefault(l => l.Draft == draft);
             return list != null ? list.DraftName.Trim() : string.Empty;
         }
         public void LoadListOsn()
@@ -337,6 +338,8 @@ namespace OsnastkaDirect.Models
             // 11. Для techorder без техзаказа нужно сделать пустую строчку в DraftOsnast, у меня пустые драфты в таблице, нужно TechOrder не джойнить, а просто оттуда from инсертить. Невозможно соединить techorder proos, ибо заказ нулевой, нужно новое поле для связи с proos - Временно решено тем что объединил по полю t.DateCreateApplication = z.dt_who
             // 12. Я все еще понимаю как присоединить наименования драфтов ко всем трём драфтам, получается будем заполнять таблицу наименованиями сразу?
             // 13. Почему вообще нельзя сделать truncate для таблицы TechOrder из-за внешних ключей?
+            // 14. Легендарная таблица всех драфтов собрана, картинка на миро, решить что-то с форматированием. + сделать представлением или нет, подумать надо
+            // 15. Отсортировать таблицы
             pListOsn = null;
             pListOsnLoaded = null;
             var _var1 = (from i in db.TechOrder
@@ -347,18 +350,18 @@ namespace OsnastkaDirect.Models
                                   //where i.zak_1 != null 
                          let _draftneed = DraftOsnastList.DraftPiece == 0 || DraftOsnastList.DraftPiece == null ? DraftOsnastList.DraftOsnast1.Value : DraftOsnastList.DraftPiece.Value
 
-                         //join db1 in db.FullDraftNameList
-                         //on i.Draft/1000 equals db1.Draft into gf1
-                         //from listDse in gf1.DefaultIfEmpty().Take(1)
+                         join db1 in db.FullDraftNameList
+                         on (int)(i.Draft.Value / 1000) equals db1.Draft into gf1
+                         from listDse in gf1.DefaultIfEmpty().Take(1)
 
-                         //join db2 in db.FullDraftNameList on
-                         //DraftOsnastList.DraftPiece equals db2.Draft into gf2
-                         //from listDsePiece in gf2.DefaultIfEmpty().Take(1)
+                         join db2 in db.FullDraftNameList on
+                         DraftOsnastList.DraftPiece equals db2.Draft into gf2
+                         from listDsePiece in gf2.DefaultIfEmpty().Take(1)
 
-                         //join db3 in db.FullDraftNameList on
-                         //DraftOsnastList.DraftOsnast1 equals db3.Draft into gf3
-                         //from listDseOsn in gf3.DefaultIfEmpty().Take(1)
-                         //let _DseGrid = DraftOsnastList.DraftPiece == 0 || DraftOsnastList.DraftPiece == null ? listDseOsn.DraftName : listDsePiece.DraftName
+                         join db3 in db.FullDraftNameList on
+                         DraftOsnastList.DraftOsnast1 equals db3.Draft into gf3
+                         from listDseOsn in gf3.DefaultIfEmpty().Take(1)
+                         let _DseGrid = DraftOsnastList.DraftPiece == 0 || DraftOsnastList.DraftPiece == null ? listDseOsn.DraftName : listDsePiece.DraftName
 
                          //let draftgrid listDse.DraftPiece == 0 || listDsePiece.DraftPiece == null ?
                          //join db2 in db.LIST_FR on
@@ -417,17 +420,17 @@ namespace OsnastkaDirect.Models
                                   draftRes = DraftOsnastList.DraftPiece,
                                   // storeroom = DraftOsnastList.,
                                   //nameDraft = db.ExecuteFunction<string> ("GetDraftName"),
-                                  nameGrid= GetDraftName(_draftneed),
-                                  nameDraft = GetDraftName(i.Draft),
-                                  nameOsn = GetDraftName(DraftOsnastList.DraftOsnast1),
-                                  nameRes = GetDraftName(DraftOsnastList.DraftPiece),
-                                  //nameGrid =
-                                  //_DseGrid != null ? _DseGrid.Trim() :
-                                  //"",
-                                  //draftGrid = DraftOsnastList.DraftPiece == null || DraftOsnastList.DraftPiece == 0 ? DraftOsnastList.DraftOsnast1 : DraftOsnastList.DraftPiece,
-                                  //nameDraft = listDse.DraftName,
-                                  //nameOsn= listDseOsn.DraftName,
-                                  //nameRes= listDsePiece.DraftName,
+                                  //nameGrid= GetDraftName(_draftneed),
+                                  //nameDraft = GetDraftName(i.Draft),
+                                  //nameOsn = GetDraftName(DraftOsnastList.DraftOsnast1),
+                                  //nameRes = GetDraftName(DraftOsnastList.DraftPiece),
+                                  nameGrid =
+                                  _DseGrid != null ? _DseGrid.Trim() :
+                                  "",
+                                  draftGrid = DraftOsnastList.DraftPiece == null || DraftOsnastList.DraftPiece == 0 ? DraftOsnastList.DraftOsnast1 : DraftOsnastList.DraftPiece,
+                                  nameDraft = listDse.DraftName,
+                                  nameOsn = listDseOsn.DraftName,
+                                  nameRes = listDsePiece.DraftName,
 
 
 
@@ -470,23 +473,26 @@ namespace OsnastkaDirect.Models
             pListOsnLoaded = new ObservableCollection<Osn>(_var1);
             //foreach (Osn _osn in pListOsnLoaded)
             //{
-            //    //_osn.dateGrid = _osn.dateWho.Value.ToString("g");
-            //    //if (_osn.date700!=null)
-            //    //_osn.date700Grid = _osn.date700.Value.ToString("d");
-            //    if (_osn.draftRes != 0)
-            //    {
-            //        _osn.draftGrid = _osn.draftRes;
-            //        //_osn.nameGrid = _osn.nameRes;
-            //    }
-            //    else
-            //    {
-            //        _osn.draftGrid = _osn.draftOsn;
-            //        //_osn.nameGrid = _osn.nameOsn;
-            //        //_osn.nameGrid = _osn.nameRes;
-            //    }
-            //    //_osn.nameOsn = ElsibServices.DbService.SeekName(_osn.draftOsn.Value);
+                //_osn.nameGrid = GetDraftName(_osn.draftGrid);
+                //_osn.nameDraft = GetDraftName(_osn.draft);
+                //_osn.nameOsn = GetDraftName(_osn.draftOsn);
+                //_osn.nameRes = GetDraftName(_osn.draftRes);
+                //_osn.dateGrid = _osn.dateWho.Value.ToString("g");
+                //if (_osn.date700!=null)
+                //_osn.date700Grid = _osn.date700.Value.ToString("d");
+                //if (_osn.draftRes != 0)
+                //{
+                //    _osn.draftGrid = _osn.draftRes;
+                //    //_osn.nameGrid = _osn.nameRes;
+                //}
+                //else
+                //{
+                //    _osn.draftGrid = _osn.draftOsn;
+                //    //_osn.nameGrid = _osn.nameOsn;
+                //    //_osn.nameGrid = _osn.nameRes;
+                //}
+                //_osn.nameOsn = ElsibServices.DbService.SeekName(_osn.draftOsn.Value);
             //}
-            //pListOsn = new ObservableCollection<Osn>(pListOsnLoaded);
             pListOsn = new ObservableCollection<Osn>(pListOsnLoaded);
             //OnChangeSelFilter();
         }

@@ -5,9 +5,10 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:OsnastkaDirect.Views"
         xmlns:Fluent="urn:fluent-ribbon"
+        xmlns:control="clr-namespace:Metrology.EmbedResources.Controls"
         mc:Ignorable="d"
         Title="Вспомогательная оснастка"
-        Height="720"
+        Height="400"
         Width="1024"
         WindowStartupLocation="CenterScreen">
     <Grid>
@@ -33,8 +34,8 @@
                   Height="274"
                   Margin="2,2,2,0"
                   VerticalAlignment="Top"
-                  ItemsSource="{Binding model.pListOsn, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                  SelectedItem="{Binding model.pSelOsn, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                  ItemsSource="{Binding model.pListOsnsv, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                  SelectedItem="{Binding model.pSelOsnsv, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                   IsReadOnly="true"
                   CanUserAddRows="False"
                   HorizontalScrollBarVisibility="Disabled"
@@ -60,99 +61,60 @@
             <DataGrid.RowStyle>
                 <Style TargetType="{x:Type DataGridRow}"
                        BasedOn="{StaticResource ResourceKey=DataGridRowBase}">
-                    <Setter Property="Background"
-                            Value="White" />
-                    <Setter Property="Foreground"
-                            Value="Black" />
-                    <Style.Triggers>
-                        <DataTrigger Binding="{Binding accepted}"
-                                     Value="true">
-                            <Setter Property="Background"
-                                    Value="PaleGreen" />
-                            <Setter Property="Foreground"
-                                    Value="Black" />
-                        </DataTrigger>
-                        <DataTrigger Binding="{Binding atConst}"
-                                     Value="true">
-                            <Setter Property="Background"
-                                    Value="DeepSkyBlue" />
-                            <Setter Property="Foreground"
-                                    Value="Black" />
-                        </DataTrigger>
-                        <DataTrigger Binding="{Binding backFromConst}"
-                                     Value="true">
-                            <Setter Property="Background"
-                                    Value="LightBlue" />
-                            <Setter Property="Foreground"
-                                    Value="Black" />
-                        </DataTrigger>
-                        <DataTrigger Binding="{Binding returned}"
-                                     Value="true">
-                            <Setter Property="Background"
-                                    Value="Tomato" />
-                            <Setter Property="Foreground"
-                                    Value="Black" />
-                        </DataTrigger>
-                        <DataTrigger Binding="{Binding dtIzgIsNull}"
-                                     Value="false">
-                            <Setter Property="Background"
-                                    Value="Yellow" />
-                            <Setter Property="Foreground"
-                                    Value="Black" />
-                        </DataTrigger>
-                        <DataTrigger Binding="{Binding dtSrokIsNull}"
-                                     Value="true">
-                            <Setter Property="Background"
-                                    Value="Silver" />
-                            <Setter Property="Foreground"
-                                    Value="Black" />
-                        </DataTrigger>
-                    </Style.Triggers>
                 </Style>
             </DataGrid.RowStyle>
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Пред.№"
-                                    Binding="{Binding nOrdPrev}"
+                <DataGridTextColumn Header="Чертеж оснастки"
+                                    Binding="{Binding draftOsn}"
                                     Width="0.1*" />
-                <DataGridTextColumn Header="№ т/з"
-                                    Binding="{Binding nOrd}"
+                <DataGridTextColumn Header="Наименование оснастки"
+                                    Binding="{Binding draftOsnName}"
                                     Width="0.1*" />
-                <DataGridTextColumn Header="Дата"
-                                    Binding="{Binding dateWho, StringFormat=dd.MM.yy HH:mm}"
-                                    Width="0.15*" />
-                <DataGridTextColumn Header="Исполнитель"
-                                    Binding="{Binding who}"
-                                    Width="0.15*" />
-                <DataGridTextColumn Header="Чертеж"
-                                    Binding="{Binding draftGrid}"
-                                    Width="0.15*" />
-                <DataGridTextColumn Header="Наименование"
-                                    Binding="{Binding nameGrid}"
-                                    Width="0.15*" />
-                <DataGridTextColumn Header="Заказ"
-                                    Binding="{Binding ord700}"
-                                    Width="0.1*" />
-                <DataGridTextColumn Header="Номер"
-                                    Binding="{Binding num700}"
-                                    Width="0.1*" />
-                <DataGridTextColumn Header="Дата выпуска"
-                                    Binding="{Binding date700, StringFormat=dd.MM.yy}"
-                                    Width="0.15*" />
-                <DataGridTextColumn Header="аннТАБ"
-                                    Binding="{Binding annTab}"
-                                    Width="0.088*" />
-                <DataGridTextColumn Header="Причина"
-                                    Binding="{Binding returnRes}"
-                                    Width="0.15*" />
             </DataGrid.Columns>
         </DataGrid>
-        <Fluent:Button Width="90"
-                       Height="40"
-                       Background="White"
-                       BorderBrush="Silver"
-                       CornerRadius="10"
-                       Command="{Binding pSave}"
-                       LargeIcon="/OsnastkaDirect;component/EmbedResources/Icons/Save.png"
-                       Margin="26,293,908,371" />
+        <WrapPanel Margin="0,281,0,0"
+                   HorizontalAlignment="Center"
+                   Width="1004"
+                   Height="85"
+                   VerticalAlignment="Top">
+            <Fluent:Button Header="Выбрать"
+                           Command="{Binding pAcceptOpen}"
+                           Width="90"
+                           Height="60"
+                           Background="White"
+                           BorderBrush="Silver"
+                           CornerRadius="5">
+                <Fluent:Button.LargeIcon>
+                    <Image Source="/OsnastkaDirect;component/EmbedResources/Icons/Save.png"
+                           Width="35"
+                           Height="35"
+                           Margin="-5,0,-2,-2" />
+                </Fluent:Button.LargeIcon>
+            </Fluent:Button>
+            <Fluent:Button Header="Отмена"
+                           Command="{Binding pNotAcceptOpen}"
+                           Width="90"
+                           Height="60"
+                           Background="White"
+                           BorderBrush="Silver"
+                           CornerRadius="5">
+                <Fluent:Button.LargeIcon>
+                    <Image Source="/OsnastkaDirect;component/EmbedResources/Icons/Save.png"
+                           Width="35"
+                           Height="35"
+                           Margin="-5,0,-2,-2" />
+                </Fluent:Button.LargeIcon>
+            </Fluent:Button>
+            <Label Content="Поиск по"
+                   VerticalAlignment="Center"
+                   FontSize="14"
+                   Height="30" />
+            <control:PlaceholderBox Height="30"
+                                    Placeholder="Чертеж оснастки"
+                                    Text="{Binding model.pSearchOsn, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                    Width="120"
+                                    FontSize="14" />
+        </WrapPanel>
+
     </Grid>
 </Window>

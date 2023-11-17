@@ -28,31 +28,45 @@ namespace OsnastkaDirect.ViewModels
             /// Переменная Model
             /// </summary>
             public mOpenAuxililaryOsnast Model;
-            //
-        	// Переменная для свойства команды
-            //
+        //
+        // Переменная для свойства команды
+        //
 
         #endregion
 
         #region Свойства
-		
-            //CommandBase commandName;
-            //
-            // Свойство команды
-            //
-            //public CommandBase pCommand
-            //{
-            //    get { return commandName ?? (commandName = new CommandBase(MethodName)); }
-            //}
+
+        //CommandBase commandName;
+        //
+        // Свойство команды
+        //
+        //public CommandBase pCommand
+        //{
+        //    get { return commandName ?? (commandName = new CommandBase(MethodName)); }
+        //}
+
+        CommandBase AcceptOpen;
+
+        public CommandBase pAcceptOpen
+        {
+            get { return AcceptOpen ?? (AcceptOpen = new CommandBase(mAcceptOpen)); }
+        }
+
+        CommandBase NotAcceptOpen;
+
+        public CommandBase pNotAcceptOpen
+        {
+            get { return NotAcceptOpen ?? (NotAcceptOpen = new CommandBase(mNotAcceptOpen)); }
+        }
 
         #endregion
 
         #region Методы
 
-            /// <summary>
-            /// Конструктор
-            /// </summary>
-            public vmOpenAuxililaryOsnast()
+        /// <summary>
+        /// Конструктор
+        /// </summary>
+        public vmOpenAuxililaryOsnast()
             {
 
             }
@@ -74,11 +88,37 @@ namespace OsnastkaDirect.ViewModels
             /// </summary>
             /// <param name="_sender"></param>
             /// <param name="_eventArgs"></param>
-            public void modelPropertyChangedHandler(object _sender, PropertyChangedEventArgs _eventArgs)
+        public void modelPropertyChangedHandler(object _sender, PropertyChangedEventArgs _eventArgs)
+        {
+            if (_eventArgs.PropertyName == "pSearchOsn" && Model.pSearchOsn != null)
             {
-                ;
+                mFindOsn();
             }
-            
+        }
+        public void mFindOsn()
+        {
+            if (!string.IsNullOrEmpty(Model.pSearchOsn))
+            {
+                var i = (Model.pListOsnsv).FirstOrDefault(r => r.draftOsn.ToString()
+                                                .StartsWith(Model.pSearchOsn, StringComparison.OrdinalIgnoreCase));
+                if (i != null)
+                {
+                    View.DataGridOsn.ScrollIntoView(i);
+                    Model.pSelOsnsv = i;
+                }
+            }
+        }
+
+        public void mAcceptOpen()
+        {
+            if (Model.pSelOsnsv == null) return;
+            Model.WindowMain.mOpenCreate();
+            View.Close();
+        }
+        public void mNotAcceptOpen()
+        {
+            View.Close();
+        }
         #endregion
     }
 }

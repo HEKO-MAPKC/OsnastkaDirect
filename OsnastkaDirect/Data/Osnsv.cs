@@ -7,6 +7,7 @@ namespace OsnastkaDirect.Data
 {
     internal class Osnsv
     {
-        public decimal draft {get;set;}
+        public decimal? draftOsn {get;set;}
+        public string draftOsnName {get;set; }
     }
 }

@@ -118,6 +118,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>FOXModel.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Data\Ocomplect.cs" />
     <Compile Include="Data\Osnsv.cs" />
     <Compile Include="Data\Product.cs" />
     <Compile Include="Data\TypeProduct.cs" />

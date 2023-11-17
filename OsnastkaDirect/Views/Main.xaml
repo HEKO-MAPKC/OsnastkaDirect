@@ -67,24 +67,35 @@
                 <r:RibbonApplicationMenu SmallImageSource="/OsnastkaDirect;component/EmbedResources/Icons/help_icon.png">
 
                     <r:RibbonApplicationMenuItem Header="Утверждение"
-                                                 Width="150"
+                                                
                                                  ImageSource="/OsnastkaDirect;component/EmbedResources/Icons/help_icon.png"
                                                  Command="{Binding pOpenApprove}" />
                     <r:RibbonApplicationMenuItem Header="Создание"
                                                  ImageSource="/OsnastkaDirect;component/EmbedResources/Icons/help_icon.png"
                                                  Command="{Binding pOpenCreate}" />
-                    <r:RibbonApplicationMenuItem Header="Save As"
+                    <r:RibbonApplicationMenuItem Header="Открытие"
                                                       ImageSource="/OsnastkaDirect;component/EmbedResources/Icons/help_icon.png">
-                        <r:RibbonApplicationMenuItem Header="Rich Text document"
-                                                     Command="{Binding pOpenCreate}"
+                        <r:RibbonApplicationMenuItem Header="Вспомогательная оснастка"
+                                                     Command="{Binding pOpenAuxililaryOsnastW}"
                                                      ImageSource="/OsnastkaDirect;component/EmbedResources/Icons/help_icon.png"/>
-                        <r:RibbonApplicationMenuItem Header="Plain Text document"
-                                                     Command="{Binding pOpenCreate}"
+                        <r:RibbonApplicationMenuItem Header="Заказы в производстве"
+                                                     Command="{Binding pOpenFinOrderW}"
                                                      ImageSource="/OsnastkaDirect;component/EmbedResources/Icons/help_icon.png"/>
-                        <r:RibbonApplicationMenuItem Header="Other format"
-                                                     Command="{Binding pOpenCreate}"
+                        <r:RibbonApplicationMenuItem Header="Запчасти к оснастке"
+                                                     Command="{Binding pOpenSparePartW}"
                                                      ImageSource="/OsnastkaDirect;component/EmbedResources/Icons/help_icon.png"/>
+                        <r:RibbonApplicationMenuItem Header="Состав изделия"
+                                                     Command="{Binding pOpenCompoundProductW}"
+                                                     ImageSource="/OsnastkaDirect;component/EmbedResources/Icons/help_icon.png" />
                     </r:RibbonApplicationMenuItem>
+                    <r:RibbonApplicationMenuItem Header="Формирование&#10;перечней"
+                                                 
+                                                 ImageSource="/OsnastkaDirect;component/EmbedResources/Icons/help_icon.png"
+                                                 Command="{Binding pOpenApprove}" />
+                    <r:RibbonApplicationMenuItem Header="Формирование&#10;отчета выполнения"
+                                                
+                                                 ImageSource="/OsnastkaDirect;component/EmbedResources/Icons/help_icon.png"
+                                                 Command="{Binding pOpenApprove}" />
                     <r:RibbonApplicationMenu.FooterPaneContent>
                         <DockPanel LastChildFill="False">
                             <r:RibbonButton Command="ApplicationCommands.Close"

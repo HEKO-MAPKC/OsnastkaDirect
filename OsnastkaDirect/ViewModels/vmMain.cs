@@ -168,6 +168,35 @@ namespace OsnastkaDirect.ViewModels
             get { return OpenRedactingStoreRoom ?? (OpenRedactingStoreRoom = new CommandBase(mOpenRedactingStoreRoom)); }
         }
 
+
+        CommandBase OpenAuxililaryOsnastW;
+
+        public CommandBase pOpenAuxililaryOsnastW
+        {
+            get { return OpenAuxililaryOsnastW ?? (OpenAuxililaryOsnastW = new CommandBase(mOpenAuxililaryOsnastW)); }
+        }
+
+        CommandBase OpenSparePartW;
+
+        public CommandBase pOpenSparePartW
+        {
+            get { return OpenSparePartW ?? (OpenSparePartW = new CommandBase(mOpenSparePartW)); }
+        }
+
+        CommandBase OpenCompoundProductW;
+
+        public CommandBase pOpenCompoundProductW
+        {
+            get { return OpenCompoundProductW ?? (OpenCompoundProductW = new CommandBase(mOpenCompoundProductW)); }
+        }
+
+        CommandBase OpenFinOrderW;
+
+        public CommandBase pOpenFinOrderW
+        {
+            get { return OpenFinOrderW ?? (OpenFinOrderW = new CommandBase(mOpenFinOrderW)); }
+        }
+
         #endregion
 
         #region Методы
@@ -369,6 +398,59 @@ namespace OsnastkaDirect.ViewModels
             ((RedactingStoreRoom)VMLocator.VMs[name][index].view).Unloaded += (obj, args) => VMLocator.Clean((string)(((dynamic)obj).Uid));
             
             VMLocator.VMs[name][index].model.pListStoreRoom = Model.pListStoreRoom;
+
+            VMLocator.VMs[name][index].view.Owner = View;
+            VMLocator.VMs[name][index].view.ShowDialog();
+        }
+
+        public void mOpenAuxililaryOsnastW()
+        {
+
+            string name = typeof(OpenAuxililaryOsnast).Name;
+            int index = VMLocator.CreateViewModel(name);
+
+            ((OpenAuxililaryOsnast)VMLocator.VMs[name][index].view).Loaded += ((vmOpenAuxililaryOsnast)VMLocator.VMs[name][index]).viewLoaded;
+            ((OpenAuxililaryOsnast)VMLocator.VMs[name][index].view).Unloaded += (obj, args) => VMLocator.Clean((string)(((dynamic)obj).Uid));
+            VMLocator.VMs[name][index].model.WindowMain = this;
+
+            VMLocator.VMs[name][index].view.Owner = View;
+            VMLocator.VMs[name][index].view.ShowDialog();
+        }
+
+        public void mOpenSparePartW()
+        {
+
+            string name = typeof(OpenSparePartOsnast).Name;
+            int index = VMLocator.CreateViewModel(name);
+
+            ((OpenSparePartOsnast)VMLocator.VMs[name][index].view).Loaded += ((vmOpenSparePartOsnast)VMLocator.VMs[name][index]).viewLoaded;
+            ((OpenSparePartOsnast)VMLocator.VMs[name][index].view).Unloaded += (obj, args) => VMLocator.Clean((string)(((dynamic)obj).Uid));
+
+            VMLocator.VMs[name][index].view.Owner = View;
+            VMLocator.VMs[name][index].view.ShowDialog();
+        }
+
+        public void mOpenCompoundProductW()
+        {
+
+            string name = typeof(OpenCompoundProduct).Name;
+            int index = VMLocator.CreateViewModel(name);
+
+            ((OpenCompoundProduct)VMLocator.VMs[name][index].view).Loaded += ((vmOpenCompoundProduct)VMLocator.VMs[name][index]).viewLoaded;
+            ((OpenCompoundProduct)VMLocator.VMs[name][index].view).Unloaded += (obj, args) => VMLocator.Clean((string)(((dynamic)obj).Uid));
+
+            VMLocator.VMs[name][index].view.Owner = View;
+            VMLocator.VMs[name][index].view.ShowDialog();
+        }
+
+        public void mOpenFinOrderW()
+        {
+
+            string name = typeof(OpenFinOrder).Name;
+            int index = VMLocator.CreateViewModel(name);
+
+            ((OpenFinOrder)VMLocator.VMs[name][index].view).Loaded += ((vmOpenFinOrder)VMLocator.VMs[name][index]).viewLoaded;
+            ((OpenFinOrder)VMLocator.VMs[name][index].view).Unloaded += (obj, args) => VMLocator.Clean((string)(((dynamic)obj).Uid));
 
             VMLocator.VMs[name][index].view.Owner = View;
             VMLocator.VMs[name][index].view.ShowDialog();

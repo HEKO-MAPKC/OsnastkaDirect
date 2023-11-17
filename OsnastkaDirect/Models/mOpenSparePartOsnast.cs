@@ -20,28 +20,41 @@ namespace OsnastkaDirect.Models
             /// Переменная для работы с базой данных
             /// </summary>
             public FOXEntities db;
-            //
-            // Переменная для свойства
-            //
-            //тип name;
+        //
+        // Переменная для свойства
+        //
+        //тип name;
 
         #endregion
 
         #region Свойства
 
-            // 
-            // Свойство
-            //
-            //public тип pName
-            //{
-            //    get { return name; }
-            //    set
-            //    {
-            //        name = value;
-            //        OnPropertyChanged("pName");
-            //    }
-            //}    
+        // 
+        // Свойство
+        //
+        //public тип pName
+        //{
+        //    get { return name; }
+        //    set
+        //    {
+        //        name = value;
+        //        OnPropertyChanged("pName");
+        //    }
+        //}    
 
+        List<Ocomplect> ListOcomplect;
+        public List<Ocomplect> pListOcomplect
+        {
+            get { return ListOcomplect; }
+            set
+            {
+                if (ListOcomplect != value)
+                {
+                    ListOcomplect = value;
+                    OnPropertyChanged("pListOcomplect");
+                }
+            }
+        }
         #endregion
 
         #region Методы
@@ -49,14 +62,43 @@ namespace OsnastkaDirect.Models
             /// <summary>
             /// Конструктор
             /// </summary>
-            public mOpenSparePartOsnast()
-            {
-                db = VMLocator.VMs["Main"][VMLocator.mainKey].model.db;
-                //
-                // Инициализация свойств
-                // pName = значение;
-            }
+        public mOpenSparePartOsnast()
+        {
+            db = VMLocator.VMs["Main"][VMLocator.mainKey].model.db;
+            //
+            // Инициализация свойств
+            // pName = значение;
+            LoadOsnsv();
+        }
+        public void LoadOsnsv()
+        {
+            pListOcomplect = (from i in db.ocomplect//.Where(j => j.draft)
+                              join db1 in db.FullDraftNameList
+                                on i.kuda equals db1.Draft into gf1
+                              from listDse in gf1.DefaultIfEmpty().Take(1)
 
+                              join db2 in db.FullDraftNameList 
+                                on i.what equals db2.Draft into gf2
+                              from listDsePiece in gf2.DefaultIfEmpty().Take(1)
+
+                              join db3 in db.osnsv
+                                on i.kuda equals db3.draftosn into gf3
+                              from listOSNSV in gf3.DefaultIfEmpty().Take(1)
+
+                              join db4 in db.FullDraftNameList
+                                on listOSNSV.draft equals db4.Draft into gf4
+                              from listDseDraft in gf4.DefaultIfEmpty().Take(1)
+
+                              select new Ocomplect
+                        {
+                        draftOsn = i.kuda,
+                        draftOsnName = listDse.DraftName,
+                        draftPiece= i.what,
+                        draftPieceName =listDsePiece.DraftName,
+                        draft = listOSNSV.draft,
+                        draftName = listDseDraft.DraftName
+                              }).ToList();
+        }
         #endregion
     }
 }

@@ -31,8 +31,8 @@
             <PropertyRef Name="Draft" />
           </Key>
           <Property Name="Draft" Type="decimal" Precision="13" Scale="2" Nullable="false" />
-          <Property Name="DraftName" Type="varchar" MaxLength="40" />
-          <Property Name="IsShortDraftName" Type="bit" Nullable="false" />
+          <Property Name="DraftName" Type="varchar" MaxLength="50" />
+          <Property Name="IsShortDraft" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="iztyp">
           <Key>
@@ -110,6 +110,27 @@
           <Property Name="res_s" Type="numeric" Precision="4" Scale="0" />
           <Property Name="gr_ob" Type="numeric" Precision="1" Scale="0" />
           <Property Name="res_pipl" Type="numeric" Precision="4" Scale="1" />
+        </EntityType>
+        <EntityType Name="ocomplect">
+          <Key>
+            <PropertyRef Name="posit" />
+            <PropertyRef Name="what" />
+            <PropertyRef Name="kuda" />
+            <PropertyRef Name="group" />
+          </Key>
+          <Property Name="format" Type="char" MaxLength="2" />
+          <Property Name="posit" Type="numeric" Precision="3" Scale="0" Nullable="false" />
+          <Property Name="what" Type="numeric" Precision="13" Scale="2" Nullable="false" />
+          <Property Name="kuda" Type="numeric" Precision="13" Scale="2" Nullable="false" />
+          <Property Name="quant" Type="numeric" Precision="10" Scale="4" />
+          <Property Name="ed" Type="numeric" Precision="3" Scale="0" />
+          <Property Name="group" Type="numeric" Precision="2" Scale="0" Nullable="false" />
+          <Property Name="spec" Type="numeric" Precision="2" Scale="0" />
+          <Property Name="ksi" Type="numeric" Precision="2" Scale="0" />
+          <Property Name="path" Type="char" MaxLength="46" />
+          <Property Name="izv" Type="char" MaxLength="6" />
+          <Property Name="dti" Type="char" MaxLength="6" />
+          <Property Name="tfl" Type="nchar" MaxLength="5" />
         </EntityType>
         <EntityType Name="olistdse">
           <Key>
@@ -354,8 +375,6 @@
           <Property Name="dt_srok" Type="date" />
           <Property Name="dt_corr" Type="datetime" />
           <Property Name="zak_1" Type="nchar" MaxLength="7" />
-          <Property Name="os_pro_id" Type="int" />
-          <Property Name="prod_id" Type="int" />
         </EntityType>
         <EntityType Name="ReferenceCode">
           <Key>
@@ -589,6 +608,7 @@
           <EntitySet Name="listdse" EntityType="Self.listdse" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="m_cennik" EntityType="Self.m_cennik" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="oborud" EntityType="Self.oborud" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ocomplect" EntityType="Self.ocomplect" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="olistdse" EntityType="Self.olistdse" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="os_pro" EntityType="Self.os_pro" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="osnsv" EntityType="Self.osnsv" Schema="dbo" store:Type="Tables" />
@@ -637,7 +657,6 @@
           <EntitySet Name="prodact" EntityType="FOXModel.prodact" />
           <EntitySet Name="oborud" EntityType="FOXModel.oborud" />
           <EntitySet Name="s_oper" EntityType="FOXModel.s_oper" />
-          <EntitySet Name="proos" EntityType="FOXModel.proos" />
           <EntitySet Name="zayvka" EntityType="FOXModel.zayvka" />
           <EntitySet Name="pl_zak_t" EntityType="FOXModel.pl_zak_t" />
           <EntitySet Name="iztyp" EntityType="FOXModel.iztyp" />
@@ -662,7 +681,9 @@
             <End Role="TechOrder" EntitySet="TechOrder" />
             <End Role="DraftOsnast" EntitySet="DraftOsnast" />
           </AssociationSet>
+          <EntitySet Name="ocomplect" EntityType="FOXModel.ocomplect" />
           <EntitySet Name="FullDraftNameList" EntityType="FOXModel.FullDraftNameList" />
+          <EntitySet Name="proos" EntityType="FOXModel.proos" />
         </EntityContainer>
         <EntityType Name="complect">
           <Key>
@@ -941,51 +962,6 @@
           <Property Name="cex" Type="String" MaxLength="3" FixedLength="true" Unicode="true" />
           <Property Name="kontr" Type="Decimal" Precision="1" Scale="0" />
         </EntityType>
-        <EntityType Name="proos">
-          <Key>
-            <PropertyRef Name="tzakpred" />
-          </Key>
-          <Property Type="Decimal" Name="draftosn" Precision="13" Scale="2" />
-          <Property Type="Decimal" Name="draft" Precision="13" Scale="2" />
-          <Property Type="Decimal" Name="draftzap" Precision="13" Scale="2" />
-          <Property Type="Decimal" Name="recosnsv" Precision="10" Scale="0" />
-          <Property Type="Decimal" Name="zakaz" Precision="4" Scale="0" />
-          <Property Type="Decimal" Name="num" Precision="3" Scale="0" />
-          <Property Type="String" Name="cex" MaxLength="3" FixedLength="true" Unicode="false" />
-          <Property Type="String" Name="izd" MaxLength="30" FixedLength="true" Unicode="false" />
-          <Property Type="Decimal" Name="tzakpred" Nullable="false" Precision="10" Scale="0" />
-          <Property Type="Decimal" Name="tzak" Precision="4" Scale="0" />
-          <Property Type="String" Name="vid" MaxLength="30" FixedLength="true" Unicode="false" />
-          <Property Type="Decimal" Name="nvid" Precision="1" Scale="0" />
-          <Property Type="Decimal" Name="trud" Precision="7" Scale="2" />
-          <Property Type="String" Name="prichina" MaxLength="50" FixedLength="true" Unicode="false" />
-          <Property Type="String" Name="dop" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Type="Decimal" Name="kol" Precision="10" Scale="0" />
-          <Property Type="String" Name="klad" MaxLength="3" FixedLength="true" Unicode="false" />
-          <Property Type="DateTime" Name="srok" Precision="0" />
-          <Property Type="String" Name="who" MaxLength="20" FixedLength="true" Unicode="false" />
-          <Property Type="DateTime" Name="dt_who" Precision="7" />
-          <Property Type="String" Name="boss" MaxLength="20" FixedLength="true" Unicode="false" />
-          <Property Type="DateTime" Name="dt_boss" Precision="7" />
-          <Property Type="Boolean" Name="sog" />
-          <Property Type="Boolean" Name="no" />
-          <Property Type="Boolean" Name="back" />
-          <Property Type="DateTime" Name="dt_back" Precision="7" />
-          <Property Type="String" Name="why_back" MaxLength="150" FixedLength="true" Unicode="false" />
-          <Property Type="Boolean" Name="toko" />
-          <Property Type="DateTime" Name="dt_toko" Precision="7" />
-          <Property Type="Decimal" Name="kol_izg" Precision="10" Scale="0" />
-          <Property Type="DateTime" Name="dt_izg" Precision="7" />
-          <Property Type="String" Name="rem_izg" MaxLength="12" FixedLength="true" Unicode="false" />
-          <Property Type="String" Name="fioko" Nullable="false" MaxLength="20" FixedLength="true" Unicode="true" />
-          <Property Type="Decimal" Name="kol_old" Precision="10" Scale="0" />
-          <Property Type="DateTime" Name="dt_ok" Precision="7" />
-          <Property Type="DateTime" Name="dt_srok" Precision="0" />
-          <Property Type="DateTime" Name="dt_corr" Precision="3" />
-          <Property Type="String" Name="zak_1" MaxLength="7" FixedLength="true" Unicode="true" />
-          <Property Type="Int32" Name="os_pro_id" />
-          <Property Type="Int32" Name="prod_id" />
-        </EntityType>
         <EntityType Name="zayvka">
           <Key>
             <PropertyRef Name="id" />
@@ -1236,13 +1212,77 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="ocomplect">
+          <Key>
+            <PropertyRef Name="posit" />
+            <PropertyRef Name="what" />
+            <PropertyRef Name="kuda" />
+            <PropertyRef Name="group" />
+          </Key>
+          <Property Name="format" Type="String" MaxLength="2" FixedLength="true" Unicode="false" />
+          <Property Name="posit" Type="Decimal" Nullable="false" Precision="3" Scale="0" />
+          <Property Name="what" Type="Decimal" Nullable="false" Precision="13" Scale="2" />
+          <Property Name="kuda" Type="Decimal" Nullable="false" Precision="13" Scale="2" />
+          <Property Name="quant" Type="Decimal" Precision="10" Scale="4" />
+          <Property Name="ed" Type="Decimal" Precision="3" Scale="0" />
+          <Property Name="group" Type="Decimal" Nullable="false" Precision="2" Scale="0" />
+          <Property Name="spec" Type="Decimal" Precision="2" Scale="0" />
+          <Property Name="ksi" Type="Decimal" Precision="2" Scale="0" />
+          <Property Name="path" Type="String" MaxLength="46" FixedLength="true" Unicode="false" />
+          <Property Name="izv" Type="String" MaxLength="6" FixedLength="true" Unicode="false" />
+          <Property Name="dti" Type="String" MaxLength="6" FixedLength="true" Unicode="false" />
+          <Property Name="tfl" Type="String" MaxLength="5" FixedLength="true" Unicode="true" />
+        </EntityType>
         <EntityType Name="FullDraftNameList">
           <Key>
             <PropertyRef Name="Draft" />
           </Key>
           <Property Name="Draft" Type="Decimal" Nullable="false" Precision="13" Scale="2" />
-          <Property Name="DraftName" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
-          <Property Name="IsShortDraftName" Type="Boolean" Nullable="false" />
+          <Property Name="DraftName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="IsShortDraft" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <EntityType Name="proos">
+          <Key>
+            <PropertyRef Name="tzakpred" />
+          </Key>
+          <Property Name="draftosn" Type="Decimal" Precision="13" Scale="2" />
+          <Property Name="draft" Type="Decimal" Precision="13" Scale="2" />
+          <Property Name="draftzap" Type="Decimal" Precision="13" Scale="2" />
+          <Property Name="recosnsv" Type="Decimal" Precision="10" Scale="0" />
+          <Property Name="zakaz" Type="Decimal" Precision="4" Scale="0" />
+          <Property Name="num" Type="Decimal" Precision="3" Scale="0" />
+          <Property Name="cex" Type="String" MaxLength="3" FixedLength="true" Unicode="false" />
+          <Property Name="izd" Type="String" MaxLength="30" FixedLength="true" Unicode="false" />
+          <Property Name="tzakpred" Type="Decimal" Nullable="false" Precision="10" Scale="0" />
+          <Property Name="tzak" Type="Decimal" Precision="4" Scale="0" />
+          <Property Name="vid" Type="String" MaxLength="30" FixedLength="true" Unicode="false" />
+          <Property Name="nvid" Type="Decimal" Precision="1" Scale="0" />
+          <Property Name="trud" Type="Decimal" Precision="7" Scale="2" />
+          <Property Name="prichina" Type="String" MaxLength="50" FixedLength="true" Unicode="false" />
+          <Property Name="dop" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="kol" Type="Decimal" Precision="10" Scale="0" />
+          <Property Name="klad" Type="String" MaxLength="3" FixedLength="true" Unicode="false" />
+          <Property Name="srok" Type="DateTime" Precision="0" />
+          <Property Name="who" Type="String" MaxLength="20" FixedLength="true" Unicode="false" />
+          <Property Name="dt_who" Type="DateTime" Precision="7" />
+          <Property Name="boss" Type="String" MaxLength="20" FixedLength="true" Unicode="false" />
+          <Property Name="dt_boss" Type="DateTime" Precision="7" />
+          <Property Name="sog" Type="Boolean" />
+          <Property Name="no" Type="Boolean" />
+          <Property Name="back" Type="Boolean" />
+          <Property Name="dt_back" Type="DateTime" Precision="7" />
+          <Property Name="why_back" Type="String" MaxLength="150" FixedLength="true" Unicode="false" />
+          <Property Name="toko" Type="Boolean" />
+          <Property Name="dt_toko" Type="DateTime" Precision="7" />
+          <Property Name="kol_izg" Type="Decimal" Precision="10" Scale="0" />
+          <Property Name="dt_izg" Type="DateTime" Precision="7" />
+          <Property Name="rem_izg" Type="String" MaxLength="12" FixedLength="true" Unicode="false" />
+          <Property Name="fioko" Type="String" Nullable="false" MaxLength="20" FixedLength="true" Unicode="true" />
+          <Property Name="kol_old" Type="Decimal" Precision="10" Scale="0" />
+          <Property Name="dt_ok" Type="DateTime" Precision="7" />
+          <Property Name="dt_srok" Type="DateTime" Precision="0" />
+          <Property Name="dt_corr" Type="DateTime" Precision="3" />
+          <Property Name="zak_1" Type="String" MaxLength="7" FixedLength="true" Unicode="true" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -1529,52 +1569,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="proos">
-            <EntityTypeMapping TypeName="FOXModel.proos">
-              <MappingFragment StoreEntitySet="proos">
-                <ScalarProperty Name="prod_id" ColumnName="prod_id" />
-                <ScalarProperty Name="os_pro_id" ColumnName="os_pro_id" />
-                <ScalarProperty Name="zak_1" ColumnName="zak_1" />
-                <ScalarProperty Name="dt_corr" ColumnName="dt_corr" />
-                <ScalarProperty Name="dt_srok" ColumnName="dt_srok" />
-                <ScalarProperty Name="dt_ok" ColumnName="dt_ok" />
-                <ScalarProperty Name="kol_old" ColumnName="kol_old" />
-                <ScalarProperty Name="fioko" ColumnName="fioko" />
-                <ScalarProperty Name="rem_izg" ColumnName="rem_izg" />
-                <ScalarProperty Name="dt_izg" ColumnName="dt_izg" />
-                <ScalarProperty Name="kol_izg" ColumnName="kol_izg" />
-                <ScalarProperty Name="dt_toko" ColumnName="dt_toko" />
-                <ScalarProperty Name="toko" ColumnName="toko" />
-                <ScalarProperty Name="why_back" ColumnName="why_back" />
-                <ScalarProperty Name="dt_back" ColumnName="dt_back" />
-                <ScalarProperty Name="back" ColumnName="back" />
-                <ScalarProperty Name="no" ColumnName="no" />
-                <ScalarProperty Name="sog" ColumnName="sog" />
-                <ScalarProperty Name="dt_boss" ColumnName="dt_boss" />
-                <ScalarProperty Name="boss" ColumnName="boss" />
-                <ScalarProperty Name="dt_who" ColumnName="dt_who" />
-                <ScalarProperty Name="who" ColumnName="who" />
-                <ScalarProperty Name="srok" ColumnName="srok" />
-                <ScalarProperty Name="klad" ColumnName="klad" />
-                <ScalarProperty Name="kol" ColumnName="kol" />
-                <ScalarProperty Name="dop" ColumnName="dop" />
-                <ScalarProperty Name="prichina" ColumnName="prichina" />
-                <ScalarProperty Name="trud" ColumnName="trud" />
-                <ScalarProperty Name="nvid" ColumnName="nvid" />
-                <ScalarProperty Name="vid" ColumnName="vid" />
-                <ScalarProperty Name="tzak" ColumnName="tzak" />
-                <ScalarProperty Name="tzakpred" ColumnName="tzakpred" />
-                <ScalarProperty Name="izd" ColumnName="izd" />
-                <ScalarProperty Name="cex" ColumnName="cex" />
-                <ScalarProperty Name="num" ColumnName="num" />
-                <ScalarProperty Name="zakaz" ColumnName="zakaz" />
-                <ScalarProperty Name="recosnsv" ColumnName="recosnsv" />
-                <ScalarProperty Name="draftzap" ColumnName="draftzap" />
-                <ScalarProperty Name="draft" ColumnName="draft" />
-                <ScalarProperty Name="draftosn" ColumnName="draftosn" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="zayvka">
             <EntityTypeMapping TypeName="FOXModel.zayvka">
               <MappingFragment StoreEntitySet="zayvka">
@@ -1774,12 +1768,75 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="ocomplect">
+            <EntityTypeMapping TypeName="FOXModel.ocomplect">
+              <MappingFragment StoreEntitySet="ocomplect">
+                <ScalarProperty Name="tfl" ColumnName="tfl" />
+                <ScalarProperty Name="dti" ColumnName="dti" />
+                <ScalarProperty Name="izv" ColumnName="izv" />
+                <ScalarProperty Name="path" ColumnName="path" />
+                <ScalarProperty Name="ksi" ColumnName="ksi" />
+                <ScalarProperty Name="spec" ColumnName="spec" />
+                <ScalarProperty Name="group" ColumnName="group" />
+                <ScalarProperty Name="ed" ColumnName="ed" />
+                <ScalarProperty Name="quant" ColumnName="quant" />
+                <ScalarProperty Name="kuda" ColumnName="kuda" />
+                <ScalarProperty Name="what" ColumnName="what" />
+                <ScalarProperty Name="posit" ColumnName="posit" />
+                <ScalarProperty Name="format" ColumnName="format" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="FullDraftNameList">
             <EntityTypeMapping TypeName="FOXModel.FullDraftNameList">
               <MappingFragment StoreEntitySet="FullDraftNameList">
-                <ScalarProperty Name="IsShortDraftName" ColumnName="IsShortDraftName" />
+                <ScalarProperty Name="IsShortDraft" ColumnName="IsShortDraft" />
                 <ScalarProperty Name="DraftName" ColumnName="DraftName" />
                 <ScalarProperty Name="Draft" ColumnName="Draft" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="proos">
+            <EntityTypeMapping TypeName="FOXModel.proos">
+              <MappingFragment StoreEntitySet="proos">
+                <ScalarProperty Name="zak_1" ColumnName="zak_1" />
+                <ScalarProperty Name="dt_corr" ColumnName="dt_corr" />
+                <ScalarProperty Name="dt_srok" ColumnName="dt_srok" />
+                <ScalarProperty Name="dt_ok" ColumnName="dt_ok" />
+                <ScalarProperty Name="kol_old" ColumnName="kol_old" />
+                <ScalarProperty Name="fioko" ColumnName="fioko" />
+                <ScalarProperty Name="rem_izg" ColumnName="rem_izg" />
+                <ScalarProperty Name="dt_izg" ColumnName="dt_izg" />
+                <ScalarProperty Name="kol_izg" ColumnName="kol_izg" />
+                <ScalarProperty Name="dt_toko" ColumnName="dt_toko" />
+                <ScalarProperty Name="toko" ColumnName="toko" />
+                <ScalarProperty Name="why_back" ColumnName="why_back" />
+                <ScalarProperty Name="dt_back" ColumnName="dt_back" />
+                <ScalarProperty Name="back" ColumnName="back" />
+                <ScalarProperty Name="no" ColumnName="no" />
+                <ScalarProperty Name="sog" ColumnName="sog" />
+                <ScalarProperty Name="dt_boss" ColumnName="dt_boss" />
+                <ScalarProperty Name="boss" ColumnName="boss" />
+                <ScalarProperty Name="dt_who" ColumnName="dt_who" />
+                <ScalarProperty Name="who" ColumnName="who" />
+                <ScalarProperty Name="srok" ColumnName="srok" />
+                <ScalarProperty Name="klad" ColumnName="klad" />
+                <ScalarProperty Name="kol" ColumnName="kol" />
+                <ScalarProperty Name="dop" ColumnName="dop" />
+                <ScalarProperty Name="prichina" ColumnName="prichina" />
+                <ScalarProperty Name="trud" ColumnName="trud" />
+                <ScalarProperty Name="nvid" ColumnName="nvid" />
+                <ScalarProperty Name="vid" ColumnName="vid" />
+                <ScalarProperty Name="tzak" ColumnName="tzak" />
+                <ScalarProperty Name="tzakpred" ColumnName="tzakpred" />
+                <ScalarProperty Name="izd" ColumnName="izd" />
+                <ScalarProperty Name="cex" ColumnName="cex" />
+                <ScalarProperty Name="num" ColumnName="num" />
+                <ScalarProperty Name="zakaz" ColumnName="zakaz" />
+                <ScalarProperty Name="recosnsv" ColumnName="recosnsv" />
+                <ScalarProperty Name="draftzap" ColumnName="draftzap" />
+                <ScalarProperty Name="draft" ColumnName="draft" />
+                <ScalarProperty Name="draftosn" ColumnName="draftosn" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1804,7 +1861,7 @@
     </Options>
     <!-- Diagram content (shape and connector positions) -->
     <Diagrams>
-      <Diagram Name="FOXModel" >
+      <Diagram Name="FOXModel" ZoomLevel="91" >
         <EntityTypeShape EntityType="FOXModel.complect" Width="1.5" PointX="0.75" PointY="0.75" Height="3.5186979166666665" />
         <EntityTypeShape EntityType="FOXModel.olistdse" Width="1.5" PointX="2.75" PointY="0.75" Height="1.4033821614583335" />
         <EntityTypeShape EntityType="FOXModel.os_pro" Width="1.5" PointX="2.875" PointY="2.75" Height="11.210755208333332" />
@@ -1817,7 +1874,6 @@
         <EntityTypeShape EntityType="FOXModel.prodact" Width="1.5" PointX="11.375" PointY="6.75" Height="3.5186979166666674" />
         <EntityTypeShape EntityType="FOXModel.oborud" Width="1.5" PointX="11.375" PointY="11.75" />
         <EntityTypeShape EntityType="FOXModel.s_oper" Width="1.5" PointX="13.375" PointY="0.75" />
-        <EntityTypeShape EntityType="FOXModel.proos" Width="1.5" PointX="13.375" PointY="3.75" Height="8.3262337239583317" />
         <EntityTypeShape EntityType="FOXModel.zayvka" Width="1.5" PointX="5.375" PointY="13.75" />
         <EntityTypeShape EntityType="FOXModel.pl_zak_t" Width="1.5" PointX="13.375" PointY="13.75" />
         <EntityTypeShape EntityType="FOXModel.iztyp" Width="1.5" PointX="2.375" PointY="15.5" />
@@ -1830,7 +1886,9 @@
         <AssociationConnector Association="FOXModel.FK_RepairOrProduction_ReferenceInformation" />
         <AssociationConnector Association="FOXModel.FK_TypeOsnast_ReferenceInformation" />
         <AssociationConnector Association="FOXModel.FK_TechOrderID_TechOrder" />
-        <EntityTypeShape EntityType="FOXModel.FullDraftNameList" Width="1.5" PointX="9.25" PointY="5.25" />
+        <EntityTypeShape EntityType="FOXModel.ocomplect" Width="1.5" PointX="15.375" PointY="4.75" />
+        <EntityTypeShape EntityType="FOXModel.FullDraftNameList" Width="1.5" PointX="13.375" PointY="9.75" />
+        <EntityTypeShape EntityType="FOXModel.proos" Width="1.5" PointX="15.375" PointY="9.75" />
       </Diagram>
     </Diagrams>
   </Designer>
