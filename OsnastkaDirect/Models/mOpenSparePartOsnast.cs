@@ -41,7 +41,6 @@ namespace OsnastkaDirect.Models
         //        OnPropertyChanged("pName");
         //    }
         //}    
-
         List<Ocomplect> ListOcomplect;
         public List<Ocomplect> pListOcomplect
         {
@@ -52,6 +51,89 @@ namespace OsnastkaDirect.Models
                 {
                     ListOcomplect = value;
                     OnPropertyChanged("pListOcomplect");
+                }
+            }
+        }
+        List<Osnsv> ListDraft;
+        public List<Osnsv> pListDraft
+        {
+            get { return ListDraft; }
+            set
+            {
+                if (ListDraft != value)
+                {
+                    ListDraft = value;
+                    OnPropertyChanged("pListDraft");
+                }
+            }
+        }
+
+        List<Osnsv> ListDraftOsn;
+        public List<Osnsv> pListDraftOsn
+        {
+            get { return ListDraftOsn; }
+            set
+            {
+                if (ListDraftOsn != value)
+                {
+                    ListDraftOsn = value;
+                    OnPropertyChanged("pListDraftOsn");
+                }
+            }
+        }
+
+        List<Osnsv> ListDraftPiece;
+        public List<Osnsv> pListDraftPiece
+        {
+            get { return ListDraftPiece; }
+            set
+            {
+                if (ListDraftPiece != value)
+                {
+                    ListDraftPiece = value;
+                    OnPropertyChanged("pListDraftPiece");
+                }
+            }
+        }
+
+        Osnsv SelDraft;
+        public Osnsv pSelDraft
+        {
+            get { return SelDraft; }
+            set
+            {
+                if (SelDraft != value)
+                {
+                    SelDraft = value;
+                    OnPropertyChanged("pSelDraft");
+                }
+            }
+        }
+
+        Osnsv SelDraftOsn;
+        public Osnsv pSelDraftOsn
+        {
+            get { return SelDraftOsn; }
+            set
+            {
+                if (SelDraftOsn != value)
+                {
+                    SelDraftOsn = value;
+                    OnPropertyChanged("pSelDraftOsn");
+                }
+            }
+        }
+
+        Osnsv SelDraftPiece;
+        public Osnsv pSelDraftPiece
+        {
+            get { return SelDraftPiece; }
+            set
+            {
+                if (SelDraftPiece != value)
+                {
+                    SelDraftPiece = value;
+                    OnPropertyChanged("pSelDraftPiece");
                 }
             }
         }
@@ -77,7 +159,7 @@ namespace OsnastkaDirect.Models
                                 on i.kuda equals db1.Draft into gf1
                               from listDse in gf1.DefaultIfEmpty().Take(1)
 
-                              join db2 in db.FullDraftNameList 
+                              join db2 in db.FullDraftNameList
                                 on i.what equals db2.Draft into gf2
                               from listDsePiece in gf2.DefaultIfEmpty().Take(1)
 
@@ -90,13 +172,13 @@ namespace OsnastkaDirect.Models
                               from listDseDraft in gf4.DefaultIfEmpty().Take(1)
 
                               select new Ocomplect
-                        {
-                        draftOsn = i.kuda,
-                        draftOsnName = listDse.DraftName,
-                        draftPiece= i.what,
-                        draftPieceName =listDsePiece.DraftName,
-                        draft = listOSNSV.draft,
-                        draftName = listDseDraft.DraftName
+                              {
+                                  draftOsn = i.kuda,
+                                  draftOsnName = listDse.DraftName,
+                                  draftPiece = i.what,
+                                  draftPieceName = listDsePiece.DraftName,
+                                  draft = listOSNSV.draft,
+                                  draftName = listDseDraft.DraftName
                               }).ToList();
         }
         #endregion

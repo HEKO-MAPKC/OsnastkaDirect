@@ -3,7 +3,8 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:OsnastkaDirect.Views"
+        xmlns:local="clr-namespace:OsnastkaDirect"
+        xmlns:my="clr-namespace:OsnastkaDirect.Data"
         xmlns:Fluent="urn:fluent-ribbon"
         xmlns:control="clr-namespace:Metrology.EmbedResources.Controls"
         mc:Ignorable="d"
@@ -34,8 +35,8 @@
                   Height="274"
                   Margin="2,2,2,0"
                   VerticalAlignment="Top"
-                  ItemsSource="{Binding model.pListOcomplect, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                  SelectedItem="{Binding model.pSelOcomplect, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                  ItemsSource="{Binding model.pListDraft, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                  SelectedItem="{Binding model.pSelDraft, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                   IsReadOnly="true"
                   CanUserAddRows="False"
                   HorizontalScrollBarVisibility="Disabled"
@@ -47,18 +48,6 @@
                 </Style>
             </DataGrid.RowStyle>
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Чертеж оснастки"
-                                    Binding="{Binding draftOsn}"
-                                    Width="0.1*" />
-                <DataGridTextColumn Header="Наименование оснастки"
-                                    Binding="{Binding draftOsnName}"
-                                    Width="0.1*" />
-                <DataGridTextColumn Header="Чертеж запчасти"
-                                    Binding="{Binding draftPiece}"
-                                    Width="0.1*" />
-                <DataGridTextColumn Header="Наименование запчасти"
-                                    Binding="{Binding draftPieceName}"
-                                    Width="0.1*" />
                 <DataGridTextColumn Header="Чертеж ДСЕ"
                                     Binding="{Binding draft}"
                                     Width="0.1*" />
@@ -71,8 +60,8 @@
                   Height="274"
                   Margin="2,340,2,0"
                   VerticalAlignment="Top"
-                  ItemsSource="{Binding model.pListOcomplect, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                  SelectedItem="{Binding model.pSelOcomplect, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                  ItemsSource="{Binding model.pListDraftOsn, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                  SelectedItem="{Binding model.pSelDraftOsn, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                   IsReadOnly="true"
                   CanUserAddRows="False"
                   HorizontalScrollBarVisibility="Disabled"
@@ -90,26 +79,14 @@
                 <DataGridTextColumn Header="Наименование оснастки"
                                     Binding="{Binding draftOsnName}"
                                     Width="0.1*" />
-                <DataGridTextColumn Header="Чертеж запчасти"
-                                    Binding="{Binding draftPiece}"
-                                    Width="0.1*" />
-                <DataGridTextColumn Header="Наименование запчасти"
-                                    Binding="{Binding draftPieceName}"
-                                    Width="0.1*" />
-                <DataGridTextColumn Header="Чертеж ДСЕ"
-                                    Binding="{Binding draft}"
-                                    Width="0.1*" />
-                <DataGridTextColumn Header="Наименование ДСЕ"
-                                    Binding="{Binding draftName}"
-                                    Width="0.1*" />
             </DataGrid.Columns>
         </DataGrid>
         <DataGrid AutoGenerateColumns="false"
                   Height="274"
                   Margin="2,640,2,0"
                   VerticalAlignment="Top"
-                  ItemsSource="{Binding model.pListOcomplect, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                  SelectedItem="{Binding model.pSelOcomplect, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                  ItemsSource="{Binding model.pListDraftPiece, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                  SelectedItem="{Binding model.pSelDraftPiece, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                   IsReadOnly="true"
                   CanUserAddRows="False"
                   HorizontalScrollBarVisibility="Disabled"
@@ -121,23 +98,11 @@
                 </Style>
             </DataGrid.RowStyle>
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Чертеж оснастки"
-                                    Binding="{Binding draftOsn}"
-                                    Width="0.1*" />
-                <DataGridTextColumn Header="Наименование оснастки"
-                                    Binding="{Binding draftOsnName}"
-                                    Width="0.1*" />
                 <DataGridTextColumn Header="Чертеж запчасти"
                                     Binding="{Binding draftPiece}"
                                     Width="0.1*" />
                 <DataGridTextColumn Header="Наименование запчасти"
                                     Binding="{Binding draftPieceName}"
-                                    Width="0.1*" />
-                <DataGridTextColumn Header="Чертеж ДСЕ"
-                                    Binding="{Binding draft}"
-                                    Width="0.1*" />
-                <DataGridTextColumn Header="Наименование ДСЕ"
-                                    Binding="{Binding draftName}"
                                     Width="0.1*" />
             </DataGrid.Columns>
         </DataGrid>
@@ -184,6 +149,16 @@
                                     Width="120"
                                     FontSize="14" />
         </WrapPanel>
-
+        <TreeView Name="viewsTreeView"
+                  Margin="0,281,0,0"
+                  ItemsSource="{Binding model.pListDraftOsn, UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}">
+            <TreeView.ItemTemplate>
+                <HierarchicalDataTemplate ItemsSource="{Binding children,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}"
+                                          DataType="{x:Type my:TreeViewDraft}">
+                    <!--<TreeViewItem Header="{Binding draftName}" />-->
+                    <Label Content="{Binding draftName}" />
+                </HierarchicalDataTemplate>
+            </TreeView.ItemTemplate>
+        </TreeView>
     </Grid>
 </Window>

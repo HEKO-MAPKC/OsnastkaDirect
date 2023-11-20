@@ -8,6 +8,6 @@ namespace OsnastkaDirect.Data
     class Draft
     {
         public decimal? draft { get; set; }
-        public string name { get; set; }
+        public string draftName { get; set; }
     }
 }

@@ -7,7 +7,17 @@ namespace OsnastkaDirect.Data
 {
     internal class Osnsv
     {
-        public decimal? draftOsn {get;set;}
-        public string draftOsnName {get;set; }
+        public decimal? draftOsn { get; set; }
+        public string draftOsnName { get; set; }
+        public decimal? draftPiece { get; set; }
+        public string draftPieceName { get; set; }
+        public decimal? draft { get; set; }
+        public string draftName { get; set; }
+        public override bool Equals(object obj)
+        {
+            if (obj is Osnsv person) return draft == person.draft;
+            return false;
+        }
+        public override int GetHashCode() => draft.GetHashCode();
     }
 }

@@ -72,6 +72,9 @@
       <HintPath>d:\MyDocs\DLLs\Fox.dll</HintPath>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
+    <Reference Include="out_dll">
+      <HintPath>F:\ASUPLAN\0_C#Development\DLLs\out_dll.dll</HintPath>
+    </Reference>
     <Reference Include="RibbonControlsLibrary, Version=4.0.0.11019, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\DLLs\RibbonControlsLibrary.dll</HintPath>
@@ -121,6 +124,7 @@
     <Compile Include="Data\Ocomplect.cs" />
     <Compile Include="Data\Osnsv.cs" />
     <Compile Include="Data\Product.cs" />
+    <Compile Include="Data\TreeViewDraft.cs" />
     <Compile Include="Data\TypeProduct.cs" />
     <Compile Include="EmbedResources\Controls\BeautyCheckBox.xaml.cs">
       <DependentUpon>BeautyCheckBox.xaml</DependentUpon>

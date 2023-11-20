@@ -441,6 +441,22 @@ namespace OsnastkaDirect.Data
             }
         }
         private ObjectSet<proos> _proos;
+    
+        /// <summary>
+        /// Нет доступной документации по метаданным.
+        /// </summary>
+        public ObjectSet<outpro> outpro
+        {
+            get
+            {
+                if ((_outpro == null))
+                {
+                    _outpro = base.CreateObjectSet<outpro>("outpro");
+                }
+                return _outpro;
+            }
+        }
+        private ObjectSet<outpro> _outpro;
 
         #endregion
 
@@ -628,6 +644,14 @@ namespace OsnastkaDirect.Data
         public void AddToproos(proos proos)
         {
             base.AddObject("proos", proos);
+        }
+    
+        /// <summary>
+        /// Устаревший метод для добавления новых объектов в набор EntitySet outpro. Взамен можно использовать метод .Add связанного свойства ObjectSet&lt;T&gt;.
+        /// </summary>
+        public void AddTooutpro(outpro outpro)
+        {
+            base.AddObject("outpro", outpro);
         }
 
         #endregion
@@ -5695,6 +5719,985 @@ namespace OsnastkaDirect.Data
         private global::System.String _gruz;
         partial void OngruzChanging(global::System.String value);
         partial void OngruzChanged();
+
+        #endregion
+
+    
+    }
+    
+    /// <summary>
+    /// Нет доступной документации по метаданным.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="FOXModel", Name="outpro")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class outpro : EntityObject
+    {
+        #region Фабричный метод
+    
+        /// <summary>
+        /// Создание нового объекта outpro.
+        /// </summary>
+        /// <param name="id">Исходное значение свойства id.</param>
+        /// <param name="zakaz">Исходное значение свойства zakaz.</param>
+        /// <param name="nom">Исходное значение свойства nom.</param>
+        public static outpro Createoutpro(global::System.Int32 id, global::System.Decimal zakaz, global::System.Decimal nom)
+        {
+            outpro outpro = new outpro();
+            outpro.id = id;
+            outpro.zakaz = zakaz;
+            outpro.nom = nom;
+            return outpro;
+        }
+
+        #endregion
+
+        #region Свойства-примитивы
+    
+        /// <summary>
+        /// Нет доступной документации по метаданным.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 id
+        {
+            get
+            {
+                return _id;
+            }
+            set
+            {
+                if (_id != value)
+                {
+                    OnidChanging(value);
+                    ReportPropertyChanging("id");
+                    _id = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("id");
+                    OnidChanged();
+                }
+            }
+        }
+        private global::System.Int32 _id;
+        partial void OnidChanging(global::System.Int32 value);
+        partial void OnidChanged();
+    
+        /// <summary>
+        /// Нет доступной документации по метаданным.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Decimal zakaz
+        {
+            get
+            {
+                return _zakaz;
+            }
+            set
+            {
+                if (_zakaz != value)
+                {
+                    OnzakazChanging(value);
+                    ReportPropertyChanging("zakaz");
+                    _zakaz = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("zakaz");
+                    OnzakazChanged();
+                }
+            }
+        }
+        private global::System.Decimal _zakaz;
+        partial void OnzakazChanging(global::System.Decimal value);
+        partial void OnzakazChanged();
+    
+        /// <summary>
+        /// Нет доступной документации по метаданным.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Decimal nom
+        {
+            get
+            {
+                return _nom;
+            }
+            set
+            {
+                if (_nom != value)
+                {
+                    OnnomChanging(value);
+                    ReportPropertyChanging("nom");
+                    _nom = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("nom");
+                    OnnomChanged();
+                }
+            }
+        }
+        private global::System.Decimal _nom;
+        partial void OnnomChanging(global::System.Decimal value);
+        partial void OnnomChanged();
+    
+        /// <summary>
+        /// Нет доступной документации по метаданным.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Decimal> posit
+        {
+            get
+            {
+                return _posit;
+            }
+            set
+            {
+                OnpositChanging(value);
+                ReportPropertyChanging("posit");
+                _posit = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("posit");
+                OnpositChanged();
+            }
+        }
+        private Nullable<global::System.Decimal> _posit;
+        partial void OnpositChanging(Nullable<global::System.Decimal> value);
+        partial void OnpositChanged();
+    
+        /// <summary>
+        /// Нет доступной документации по метаданным.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Decimal> draft
+        {
+            get
+            {
+                return _draft;
+            }
+            set
+            {
+                OndraftChanging(value);
+                ReportPropertyChanging("draft");
+                _draft = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("draft");
+                OndraftChanged();
+            }
+        }
+        private Nullable<global::System.Decimal> _draft;
+        partial void OndraftChanging(Nullable<global::System.Decimal> value);
+        partial void OndraftChanged();
+    
+        /// <summary>
+        /// Нет доступной документации по метаданным.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Decimal> quant
+        {
+            get
+            {
+                return _quant;
+            }
+            set
+            {
+                OnquantChanging(value);
+                ReportPropertyChanging("quant");
+                _quant = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("quant");
+                OnquantChanged();
+            }
+        }
+        private Nullable<global::System.Decimal> _quant;
+        partial void OnquantChanging(Nullable<global::System.Decimal> value);
+        partial void OnquantChanged();
+    
+        /// <summary>
+        /// Нет доступной документации по метаданным.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Decimal> across
+        {
+            get
+            {
+                return _across;
+            }
+            set
+            {
+                OnacrossChanging(value);
+                ReportPropertyChanging("across");
+                _across = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("across");
+                OnacrossChanged();
+            }
+        }
+        private Nullable<global::System.Decimal> _across;
+        partial void OnacrossChanging(Nullable<global::System.Decimal> value);
+        partial void OnacrossChanged();
+    
+        /// <summary>
+        /// Нет доступной документации по метаданным.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Decimal> knk
+        {
+            get
+            {
+                return _knk;
+            }
+            set
+            {
+                OnknkChanging(value);
+                ReportPropertyChanging("knk");
+                _knk = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("knk");
+                OnknkChanged();
+            }
+        }
+        private Nullable<global::System.Decimal> _knk;
+        partial void OnknkChanging(Nullable<global::System.Decimal> value);
+        partial void OnknkChanged();
+    
+        /// <summary>
+        /// Нет доступной документации по метаданным.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Decimal> ksi
+        {
+            get
+            {
+                return _ksi;
+            }
+            set
+            {
+                OnksiChanging(value);
+                ReportPropertyChanging("ksi");
+                _ksi = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("ksi");
+                OnksiChanged();
+            }
+        }
+        private Nullable<global::System.Decimal> _ksi;
+        partial void OnksiChanging(Nullable<global::System.Decimal> value);
+        partial void OnksiChanged();
+    
+        /// <summary>
+        /// Нет доступной документации по метаданным.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Decimal> spec
+        {
+            get
+            {
+                return _spec;
+            }
+            set
+            {
+                OnspecChanging(value);
+                ReportPropertyChanging("spec");
+                _spec = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("spec");
+                OnspecChanged();
+            }
+        }
+        private Nullable<global::System.Decimal> _spec;
+        partial void OnspecChanging(Nullable<global::System.Decimal> value);
+        partial void OnspecChanged();
+    
+        /// <summary>
+        /// Нет доступной документации по метаданным.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Decimal> rung
+        {
+            get
+            {
+                return _rung;
+            }
+            set
+            {
+                OnrungChanging(value);
+                ReportPropertyChanging("rung");
+                _rung = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("rung");
+                OnrungChanged();
+            }
+        }
+        private Nullable<global::System.Decimal> _rung;
+        partial void OnrungChanging(Nullable<global::System.Decimal> value);
+        partial void OnrungChanged();
+    
+        /// <summary>
+        /// Нет доступной документации по метаданным.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Decimal> summ
+        {
+            get
+            {
+                return _summ;
+            }
+            set
+            {
+                OnsummChanging(value);
+                ReportPropertyChanging("summ");
+                _summ = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("summ");
+                OnsummChanged();
+            }
+        }
+        private Nullable<global::System.Decimal> _summ;
+        partial void OnsummChanging(Nullable<global::System.Decimal> value);
+        partial void OnsummChanged();
+    
+        /// <summary>
+        /// Нет доступной документации по метаданным.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String path
+        {
+            get
+            {
+                return _path;
+            }
+            set
+            {
+                OnpathChanging(value);
+                ReportPropertyChanging("path");
+                _path = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("path");
+                OnpathChanged();
+            }
+        }
+        private global::System.String _path;
+        partial void OnpathChanging(global::System.String value);
+        partial void OnpathChanged();
+    
+        /// <summary>
+        /// Нет доступной документации по метаданным.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Decimal> km
+        {
+            get
+            {
+                return _km;
+            }
+            set
+            {
+                OnkmChanging(value);
+                ReportPropertyChanging("km");
+                _km = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("km");
+                OnkmChanged();
+            }
+        }
+        private Nullable<global::System.Decimal> _km;
+        partial void OnkmChanging(Nullable<global::System.Decimal> value);
+        partial void OnkmChanged();
+    
+        /// <summary>
+        /// Нет доступной документации по метаданным.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Decimal> norm
+        {
+            get
+            {
+                return _norm;
+            }
+            set
+            {
+                OnnormChanging(value);
+                ReportPropertyChanging("norm");
+                _norm = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("norm");
+                OnnormChanged();
+            }
+        }
+        private Nullable<global::System.Decimal> _norm;
+        partial void OnnormChanging(Nullable<global::System.Decimal> value);
+        partial void OnnormChanged();
+    
+        /// <summary>
+        /// Нет доступной документации по метаданным.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Decimal> kz
+        {
+            get
+            {
+                return _kz;
+            }
+            set
+            {
+                OnkzChanging(value);
+                ReportPropertyChanging("kz");
+                _kz = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("kz");
+                OnkzChanged();
+            }
+        }
+        private Nullable<global::System.Decimal> _kz;
+        partial void OnkzChanging(Nullable<global::System.Decimal> value);
+        partial void OnkzChanged();
+    
+        /// <summary>
+        /// Нет доступной документации по метаданным.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.DateTime> p_nm
+        {
+            get
+            {
+                return _p_nm;
+            }
+            set
+            {
+                Onp_nmChanging(value);
+                ReportPropertyChanging("p_nm");
+                _p_nm = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("p_nm");
+                Onp_nmChanged();
+            }
+        }
+        private Nullable<global::System.DateTime> _p_nm;
+        partial void Onp_nmChanging(Nullable<global::System.DateTime> value);
+        partial void Onp_nmChanged();
+    
+        /// <summary>
+        /// Нет доступной документации по метаданным.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.DateTime> p_obm
+        {
+            get
+            {
+                return _p_obm;
+            }
+            set
+            {
+                Onp_obmChanging(value);
+                ReportPropertyChanging("p_obm");
+                _p_obm = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("p_obm");
+                Onp_obmChanged();
+            }
+        }
+        private Nullable<global::System.DateTime> _p_obm;
+        partial void Onp_obmChanging(Nullable<global::System.DateTime> value);
+        partial void Onp_obmChanged();
+    
+        /// <summary>
+        /// Нет доступной документации по метаданным.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.DateTime> p_tr
+        {
+            get
+            {
+                return _p_tr;
+            }
+            set
+            {
+                Onp_trChanging(value);
+                ReportPropertyChanging("p_tr");
+                _p_tr = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("p_tr");
+                Onp_trChanged();
+            }
+        }
+        private Nullable<global::System.DateTime> _p_tr;
+        partial void Onp_trChanging(Nullable<global::System.DateTime> value);
+        partial void Onp_trChanged();
+    
+        /// <summary>
+        /// Нет доступной документации по метаданным.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Decimal> mg_pl
+        {
+            get
+            {
+                return _mg_pl;
+            }
+            set
+            {
+                Onmg_plChanging(value);
+                ReportPropertyChanging("mg_pl");
+                _mg_pl = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("mg_pl");
+                Onmg_plChanged();
+            }
+        }
+        private Nullable<global::System.Decimal> _mg_pl;
+        partial void Onmg_plChanging(Nullable<global::System.Decimal> value);
+        partial void Onmg_plChanged();
+    
+        /// <summary>
+        /// Нет доступной документации по метаданным.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.DateTime> p_pec
+        {
+            get
+            {
+                return _p_pec;
+            }
+            set
+            {
+                Onp_pecChanging(value);
+                ReportPropertyChanging("p_pec");
+                _p_pec = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("p_pec");
+                Onp_pecChanged();
+            }
+        }
+        private Nullable<global::System.DateTime> _p_pec;
+        partial void Onp_pecChanging(Nullable<global::System.DateTime> value);
+        partial void Onp_pecChanged();
+    
+        /// <summary>
+        /// Нет доступной документации по метаданным.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.DateTime> mg_vd
+        {
+            get
+            {
+                return _mg_vd;
+            }
+            set
+            {
+                Onmg_vdChanging(value);
+                ReportPropertyChanging("mg_vd");
+                _mg_vd = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("mg_vd");
+                Onmg_vdChanged();
+            }
+        }
+        private Nullable<global::System.DateTime> _mg_vd;
+        partial void Onmg_vdChanging(Nullable<global::System.DateTime> value);
+        partial void Onmg_vdChanged();
+    
+        /// <summary>
+        /// Нет доступной документации по метаданным.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.DateTime> mg_sp
+        {
+            get
+            {
+                return _mg_sp;
+            }
+            set
+            {
+                Onmg_spChanging(value);
+                ReportPropertyChanging("mg_sp");
+                _mg_sp = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("mg_sp");
+                Onmg_spChanged();
+            }
+        }
+        private Nullable<global::System.DateTime> _mg_sp;
+        partial void Onmg_spChanging(Nullable<global::System.DateTime> value);
+        partial void Onmg_spChanged();
+    
+        /// <summary>
+        /// Нет доступной документации по метаданным.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Decimal> imcom
+        {
+            get
+            {
+                return _imcom;
+            }
+            set
+            {
+                OnimcomChanging(value);
+                ReportPropertyChanging("imcom");
+                _imcom = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("imcom");
+                OnimcomChanged();
+            }
+        }
+        private Nullable<global::System.Decimal> _imcom;
+        partial void OnimcomChanging(Nullable<global::System.Decimal> value);
+        partial void OnimcomChanged();
+    
+        /// <summary>
+        /// Нет доступной документации по метаданным.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Decimal> nom_nar
+        {
+            get
+            {
+                return _nom_nar;
+            }
+            set
+            {
+                Onnom_narChanging(value);
+                ReportPropertyChanging("nom_nar");
+                _nom_nar = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("nom_nar");
+                Onnom_narChanged();
+            }
+        }
+        private Nullable<global::System.Decimal> _nom_nar;
+        partial void Onnom_narChanging(Nullable<global::System.Decimal> value);
+        partial void Onnom_narChanged();
+    
+        /// <summary>
+        /// Нет доступной документации по метаданным.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.DateTime> p_ved
+        {
+            get
+            {
+                return _p_ved;
+            }
+            set
+            {
+                Onp_vedChanging(value);
+                ReportPropertyChanging("p_ved");
+                _p_ved = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("p_ved");
+                Onp_vedChanged();
+            }
+        }
+        private Nullable<global::System.DateTime> _p_ved;
+        partial void Onp_vedChanging(Nullable<global::System.DateTime> value);
+        partial void Onp_vedChanged();
+    
+        /// <summary>
+        /// Нет доступной документации по метаданным.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.DateTime> p_neo
+        {
+            get
+            {
+                return _p_neo;
+            }
+            set
+            {
+                Onp_neoChanging(value);
+                ReportPropertyChanging("p_neo");
+                _p_neo = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("p_neo");
+                Onp_neoChanged();
+            }
+        }
+        private Nullable<global::System.DateTime> _p_neo;
+        partial void Onp_neoChanging(Nullable<global::System.DateTime> value);
+        partial void Onp_neoChanged();
+    
+        /// <summary>
+        /// Нет доступной документации по метаданным.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Decimal> g_nar
+        {
+            get
+            {
+                return _g_nar;
+            }
+            set
+            {
+                Ong_narChanging(value);
+                ReportPropertyChanging("g_nar");
+                _g_nar = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("g_nar");
+                Ong_narChanged();
+            }
+        }
+        private Nullable<global::System.Decimal> _g_nar;
+        partial void Ong_narChanging(Nullable<global::System.Decimal> value);
+        partial void Ong_narChanged();
+    
+        /// <summary>
+        /// Нет доступной документации по метаданным.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.DateTime> p_cex
+        {
+            get
+            {
+                return _p_cex;
+            }
+            set
+            {
+                Onp_cexChanging(value);
+                ReportPropertyChanging("p_cex");
+                _p_cex = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("p_cex");
+                Onp_cexChanged();
+            }
+        }
+        private Nullable<global::System.DateTime> _p_cex;
+        partial void Onp_cexChanging(Nullable<global::System.DateTime> value);
+        partial void Onp_cexChanged();
+    
+        /// <summary>
+        /// Нет доступной документации по метаданным.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Decimal> ro
+        {
+            get
+            {
+                return _ro;
+            }
+            set
+            {
+                OnroChanging(value);
+                ReportPropertyChanging("ro");
+                _ro = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("ro");
+                OnroChanged();
+            }
+        }
+        private Nullable<global::System.Decimal> _ro;
+        partial void OnroChanging(Nullable<global::System.Decimal> value);
+        partial void OnroChanged();
+    
+        /// <summary>
+        /// Нет доступной документации по метаданным.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.DateTime> d_opl
+        {
+            get
+            {
+                return _d_opl;
+            }
+            set
+            {
+                Ond_oplChanging(value);
+                ReportPropertyChanging("d_opl");
+                _d_opl = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("d_opl");
+                Ond_oplChanged();
+            }
+        }
+        private Nullable<global::System.DateTime> _d_opl;
+        partial void Ond_oplChanging(Nullable<global::System.DateTime> value);
+        partial void Ond_oplChanged();
+    
+        /// <summary>
+        /// Нет доступной документации по метаданным.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.DateTime> d_dok
+        {
+            get
+            {
+                return _d_dok;
+            }
+            set
+            {
+                Ond_dokChanging(value);
+                ReportPropertyChanging("d_dok");
+                _d_dok = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("d_dok");
+                Ond_dokChanged();
+            }
+        }
+        private Nullable<global::System.DateTime> _d_dok;
+        partial void Ond_dokChanging(Nullable<global::System.DateTime> value);
+        partial void Ond_dokChanged();
+    
+        /// <summary>
+        /// Нет доступной документации по метаданным.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String blok
+        {
+            get
+            {
+                return _blok;
+            }
+            set
+            {
+                OnblokChanging(value);
+                ReportPropertyChanging("blok");
+                _blok = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("blok");
+                OnblokChanged();
+            }
+        }
+        private global::System.String _blok;
+        partial void OnblokChanging(global::System.String value);
+        partial void OnblokChanged();
+    
+        /// <summary>
+        /// Нет доступной документации по метаданным.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Decimal> cop
+        {
+            get
+            {
+                return _cop;
+            }
+            set
+            {
+                OncopChanging(value);
+                ReportPropertyChanging("cop");
+                _cop = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("cop");
+                OncopChanged();
+            }
+        }
+        private Nullable<global::System.Decimal> _cop;
+        partial void OncopChanging(Nullable<global::System.Decimal> value);
+        partial void OncopChanged();
+    
+        /// <summary>
+        /// Нет доступной документации по метаданным.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Decimal> normold
+        {
+            get
+            {
+                return _normold;
+            }
+            set
+            {
+                OnnormoldChanging(value);
+                ReportPropertyChanging("normold");
+                _normold = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("normold");
+                OnnormoldChanged();
+            }
+        }
+        private Nullable<global::System.Decimal> _normold;
+        partial void OnnormoldChanging(Nullable<global::System.Decimal> value);
+        partial void OnnormoldChanged();
+    
+        /// <summary>
+        /// Нет доступной документации по метаданным.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Decimal> norm_ob
+        {
+            get
+            {
+                return _norm_ob;
+            }
+            set
+            {
+                Onnorm_obChanging(value);
+                ReportPropertyChanging("norm_ob");
+                _norm_ob = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("norm_ob");
+                Onnorm_obChanged();
+            }
+        }
+        private Nullable<global::System.Decimal> _norm_ob;
+        partial void Onnorm_obChanging(Nullable<global::System.Decimal> value);
+        partial void Onnorm_obChanged();
+    
+        /// <summary>
+        /// Нет доступной документации по метаданным.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Decimal> vari
+        {
+            get
+            {
+                return _vari;
+            }
+            set
+            {
+                OnvariChanging(value);
+                ReportPropertyChanging("vari");
+                _vari = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("vari");
+                OnvariChanged();
+            }
+        }
+        private Nullable<global::System.Decimal> _vari;
+        partial void OnvariChanging(Nullable<global::System.Decimal> value);
+        partial void OnvariChanged();
+    
+        /// <summary>
+        /// Нет доступной документации по метаданным.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> cid
+        {
+            get
+            {
+                return _cid;
+            }
+            set
+            {
+                OncidChanging(value);
+                ReportPropertyChanging("cid");
+                _cid = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("cid");
+                OncidChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _cid;
+        partial void OncidChanging(Nullable<global::System.Int32> value);
+        partial void OncidChanged();
+    
+        /// <summary>
+        /// Нет доступной документации по метаданным.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> pid
+        {
+            get
+            {
+                return _pid;
+            }
+            set
+            {
+                OnpidChanging(value);
+                ReportPropertyChanging("pid");
+                _pid = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("pid");
+                OnpidChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _pid;
+        partial void OnpidChanging(Nullable<global::System.Int32> value);
+        partial void OnpidChanged();
 
         #endregion
 

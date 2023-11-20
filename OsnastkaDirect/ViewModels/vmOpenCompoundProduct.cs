@@ -69,16 +69,22 @@ namespace OsnastkaDirect.ViewModels
                 Model.PropertyChanged += modelPropertyChangedHandler;             
             }
 
-            /// <summary>
-            /// Обработчик изменения свойств модели
-            /// </summary>
-            /// <param name="_sender"></param>
-            /// <param name="_eventArgs"></param>
-            public void modelPropertyChangedHandler(object _sender, PropertyChangedEventArgs _eventArgs)
+        /// <summary>
+        /// Обработчик изменения свойств модели
+        /// </summary>
+        /// <param name="_sender"></param>
+        /// <param name="_eventArgs"></param>
+        public void modelPropertyChangedHandler(object _sender, PropertyChangedEventArgs _eventArgs)
+        {
+            if (_eventArgs.PropertyName == "pSelDraft" && Model.pSelDraft != null)
             {
-                ;
+                Model.LoadListDraftOsn();
             }
-            
+            if (_eventArgs.PropertyName == "pSelDraftOsn" && Model.pSelDraftOsn != null)
+            {
+                Model.LoadListDraftPiece();
+            }
+        }  
         #endregion
     }
 }
