@@ -3,10 +3,143 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:OsnastkaDirect.Views"
+        xmlns:my="clr-namespace:OsnastkaDirect.Data"
+        xmlns:Fluent="urn:fluent-ribbon"
+        xmlns:e="http://schemas.microsoft.com/expression/2010/interactivity"
+        xmlns:control="clr-namespace:Metrology.EmbedResources.Controls"
         mc:Ignorable="d"
-        Title="OpenFinOrder" Height="450" Width="800">
+        Title="Заказ"
+        Height="1024"
+        Width="1024"
+        WindowStartupLocation="CenterScreen">
     <Grid>
-        
+        <Rectangle Grid.Row="1"
+                   Margin="0">
+            <Rectangle.Fill>
+                <LinearGradientBrush StartPoint="0.5,0"
+                                     EndPoint="0.5,1">
+                    <GradientStop Color="White"
+                                  Offset="0" />
+                    <GradientStop Color="Lavender"
+                                  Offset="2" />
+                </LinearGradientBrush>
+            </Rectangle.Fill>
+        </Rectangle>
+
+
+        <DataGrid AutoGenerateColumns="false"
+                  Height="274"
+                  Margin="2,2,2,0"
+                  VerticalAlignment="Top"
+                  ItemsSource="{Binding model.pListOrder, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                  SelectedItem="{Binding model.pSelOrder, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                  IsReadOnly="true"
+                  CanUserAddRows="False"
+                  HorizontalScrollBarVisibility="Disabled"
+                  x:Name="DataGridOsn"
+                  FontSize="12">
+            <DataGrid.RowStyle>
+                <Style TargetType="{x:Type DataGridRow}"
+                       BasedOn="{StaticResource ResourceKey=DataGridRowBase}">
+                </Style>
+            </DataGrid.RowStyle>
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Заказ"
+                                    Binding="{Binding order}"
+                                    Width="0.1*" />
+                <DataGridTextColumn Header="Номер"
+                                    Binding="{Binding number}"
+                                    Width="0.1*" />
+                <DataGridTextColumn Header="Номер"
+                                    Binding="{Binding draft}"
+                                    Width="0.5*" />
+                <DataGridTextColumn Header="Номер"
+                                    Binding="{Binding draftName}"
+                                    Width="0.5*" />
+            </DataGrid.Columns>
+        </DataGrid>
+        <DataGrid AutoGenerateColumns="false"
+                  Height="274"
+                  Margin="2,640,2,0"
+                  VerticalAlignment="Top"
+                  ItemsSource="{Binding model.pListDraftPiece, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                  SelectedItem="{Binding model.pSelDraftPiece, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                  IsReadOnly="true"
+                  CanUserAddRows="False"
+                  HorizontalScrollBarVisibility="Disabled"
+                  x:Name="DataGridOsn3"
+                  FontSize="12">
+            <DataGrid.RowStyle>
+                <Style TargetType="{x:Type DataGridRow}"
+                       BasedOn="{StaticResource ResourceKey=DataGridRowBase}">
+                </Style>
+            </DataGrid.RowStyle>
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Чертеж запчасти"
+                                    Binding="{Binding draftPiece}"
+                                    Width="0.1*" />
+                <DataGridTextColumn Header="Наименование запчасти"
+                                    Binding="{Binding draftPieceName}"
+                                    Width="0.1*" />
+            </DataGrid.Columns>
+        </DataGrid>
+        <WrapPanel Margin="0,281,0,0"
+                   HorizontalAlignment="Center"
+                   Width="1004"
+                   Height="85"
+                   VerticalAlignment="Top">
+            <Fluent:Button Header="Выбрать"
+                           Command="{Binding pAcceptOpen}"
+                           Width="90"
+                           Height="60"
+                           Background="White"
+                           BorderBrush="Silver"
+                           CornerRadius="5">
+                <Fluent:Button.LargeIcon>
+                    <Image Source="/OsnastkaDirect;component/EmbedResources/Icons/Save.png"
+                           Width="35"
+                           Height="35"
+                           Margin="-5,0,-2,-2" />
+                </Fluent:Button.LargeIcon>
+            </Fluent:Button>
+            <Fluent:Button Header="Отмена"
+                           Command="{Binding pNotAcceptOpen}"
+                           Width="90"
+                           Height="60"
+                           Background="White"
+                           BorderBrush="Silver"
+                           CornerRadius="5">
+                <Fluent:Button.LargeIcon>
+                    <Image Source="/OsnastkaDirect;component/EmbedResources/Icons/Save.png"
+                           Width="35"
+                           Height="35"
+                           Margin="-5,0,-2,-2" />
+                </Fluent:Button.LargeIcon>
+            </Fluent:Button>
+            <Label Content="Поиск по"
+                   VerticalAlignment="Center"
+                   FontSize="14"
+                   Height="30" />
+            <control:PlaceholderBox Height="30"
+                                    Placeholder="Чертеж оснастки"
+                                    Text="{Binding model.pSearchOsn, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                    Width="120"
+                                    FontSize="14" />
+        </WrapPanel>
+        <TreeView Name="viewsTreeView"
+                  Margin="0,281,0,373"
+                  ItemsSource="{Binding model.pListDraftOutpro, UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}"
+                  ScrollViewer.CanContentScroll="True">
+            <e:Interaction.Behaviors>
+                <my:BindableSelectedItemBehavior SelectedItem="{Binding model.pSelDraftOutpro, Mode=TwoWay}" />
+            </e:Interaction.Behaviors>
+            <TreeView.ItemTemplate>
+                <HierarchicalDataTemplate ItemsSource="{Binding children,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}"
+                                          DataType="{x:Type my:TreeViewDraft}">
+                    <!--<TreeViewItem Header="{Binding draftName}" />-->
+                    <Label Content="{Binding draftName}" />
+                </HierarchicalDataTemplate>
+            </TreeView.ItemTemplate>
+        </TreeView>
     </Grid>
 </Window>

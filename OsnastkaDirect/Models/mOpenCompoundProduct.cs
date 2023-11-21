@@ -58,8 +58,8 @@ namespace OsnastkaDirect.Models
                 }
             }
         }
-        List<Osnsv> ListDraft;
-        public List<Osnsv> pListDraft
+        List<TreeViewDraft> ListDraft;
+        public List<TreeViewDraft> pListDraft
         {
             get { return ListDraft; }
             set
@@ -86,8 +86,8 @@ namespace OsnastkaDirect.Models
             }
         }
 
-        List<Osnsv> ListDraftPiece;
-        public List<Osnsv> pListDraftPiece
+        ObservableCollection<Osnsv> ListDraftPiece;
+        public ObservableCollection<Osnsv> pListDraftPiece
         {
             get { return ListDraftPiece; }
             set
@@ -100,8 +100,8 @@ namespace OsnastkaDirect.Models
             }
         }
 
-        Osnsv SelDraft;
-        public Osnsv pSelDraft
+        TreeViewDraft SelDraft;
+        public TreeViewDraft pSelDraft
         {
             get { return SelDraft; }
             set
@@ -114,8 +114,8 @@ namespace OsnastkaDirect.Models
             }
         }
 
-        Osnsv SelDraftOsn;
-        public Osnsv pSelDraftOsn
+        TreeViewDraft SelDraftOsn;
+        public TreeViewDraft pSelDraftOsn
         {
             get { return SelDraftOsn; }
             set
@@ -158,131 +158,104 @@ namespace OsnastkaDirect.Models
         }
         public void LoadOsnsv()
         {
-            var _list = (from i in db.osnsv//.Where(j => j.draft)
-                                            //join db1 in db.FullDraftNameList
-                                            //  on i.kuda equals db1.Draft into gf1
-                                            //from listDse in gf1.DefaultIfEmpty().Take(1)
+            var _list = (from i in db.complect
+                         join dbNameFull in db.FullDraftNameList
+                             on i.what equals dbNameFull.Draft into gfFull
+                         from listDseDraft in gfFull.DefaultIfEmpty()
 
-                              //join db2 in db.FullDraftNameList 
-                              //  on i.what equals db2.Draft into gf2
-                              //from listDsePiece in gf2.DefaultIfEmpty().Take(1)
-
-                              //join db3 in db.osnsv
-                              //  on i.kuda equals db3.draftosn into gf3
-                              //from listOSNSV in gf3.DefaultIfEmpty().Take(1)
-
-                          join db4 in db.FullDraftNameList
-                            on i.draft equals db4.Draft into gf4
-                          from listDseDraft in gf4.DefaultIfEmpty().Take(1)
-
-                          join db5 in db.FullDraftNameList
-                            on (int)(i.draft/1000) equals db5.Draft into gf5
-                          from listDseDraftSh in gf5.DefaultIfEmpty().Take(1)
-                          select new Osnsv
+                         join dbNameSh in db.FullDraftNameList.Where(i => i.IsShortDraft)
+                             on (int)(i.what / 1000) equals dbNameSh.Draft into gfSh
+                         from listDseDraftSh in gfSh.DefaultIfEmpty()
+                         let draftName = listDseDraft.DraftName != null ? listDseDraft.DraftName : listDseDraftSh.DraftName != null ? listDseDraftSh.DraftName : ""
+                         select new TreeViewDraft
                           {
-
-                              //draftOsn = i.kuda,
-                              //draftOsnName = listDse.DraftName,
-                              //draftPiece= i.what,
-                              //draftPieceName =listDsePiece.DraftName,
-                              draft = i.draft,
-                              draftName = listDseDraft.DraftName == null ? listDseDraftSh.DraftName : listDseDraft.DraftName
+                              draft = i.what,
+                              draftName = draftName,
+                              draftAcross = i.kuda
                           }).ToList();
-            pListDraft = _list.Distinct().ToList();
+            pListDraft = _list.Distinct().OrderBy(i => i.draft).ToList();
         }
         public void LoadListDraftOsn()
         {
-            pListDraftOsn = new ObservableCollection<TreeViewDraft>((from i in db.osnsv.Where(j => j.draft == pSelDraft.draft)
+            pListDraftOsn = new ObservableCollection<TreeViewDraft>((from i in db.complect.Where(j => j.kuda == pSelDraft.draft && j.what != pSelDraft.draft)
 
-                                 //join db1 in db.FullDraftNameList
-                                 //  on i.draft equals db1.Draft into gf1
-                                 //from listDse in gf1.DefaultIfEmpty().Take(1)
+                          join db4 in db.FullDraftNameList
+                            on i.what equals db4.Draft into gf4
+                          from listDseDraft in gf4.DefaultIfEmpty()
+
+                          join db5 in db.FullDraftNameList.Where(i => i.IsShortDraft)
+                            on (int)(i.what/1000) equals db5.Draft into gf5
+                          from listDseDraftSh in gf5.DefaultIfEmpty()
+
+                          let draftName = listDseDraft.DraftName != null ? listDseDraft.DraftName : listDseDraftSh.DraftName!=null ? listDseDraftSh.DraftName : ""
                              select new TreeViewDraft
                              {
-                                 draft = i.draftosn,
-                                 draftName = SqlFunctions.StringConvert((double?)i.draftosn,14,2) + " " + i.naimosn,
+                                 draft = i.what,
+                                 draftName = SqlFunctions.StringConvert((double?)i.what,14,2) + " " + draftName,
+                                 draftAcross = i.kuda
                              }).ToList());
-            //pListDraftOsn[0].children.Add(new TreeViewDraft ( 312, "fds" ));
             for (int i = 0; i < pListDraftOsn.Count; i++)
             {
-                var lol = LoadListDraftOsnRec(pListDraftOsn[i].draft, pListDraftOsn[i].children);
-                for (int j = 0; j < lol.Count; j++)
+                if (pListDraftOsn[i].draft != pListDraftOsn[i].draftAcross)
                 {
-                    pListDraftOsn[i].children.Add(new TreeViewDraft(lol[j].draft, lol[j].draftName, lol[j].children));
-                    //pListDraftOsn[i].children.Add(new TreeViewDraft(312, "fds", new ObservableCollection<TreeViewDraft>(new List<TreeViewDraft> { (new TreeViewDraft(312, "fds")) } )));
+                    var lol = LoadListDraftOsnRec(pListDraftOsn[i].draft, pListDraftOsn[i].children);
+                    for (int j = 0; j < lol.Count; j++)
+                    {
+                        pListDraftOsn[i].children.Add(new TreeViewDraft(lol[j].draft, lol[j].draftName, lol[j].children));
+                    }
                 }
             }
-            //string Err = "";// здесь будут все сообщения об ошибках в информации при разузловании и других режимах
-            //List<ClOutT> OutT = new List<ClOutT>();//здесь будет разузлованный состав
-            //List<ClTr> Te = new List<ClTr>();// здесь будет пооперационная трудоемкость
-            //List<Itog> itm = new List<Itog>();// здесь будет потребность в ТМЦ
-            //                                  //Разузлование
-            //var re = Rasusl.mRasusl(pSelDraft.draft.Value, false, OutT, out Err);//4АЗМ-2500/6000 Т4  
-            ///// Выполнение составило  4344 ms
-            //if (Err.Length == 0)// нет ошибок разузлования
-            //{
-            //    foreach (var v in OutT)
-            //    {
-
-            //        //Расчет трудоемкости
-            //        Rasusl.GetTe(v.draft, v.path, v.id, v.spec, v.ksi, v.knk, false, Te);
-            //        //Rasusl.GetTe(v.draft, v.path, v.id, v.spec, v.ksi, v.knk, false, Te,ref Err); // вариант с контролем наличия ТН
-            //        // в Err сообщения об ошибках
-            //    }
-            //    ///Выполнение составило  11794 ms
-
-            //    //расчет потребности в ТМЦ
-            //    itm = Rasusl.GetMaterialsItog(OutT, ref Err);
-
-            //    ///Выполнение составило  12825 ms
-            //    if (Err.Length == 0)// нет ошибок при расчете норм ТМЦ
-            //        ;//........
-            //    else
-            //        ;//......
-            //}
-            //pListDraftOsn = OutT;
-                   }
+        }
         public ObservableCollection<TreeViewDraft> LoadListDraftOsnRec(decimal? _draft, ObservableCollection<TreeViewDraft> _children)
         {
-            _children = new ObservableCollection<TreeViewDraft>((from i in db.outpro.Where(j => j.across == _draft)
+            _children = new ObservableCollection<TreeViewDraft>((from i in db.complect.Where(j => j.kuda == _draft)
 
-                                         join db1 in db.FullDraftNameList
-                                           on i.draft equals db1.Draft into gf1
-                                         from listDse in gf1.DefaultIfEmpty().Take(1)
+                          join db4 in db.FullDraftNameList
+                            on i.what equals db4.Draft into gf4
+                          from listDseDraft in gf4.DefaultIfEmpty()
 
-                                         select new TreeViewDraft
-                                         {
-                                             draft = i.draft,
-                                             draftName = SqlFunctions.StringConvert((double?)i.draft,14,2) + " " + listDse.DraftName,
-                                         }).ToList());
+                          join db5 in db.FullDraftNameList.Where(i => i.IsShortDraft)
+                            on (int)(i.what/1000) equals db5.Draft into gf5
+                          from listDseDraftSh in gf5.DefaultIfEmpty()
+
+                          let draftName = listDseDraft.DraftName != null ? listDseDraft.DraftName : listDseDraftSh.DraftName!=null ? listDseDraftSh.DraftName : ""
+                             select new TreeViewDraft
+                             {
+                                 draft = i.what,
+                                 draftName = SqlFunctions.StringConvert((double?)i.what, 14, 2) + " " + draftName,
+                                 draftAcross = i.kuda
+                             }).ToList());
             for (int i = 0; i < _children.Count; i++)
             {
-                var _list = LoadListDraftOsnRec(_children[i].draft, _children[i].children);
-                for (int j = 0; j < _list.Count; j++)
+                if (_children[i].draft != _children[i].draftAcross)
                 {
-                    _children[i].children.Add(new TreeViewDraft(_list[j].draft, _list[j].draftName, _list[j].children));
-                   // _children[i].children.Add(new TreeViewDraft(312, "fds", new ObservableCollection<TreeViewDraft>(new List<TreeViewDraft> { (new TreeViewDraft(312, "fds")) })));
+                    var _list = LoadListDraftOsnRec(_children[i].draft, _children[i].children);
+                    for (int j = 0; j < _list.Count; j++)
+                    {
+                        _children[i].children.Add(new TreeViewDraft(_list[j].draft, _list[j].draftName, _list[j].children));
+                    }
                 }
             }
-            //for (int i = 0; i < _children.Count; i++)
-            //{
-            //    _children[i].children = LoadListDraftOsnRec(_children[i].draft, _children[i].children);
-            //}
             return _children;
         }
         public void LoadListDraftPiece()
         {
-            pListDraftPiece = (from i in db.ocomplect.Where(j => j.kuda == pSelDraftOsn.draftOsn)
+            pListDraftPiece = new ObservableCollection<Osnsv>((from i in db.osnsv.Where(j => j.draft == pSelDraftOsn.draft)
 
-                               join db2 in db.FullDraftNameList
-                                 on i.what equals db2.Draft into gf2
-                               from listDsePiece in gf2.DefaultIfEmpty().Take(1)
+                               join db4 in db.FullDraftNameList
+                                 on i.draftosn equals db4.Draft into gf4
+                               from listDseDraft in gf4.DefaultIfEmpty()
 
+                               join db5 in db.FullDraftNameList.Where(i => i.IsShortDraft)
+                                 on (int)(i.draftosn / 1000) equals db5.Draft into gf5
+                               from listDseDraftSh in gf5.DefaultIfEmpty()
+
+                               let draftName = listDseDraft.DraftName != null ? listDseDraft.DraftName : listDseDraftSh.DraftName != null ? listDseDraftSh.DraftName : ""
                                select new Osnsv
                                {
-                                   draftPiece = i.what,
-                                   draftPieceName = listDsePiece.DraftName,
-                               }).ToList();
+                                   draftPiece = i.draftosn,
+                                   draftPieceName = i.naimosn,
+                               }).ToList());
         }
         #endregion
     }

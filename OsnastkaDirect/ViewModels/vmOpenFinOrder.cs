@@ -74,10 +74,17 @@ namespace OsnastkaDirect.ViewModels
             /// </summary>
             /// <param name="_sender"></param>
             /// <param name="_eventArgs"></param>
-            public void modelPropertyChangedHandler(object _sender, PropertyChangedEventArgs _eventArgs)
+        public void modelPropertyChangedHandler(object _sender, PropertyChangedEventArgs _eventArgs)
+        {
+            if (_eventArgs.PropertyName == "pSelOrder" && Model.pSelOrder != null)
             {
-                ;
+                Model.LoadListDraftOsn();
             }
+            if (_eventArgs.PropertyName == "pSelDraftOutpro" && Model.pSelDraftOutpro != null)
+            {
+                Model.LoadListDraftPiece();
+            }
+        }
             
         #endregion
     }

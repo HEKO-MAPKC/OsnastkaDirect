@@ -6,6 +6,7 @@
         xmlns:local="clr-namespace:OsnastkaDirect"
         xmlns:my="clr-namespace:OsnastkaDirect.Data"
         xmlns:Fluent="urn:fluent-ribbon"
+        xmlns:e="http://schemas.microsoft.com/expression/2010/interactivity"
         xmlns:control="clr-namespace:Metrology.EmbedResources.Controls"
         mc:Ignorable="d"
         Title="Вспомогательная оснастка"
@@ -56,7 +57,7 @@
                                     Width="0.1*" />
             </DataGrid.Columns>
         </DataGrid>
-        <DataGrid AutoGenerateColumns="false"
+        <!--<DataGrid AutoGenerateColumns="false"
                   Height="274"
                   Margin="2,340,2,0"
                   VerticalAlignment="Top"
@@ -80,7 +81,7 @@
                                     Binding="{Binding draftOsnName}"
                                     Width="0.1*" />
             </DataGrid.Columns>
-        </DataGrid>
+        </DataGrid>-->
         <DataGrid AutoGenerateColumns="false"
                   Height="274"
                   Margin="2,640,2,0"
@@ -150,9 +151,13 @@
                                     FontSize="14" />
         </WrapPanel>
         <TreeView Name="viewsTreeView"
-                  Margin="0,281,0,0"
-                  ItemsSource="{Binding model.pListDraftOsn, UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}">
-            <TreeView.ItemTemplate>
+                  Margin="0,281,0,373"
+                  ItemsSource="{Binding model.pListDraftOsn, UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}"
+                  ScrollViewer.CanContentScroll="True">
+            <e:Interaction.Behaviors>
+                <my:BindableSelectedItemBehavior SelectedItem="{Binding model.pSelDraftOsn, Mode=TwoWay}" />
+            </e:Interaction.Behaviors>
+                <TreeView.ItemTemplate>
                 <HierarchicalDataTemplate ItemsSource="{Binding children,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}"
                                           DataType="{x:Type my:TreeViewDraft}">
                     <!--<TreeViewItem Header="{Binding draftName}" />-->

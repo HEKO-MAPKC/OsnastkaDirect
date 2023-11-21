@@ -115,6 +115,7 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Data\BindableSelectedItemBehavior.cs" />
     <Compile Include="Data\Draft.cs" />
     <Compile Include="Data\FOXModel.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -122,6 +123,7 @@
       <DependentUpon>FOXModel.edmx</DependentUpon>
     </Compile>
     <Compile Include="Data\Ocomplect.cs" />
+    <Compile Include="Data\OrderPlgod.cs" />
     <Compile Include="Data\Osnsv.cs" />
     <Compile Include="Data\Product.cs" />
     <Compile Include="Data\TreeViewDraft.cs" />

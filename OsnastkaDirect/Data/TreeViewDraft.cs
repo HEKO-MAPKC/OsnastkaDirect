@@ -27,6 +27,7 @@ namespace OsnastkaDirect.Data
             children = _list;
         }
         public decimal? draft { get; set; }
+        public decimal? draftAcross { get; set; }
         public string draftName { get; set; }
         public ObservableCollection<TreeViewDraft> children { get; set; }
         public override bool Equals(object obj)
