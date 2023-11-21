@@ -127,6 +127,7 @@
     <Compile Include="Data\Osnsv.cs" />
     <Compile Include="Data\Product.cs" />
     <Compile Include="Data\TreeViewDraft.cs" />
+    <Compile Include="Data\TreeViewItemHelper.cs" />
     <Compile Include="Data\TypeProduct.cs" />
     <Compile Include="EmbedResources\Controls\BeautyCheckBox.xaml.cs">
       <DependentUpon>BeautyCheckBox.xaml</DependentUpon>

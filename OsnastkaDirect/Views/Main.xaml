@@ -93,7 +93,6 @@
                                                  ImageSource="/OsnastkaDirect;component/EmbedResources/Icons/help_icon.png"
                                                  Command="{Binding pOpenApprove}" />
                     <r:RibbonApplicationMenuItem Header="Формирование&#10;отчета выполнения"
-                                                
                                                  ImageSource="/OsnastkaDirect;component/EmbedResources/Icons/help_icon.png"
                                                  Command="{Binding pOpenApprove}" />
                     <r:RibbonApplicationMenu.FooterPaneContent>
@@ -249,7 +248,11 @@
                                           Header="Просмотр скан-копии"
                                           Command="{Binding pWatchScanCopy}" />
                     </r:RibbonMenuButton>
-
+                    <r:RibbonButton Command="{Binding pOpenCheckOldOsn}"
+                                    Label="Просмотр ранее заказанных"
+                                    LargeImageSource="/OsnastkaDirect;component/EmbedResources/Icons/help_icon.png"
+                                    DockPanel.Dock="Right"
+                                    Margin="2" />
                 </r:RibbonGroup>
             </r:RibbonTab>
 

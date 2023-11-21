@@ -185,10 +185,10 @@ namespace OsnastkaDirect.Models
             {
                 if (pListDraftOutpro[i].draft != pListDraftOutpro[i].draftAcross)
                 {
-                    var lol = LoadListDraftOsnRec(pListDraftOutpro[i].draft, pListDraftOutpro[i].children);
-                    for (int j = 0; j < lol.Count; j++)
+                    var _list = LoadListDraftOsnRec(pListDraftOutpro[i].draft, pListDraftOutpro[i].children);
+                    for (int j = 0; j < _list.Count; j++)
                     {
-                        pListDraftOutpro[i].children.Add(new TreeViewDraft(lol[j].draft, lol[j].draftName, lol[j].children));
+                        pListDraftOutpro[i].children.Add(new TreeViewDraft(_list[j].draft, _list[j].draftName, _list[j].children));
                     }
                 }
             }

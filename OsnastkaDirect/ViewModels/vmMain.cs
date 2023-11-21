@@ -197,6 +197,13 @@ namespace OsnastkaDirect.ViewModels
             get { return OpenFinOrderW ?? (OpenFinOrderW = new CommandBase(mOpenFinOrderW)); }
         }
 
+        CommandBase OpenCheckOldOsn;
+
+        public CommandBase pOpenCheckOldOsn
+        {
+            get { return OpenCheckOldOsn ?? (OpenCheckOldOsn = new CommandBase(mOpenCheckOldOsn)); }
+        }
+
         #endregion
 
         #region Методы
@@ -453,6 +460,22 @@ namespace OsnastkaDirect.ViewModels
             ((OpenFinOrder)VMLocator.VMs[name][index].view).Unloaded += (obj, args) => VMLocator.Clean((string)(((dynamic)obj).Uid));
 
             VMLocator.VMs[name][index].view.Owner = View;
+            VMLocator.VMs[name][index].view.ShowDialog();
+        }
+
+        public void mOpenCheckOldOsn()
+        {
+            if (Model.pSelOsn == null) return;
+            string name = typeof(CheckOldOsn).Name;
+            int index = VMLocator.CreateViewModel(name);
+
+            ((CheckOldOsn)VMLocator.VMs[name][index].view).Loaded += ((vmCheckOldOsn)VMLocator.VMs[name][index]).viewLoaded;
+            ((CheckOldOsn)VMLocator.VMs[name][index].view).Unloaded += (obj, args) => VMLocator.Clean((string)(((dynamic)obj).Uid));
+
+            VMLocator.VMs[name][index].model.WindowMain = this;
+
+            VMLocator.VMs[name][index].view.Owner = View;
+            VMLocator.VMs[name][index].model.LoadOsn();
             VMLocator.VMs[name][index].view.ShowDialog();
         }
         #endregion
