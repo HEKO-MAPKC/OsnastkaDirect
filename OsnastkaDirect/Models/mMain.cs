@@ -335,15 +335,23 @@ namespace OsnastkaDirect.Models
             // 8. Присоединить к oborud таблице таблицу цехов/рабочих мест
             // 9. То что таблица ReferenceCode вне схемы оснастки - это же фича?
             // 10. Драфт нулевой или null в названии пишется то самое "ууууу", удалить с таблицы. Решить вообще что с названиями... - Решено, но нет, не решено
-            // 11. Для techorder без техзаказа нужно сделать пустую строчку в DraftOsnast, у меня пустые драфты в таблице, нужно TechOrder не джойнить, а просто оттуда from инсертить. Невозможно соединить techorder proos, ибо заказ нулевой, нужно новое поле для связи с proos - Временно решено тем что объединил по полю t.DateCreateApplication = z.dt_who
+            // 11. Для techorder без техзаказа нужно сделать пустую строчку в DraftOsnast, у меня пустые драфты в таблице, нужно TechOrder не джойнить, а просто оттуда from инсертить. Невозможно соединить techorder proos, ибо заказ нулевой, нужно новое поле для связи с proos - Временно решено тем что объединил по полю t.DateCreateApplication = z.dt_who - тут я чета поменял неактуально
             // 12. Я все еще понимаю как присоединить наименования драфтов ко всем трём драфтам, получается будем заполнять таблицу наименованиями сразу?
             // 13. Почему вообще нельзя сделать truncate для таблицы TechOrder из-за внешних ключей?
             // 14. Легендарная таблица всех драфтов собрана, картинка на миро, решить что-то с форматированием. + сделать представлением или нет, подумать надо
             // 15. Как отсортировать таблицы
-            // 16. Что за нулевой 0.0 драфт в 7к заказах?
+            // 16. Что за нулевой 0.0 драфт в 7к заказах outpro?
+            // 17. Отрицательные trud в заявке
+            // 18. Все даты либо перевести с временем или наоборот? В proos время в некоторых полях есть, в zayvka времени нету
+            // 19. RepairOrProduction TypeOsnast для zayvka нулевые должны быть	 
+            // 20. Что делать с оставшимися кладовыми
+            // 21. Нужны ли столбцы с названиями в оснаске?
+            // 22. В чем смысл записей где zayvka и proos совпадают?
+            // 23. В концов концов я не сумел понять где какие связи, один к бесконечности, бесконечность к бесконечности...
+            // 24. В итоге DraftOsnastka таблица важнее ибо она бесконечность к 1 TechOrder
             pListOsn = null;
             pListOsnLoaded = null;
-            var _var1 = (from i in db.TechOrder
+            var _var1 = (from i in db.TechOrder.Where(i => i.IsApplicationFrom.Value==true)
 
                          join db6 in db.DraftOsnast on
                                   /*SqlFunctions.Equals(i.zak_1,null) ? "0" :*/ i.TechOrderID equals db6.TechOrderID /*!= null ? db6.zak_1 : "0"*/  into gf6
@@ -351,7 +359,7 @@ namespace OsnastkaDirect.Models
                                   //where i.zak_1 != null 
                          let _draftneed = DraftOsnastList.DraftPiece == 0 || DraftOsnastList.DraftPiece == null ? DraftOsnastList.DraftOsnast1.Value : DraftOsnastList.DraftPiece.Value
 
-                         join db1 in db.FullDraftNameList
+                         join db1 in db.FullDraftNameList.Where(i => i.IsShortDraft)
                          on (int)(i.Draft.Value / 1000) equals db1.Draft into gf1
                          from listDse in gf1.DefaultIfEmpty().Take(1)
 
@@ -408,7 +416,7 @@ namespace OsnastkaDirect.Models
                               select new Osn
                               {
                                   draftOsn = DraftOsnastList.DraftOsnast1,
-                                  // workshop = i.WorkshopID,
+                                  //workshop = i.WorkshopID,
                                   nOrdPrev = i.TechOrderID,
                                   nOrd = i.TechOrder1,
                                   reason = i.ReasonProduction,
@@ -708,6 +716,7 @@ namespace OsnastkaDirect.Models
         }
         public void ReturnBackOrd()
         {
+            if (pSelOsn == null) return;
             var _osnLoad = db.proos.FirstOrDefault(i => i.tzakpred == pSelOsn.nOrdPrev);
             if (_osnLoad == null) return;
             _osnLoad.why_back = pSelOsn.returnRes;
@@ -873,6 +882,7 @@ namespace OsnastkaDirect.Models
         }
         public void PrintBlancOrd()
         {
+            if (pSelOsn == null) return;
             MessageBox.Show("Удалить нельзя! Техзаказ утвержден!", "Внимание!", MessageBoxButton.OK, MessageBoxImage.Warning);
             PrintDoc();
             //if (pSelOsn == null) return;
@@ -945,21 +955,24 @@ namespace OsnastkaDirect.Models
         }
         public void WatchScanCopyOrd()
         {
+            if (pSelOsn == null) return;
             Process process = new Process();
             {
                 process.StartInfo.FileName = @"C:\Fox\t3.exe"; //путь к приложению, которое будем запускать
-                //process.StartInfo.WorkingDirectory = @"c:\Fox\"; //путь к рабочей директории приложения
-                //process.StartInfo.Arguments = pSelOsn.draftGrid.ToString(); //аргументы командной строки (параметры)
+                process.StartInfo.WorkingDirectory = @"c:\Fox\"; //путь к рабочей директории приложения
+                process.StartInfo.Arguments = pSelOsn.draftGrid.ToString(); //аргументы командной строки (параметры)
                 process.Start();
 
             };
         }
         public void EditOrd()
         {
-            pCreateTabOpen=true;
+            if (pSelOsn == null) return;
+            OpenCreate();
         }
         public void PrintDoc()
         {
+            if (pSelOsn == null) return;
             try
             {
                 string filename = @"Reports/report.frx";
@@ -1003,6 +1016,17 @@ namespace OsnastkaDirect.Models
                                     product = i.name,
                                     draft = i.draft,
                                 }).ToList();
+        }
+        public void OpenApprove()
+        {
+            pApproveTabOpen = true;
+            pCreateTabOpen = false;
+        }
+
+        public void OpenCreate()
+        {
+            pCreateTabOpen = true;
+            pApproveTabOpen = false;
         }
         #endregion
     }

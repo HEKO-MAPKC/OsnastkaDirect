@@ -359,14 +359,12 @@ namespace OsnastkaDirect.ViewModels
 
         public void mOpenApprove()
         {
-            Model.pApproveTabOpen = true;
-            Model.pCreateTabOpen = false;
+            Model.OpenApprove();
         }
 
         public void mOpenCreate()
         {
-            Model.pCreateTabOpen = true;
-            Model.pApproveTabOpen = false;
+            Model.OpenCreate();
         }
         public void mFinalApprove()
         {
