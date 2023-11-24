@@ -422,19 +422,11 @@
           <Property Name="dt_corr" Type="datetime" />
           <Property Name="zak_1" Type="nchar" MaxLength="7" />
         </EntityType>
-        <EntityType Name="ReferenceCode">
-          <Key>
-            <PropertyRef Name="ReferenceCodeID" />
-          </Key>
-          <Property Name="ReferenceCodeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="ReferenceCodeDescription" Type="varchar" MaxLength="200" />
-        </EntityType>
         <EntityType Name="ReferenceInformation">
           <Key>
             <PropertyRef Name="ReferenceInformationID" />
           </Key>
           <Property Name="ReferenceInformationID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="ReferenceCodeID" Type="int" Nullable="false" />
           <Property Name="ReferenceName" Type="varchar" MaxLength="100" />
         </EntityType>
         <EntityType Name="s_oper">
@@ -445,6 +437,25 @@
           <Property Name="oper" Type="nchar" MaxLength="44" />
           <Property Name="cex" Type="nchar" MaxLength="3" />
           <Property Name="kontr" Type="numeric" Precision="1" Scale="0" />
+        </EntityType>
+        <EntityType Name="Workshop">
+          <Key>
+            <PropertyRef Name="WorkshopID" />
+          </Key>
+          <Property Name="WorkshopID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IsActual" Type="bit" Nullable="false" />
+          <Property Name="IsWorkshop" Type="bit" Nullable="false" />
+          <Property Name="Workshop" Type="char" MaxLength="3" Nullable="false" />
+          <Property Name="WorkshopDescription" Type="varchar" MaxLength="100" />
+          <Property Name="NameOfProduction" Type="varchar" MaxLength="40" />
+          <Property Name="WorkshopMaterReport" Type="char" MaxLength="3" />
+          <Property Name="StoreroomDestination" Type="char" MaxLength="3" />
+          <Property Name="StoreroomOsnast" Type="char" MaxLength="3" />
+          <Property Name="StoreroomDragMetal" Type="char" MaxLength="3" />
+          <Property Name="NotSplitOperation" Type="smallint" />
+          <Property Name="BalanceAccount" Type="smallint" />
+          <Property Name="IsRO" Type="bit" Nullable="false" />
+          <Property Name="PrintUnit" Type="varchar" MaxLength="30" />
         </EntityType>
         <EntityType Name="zayvka">
           <Key>
@@ -516,7 +527,7 @@
             <PropertyRef Name="DraftOsnastID" />
           </Key>
           <Property Name="DraftOsnastID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="TechOrderID" Type="int" Nullable="false" />
+          <Property Name="TechOrderID" Type="int" />
           <Property Name="AmountEquipmentInWorkTogether" Type="numeric" Precision="2" Scale="0" />
           <Property Name="NameDraftOsnast" Type="varchar" MaxLength="50" />
           <Property Name="DraftOsnast" Type="numeric" Precision="13" Scale="2" />
@@ -547,6 +558,7 @@
           <Property Name="BalanceAccount" Type="numeric" Precision="3" Scale="0" />
           <Property Name="AmountEquipmentProduceFact" Type="numeric" Precision="5" Scale="0" />
           <Property Name="DateRecieveTechOrderSPP" Type="date" />
+          <Property Name="OldOsproid" Type="int" />
         </EntityType>
         <EntityType Name="TechOrder">
           <Key>
@@ -587,27 +599,29 @@
           <Property Name="IsAtConstructor" Type="bit" />
           <Property Name="DateAtConstructor" Type="datetime" />
           <Property Name="DateAtApproval" Type="datetime" />
-          <Property Name="RepairOrProduction" Type="int" Nullable="false" />
-          <Property Name="TypeOsnast" Type="int" Nullable="false" />
+          <Property Name="RepairOrProduction" Type="int" />
+          <Property Name="TypeOsnast" Type="int" />
           <Property Name="DateBackupLimitation" Type="datetime" />
           <Property Name="BackupAmount" Type="int" />
           <Property Name="Grafik_id" Type="int" />
           <Property Name="DraftOsnastID" Type="int" />
+          <Property Name="OldProosID" Type="int" />
+          <Property Name="OldZayvkaid" Type="int" />
         </EntityType>
-        <Association Name="FK_ReferenceCodeID_ReferenceCode">
-          <End Role="ReferenceCode" Type="Self.ReferenceCode" Multiplicity="1" />
-          <End Role="ReferenceInformation" Type="Self.ReferenceInformation" Multiplicity="*" />
+        <Association Name="FK_OperationCode_s_oper">
+          <End Role="s_oper" Type="Self.s_oper" Multiplicity="0..1" />
+          <End Role="TechOrder" Type="Self.TechOrder" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="ReferenceCode">
-              <PropertyRef Name="ReferenceCodeID" />
+            <Principal Role="s_oper">
+              <PropertyRef Name="code" />
             </Principal>
-            <Dependent Role="ReferenceInformation">
-              <PropertyRef Name="ReferenceCodeID" />
+            <Dependent Role="TechOrder">
+              <PropertyRef Name="OperationCode" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_RepairOrProduction_ReferenceInformation">
-          <End Role="ReferenceInformation" Type="Self.ReferenceInformation" Multiplicity="1" />
+          <End Role="ReferenceInformation" Type="Self.ReferenceInformation" Multiplicity="0..1" />
           <End Role="TechOrder" Type="Self.TechOrder" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="ReferenceInformation">
@@ -619,7 +633,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_TechOrderID_TechOrder">
-          <End Role="TechOrder" Type="Self.TechOrder" Multiplicity="1" />
+          <End Role="TechOrder" Type="Self.TechOrder" Multiplicity="0..1" />
           <End Role="DraftOsnast" Type="Self.DraftOsnast" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="TechOrder">
@@ -631,7 +645,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_TypeOsnast_ReferenceInformation">
-          <End Role="ReferenceInformation" Type="Self.ReferenceInformation" Multiplicity="1" />
+          <End Role="ReferenceInformation" Type="Self.ReferenceInformation" Multiplicity="0..1" />
           <End Role="TechOrder" Type="Self.TechOrder" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="ReferenceInformation">
@@ -639,6 +653,30 @@
             </Principal>
             <Dependent Role="TechOrder">
               <PropertyRef Name="TypeOsnast" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Workplace_oborud">
+          <End Role="oborud" Type="Self.oborud" Multiplicity="0..1" />
+          <End Role="TechOrder" Type="Self.TechOrder" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="oborud">
+              <PropertyRef Name="rab_m" />
+            </Principal>
+            <Dependent Role="TechOrder">
+              <PropertyRef Name="Workplace" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_WorkshopID_Workshop">
+          <End Role="Workshop" Type="Self.Workshop" Multiplicity="1" />
+          <End Role="TechOrder" Type="Self.TechOrder" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Workshop">
+              <PropertyRef Name="WorkshopID" />
+            </Principal>
+            <Dependent Role="TechOrder">
+              <PropertyRef Name="WorkshopID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -664,15 +702,15 @@
           <EntitySet Name="prod" EntityType="Self.prod" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="prodact" EntityType="Self.prodact" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="proos" EntityType="Self.proos" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="ReferenceCode" EntityType="Self.ReferenceCode" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ReferenceInformation" EntityType="Self.ReferenceInformation" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="s_oper" EntityType="Self.s_oper" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Workshop" EntityType="Self.Workshop" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="zayvka" EntityType="Self.zayvka" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DraftOsnast" EntityType="Self.DraftOsnast" Schema="Osnastka" store:Type="Tables" />
           <EntitySet Name="TechOrder" EntityType="Self.TechOrder" Schema="Osnastka" store:Type="Tables" />
-          <AssociationSet Name="FK_ReferenceCodeID_ReferenceCode" Association="Self.FK_ReferenceCodeID_ReferenceCode">
-            <End Role="ReferenceCode" EntitySet="ReferenceCode" />
-            <End Role="ReferenceInformation" EntitySet="ReferenceInformation" />
+          <AssociationSet Name="FK_OperationCode_s_oper" Association="Self.FK_OperationCode_s_oper">
+            <End Role="s_oper" EntitySet="s_oper" />
+            <End Role="TechOrder" EntitySet="TechOrder" />
           </AssociationSet>
           <AssociationSet Name="FK_RepairOrProduction_ReferenceInformation" Association="Self.FK_RepairOrProduction_ReferenceInformation">
             <End Role="ReferenceInformation" EntitySet="ReferenceInformation" />
@@ -684,6 +722,14 @@
           </AssociationSet>
           <AssociationSet Name="FK_TypeOsnast_ReferenceInformation" Association="Self.FK_TypeOsnast_ReferenceInformation">
             <End Role="ReferenceInformation" EntitySet="ReferenceInformation" />
+            <End Role="TechOrder" EntitySet="TechOrder" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Workplace_oborud" Association="Self.FK_Workplace_oborud">
+            <End Role="oborud" EntitySet="oborud" />
+            <End Role="TechOrder" EntitySet="TechOrder" />
+          </AssociationSet>
+          <AssociationSet Name="FK_WorkshopID_Workshop" Association="Self.FK_WorkshopID_Workshop">
+            <End Role="Workshop" EntitySet="Workshop" />
             <End Role="TechOrder" EntitySet="TechOrder" />
           </AssociationSet>
         </EntityContainer>
@@ -701,20 +747,23 @@
           <EntitySet Name="listdse" EntityType="FOXModel.listdse" />
           <EntitySet Name="m_cennik" EntityType="FOXModel.m_cennik" />
           <EntitySet Name="prod" EntityType="FOXModel.prod" />
-          <EntitySet Name="prodact" EntityType="FOXModel.prodact" />
-          <EntitySet Name="oborud" EntityType="FOXModel.oborud" />
-          <EntitySet Name="s_oper" EntityType="FOXModel.s_oper" />
           <EntitySet Name="zayvka" EntityType="FOXModel.zayvka" />
           <EntitySet Name="pl_zak_t" EntityType="FOXModel.pl_zak_t" />
           <EntitySet Name="iztyp" EntityType="FOXModel.iztyp" />
           <EntitySet Name="klados" EntityType="FOXModel.klados" />
-          <EntitySet Name="ReferenceCode" EntityType="FOXModel.ReferenceCode" />
+          <EntitySet Name="ocomplect" EntityType="FOXModel.ocomplect" />
+          <EntitySet Name="FullDraftNameList" EntityType="FOXModel.FullDraftNameList" />
+          <EntitySet Name="proos" EntityType="FOXModel.proos" />
+          <EntitySet Name="outpro" EntityType="FOXModel.outpro" />
+          <EntitySet Name="oborud" EntityType="FOXModel.oborud" />
           <EntitySet Name="ReferenceInformation" EntityType="FOXModel.ReferenceInformation" />
+          <EntitySet Name="s_oper" EntityType="FOXModel.s_oper" />
+          <EntitySet Name="Workshop" EntityType="FOXModel.Workshop" />
           <EntitySet Name="DraftOsnast" EntityType="FOXModel.DraftOsnast" />
           <EntitySet Name="TechOrder" EntityType="FOXModel.TechOrder" />
-          <AssociationSet Name="FK_ReferenceCodeID_ReferenceCode" Association="FOXModel.FK_ReferenceCodeID_ReferenceCode">
-            <End Role="ReferenceCode" EntitySet="ReferenceCode" />
-            <End Role="ReferenceInformation" EntitySet="ReferenceInformation" />
+          <AssociationSet Name="FK_Workplace_oborud" Association="FOXModel.FK_Workplace_oborud">
+            <End Role="oborud" EntitySet="oborud" />
+            <End Role="TechOrder" EntitySet="TechOrder" />
           </AssociationSet>
           <AssociationSet Name="FK_RepairOrProduction_ReferenceInformation" Association="FOXModel.FK_RepairOrProduction_ReferenceInformation">
             <End Role="ReferenceInformation" EntitySet="ReferenceInformation" />
@@ -724,15 +773,20 @@
             <End Role="ReferenceInformation" EntitySet="ReferenceInformation" />
             <End Role="TechOrder" EntitySet="TechOrder" />
           </AssociationSet>
+          <AssociationSet Name="FK_OperationCode_s_oper" Association="FOXModel.FK_OperationCode_s_oper">
+            <End Role="s_oper" EntitySet="s_oper" />
+            <End Role="TechOrder" EntitySet="TechOrder" />
+          </AssociationSet>
+          <AssociationSet Name="FK_WorkshopID_Workshop" Association="FOXModel.FK_WorkshopID_Workshop">
+            <End Role="Workshop" EntitySet="Workshop" />
+            <End Role="TechOrder" EntitySet="TechOrder" />
+          </AssociationSet>
           <AssociationSet Name="FK_TechOrderID_TechOrder" Association="FOXModel.FK_TechOrderID_TechOrder">
             <End Role="TechOrder" EntitySet="TechOrder" />
             <End Role="DraftOsnast" EntitySet="DraftOsnast" />
           </AssociationSet>
-          <EntitySet Name="ocomplect" EntityType="FOXModel.ocomplect" />
-          <EntitySet Name="FullDraftNameList" EntityType="FOXModel.FullDraftNameList" />
-          <EntitySet Name="proos" EntityType="FOXModel.proos" />
-          <EntitySet Name="outpro" EntityType="FOXModel.outpro" />
-        </EntityContainer>
+          <EntitySet Name="prodact" EntityType="FOXModel.prodact" />
+          </EntityContainer>
         <EntityType Name="complect">
           <Key>
             <PropertyRef Name="posit" />
@@ -963,53 +1017,6 @@
           <Property Type="Int32" Name="id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Type="String" Name="zak_1" MaxLength="7" FixedLength="true" Unicode="true" />
         </EntityType>
-        <EntityType Name="prodact">
-          <Key>
-            <PropertyRef Name="draft" />
-            <PropertyRef Name="zak_d" />
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Type="String" Name="name" MaxLength="40" FixedLength="true" Unicode="false" />
-          <Property Type="Decimal" Name="plan_group" Precision="2" Scale="0" />
-          <Property Type="Decimal" Name="kod_izd" Precision="8" Scale="0" />
-          <Property Type="Decimal" Name="zakaz" Precision="4" Scale="0" />
-          <Property Type="String" Name="shop_out" MaxLength="3" FixedLength="true" Unicode="false" />
-          <Property Type="Decimal" Name="draft" Nullable="false" Precision="13" Scale="2" />
-          <Property Type="Boolean" Name="mode1" />
-          <Property Type="Boolean" Name="mode2" />
-          <Property Type="Boolean" Name="mode3" />
-          <Property Type="Decimal" Name="zak_d" Nullable="false" Precision="4" Scale="0" />
-          <Property Type="String" Name="im" MaxLength="20" FixedLength="true" Unicode="false" />
-          <Property Type="Decimal" Name="npue" Precision="2" Scale="0" />
-          <Property Type="Int32" Name="id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-        </EntityType>
-        <EntityType Name="oborud">
-          <Key>
-            <PropertyRef Name="rab_m" />
-          </Key>
-          <Property Name="code" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
-          <Property Name="oborud1" Type="String" MaxLength="30" FixedLength="true" Unicode="true" />
-          <Property Name="cex" Type="String" MaxLength="3" FixedLength="true" Unicode="true" />
-          <Property Name="rab_m" Type="Decimal" Nullable="false" Precision="3" Scale="0" />
-          <Property Name="nom_u" Type="Decimal" Precision="4" Scale="0" />
-          <Property Name="kol_ed" Type="Decimal" Precision="3" Scale="0" />
-          <Property Name="cex1" Type="String" MaxLength="3" FixedLength="true" Unicode="true" />
-          <Property Name="kol_ob" Type="Decimal" Precision="3" Scale="0" />
-          <Property Name="res_ob" Type="Decimal" Precision="4" Scale="0" />
-          <Property Name="res_pr" Type="Decimal" Precision="4" Scale="0" />
-          <Property Name="res_s" Type="Decimal" Precision="4" Scale="0" />
-          <Property Name="gr_ob" Type="Decimal" Precision="1" Scale="0" />
-          <Property Name="res_pipl" Type="Decimal" Precision="4" Scale="1" />
-        </EntityType>
-        <EntityType Name="s_oper">
-          <Key>
-            <PropertyRef Name="code" />
-          </Key>
-          <Property Name="code" Type="Decimal" Nullable="false" Precision="4" Scale="0" />
-          <Property Name="oper" Type="String" MaxLength="44" FixedLength="true" Unicode="true" />
-          <Property Name="cex" Type="String" MaxLength="3" FixedLength="true" Unicode="true" />
-          <Property Name="kontr" Type="Decimal" Precision="1" Scale="0" />
-        </EntityType>
         <EntityType Name="zayvka">
           <Key>
             <PropertyRef Name="id" />
@@ -1106,160 +1113,6 @@
           </Key>
           <Property Name="klad" Type="String" Nullable="false" MaxLength="3" FixedLength="true" Unicode="false" />
         </EntityType>
-        <EntityType Name="ReferenceCode">
-          <Key>
-            <PropertyRef Name="ReferenceCodeID" />
-          </Key>
-          <Property Name="ReferenceCodeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="ReferenceCodeDescription" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="ReferenceInformation" Relationship="FOXModel.FK_ReferenceCodeID_ReferenceCode" FromRole="ReferenceCode" ToRole="ReferenceInformation" />
-        </EntityType>
-        <EntityType Name="ReferenceInformation">
-          <Key>
-            <PropertyRef Name="ReferenceInformationID" />
-          </Key>
-          <Property Name="ReferenceInformationID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="ReferenceCodeID" Type="Int32" Nullable="false" />
-          <Property Name="ReferenceName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="ReferenceCode" Relationship="FOXModel.FK_ReferenceCodeID_ReferenceCode" FromRole="ReferenceInformation" ToRole="ReferenceCode" />
-          <NavigationProperty Name="TechOrder" Relationship="FOXModel.FK_RepairOrProduction_ReferenceInformation" FromRole="ReferenceInformation" ToRole="TechOrder" />
-          <NavigationProperty Name="TechOrder1" Relationship="FOXModel.FK_TypeOsnast_ReferenceInformation" FromRole="ReferenceInformation" ToRole="TechOrder" />
-        </EntityType>
-        <EntityType Name="DraftOsnast">
-          <Key>
-            <PropertyRef Name="DraftOsnastID" />
-          </Key>
-          <Property Name="DraftOsnastID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="TechOrderID" Type="Int32" Nullable="false" />
-          <Property Name="AmountEquipmentInWorkTogether" Type="Decimal" Precision="2" Scale="0" />
-          <Property Name="NameDraftOsnast" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="DraftOsnast1" Type="Decimal" Precision="13" Scale="2" />
-          <Property Name="DateEmployeeApproved" Type="DateTime" Precision="0" />
-          <Property Name="IsStatusEmployeeApproved" Type="Boolean" />
-          <Property Name="DateEmployeeFinalApproved" Type="DateTime" Precision="0" />
-          <Property Name="IsStatusEmployeeFinalApproved" Type="Boolean" />
-          <Property Name="DraftPiece" Type="Decimal" Precision="13" Scale="2" />
-          <Property Name="NameDraftPiece" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="AmountEquipmentProducePlan" Type="Decimal" Precision="6" Scale="1" />
-          <Property Name="DateConstructorApprove" Type="DateTime" Precision="0" />
-          <Property Name="AuthorTechnologApprove" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="AuthorConstructorExecute" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="LabourIntensivenessDesignPlan" Type="Decimal" Precision="7" Scale="2" />
-          <Property Name="LabourIntensivenessDesignFact" Type="Decimal" Precision="7" Scale="2" />
-          <Property Name="DateDesignPlan" Type="DateTime" Precision="0" />
-          <Property Name="DateProducePlan" Type="DateTime" Precision="0" />
-          <Property Name="DateImplementPlan" Type="DateTime" Precision="0" />
-          <Property Name="DateDesignFact" Type="DateTime" Precision="0" />
-          <Property Name="DateProduceFact" Type="DateTime" Precision="0" />
-          <Property Name="DateDraftToBTD" Type="DateTime" Precision="0" />
-          <Property Name="DepartmentOrder" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
-          <Property Name="ANNTab" Type="String" MaxLength="3" FixedLength="true" Unicode="false" />
-          <Property Name="NameReciever" Type="String" MaxLength="12" FixedLength="false" Unicode="false" />
-          <Property Name="DateTechOrderOpen" Type="DateTime" Precision="0" />
-          <Property Name="LabourIntensivenessProducePlan" Type="Decimal" Precision="7" Scale="2" />
-          <Property Name="LabourIntensivenessProduceFact" Type="Decimal" Precision="7" Scale="2" />
-          <Property Name="BalanceAccount" Type="Decimal" Precision="3" Scale="0" />
-          <Property Name="AmountEquipmentProduceFact" Type="Decimal" Precision="5" Scale="0" />
-          <Property Name="DateRecieveTechOrderSPP" Type="DateTime" Precision="0" />
-          <NavigationProperty Name="TechOrder" Relationship="FOXModel.FK_TechOrderID_TechOrder" FromRole="DraftOsnast" ToRole="TechOrder" />
-        </EntityType>
-        <EntityType Name="TechOrder">
-          <Key>
-            <PropertyRef Name="TechOrderID" />
-          </Key>
-          <Property Name="TechOrderID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="IsApplicationFrom" Type="Boolean" />
-          <Property Name="DateCreateApplication" Type="DateTime" Precision="3" />
-          <Property Name="TechOrder1" Type="Int16" />
-          <Property Name="YearTechOrder" Type="String" Nullable="false" MaxLength="7" FixedLength="false" Unicode="false" />
-          <Property Name="Draft" Type="Decimal" Precision="13" Scale="2" />
-          <Property Name="NameDraft" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Workplace" Type="Decimal" Precision="3" Scale="0" />
-          <Property Name="OperationCode" Type="Decimal" Precision="4" Scale="0" />
-          <Property Name="FactoryOrder" Type="Int16" Nullable="false" />
-          <Property Name="FactoryNumberOrder" Type="Int16" Nullable="false" />
-          <Property Name="WorkshopID" Type="Int32" Nullable="false" />
-          <Property Name="AddInformation" Type="String" MaxLength="3500" FixedLength="false" Unicode="false" />
-          <Property Name="Ksi" Type="Int16" />
-          <Property Name="AmountEquipmentForOper" Type="Int16" />
-          <Property Name="AuthorTechnolog" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="DateChangeTechnolog" Type="DateTime" Precision="3" />
-          <Property Name="DepartmentTechnolog" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
-          <Property Name="Note" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="DraftProduct" Type="Decimal" Precision="13" Scale="2" />
-          <Property Name="NameDraftProduct" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Analogue" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="NameOsnastTechnolog" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="IsHandOverDraft" Type="Boolean" />
-          <Property Name="LaborManufacturingAssume" Type="Decimal" Nullable="false" Precision="7" Scale="2" />
-          <Property Name="AuthorConstructor" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="DateWorkChiefConstructor" Type="DateTime" Precision="3" />
-          <Property Name="ReasonProduction" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="DateLimitation" Type="DateTime" Precision="3" />
-          <Property Name="IsReturnedToTechnolog" Type="Boolean" />
-          <Property Name="DateReturnedToTechnolog" Type="DateTime" Precision="3" />
-          <Property Name="ReasonReturnedToTechnolog" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
-          <Property Name="IsAtConstructor" Type="Boolean" />
-          <Property Name="DateAtConstructor" Type="DateTime" Precision="3" />
-          <Property Name="DateAtApproval" Type="DateTime" Precision="3" />
-          <Property Name="RepairOrProduction" Type="Int32" Nullable="false" />
-          <Property Name="TypeOsnast" Type="Int32" Nullable="false" />
-          <Property Name="DateBackupLimitation" Type="DateTime" Precision="3" />
-          <Property Name="BackupAmount" Type="Int32" />
-          <Property Name="Grafik_id" Type="Int32" />
-          <Property Name="DraftOsnastID" Type="Int32" />
-          <NavigationProperty Name="ReferenceInformation" Relationship="FOXModel.FK_RepairOrProduction_ReferenceInformation" FromRole="TechOrder" ToRole="ReferenceInformation" />
-          <NavigationProperty Name="ReferenceInformation1" Relationship="FOXModel.FK_TypeOsnast_ReferenceInformation" FromRole="TechOrder" ToRole="ReferenceInformation" />
-          <NavigationProperty Name="DraftOsnast" Relationship="FOXModel.FK_TechOrderID_TechOrder" FromRole="TechOrder" ToRole="DraftOsnast" />
-        </EntityType>
-        <Association Name="FK_ReferenceCodeID_ReferenceCode">
-          <End Type="FOXModel.ReferenceCode" Role="ReferenceCode" Multiplicity="1" />
-          <End Type="FOXModel.ReferenceInformation" Role="ReferenceInformation" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="ReferenceCode">
-              <PropertyRef Name="ReferenceCodeID" />
-            </Principal>
-            <Dependent Role="ReferenceInformation">
-              <PropertyRef Name="ReferenceCodeID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_RepairOrProduction_ReferenceInformation">
-          <End Type="FOXModel.ReferenceInformation" Role="ReferenceInformation" Multiplicity="1" />
-          <End Type="FOXModel.TechOrder" Role="TechOrder" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="ReferenceInformation">
-              <PropertyRef Name="ReferenceInformationID" />
-            </Principal>
-            <Dependent Role="TechOrder">
-              <PropertyRef Name="RepairOrProduction" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_TypeOsnast_ReferenceInformation">
-          <End Type="FOXModel.ReferenceInformation" Role="ReferenceInformation" Multiplicity="1" />
-          <End Type="FOXModel.TechOrder" Role="TechOrder" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="ReferenceInformation">
-              <PropertyRef Name="ReferenceInformationID" />
-            </Principal>
-            <Dependent Role="TechOrder">
-              <PropertyRef Name="TypeOsnast" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_TechOrderID_TechOrder">
-          <End Type="FOXModel.TechOrder" Role="TechOrder" Multiplicity="1" />
-          <End Type="FOXModel.DraftOsnast" Role="DraftOsnast" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="TechOrder">
-              <PropertyRef Name="TechOrderID" />
-            </Principal>
-            <Dependent Role="DraftOsnast">
-              <PropertyRef Name="TechOrderID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityType Name="ocomplect">
           <Key>
             <PropertyRef Name="posit" />
@@ -1378,7 +1231,250 @@
           <Property Name="cid" Type="Int32" />
           <Property Name="pid" Type="Int32" />
         </EntityType>
-      </Schema>
+        <EntityType Name="oborud">
+          <Key>
+            <PropertyRef Name="rab_m" />
+          </Key>
+          <Property Type="String" Name="code" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Type="String" Name="oborud1" MaxLength="30" FixedLength="true" Unicode="true" />
+          <Property Type="String" Name="cex" MaxLength="3" FixedLength="true" Unicode="true" />
+          <Property Type="Decimal" Name="rab_m" Nullable="false" Precision="3" Scale="0" />
+          <Property Type="Decimal" Name="nom_u" Precision="4" Scale="0" />
+          <Property Type="Decimal" Name="kol_ed" Precision="3" Scale="0" />
+          <Property Type="String" Name="cex1" MaxLength="3" FixedLength="true" Unicode="true" />
+          <Property Type="Decimal" Name="kol_ob" Precision="3" Scale="0" />
+          <Property Type="Decimal" Name="res_ob" Precision="4" Scale="0" />
+          <Property Type="Decimal" Name="res_pr" Precision="4" Scale="0" />
+          <Property Type="Decimal" Name="res_s" Precision="4" Scale="0" />
+          <Property Type="Decimal" Name="gr_ob" Precision="1" Scale="0" />
+          <Property Type="Decimal" Name="res_pipl" Precision="4" Scale="1" />
+          <NavigationProperty Name="TechOrder" Relationship="FOXModel.FK_Workplace_oborud" FromRole="oborud" ToRole="TechOrder" />
+        </EntityType>
+        <EntityType Name="ReferenceInformation">
+          <Key>
+            <PropertyRef Name="ReferenceInformationID" />
+          </Key>
+          <Property Type="Int32" Name="ReferenceInformationID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="ReferenceName" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="TechOrder" Relationship="FOXModel.FK_RepairOrProduction_ReferenceInformation" FromRole="ReferenceInformation" ToRole="TechOrder" />
+          <NavigationProperty Name="TechOrder1" Relationship="FOXModel.FK_TypeOsnast_ReferenceInformation" FromRole="ReferenceInformation" ToRole="TechOrder" />
+        </EntityType>
+        <EntityType Name="s_oper">
+          <Key>
+            <PropertyRef Name="code" />
+          </Key>
+          <Property Type="Decimal" Name="code" Nullable="false" Precision="4" Scale="0" />
+          <Property Type="String" Name="oper" MaxLength="44" FixedLength="true" Unicode="true" />
+          <Property Type="String" Name="cex" MaxLength="3" FixedLength="true" Unicode="true" />
+          <Property Type="Decimal" Name="kontr" Precision="1" Scale="0" />
+          <NavigationProperty Name="TechOrder" Relationship="FOXModel.FK_OperationCode_s_oper" FromRole="s_oper" ToRole="TechOrder" />
+        </EntityType>
+        <EntityType Name="Workshop">
+          <Key>
+            <PropertyRef Name="WorkshopID" />
+          </Key>
+          <Property Type="Int32" Name="WorkshopID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Boolean" Name="IsActual" Nullable="false" />
+          <Property Type="Boolean" Name="IsWorkshop" Nullable="false" />
+          <Property Type="String" Name="Workshop1" Nullable="false" MaxLength="3" FixedLength="true" Unicode="false" />
+          <Property Type="String" Name="WorkshopDescription" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="NameOfProduction" MaxLength="40" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="WorkshopMaterReport" MaxLength="3" FixedLength="true" Unicode="false" />
+          <Property Type="String" Name="StoreroomDestination" MaxLength="3" FixedLength="true" Unicode="false" />
+          <Property Type="String" Name="StoreroomOsnast" MaxLength="3" FixedLength="true" Unicode="false" />
+          <Property Type="String" Name="StoreroomDragMetal" MaxLength="3" FixedLength="true" Unicode="false" />
+          <Property Type="Int16" Name="NotSplitOperation" />
+          <Property Type="Int16" Name="BalanceAccount" />
+          <Property Type="Boolean" Name="IsRO" Nullable="false" />
+          <Property Type="String" Name="PrintUnit" MaxLength="30" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="TechOrder" Relationship="FOXModel.FK_WorkshopID_Workshop" FromRole="Workshop" ToRole="TechOrder" />
+        </EntityType>
+        <EntityType Name="DraftOsnast">
+          <Key>
+            <PropertyRef Name="DraftOsnastID" />
+          </Key>
+          <Property Type="Int32" Name="DraftOsnastID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int32" Name="TechOrderID" />
+          <Property Type="Decimal" Name="AmountEquipmentInWorkTogether" Precision="2" Scale="0" />
+          <Property Type="String" Name="NameDraftOsnast" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="Decimal" Name="DraftOsnast1" Precision="13" Scale="2" />
+          <Property Type="DateTime" Name="DateEmployeeApproved" Precision="0" />
+          <Property Type="Boolean" Name="IsStatusEmployeeApproved" />
+          <Property Type="DateTime" Name="DateEmployeeFinalApproved" Precision="0" />
+          <Property Type="Boolean" Name="IsStatusEmployeeFinalApproved" />
+          <Property Type="Decimal" Name="DraftPiece" Precision="13" Scale="2" />
+          <Property Type="String" Name="NameDraftPiece" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="Decimal" Name="AmountEquipmentProducePlan" Precision="6" Scale="1" />
+          <Property Type="DateTime" Name="DateConstructorApprove" Precision="0" />
+          <Property Type="String" Name="AuthorTechnologApprove" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="AuthorConstructorExecute" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Type="Decimal" Name="LabourIntensivenessDesignPlan" Precision="7" Scale="2" />
+          <Property Type="Decimal" Name="LabourIntensivenessDesignFact" Precision="7" Scale="2" />
+          <Property Type="DateTime" Name="DateDesignPlan" Precision="0" />
+          <Property Type="DateTime" Name="DateProducePlan" Precision="0" />
+          <Property Type="DateTime" Name="DateImplementPlan" Precision="0" />
+          <Property Type="DateTime" Name="DateDesignFact" Precision="0" />
+          <Property Type="DateTime" Name="DateProduceFact" Precision="0" />
+          <Property Type="DateTime" Name="DateDraftToBTD" Precision="0" />
+          <Property Type="String" Name="DepartmentOrder" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="ANNTab" MaxLength="3" FixedLength="true" Unicode="false" />
+          <Property Type="String" Name="NameReciever" MaxLength="12" FixedLength="false" Unicode="false" />
+          <Property Type="DateTime" Name="DateTechOrderOpen" Precision="0" />
+          <Property Type="Decimal" Name="LabourIntensivenessProducePlan" Precision="7" Scale="2" />
+          <Property Type="Decimal" Name="LabourIntensivenessProduceFact" Precision="7" Scale="2" />
+          <Property Type="Decimal" Name="BalanceAccount" Precision="3" Scale="0" />
+          <Property Type="Decimal" Name="AmountEquipmentProduceFact" Precision="5" Scale="0" />
+          <Property Type="DateTime" Name="DateRecieveTechOrderSPP" Precision="0" />
+          <Property Type="Int32" Name="OldOsproid" />
+          <NavigationProperty Name="TechOrder" Relationship="FOXModel.FK_TechOrderID_TechOrder" FromRole="DraftOsnast" ToRole="TechOrder" />
+        </EntityType>
+        <EntityType Name="TechOrder">
+          <Key>
+            <PropertyRef Name="TechOrderID" />
+          </Key>
+          <Property Type="Int32" Name="TechOrderID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Boolean" Name="IsApplicationFrom" />
+          <Property Type="DateTime" Name="DateCreateApplication" Precision="3" />
+          <Property Type="Int16" Name="TechOrder1" />
+          <Property Type="String" Name="YearTechOrder" Nullable="false" MaxLength="7" FixedLength="false" Unicode="false" />
+          <Property Type="Decimal" Name="Draft" Precision="13" Scale="2" />
+          <Property Type="String" Name="NameDraft" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="Decimal" Name="Workplace" Precision="3" Scale="0" />
+          <Property Type="Decimal" Name="OperationCode" Precision="4" Scale="0" />
+          <Property Type="Int16" Name="FactoryOrder" Nullable="false" />
+          <Property Type="Int16" Name="FactoryNumberOrder" Nullable="false" />
+          <Property Type="Int32" Name="WorkshopID" Nullable="false" />
+          <Property Type="String" Name="AddInformation" MaxLength="3500" FixedLength="false" Unicode="false" />
+          <Property Type="Int16" Name="Ksi" />
+          <Property Type="Int16" Name="AmountEquipmentForOper" />
+          <Property Type="String" Name="AuthorTechnolog" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Type="DateTime" Name="DateChangeTechnolog" Precision="3" />
+          <Property Type="String" Name="DepartmentTechnolog" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="Note" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="Decimal" Name="DraftProduct" Precision="13" Scale="2" />
+          <Property Type="String" Name="NameDraftProduct" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="Analogue" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="NameOsnastTechnolog" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="Boolean" Name="IsHandOverDraft" />
+          <Property Type="Decimal" Name="LaborManufacturingAssume" Nullable="false" Precision="7" Scale="2" />
+          <Property Type="String" Name="AuthorConstructor" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Type="DateTime" Name="DateWorkChiefConstructor" Precision="3" />
+          <Property Type="String" Name="ReasonProduction" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="DateTime" Name="DateLimitation" Precision="3" />
+          <Property Type="Boolean" Name="IsReturnedToTechnolog" />
+          <Property Type="DateTime" Name="DateReturnedToTechnolog" Precision="3" />
+          <Property Type="String" Name="ReasonReturnedToTechnolog" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Type="Boolean" Name="IsAtConstructor" />
+          <Property Type="DateTime" Name="DateAtConstructor" Precision="3" />
+          <Property Type="DateTime" Name="DateAtApproval" Precision="3" />
+          <Property Type="Int32" Name="RepairOrProduction" />
+          <Property Type="Int32" Name="TypeOsnast" />
+          <Property Type="DateTime" Name="DateBackupLimitation" Precision="3" />
+          <Property Type="Int32" Name="BackupAmount" />
+          <Property Type="Int32" Name="Grafik_id" />
+          <Property Type="Int32" Name="DraftOsnastID" />
+          <Property Type="Int32" Name="OldProosID" />
+          <Property Type="Int32" Name="OldZayvkaid" />
+          <NavigationProperty Name="oborud" Relationship="FOXModel.FK_Workplace_oborud" FromRole="TechOrder" ToRole="oborud" />
+          <NavigationProperty Name="ReferenceInformation" Relationship="FOXModel.FK_RepairOrProduction_ReferenceInformation" FromRole="TechOrder" ToRole="ReferenceInformation" />
+          <NavigationProperty Name="ReferenceInformation1" Relationship="FOXModel.FK_TypeOsnast_ReferenceInformation" FromRole="TechOrder" ToRole="ReferenceInformation" />
+          <NavigationProperty Name="s_oper" Relationship="FOXModel.FK_OperationCode_s_oper" FromRole="TechOrder" ToRole="s_oper" />
+          <NavigationProperty Name="Workshop" Relationship="FOXModel.FK_WorkshopID_Workshop" FromRole="TechOrder" ToRole="Workshop" />
+          <NavigationProperty Name="DraftOsnast" Relationship="FOXModel.FK_TechOrderID_TechOrder" FromRole="TechOrder" ToRole="DraftOsnast" />
+        </EntityType>
+        <Association Name="FK_Workplace_oborud">
+          <End Type="FOXModel.oborud" Role="oborud" Multiplicity="0..1" />
+          <End Type="FOXModel.TechOrder" Role="TechOrder" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="oborud">
+              <PropertyRef Name="rab_m" />
+            </Principal>
+            <Dependent Role="TechOrder">
+              <PropertyRef Name="Workplace" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RepairOrProduction_ReferenceInformation">
+          <End Type="FOXModel.ReferenceInformation" Role="ReferenceInformation" Multiplicity="0..1" />
+          <End Type="FOXModel.TechOrder" Role="TechOrder" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ReferenceInformation">
+              <PropertyRef Name="ReferenceInformationID" />
+            </Principal>
+            <Dependent Role="TechOrder">
+              <PropertyRef Name="RepairOrProduction" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TypeOsnast_ReferenceInformation">
+          <End Type="FOXModel.ReferenceInformation" Role="ReferenceInformation" Multiplicity="0..1" />
+          <End Type="FOXModel.TechOrder" Role="TechOrder" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ReferenceInformation">
+              <PropertyRef Name="ReferenceInformationID" />
+            </Principal>
+            <Dependent Role="TechOrder">
+              <PropertyRef Name="TypeOsnast" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OperationCode_s_oper">
+          <End Type="FOXModel.s_oper" Role="s_oper" Multiplicity="0..1" />
+          <End Type="FOXModel.TechOrder" Role="TechOrder" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="s_oper">
+              <PropertyRef Name="code" />
+            </Principal>
+            <Dependent Role="TechOrder">
+              <PropertyRef Name="OperationCode" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_WorkshopID_Workshop">
+          <End Type="FOXModel.Workshop" Role="Workshop" Multiplicity="1" />
+          <End Type="FOXModel.TechOrder" Role="TechOrder" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Workshop">
+              <PropertyRef Name="WorkshopID" />
+            </Principal>
+            <Dependent Role="TechOrder">
+              <PropertyRef Name="WorkshopID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TechOrderID_TechOrder">
+          <End Type="FOXModel.TechOrder" Role="TechOrder" Multiplicity="0..1" />
+          <End Type="FOXModel.DraftOsnast" Role="DraftOsnast" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TechOrder">
+              <PropertyRef Name="TechOrderID" />
+            </Principal>
+            <Dependent Role="DraftOsnast">
+              <PropertyRef Name="TechOrderID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="prodact">
+          <Key>
+            <PropertyRef Name="draft" />
+            <PropertyRef Name="zak_d" />
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="40" FixedLength="true" Unicode="false" />
+          <Property Name="plan_group" Type="Decimal" Precision="2" Scale="0" />
+          <Property Name="kod_izd" Type="Decimal" Precision="8" Scale="0" />
+          <Property Name="zakaz" Type="Decimal" Precision="4" Scale="0" />
+          <Property Name="shop_out" Type="String" MaxLength="3" FixedLength="true" Unicode="false" />
+          <Property Name="draft" Type="Decimal" Nullable="false" Precision="13" Scale="2" />
+          <Property Name="mode1" Type="Boolean" />
+          <Property Name="mode2" Type="Boolean" />
+          <Property Name="mode3" Type="Boolean" />
+          <Property Name="zak_d" Type="Decimal" Nullable="false" Precision="4" Scale="0" />
+          <Property Name="im" Type="String" MaxLength="20" FixedLength="true" Unicode="false" />
+          <Property Name="npue" Type="Decimal" Precision="2" Scale="0" />
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+        </EntityType>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
@@ -1615,54 +1711,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="prodact">
-            <EntityTypeMapping TypeName="FOXModel.prodact">
-              <MappingFragment StoreEntitySet="prodact">
-                <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="npue" ColumnName="npue" />
-                <ScalarProperty Name="im" ColumnName="im" />
-                <ScalarProperty Name="zak_d" ColumnName="zak_d" />
-                <ScalarProperty Name="mode3" ColumnName="mode3" />
-                <ScalarProperty Name="mode2" ColumnName="mode2" />
-                <ScalarProperty Name="mode1" ColumnName="mode1" />
-                <ScalarProperty Name="draft" ColumnName="draft" />
-                <ScalarProperty Name="shop_out" ColumnName="shop_out" />
-                <ScalarProperty Name="zakaz" ColumnName="zakaz" />
-                <ScalarProperty Name="kod_izd" ColumnName="kod_izd" />
-                <ScalarProperty Name="plan_group" ColumnName="plan_group" />
-                <ScalarProperty Name="name" ColumnName="name" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="oborud">
-            <EntityTypeMapping TypeName="FOXModel.oborud">
-              <MappingFragment StoreEntitySet="oborud">
-                <ScalarProperty Name="res_pipl" ColumnName="res_pipl" />
-                <ScalarProperty Name="gr_ob" ColumnName="gr_ob" />
-                <ScalarProperty Name="res_s" ColumnName="res_s" />
-                <ScalarProperty Name="res_pr" ColumnName="res_pr" />
-                <ScalarProperty Name="res_ob" ColumnName="res_ob" />
-                <ScalarProperty Name="kol_ob" ColumnName="kol_ob" />
-                <ScalarProperty Name="cex1" ColumnName="cex1" />
-                <ScalarProperty Name="kol_ed" ColumnName="kol_ed" />
-                <ScalarProperty Name="nom_u" ColumnName="nom_u" />
-                <ScalarProperty Name="rab_m" ColumnName="rab_m" />
-                <ScalarProperty Name="cex" ColumnName="cex" />
-                <ScalarProperty Name="oborud1" ColumnName="oborud" />
-                <ScalarProperty Name="code" ColumnName="code" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="s_oper">
-            <EntityTypeMapping TypeName="FOXModel.s_oper">
-              <MappingFragment StoreEntitySet="s_oper">
-                <ScalarProperty Name="kontr" ColumnName="kontr" />
-                <ScalarProperty Name="cex" ColumnName="cex" />
-                <ScalarProperty Name="oper" ColumnName="oper" />
-                <ScalarProperty Name="code" ColumnName="code" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="zayvka">
             <EntityTypeMapping TypeName="FOXModel.zayvka">
               <MappingFragment StoreEntitySet="zayvka">
@@ -1757,108 +1805,6 @@
             <EntityTypeMapping TypeName="FOXModel.klados">
               <MappingFragment StoreEntitySet="klados">
                 <ScalarProperty Name="klad" ColumnName="klad" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="ReferenceCode">
-            <EntityTypeMapping TypeName="FOXModel.ReferenceCode">
-              <MappingFragment StoreEntitySet="ReferenceCode">
-                <ScalarProperty Name="ReferenceCodeDescription" ColumnName="ReferenceCodeDescription" />
-                <ScalarProperty Name="ReferenceCodeID" ColumnName="ReferenceCodeID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="ReferenceInformation">
-            <EntityTypeMapping TypeName="FOXModel.ReferenceInformation">
-              <MappingFragment StoreEntitySet="ReferenceInformation">
-                <ScalarProperty Name="ReferenceName" ColumnName="ReferenceName" />
-                <ScalarProperty Name="ReferenceCodeID" ColumnName="ReferenceCodeID" />
-                <ScalarProperty Name="ReferenceInformationID" ColumnName="ReferenceInformationID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="DraftOsnast">
-            <EntityTypeMapping TypeName="FOXModel.DraftOsnast">
-              <MappingFragment StoreEntitySet="DraftOsnast">
-                <ScalarProperty Name="DateRecieveTechOrderSPP" ColumnName="DateRecieveTechOrderSPP" />
-                <ScalarProperty Name="AmountEquipmentProduceFact" ColumnName="AmountEquipmentProduceFact" />
-                <ScalarProperty Name="BalanceAccount" ColumnName="BalanceAccount" />
-                <ScalarProperty Name="LabourIntensivenessProduceFact" ColumnName="LabourIntensivenessProduceFact" />
-                <ScalarProperty Name="LabourIntensivenessProducePlan" ColumnName="LabourIntensivenessProducePlan" />
-                <ScalarProperty Name="DateTechOrderOpen" ColumnName="DateTechOrderOpen" />
-                <ScalarProperty Name="NameReciever" ColumnName="NameReciever" />
-                <ScalarProperty Name="ANNTab" ColumnName="ANNTab" />
-                <ScalarProperty Name="DepartmentOrder" ColumnName="DepartmentOrder" />
-                <ScalarProperty Name="DateDraftToBTD" ColumnName="DateDraftToBTD" />
-                <ScalarProperty Name="DateProduceFact" ColumnName="DateProduceFact" />
-                <ScalarProperty Name="DateDesignFact" ColumnName="DateDesignFact" />
-                <ScalarProperty Name="DateImplementPlan" ColumnName="DateImplementPlan" />
-                <ScalarProperty Name="DateProducePlan" ColumnName="DateProducePlan" />
-                <ScalarProperty Name="DateDesignPlan" ColumnName="DateDesignPlan" />
-                <ScalarProperty Name="LabourIntensivenessDesignFact" ColumnName="LabourIntensivenessDesignFact" />
-                <ScalarProperty Name="LabourIntensivenessDesignPlan" ColumnName="LabourIntensivenessDesignPlan" />
-                <ScalarProperty Name="AuthorConstructorExecute" ColumnName="AuthorConstructorExecute" />
-                <ScalarProperty Name="AuthorTechnologApprove" ColumnName="AuthorTechnologApprove" />
-                <ScalarProperty Name="DateConstructorApprove" ColumnName="DateConstructorApprove" />
-                <ScalarProperty Name="AmountEquipmentProducePlan" ColumnName="AmountEquipmentProducePlan" />
-                <ScalarProperty Name="NameDraftPiece" ColumnName="NameDraftPiece" />
-                <ScalarProperty Name="DraftPiece" ColumnName="DraftPiece" />
-                <ScalarProperty Name="IsStatusEmployeeFinalApproved" ColumnName="IsStatusEmployeeFinalApproved" />
-                <ScalarProperty Name="DateEmployeeFinalApproved" ColumnName="DateEmployeeFinalApproved" />
-                <ScalarProperty Name="IsStatusEmployeeApproved" ColumnName="IsStatusEmployeeApproved" />
-                <ScalarProperty Name="DateEmployeeApproved" ColumnName="DateEmployeeApproved" />
-                <ScalarProperty Name="DraftOsnast1" ColumnName="DraftOsnast" />
-                <ScalarProperty Name="NameDraftOsnast" ColumnName="NameDraftOsnast" />
-                <ScalarProperty Name="AmountEquipmentInWorkTogether" ColumnName="AmountEquipmentInWorkTogether" />
-                <ScalarProperty Name="TechOrderID" ColumnName="TechOrderID" />
-                <ScalarProperty Name="DraftOsnastID" ColumnName="DraftOsnastID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="TechOrder">
-            <EntityTypeMapping TypeName="FOXModel.TechOrder">
-              <MappingFragment StoreEntitySet="TechOrder">
-                <ScalarProperty Name="DraftOsnastID" ColumnName="DraftOsnastID" />
-                <ScalarProperty Name="Grafik_id" ColumnName="Grafik_id" />
-                <ScalarProperty Name="BackupAmount" ColumnName="BackupAmount" />
-                <ScalarProperty Name="DateBackupLimitation" ColumnName="DateBackupLimitation" />
-                <ScalarProperty Name="TypeOsnast" ColumnName="TypeOsnast" />
-                <ScalarProperty Name="RepairOrProduction" ColumnName="RepairOrProduction" />
-                <ScalarProperty Name="DateAtApproval" ColumnName="DateAtApproval" />
-                <ScalarProperty Name="DateAtConstructor" ColumnName="DateAtConstructor" />
-                <ScalarProperty Name="IsAtConstructor" ColumnName="IsAtConstructor" />
-                <ScalarProperty Name="ReasonReturnedToTechnolog" ColumnName="ReasonReturnedToTechnolog" />
-                <ScalarProperty Name="DateReturnedToTechnolog" ColumnName="DateReturnedToTechnolog" />
-                <ScalarProperty Name="IsReturnedToTechnolog" ColumnName="IsReturnedToTechnolog" />
-                <ScalarProperty Name="DateLimitation" ColumnName="DateLimitation" />
-                <ScalarProperty Name="ReasonProduction" ColumnName="ReasonProduction" />
-                <ScalarProperty Name="DateWorkChiefConstructor" ColumnName="DateWorkChiefConstructor" />
-                <ScalarProperty Name="AuthorConstructor" ColumnName="AuthorConstructor" />
-                <ScalarProperty Name="LaborManufacturingAssume" ColumnName="LaborManufacturingAssume" />
-                <ScalarProperty Name="IsHandOverDraft" ColumnName="IsHandOverDraft" />
-                <ScalarProperty Name="NameOsnastTechnolog" ColumnName="NameOsnastTechnolog" />
-                <ScalarProperty Name="Analogue" ColumnName="Analogue" />
-                <ScalarProperty Name="NameDraftProduct" ColumnName="NameDraftProduct" />
-                <ScalarProperty Name="DraftProduct" ColumnName="DraftProduct" />
-                <ScalarProperty Name="Note" ColumnName="Note" />
-                <ScalarProperty Name="DepartmentTechnolog" ColumnName="DepartmentTechnolog" />
-                <ScalarProperty Name="DateChangeTechnolog" ColumnName="DateChangeTechnolog" />
-                <ScalarProperty Name="AuthorTechnolog" ColumnName="AuthorTechnolog" />
-                <ScalarProperty Name="AmountEquipmentForOper" ColumnName="AmountEquipmentForOper" />
-                <ScalarProperty Name="Ksi" ColumnName="Ksi" />
-                <ScalarProperty Name="AddInformation" ColumnName="AddInformation" />
-                <ScalarProperty Name="WorkshopID" ColumnName="WorkshopID" />
-                <ScalarProperty Name="FactoryNumberOrder" ColumnName="FactoryNumberOrder" />
-                <ScalarProperty Name="FactoryOrder" ColumnName="FactoryOrder" />
-                <ScalarProperty Name="OperationCode" ColumnName="OperationCode" />
-                <ScalarProperty Name="Workplace" ColumnName="Workplace" />
-                <ScalarProperty Name="NameDraft" ColumnName="NameDraft" />
-                <ScalarProperty Name="Draft" ColumnName="Draft" />
-                <ScalarProperty Name="YearTechOrder" ColumnName="YearTechOrder" />
-                <ScalarProperty Name="TechOrder1" ColumnName="TechOrder" />
-                <ScalarProperty Name="DateCreateApplication" ColumnName="DateCreateApplication" />
-                <ScalarProperty Name="IsApplicationFrom" ColumnName="IsApplicationFrom" />
-                <ScalarProperty Name="TechOrderID" ColumnName="TechOrderID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1979,6 +1925,170 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="oborud">
+            <EntityTypeMapping TypeName="FOXModel.oborud">
+              <MappingFragment StoreEntitySet="oborud">
+                <ScalarProperty Name="res_pipl" ColumnName="res_pipl" />
+                <ScalarProperty Name="gr_ob" ColumnName="gr_ob" />
+                <ScalarProperty Name="res_s" ColumnName="res_s" />
+                <ScalarProperty Name="res_pr" ColumnName="res_pr" />
+                <ScalarProperty Name="res_ob" ColumnName="res_ob" />
+                <ScalarProperty Name="kol_ob" ColumnName="kol_ob" />
+                <ScalarProperty Name="cex1" ColumnName="cex1" />
+                <ScalarProperty Name="kol_ed" ColumnName="kol_ed" />
+                <ScalarProperty Name="nom_u" ColumnName="nom_u" />
+                <ScalarProperty Name="rab_m" ColumnName="rab_m" />
+                <ScalarProperty Name="cex" ColumnName="cex" />
+                <ScalarProperty Name="oborud1" ColumnName="oborud" />
+                <ScalarProperty Name="code" ColumnName="code" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ReferenceInformation">
+            <EntityTypeMapping TypeName="FOXModel.ReferenceInformation">
+              <MappingFragment StoreEntitySet="ReferenceInformation">
+                <ScalarProperty Name="ReferenceName" ColumnName="ReferenceName" />
+                <ScalarProperty Name="ReferenceInformationID" ColumnName="ReferenceInformationID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="s_oper">
+            <EntityTypeMapping TypeName="FOXModel.s_oper">
+              <MappingFragment StoreEntitySet="s_oper">
+                <ScalarProperty Name="kontr" ColumnName="kontr" />
+                <ScalarProperty Name="cex" ColumnName="cex" />
+                <ScalarProperty Name="oper" ColumnName="oper" />
+                <ScalarProperty Name="code" ColumnName="code" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Workshop">
+            <EntityTypeMapping TypeName="FOXModel.Workshop">
+              <MappingFragment StoreEntitySet="Workshop">
+                <ScalarProperty Name="PrintUnit" ColumnName="PrintUnit" />
+                <ScalarProperty Name="IsRO" ColumnName="IsRO" />
+                <ScalarProperty Name="BalanceAccount" ColumnName="BalanceAccount" />
+                <ScalarProperty Name="NotSplitOperation" ColumnName="NotSplitOperation" />
+                <ScalarProperty Name="StoreroomDragMetal" ColumnName="StoreroomDragMetal" />
+                <ScalarProperty Name="StoreroomOsnast" ColumnName="StoreroomOsnast" />
+                <ScalarProperty Name="StoreroomDestination" ColumnName="StoreroomDestination" />
+                <ScalarProperty Name="WorkshopMaterReport" ColumnName="WorkshopMaterReport" />
+                <ScalarProperty Name="NameOfProduction" ColumnName="NameOfProduction" />
+                <ScalarProperty Name="WorkshopDescription" ColumnName="WorkshopDescription" />
+                <ScalarProperty Name="Workshop1" ColumnName="Workshop" />
+                <ScalarProperty Name="IsWorkshop" ColumnName="IsWorkshop" />
+                <ScalarProperty Name="IsActual" ColumnName="IsActual" />
+                <ScalarProperty Name="WorkshopID" ColumnName="WorkshopID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DraftOsnast">
+            <EntityTypeMapping TypeName="FOXModel.DraftOsnast">
+              <MappingFragment StoreEntitySet="DraftOsnast">
+                <ScalarProperty Name="OldOsproid" ColumnName="OldOsproid" />
+                <ScalarProperty Name="DateRecieveTechOrderSPP" ColumnName="DateRecieveTechOrderSPP" />
+                <ScalarProperty Name="AmountEquipmentProduceFact" ColumnName="AmountEquipmentProduceFact" />
+                <ScalarProperty Name="BalanceAccount" ColumnName="BalanceAccount" />
+                <ScalarProperty Name="LabourIntensivenessProduceFact" ColumnName="LabourIntensivenessProduceFact" />
+                <ScalarProperty Name="LabourIntensivenessProducePlan" ColumnName="LabourIntensivenessProducePlan" />
+                <ScalarProperty Name="DateTechOrderOpen" ColumnName="DateTechOrderOpen" />
+                <ScalarProperty Name="NameReciever" ColumnName="NameReciever" />
+                <ScalarProperty Name="ANNTab" ColumnName="ANNTab" />
+                <ScalarProperty Name="DepartmentOrder" ColumnName="DepartmentOrder" />
+                <ScalarProperty Name="DateDraftToBTD" ColumnName="DateDraftToBTD" />
+                <ScalarProperty Name="DateProduceFact" ColumnName="DateProduceFact" />
+                <ScalarProperty Name="DateDesignFact" ColumnName="DateDesignFact" />
+                <ScalarProperty Name="DateImplementPlan" ColumnName="DateImplementPlan" />
+                <ScalarProperty Name="DateProducePlan" ColumnName="DateProducePlan" />
+                <ScalarProperty Name="DateDesignPlan" ColumnName="DateDesignPlan" />
+                <ScalarProperty Name="LabourIntensivenessDesignFact" ColumnName="LabourIntensivenessDesignFact" />
+                <ScalarProperty Name="LabourIntensivenessDesignPlan" ColumnName="LabourIntensivenessDesignPlan" />
+                <ScalarProperty Name="AuthorConstructorExecute" ColumnName="AuthorConstructorExecute" />
+                <ScalarProperty Name="AuthorTechnologApprove" ColumnName="AuthorTechnologApprove" />
+                <ScalarProperty Name="DateConstructorApprove" ColumnName="DateConstructorApprove" />
+                <ScalarProperty Name="AmountEquipmentProducePlan" ColumnName="AmountEquipmentProducePlan" />
+                <ScalarProperty Name="NameDraftPiece" ColumnName="NameDraftPiece" />
+                <ScalarProperty Name="DraftPiece" ColumnName="DraftPiece" />
+                <ScalarProperty Name="IsStatusEmployeeFinalApproved" ColumnName="IsStatusEmployeeFinalApproved" />
+                <ScalarProperty Name="DateEmployeeFinalApproved" ColumnName="DateEmployeeFinalApproved" />
+                <ScalarProperty Name="IsStatusEmployeeApproved" ColumnName="IsStatusEmployeeApproved" />
+                <ScalarProperty Name="DateEmployeeApproved" ColumnName="DateEmployeeApproved" />
+                <ScalarProperty Name="DraftOsnast1" ColumnName="DraftOsnast" />
+                <ScalarProperty Name="NameDraftOsnast" ColumnName="NameDraftOsnast" />
+                <ScalarProperty Name="AmountEquipmentInWorkTogether" ColumnName="AmountEquipmentInWorkTogether" />
+                <ScalarProperty Name="TechOrderID" ColumnName="TechOrderID" />
+                <ScalarProperty Name="DraftOsnastID" ColumnName="DraftOsnastID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TechOrder">
+            <EntityTypeMapping TypeName="FOXModel.TechOrder">
+              <MappingFragment StoreEntitySet="TechOrder">
+                <ScalarProperty Name="OldZayvkaid" ColumnName="OldZayvkaid" />
+                <ScalarProperty Name="OldProosID" ColumnName="OldProosID" />
+                <ScalarProperty Name="DraftOsnastID" ColumnName="DraftOsnastID" />
+                <ScalarProperty Name="Grafik_id" ColumnName="Grafik_id" />
+                <ScalarProperty Name="BackupAmount" ColumnName="BackupAmount" />
+                <ScalarProperty Name="DateBackupLimitation" ColumnName="DateBackupLimitation" />
+                <ScalarProperty Name="TypeOsnast" ColumnName="TypeOsnast" />
+                <ScalarProperty Name="RepairOrProduction" ColumnName="RepairOrProduction" />
+                <ScalarProperty Name="DateAtApproval" ColumnName="DateAtApproval" />
+                <ScalarProperty Name="DateAtConstructor" ColumnName="DateAtConstructor" />
+                <ScalarProperty Name="IsAtConstructor" ColumnName="IsAtConstructor" />
+                <ScalarProperty Name="ReasonReturnedToTechnolog" ColumnName="ReasonReturnedToTechnolog" />
+                <ScalarProperty Name="DateReturnedToTechnolog" ColumnName="DateReturnedToTechnolog" />
+                <ScalarProperty Name="IsReturnedToTechnolog" ColumnName="IsReturnedToTechnolog" />
+                <ScalarProperty Name="DateLimitation" ColumnName="DateLimitation" />
+                <ScalarProperty Name="ReasonProduction" ColumnName="ReasonProduction" />
+                <ScalarProperty Name="DateWorkChiefConstructor" ColumnName="DateWorkChiefConstructor" />
+                <ScalarProperty Name="AuthorConstructor" ColumnName="AuthorConstructor" />
+                <ScalarProperty Name="LaborManufacturingAssume" ColumnName="LaborManufacturingAssume" />
+                <ScalarProperty Name="IsHandOverDraft" ColumnName="IsHandOverDraft" />
+                <ScalarProperty Name="NameOsnastTechnolog" ColumnName="NameOsnastTechnolog" />
+                <ScalarProperty Name="Analogue" ColumnName="Analogue" />
+                <ScalarProperty Name="NameDraftProduct" ColumnName="NameDraftProduct" />
+                <ScalarProperty Name="DraftProduct" ColumnName="DraftProduct" />
+                <ScalarProperty Name="Note" ColumnName="Note" />
+                <ScalarProperty Name="DepartmentTechnolog" ColumnName="DepartmentTechnolog" />
+                <ScalarProperty Name="DateChangeTechnolog" ColumnName="DateChangeTechnolog" />
+                <ScalarProperty Name="AuthorTechnolog" ColumnName="AuthorTechnolog" />
+                <ScalarProperty Name="AmountEquipmentForOper" ColumnName="AmountEquipmentForOper" />
+                <ScalarProperty Name="Ksi" ColumnName="Ksi" />
+                <ScalarProperty Name="AddInformation" ColumnName="AddInformation" />
+                <ScalarProperty Name="WorkshopID" ColumnName="WorkshopID" />
+                <ScalarProperty Name="FactoryNumberOrder" ColumnName="FactoryNumberOrder" />
+                <ScalarProperty Name="FactoryOrder" ColumnName="FactoryOrder" />
+                <ScalarProperty Name="OperationCode" ColumnName="OperationCode" />
+                <ScalarProperty Name="Workplace" ColumnName="Workplace" />
+                <ScalarProperty Name="NameDraft" ColumnName="NameDraft" />
+                <ScalarProperty Name="Draft" ColumnName="Draft" />
+                <ScalarProperty Name="YearTechOrder" ColumnName="YearTechOrder" />
+                <ScalarProperty Name="TechOrder1" ColumnName="TechOrder" />
+                <ScalarProperty Name="DateCreateApplication" ColumnName="DateCreateApplication" />
+                <ScalarProperty Name="IsApplicationFrom" ColumnName="IsApplicationFrom" />
+                <ScalarProperty Name="TechOrderID" ColumnName="TechOrderID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="prodact">
+            <EntityTypeMapping TypeName="FOXModel.prodact">
+              <MappingFragment StoreEntitySet="prodact">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="npue" ColumnName="npue" />
+                <ScalarProperty Name="im" ColumnName="im" />
+                <ScalarProperty Name="zak_d" ColumnName="zak_d" />
+                <ScalarProperty Name="mode3" ColumnName="mode3" />
+                <ScalarProperty Name="mode2" ColumnName="mode2" />
+                <ScalarProperty Name="mode1" ColumnName="mode1" />
+                <ScalarProperty Name="draft" ColumnName="draft" />
+                <ScalarProperty Name="shop_out" ColumnName="shop_out" />
+                <ScalarProperty Name="zakaz" ColumnName="zakaz" />
+                <ScalarProperty Name="kod_izd" ColumnName="kod_izd" />
+                <ScalarProperty Name="plan_group" ColumnName="plan_group" />
+                <ScalarProperty Name="name" ColumnName="name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
@@ -2010,25 +2120,46 @@
         <EntityTypeShape EntityType="FOXModel.listdse" Width="1.5" PointX="7.375" PointY="10.75" Height="1.4033821614583317" />
         <EntityTypeShape EntityType="FOXModel.m_cennik" Width="1.5" PointX="9.375" PointY="10.75" Height="5.6340136718750031" />
         <EntityTypeShape EntityType="FOXModel.prod" Width="1.5" PointX="11.375" PointY="0.75" Height="4.6725065104166674" />
-        <EntityTypeShape EntityType="FOXModel.prodact" Width="1.5" PointX="11.375" PointY="6.75" Height="3.5186979166666674" />
-        <EntityTypeShape EntityType="FOXModel.oborud" Width="1.5" PointX="11.375" PointY="11.75" />
-        <EntityTypeShape EntityType="FOXModel.s_oper" Width="1.5" PointX="13.375" PointY="0.75" />
         <EntityTypeShape EntityType="FOXModel.zayvka" Width="1.5" PointX="5.375" PointY="13.75" />
         <EntityTypeShape EntityType="FOXModel.pl_zak_t" Width="1.5" PointX="13.375" PointY="13.75" />
         <EntityTypeShape EntityType="FOXModel.iztyp" Width="1.5" PointX="2.375" PointY="15.5" />
         <EntityTypeShape EntityType="FOXModel.klados" Width="1.5" PointX="8.5" PointY="17.625" />
-        <EntityTypeShape EntityType="FOXModel.ReferenceCode" Width="1.5" PointX="15.625" PointY="1.125" />
-        <EntityTypeShape EntityType="FOXModel.ReferenceInformation" Width="1.5" PointX="17.625" PointY="1.125" />
-        <EntityTypeShape EntityType="FOXModel.DraftOsnast" Width="1.5" PointX="21.875" PointY="1.125" />
-        <EntityTypeShape EntityType="FOXModel.TechOrder" Width="1.5" PointX="19.625" PointY="1.125" />
-        <AssociationConnector Association="FOXModel.FK_ReferenceCodeID_ReferenceCode" />
-        <AssociationConnector Association="FOXModel.FK_RepairOrProduction_ReferenceInformation" />
-        <AssociationConnector Association="FOXModel.FK_TypeOsnast_ReferenceInformation" />
-        <AssociationConnector Association="FOXModel.FK_TechOrderID_TechOrder" />
         <EntityTypeShape EntityType="FOXModel.ocomplect" Width="1.5" PointX="15.375" PointY="4.75" />
         <EntityTypeShape EntityType="FOXModel.FullDraftNameList" Width="1.5" PointX="13.375" PointY="9.75" />
         <EntityTypeShape EntityType="FOXModel.proos" Width="1.5" PointX="15.375" PointY="9.75" />
         <EntityTypeShape EntityType="FOXModel.outpro" Width="1.5" PointX="17.375" PointY="11.75" />
+        <EntityTypeShape EntityType="FOXModel.oborud" Width="1.5" PointX="19.375" PointY="1" Height="3.7109993489583246" />
+        <EntityTypeShape EntityType="FOXModel.ReferenceInformation" Width="1.5" PointX="19.375" PointY="5.625" Height="1.7879850260416674" />
+        <EntityTypeShape EntityType="FOXModel.s_oper" Width="1.5" PointX="19.375" PointY="8.5" Height="1.9802864583333246" />
+        <EntityTypeShape EntityType="FOXModel.Workshop" Width="1.5" PointX="19.375" PointY="21.25" Height="3.903300781249996" />
+        <EntityTypeShape EntityType="FOXModel.DraftOsnast" Width="1.5" PointX="23.875" PointY="2.75" Height="7.5570279947916674" />
+        <EntityTypeShape EntityType="FOXModel.TechOrder" Width="1.5" PointX="21.625" PointY="1.375" Height="10.441549479166667" />
+        <AssociationConnector Association="FOXModel.FK_Workplace_oborud" >
+          <ConnectorPoint PointX="20.875" PointY="3.0429996744791623" />
+          <ConnectorPoint PointX="21.625" PointY="3.0429996744791623" />
+        </AssociationConnector>
+        <AssociationConnector Association="FOXModel.FK_RepairOrProduction_ReferenceInformation" >
+          <ConnectorPoint PointX="20.875" PointY="6.5189925130208337" />
+          <ConnectorPoint PointX="21.625" PointY="6.5189925130208337" />
+        </AssociationConnector>
+        <AssociationConnector Association="FOXModel.FK_TypeOsnast_ReferenceInformation" >
+          <ConnectorPoint PointX="20.875" PointY="6.0094962565104169" />
+          <ConnectorPoint PointX="21.625" PointY="6.0094962565104169" />
+        </AssociationConnector>
+        <AssociationConnector Association="FOXModel.FK_OperationCode_s_oper" >
+          <ConnectorPoint PointX="20.875" PointY="9.4901432291666623" />
+          <ConnectorPoint PointX="21.625" PointY="9.4901432291666623" />
+        </AssociationConnector>
+        <AssociationConnector Association="FOXModel.FK_WorkshopID_Workshop" >
+          <ConnectorPoint PointX="20.875" PointY="23.201650390624998" />
+          <ConnectorPoint PointX="22.375" PointY="23.201650390624998" />
+          <ConnectorPoint PointX="22.375" PointY="11.816549479166667" />
+        </AssociationConnector>
+        <AssociationConnector Association="FOXModel.FK_TechOrderID_TechOrder" >
+          <ConnectorPoint PointX="23.125" PointY="6.5285139973958337" />
+          <ConnectorPoint PointX="23.875" PointY="6.5285139973958337" />
+        </AssociationConnector>
+        <EntityTypeShape EntityType="FOXModel.prodact" Width="1.5" PointX="11.375" PointY="17.75" />
       </Diagram>
     </Diagrams>
   </Designer>

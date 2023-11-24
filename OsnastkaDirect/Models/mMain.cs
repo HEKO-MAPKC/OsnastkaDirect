@@ -323,10 +323,10 @@ namespace OsnastkaDirect.Models
         }
         public void LoadListOsn()
         {
-            // TODO
-            // 0. Я не понял как оно само должно присоединяться по ключам, вроде все еще джойнить надо
+            // TODO (Журнал разработки)
+            // 0.(✔ - теперь знаю) Я не понял как оно само должно присоединяться по ключам, вроде все еще джойнить надо
             // 1. Название таблицы DraftOsnast и поле DraftOsnast(1) путается
-            // 2.(+) Описания напутаны!!! dop и reason перепутаны, оно влияет на то как расположено в пункте Insert + доп обрезан, надо прописать определенный размер для varchar
+            // 2.(✔ - ну поменял) Описания напутаны!!! dop и reason перепутаны, оно влияет на то как расположено в пункте Insert + доп обрезан, надо прописать определенный размер для varchar
             // 3. Прописать каскадное удаление? не удаляется нормально и не транкейтится + при аннулировании через программу удобнее удаление (?)
             // 4. Всё тримнуть, обрезать, типа исполнителя, или как вообще варчар работает, он всегда в программу суёт с дополнительным местом?
             // 5. В TechOrder ссылка на DraftOsnast пустая
@@ -343,34 +343,43 @@ namespace OsnastkaDirect.Models
             // 16. Что за нулевой 0.0 драфт в 7к заказах outpro?
             // 17. Отрицательные trud в заявке
             // 18. Все даты либо перевести с временем или наоборот? В proos время в некоторых полях есть, в zayvka времени нету
-            // 19. RepairOrProduction TypeOsnast для zayvka нулевые должны быть	 
+            // 19. (✔ - ну поменял на возможность null) RepairOrProduction TypeOsnast для zayvka нулевые должны быть	 
             // 20. Что делать с оставшимися кладовыми
             // 21. Нужны ли столбцы с названиями в оснаске?
             // 22. В чем смысл записей где zayvka и proos совпадают?
             // 23. В концов концов я не сумел понять где какие связи, один к бесконечности, бесконечность к бесконечности...
             // 24. В итоге DraftOsnastka таблица важнее ибо она бесконечность к 1 TechOrder
+            // 25. В итоге запись № 11 была права, надо как то по другому заполнять таблицу DraftOsnast 
+            // 26. 353950 строк в draftosnast, я не знаю как джойнить.....
+            // 27. Если не добавлять заявку то всё нормально, ибо у меня 1 к 1, но это неправильно так делать, ибо есть одинаковые строчки с зак_1
+            // 28. Нужны ли нам os_pro без записей в заявках или проос?
+            // 29. Я так понимаю есть в таблице заявка примерно одинаковые поля где отличия лишь в поле draftosnast, но поскольку мы отделяем это поле от заявки в нового поле, то он при соединении с ос_про дублирует строчки
+            // 30. Либо верхний шаг неправда
+            // 31. zAYVKA и os_pro связаны бесконечностью к бесконечности...
+            // 32. Как использовать референс таблицу в коде?
+            // 33. Количеству же не нужна дробная часть?
             pListOsn = null;
             pListOsnLoaded = null;
-            var _var1 = (from i in db.TechOrder.Where(i => i.IsApplicationFrom.Value==true)
+            var _var1 = (from i in db.DraftOsnast.Where(i => i.TechOrder.IsApplicationFrom.Value==true)
 
-                         join db6 in db.DraftOsnast on
-                                  /*SqlFunctions.Equals(i.zak_1,null) ? "0" :*/ i.TechOrderID equals db6.TechOrderID /*!= null ? db6.zak_1 : "0"*/  into gf6
-                         from DraftOsnastList in gf6.DefaultIfEmpty()
+                         //join db6 in db.DraftOsnast on
+                         //         /*SqlFunctions.Equals(i.zak_1,null) ? "0" :*/ i.TechOrderID equals db6.TechOrderID /*!= null ? db6.zak_1 : "0"*/  into gf6
+                         //from DraftOsnastList in gf6.DefaultIfEmpty()
                                   //where i.zak_1 != null 
-                         let _draftneed = DraftOsnastList.DraftPiece == 0 || DraftOsnastList.DraftPiece == null ? DraftOsnastList.DraftOsnast1.Value : DraftOsnastList.DraftPiece.Value
+                         let _draftneed = i.DraftPiece == 0 || i.DraftPiece == null ? i.DraftOsnast1.Value : i.DraftPiece.Value
 
                          join db1 in db.FullDraftNameList.Where(i => i.IsShortDraft)
-                         on (int)(i.Draft.Value / 1000) equals db1.Draft into gf1
+                         on (int)(i.TechOrder.Draft.Value / 1000) equals db1.Draft into gf1
                          from listDse in gf1.DefaultIfEmpty().Take(1)
 
                          join db2 in db.FullDraftNameList on
-                         DraftOsnastList.DraftPiece equals db2.Draft into gf2
+                         i.DraftPiece equals db2.Draft into gf2
                          from listDsePiece in gf2.DefaultIfEmpty().Take(1)
 
                          join db3 in db.FullDraftNameList on
-                         DraftOsnastList.DraftOsnast1 equals db3.Draft into gf3
+                         i.DraftOsnast1 equals db3.Draft into gf3
                          from listDseOsn in gf3.DefaultIfEmpty().Take(1)
-                         let _DseGrid = DraftOsnastList.DraftPiece == 0 || DraftOsnastList.DraftPiece == null ? listDseOsn.DraftName : listDsePiece.DraftName
+                         let _DseGrid = i.DraftPiece == 0 || i.DraftPiece == null ? listDseOsn.DraftName : listDsePiece.DraftName
 
                          //let draftgrid listDse.DraftPiece == 0 || listDsePiece.DraftPiece == null ?
                          //join db2 in db.LIST_FR on
@@ -415,19 +424,19 @@ namespace OsnastkaDirect.Models
                          orderby i.TechOrderID descending
                               select new Osn
                               {
-                                  draftOsn = DraftOsnastList.DraftOsnast1,
-                                  //workshop = i.WorkshopID,
-                                  nOrdPrev = i.TechOrderID,
-                                  nOrd = i.TechOrder1,
-                                  reason = i.ReasonProduction,
-                                  addition = i.AddInformation,
-                                  amount = i.AmountEquipmentForOper,
-                                  dateWho = i.DateCreateApplication,
-                                  who = i.AuthorTechnolog,
-                                  returnRes = i.ReasonReturnedToTechnolog,
-                                  draft = i.Draft,
-                                  draftRes = DraftOsnastList.DraftPiece,
-                                  // storeroom = DraftOsnastList.,
+                                  draftOsn = i.DraftOsnast1,
+                                  workshop = i.TechOrder.Workshop.Workshop1,
+                                  nOrdPrev = i.TechOrderID.Value,
+                                  nOrd = i.TechOrder.TechOrder1,
+                                  reason = i.TechOrder.ReasonProduction,
+                                  addition = i.TechOrder.AddInformation,
+                                  amount = i.AmountEquipmentProducePlan,
+                                  dateWho = i.TechOrder.DateCreateApplication,
+                                  who = i.TechOrder.AuthorTechnolog,
+                                  returnRes = i.TechOrder.ReasonReturnedToTechnolog,
+                                  draft = i.TechOrder.Draft,
+                                  draftRes = i.DraftPiece,
+                                  storeroom = i.TechOrder.Workshop.StoreroomOsnast,
                                   //nameDraft = db.ExecuteFunction<string> ("GetDraftName"),
                                   //nameGrid= GetDraftName(_draftneed),
                                   //nameDraft = GetDraftName(i.Draft),
@@ -436,44 +445,44 @@ namespace OsnastkaDirect.Models
                                   nameGrid =
                                   _DseGrid != null ? _DseGrid.Trim() :
                                   "",
-                                  draftGrid = DraftOsnastList.DraftPiece == null || DraftOsnastList.DraftPiece == 0 ? DraftOsnastList.DraftOsnast1 : DraftOsnastList.DraftPiece,
+                                  draftGrid = i.DraftPiece == null || i.DraftPiece == 0 ? i.DraftOsnast1 : i.DraftPiece,
                                   nameDraft = listDse.DraftName,
                                   nameOsn = listDseOsn.DraftName,
                                   nameRes = listDsePiece.DraftName,
 
 
 
-                                  usage = i.NameDraftProduct,
-                                  dtSrok = i.DateLimitation,
-                                  dtIzg = i.DateAtApproval,
-                                  dtOk = DraftOsnastList.DateEmployeeFinalApproved,
-                                  atConst = i.IsAtConstructor,
-                                  accepted = DraftOsnastList.IsStatusEmployeeApproved,
-                                  returned = i.IsReturnedToTechnolog,
-                                  fioConst = DraftOsnastList.AuthorConstructorExecute,
+                                  usage = i.TechOrder.NameDraftProduct,
+                                  dtSrok = i.TechOrder.DateLimitation,
+                                  dtIzg = i.TechOrder.DateAtApproval,
+                                  dtOk = i.DateEmployeeFinalApproved,
+                                  atConst = i.TechOrder.IsAtConstructor,
+                                  accepted = i.IsStatusEmployeeApproved,
+                                  returned = i.TechOrder.IsReturnedToTechnolog,
+                                  fioConst = i.AuthorConstructorExecute,
 
                                  // ord700 = list7 != null ? list7.zakaz : 0,
                                  // num700 = list7 != null ? list7.nom : 0,
-                                  ordOsn = i.FactoryOrder,
-                                  numOsn = i.FactoryNumberOrder,
-                                 // workPlace = list6.rab_m,
-                                 // operation = list6.oper,
-                                 // characterOrd = i.rem_izg,
-                                  dateNeed = DraftOsnastList.DateImplementPlan,
+                                  ordOsn = i.TechOrder.FactoryOrder,
+                                  numOsn = i.TechOrder.FactoryNumberOrder,
+                                  workPlace = i.TechOrder.Workplace,
+                                  operation = i.TechOrder.OperationCode,
+                                  characterOrd = i.TechOrder.ReferenceInformation.ReferenceName,
+                                  dateNeed = i.DateImplementPlan,
 
                                 //  date700 = list8.data,
-                                  annTab = DraftOsnastList.ANNTab,
-                                  datePlan = DraftOsnastList.DateProducePlan,
-                                  dateFact = DraftOsnastList.DateProduceFact,
+                                  annTab = i.ANNTab,
+                                  datePlan = i.DateProducePlan,
+                                  dateFact = i.DateProduceFact,
 
-                                 // workPlaceName = oborudlist.code.Trim() + " " + oborudlist.oborud1.Trim(),
-                                 // operationName = s_operlist.oper,
+                                  workPlaceName = i.TechOrder.oborud.code.Trim() + " " + i.TechOrder.oborud.oborud1.Trim(),
+                                  operationName = i.TechOrder.s_oper.oper,
 
-                                  zak_1 = i.YearTechOrder,
+                                  zak_1 = i.TechOrder.YearTechOrder,
                                  // id_os_pro = i.os_pro_id.Value, //ПОМЕНЯТЬ ПОТОМ НА НЕ NULL
                                  // id_prod = i.prod_id.Value,
-                                  dateBoss = i.DateReturnedToTechnolog,
-                                  boss = i.AuthorConstructor,
+                                  dateBoss = i.TechOrder.DateReturnedToTechnolog,
+                                  boss = i.TechOrder.AuthorConstructor,
                               })/*.Distinct()*/.ToList();
             ////dtplan WITH os_pro.s_iz_10;
             //dtfact WITH os_pro.d_iz_13;

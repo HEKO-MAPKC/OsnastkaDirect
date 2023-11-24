@@ -19,10 +19,12 @@ using System.Xml.Serialization;
 [assembly: EdmSchemaAttribute()]
 #region Метаданные связи EDM
 
-[assembly: EdmRelationshipAttribute("FOXModel", "FK_ReferenceCodeID_ReferenceCode", "ReferenceCode", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(OsnastkaDirect.Data.ReferenceCode), "ReferenceInformation", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(OsnastkaDirect.Data.ReferenceInformation), true)]
-[assembly: EdmRelationshipAttribute("FOXModel", "FK_RepairOrProduction_ReferenceInformation", "ReferenceInformation", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(OsnastkaDirect.Data.ReferenceInformation), "TechOrder", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(OsnastkaDirect.Data.TechOrder), true)]
-[assembly: EdmRelationshipAttribute("FOXModel", "FK_TypeOsnast_ReferenceInformation", "ReferenceInformation", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(OsnastkaDirect.Data.ReferenceInformation), "TechOrder", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(OsnastkaDirect.Data.TechOrder), true)]
-[assembly: EdmRelationshipAttribute("FOXModel", "FK_TechOrderID_TechOrder", "TechOrder", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(OsnastkaDirect.Data.TechOrder), "DraftOsnast", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(OsnastkaDirect.Data.DraftOsnast), true)]
+[assembly: EdmRelationshipAttribute("FOXModel", "FK_Workplace_oborud", "oborud", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(OsnastkaDirect.Data.oborud), "TechOrder", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(OsnastkaDirect.Data.TechOrder), true)]
+[assembly: EdmRelationshipAttribute("FOXModel", "FK_RepairOrProduction_ReferenceInformation", "ReferenceInformation", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(OsnastkaDirect.Data.ReferenceInformation), "TechOrder", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(OsnastkaDirect.Data.TechOrder), true)]
+[assembly: EdmRelationshipAttribute("FOXModel", "FK_TypeOsnast_ReferenceInformation", "ReferenceInformation", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(OsnastkaDirect.Data.ReferenceInformation), "TechOrder", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(OsnastkaDirect.Data.TechOrder), true)]
+[assembly: EdmRelationshipAttribute("FOXModel", "FK_OperationCode_s_oper", "s_oper", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(OsnastkaDirect.Data.s_oper), "TechOrder", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(OsnastkaDirect.Data.TechOrder), true)]
+[assembly: EdmRelationshipAttribute("FOXModel", "FK_WorkshopID_Workshop", "Workshop", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(OsnastkaDirect.Data.Workshop), "TechOrder", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(OsnastkaDirect.Data.TechOrder), true)]
+[assembly: EdmRelationshipAttribute("FOXModel", "FK_TechOrderID_TechOrder", "TechOrder", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(OsnastkaDirect.Data.TechOrder), "DraftOsnast", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(OsnastkaDirect.Data.DraftOsnast), true)]
 
 #endregion
 
@@ -221,54 +223,6 @@ namespace OsnastkaDirect.Data
         /// <summary>
         /// Нет доступной документации по метаданным.
         /// </summary>
-        public ObjectSet<prodact> prodact
-        {
-            get
-            {
-                if ((_prodact == null))
-                {
-                    _prodact = base.CreateObjectSet<prodact>("prodact");
-                }
-                return _prodact;
-            }
-        }
-        private ObjectSet<prodact> _prodact;
-    
-        /// <summary>
-        /// Нет доступной документации по метаданным.
-        /// </summary>
-        public ObjectSet<oborud> oborud
-        {
-            get
-            {
-                if ((_oborud == null))
-                {
-                    _oborud = base.CreateObjectSet<oborud>("oborud");
-                }
-                return _oborud;
-            }
-        }
-        private ObjectSet<oborud> _oborud;
-    
-        /// <summary>
-        /// Нет доступной документации по метаданным.
-        /// </summary>
-        public ObjectSet<s_oper> s_oper
-        {
-            get
-            {
-                if ((_s_oper == null))
-                {
-                    _s_oper = base.CreateObjectSet<s_oper>("s_oper");
-                }
-                return _s_oper;
-            }
-        }
-        private ObjectSet<s_oper> _s_oper;
-    
-        /// <summary>
-        /// Нет доступной документации по метаданным.
-        /// </summary>
         public ObjectSet<zayvka> zayvka
         {
             get
@@ -333,70 +287,6 @@ namespace OsnastkaDirect.Data
         /// <summary>
         /// Нет доступной документации по метаданным.
         /// </summary>
-        public ObjectSet<ReferenceCode> ReferenceCode
-        {
-            get
-            {
-                if ((_ReferenceCode == null))
-                {
-                    _ReferenceCode = base.CreateObjectSet<ReferenceCode>("ReferenceCode");
-                }
-                return _ReferenceCode;
-            }
-        }
-        private ObjectSet<ReferenceCode> _ReferenceCode;
-    
-        /// <summary>
-        /// Нет доступной документации по метаданным.
-        /// </summary>
-        public ObjectSet<ReferenceInformation> ReferenceInformation
-        {
-            get
-            {
-                if ((_ReferenceInformation == null))
-                {
-                    _ReferenceInformation = base.CreateObjectSet<ReferenceInformation>("ReferenceInformation");
-                }
-                return _ReferenceInformation;
-            }
-        }
-        private ObjectSet<ReferenceInformation> _ReferenceInformation;
-    
-        /// <summary>
-        /// Нет доступной документации по метаданным.
-        /// </summary>
-        public ObjectSet<DraftOsnast> DraftOsnast
-        {
-            get
-            {
-                if ((_DraftOsnast == null))
-                {
-                    _DraftOsnast = base.CreateObjectSet<DraftOsnast>("DraftOsnast");
-                }
-                return _DraftOsnast;
-            }
-        }
-        private ObjectSet<DraftOsnast> _DraftOsnast;
-    
-        /// <summary>
-        /// Нет доступной документации по метаданным.
-        /// </summary>
-        public ObjectSet<TechOrder> TechOrder
-        {
-            get
-            {
-                if ((_TechOrder == null))
-                {
-                    _TechOrder = base.CreateObjectSet<TechOrder>("TechOrder");
-                }
-                return _TechOrder;
-            }
-        }
-        private ObjectSet<TechOrder> _TechOrder;
-    
-        /// <summary>
-        /// Нет доступной документации по метаданным.
-        /// </summary>
         public ObjectSet<ocomplect> ocomplect
         {
             get
@@ -457,6 +347,118 @@ namespace OsnastkaDirect.Data
             }
         }
         private ObjectSet<outpro> _outpro;
+    
+        /// <summary>
+        /// Нет доступной документации по метаданным.
+        /// </summary>
+        public ObjectSet<oborud> oborud
+        {
+            get
+            {
+                if ((_oborud == null))
+                {
+                    _oborud = base.CreateObjectSet<oborud>("oborud");
+                }
+                return _oborud;
+            }
+        }
+        private ObjectSet<oborud> _oborud;
+    
+        /// <summary>
+        /// Нет доступной документации по метаданным.
+        /// </summary>
+        public ObjectSet<ReferenceInformation> ReferenceInformation
+        {
+            get
+            {
+                if ((_ReferenceInformation == null))
+                {
+                    _ReferenceInformation = base.CreateObjectSet<ReferenceInformation>("ReferenceInformation");
+                }
+                return _ReferenceInformation;
+            }
+        }
+        private ObjectSet<ReferenceInformation> _ReferenceInformation;
+    
+        /// <summary>
+        /// Нет доступной документации по метаданным.
+        /// </summary>
+        public ObjectSet<s_oper> s_oper
+        {
+            get
+            {
+                if ((_s_oper == null))
+                {
+                    _s_oper = base.CreateObjectSet<s_oper>("s_oper");
+                }
+                return _s_oper;
+            }
+        }
+        private ObjectSet<s_oper> _s_oper;
+    
+        /// <summary>
+        /// Нет доступной документации по метаданным.
+        /// </summary>
+        public ObjectSet<Workshop> Workshop
+        {
+            get
+            {
+                if ((_Workshop == null))
+                {
+                    _Workshop = base.CreateObjectSet<Workshop>("Workshop");
+                }
+                return _Workshop;
+            }
+        }
+        private ObjectSet<Workshop> _Workshop;
+    
+        /// <summary>
+        /// Нет доступной документации по метаданным.
+        /// </summary>
+        public ObjectSet<DraftOsnast> DraftOsnast
+        {
+            get
+            {
+                if ((_DraftOsnast == null))
+                {
+                    _DraftOsnast = base.CreateObjectSet<DraftOsnast>("DraftOsnast");
+                }
+                return _DraftOsnast;
+            }
+        }
+        private ObjectSet<DraftOsnast> _DraftOsnast;
+    
+        /// <summary>
+        /// Нет доступной документации по метаданным.
+        /// </summary>
+        public ObjectSet<TechOrder> TechOrder
+        {
+            get
+            {
+                if ((_TechOrder == null))
+                {
+                    _TechOrder = base.CreateObjectSet<TechOrder>("TechOrder");
+                }
+                return _TechOrder;
+            }
+        }
+        private ObjectSet<TechOrder> _TechOrder;
+    
+        /// <summary>
+        /// Нет доступной документации по метаданным.
+        /// </summary>
+        public ObjectSet<prodact> prodact
+        {
+            get
+            {
+                if ((_prodact == null))
+                {
+                    _prodact = base.CreateObjectSet<prodact>("prodact");
+                }
+                return _prodact;
+            }
+        }
+        private ObjectSet<prodact> _prodact;
 
         #endregion
 
@@ -535,30 +537,6 @@ namespace OsnastkaDirect.Data
         }
     
         /// <summary>
-        /// Устаревший метод для добавления новых объектов в набор EntitySet prodact. Взамен можно использовать метод .Add связанного свойства ObjectSet&lt;T&gt;.
-        /// </summary>
-        public void AddToprodact(prodact prodact)
-        {
-            base.AddObject("prodact", prodact);
-        }
-    
-        /// <summary>
-        /// Устаревший метод для добавления новых объектов в набор EntitySet oborud. Взамен можно использовать метод .Add связанного свойства ObjectSet&lt;T&gt;.
-        /// </summary>
-        public void AddTooborud(oborud oborud)
-        {
-            base.AddObject("oborud", oborud);
-        }
-    
-        /// <summary>
-        /// Устаревший метод для добавления новых объектов в набор EntitySet s_oper. Взамен можно использовать метод .Add связанного свойства ObjectSet&lt;T&gt;.
-        /// </summary>
-        public void AddTos_oper(s_oper s_oper)
-        {
-            base.AddObject("s_oper", s_oper);
-        }
-    
-        /// <summary>
         /// Устаревший метод для добавления новых объектов в набор EntitySet zayvka. Взамен можно использовать метод .Add связанного свойства ObjectSet&lt;T&gt;.
         /// </summary>
         public void AddTozayvka(zayvka zayvka)
@@ -591,38 +569,6 @@ namespace OsnastkaDirect.Data
         }
     
         /// <summary>
-        /// Устаревший метод для добавления новых объектов в набор EntitySet ReferenceCode. Взамен можно использовать метод .Add связанного свойства ObjectSet&lt;T&gt;.
-        /// </summary>
-        public void AddToReferenceCode(ReferenceCode referenceCode)
-        {
-            base.AddObject("ReferenceCode", referenceCode);
-        }
-    
-        /// <summary>
-        /// Устаревший метод для добавления новых объектов в набор EntitySet ReferenceInformation. Взамен можно использовать метод .Add связанного свойства ObjectSet&lt;T&gt;.
-        /// </summary>
-        public void AddToReferenceInformation(ReferenceInformation referenceInformation)
-        {
-            base.AddObject("ReferenceInformation", referenceInformation);
-        }
-    
-        /// <summary>
-        /// Устаревший метод для добавления новых объектов в набор EntitySet DraftOsnast. Взамен можно использовать метод .Add связанного свойства ObjectSet&lt;T&gt;.
-        /// </summary>
-        public void AddToDraftOsnast(DraftOsnast draftOsnast)
-        {
-            base.AddObject("DraftOsnast", draftOsnast);
-        }
-    
-        /// <summary>
-        /// Устаревший метод для добавления новых объектов в набор EntitySet TechOrder. Взамен можно использовать метод .Add связанного свойства ObjectSet&lt;T&gt;.
-        /// </summary>
-        public void AddToTechOrder(TechOrder techOrder)
-        {
-            base.AddObject("TechOrder", techOrder);
-        }
-    
-        /// <summary>
         /// Устаревший метод для добавления новых объектов в набор EntitySet ocomplect. Взамен можно использовать метод .Add связанного свойства ObjectSet&lt;T&gt;.
         /// </summary>
         public void AddToocomplect(ocomplect ocomplect)
@@ -652,6 +598,62 @@ namespace OsnastkaDirect.Data
         public void AddTooutpro(outpro outpro)
         {
             base.AddObject("outpro", outpro);
+        }
+    
+        /// <summary>
+        /// Устаревший метод для добавления новых объектов в набор EntitySet oborud. Взамен можно использовать метод .Add связанного свойства ObjectSet&lt;T&gt;.
+        /// </summary>
+        public void AddTooborud(oborud oborud)
+        {
+            base.AddObject("oborud", oborud);
+        }
+    
+        /// <summary>
+        /// Устаревший метод для добавления новых объектов в набор EntitySet ReferenceInformation. Взамен можно использовать метод .Add связанного свойства ObjectSet&lt;T&gt;.
+        /// </summary>
+        public void AddToReferenceInformation(ReferenceInformation referenceInformation)
+        {
+            base.AddObject("ReferenceInformation", referenceInformation);
+        }
+    
+        /// <summary>
+        /// Устаревший метод для добавления новых объектов в набор EntitySet s_oper. Взамен можно использовать метод .Add связанного свойства ObjectSet&lt;T&gt;.
+        /// </summary>
+        public void AddTos_oper(s_oper s_oper)
+        {
+            base.AddObject("s_oper", s_oper);
+        }
+    
+        /// <summary>
+        /// Устаревший метод для добавления новых объектов в набор EntitySet Workshop. Взамен можно использовать метод .Add связанного свойства ObjectSet&lt;T&gt;.
+        /// </summary>
+        public void AddToWorkshop(Workshop workshop)
+        {
+            base.AddObject("Workshop", workshop);
+        }
+    
+        /// <summary>
+        /// Устаревший метод для добавления новых объектов в набор EntitySet DraftOsnast. Взамен можно использовать метод .Add связанного свойства ObjectSet&lt;T&gt;.
+        /// </summary>
+        public void AddToDraftOsnast(DraftOsnast draftOsnast)
+        {
+            base.AddObject("DraftOsnast", draftOsnast);
+        }
+    
+        /// <summary>
+        /// Устаревший метод для добавления новых объектов в набор EntitySet TechOrder. Взамен можно использовать метод .Add связанного свойства ObjectSet&lt;T&gt;.
+        /// </summary>
+        public void AddToTechOrder(TechOrder techOrder)
+        {
+            base.AddObject("TechOrder", techOrder);
+        }
+    
+        /// <summary>
+        /// Устаревший метод для добавления новых объектов в набор EntitySet prodact. Взамен можно использовать метод .Add связанного свойства ObjectSet&lt;T&gt;.
+        /// </summary>
+        public void AddToprodact(prodact prodact)
+        {
+            base.AddObject("prodact", prodact);
         }
 
         #endregion
@@ -1036,12 +1038,10 @@ namespace OsnastkaDirect.Data
         /// Создание нового объекта DraftOsnast.
         /// </summary>
         /// <param name="draftOsnastID">Исходное значение свойства DraftOsnastID.</param>
-        /// <param name="techOrderID">Исходное значение свойства TechOrderID.</param>
-        public static DraftOsnast CreateDraftOsnast(global::System.Int32 draftOsnastID, global::System.Int32 techOrderID)
+        public static DraftOsnast CreateDraftOsnast(global::System.Int32 draftOsnastID)
         {
             DraftOsnast draftOsnast = new DraftOsnast();
             draftOsnast.DraftOsnastID = draftOsnastID;
-            draftOsnast.TechOrderID = techOrderID;
             return draftOsnast;
         }
 
@@ -1079,9 +1079,9 @@ namespace OsnastkaDirect.Data
         /// <summary>
         /// Нет доступной документации по метаданным.
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
         [DataMemberAttribute()]
-        public global::System.Int32 TechOrderID
+        public Nullable<global::System.Int32> TechOrderID
         {
             get
             {
@@ -1096,8 +1096,8 @@ namespace OsnastkaDirect.Data
                 OnTechOrderIDChanged();
             }
         }
-        private global::System.Int32 _TechOrderID;
-        partial void OnTechOrderIDChanging(global::System.Int32 value);
+        private Nullable<global::System.Int32> _TechOrderID;
+        partial void OnTechOrderIDChanging(Nullable<global::System.Int32> value);
         partial void OnTechOrderIDChanged();
     
         /// <summary>
@@ -1819,6 +1819,30 @@ namespace OsnastkaDirect.Data
         private Nullable<global::System.DateTime> _DateRecieveTechOrderSPP;
         partial void OnDateRecieveTechOrderSPPChanging(Nullable<global::System.DateTime> value);
         partial void OnDateRecieveTechOrderSPPChanged();
+    
+        /// <summary>
+        /// Нет доступной документации по метаданным.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> OldOsproid
+        {
+            get
+            {
+                return _OldOsproid;
+            }
+            set
+            {
+                OnOldOsproidChanging(value);
+                ReportPropertyChanging("OldOsproid");
+                _OldOsproid = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("OldOsproid");
+                OnOldOsproidChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _OldOsproid;
+        partial void OnOldOsproidChanging(Nullable<global::System.Int32> value);
+        partial void OnOldOsproidChanged();
 
         #endregion
 
@@ -3281,6 +3305,32 @@ namespace OsnastkaDirect.Data
         #endregion
 
     
+        #region Свойства навигации
+    
+        /// <summary>
+        /// Нет доступной документации по метаданным.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("FOXModel", "FK_Workplace_oborud", "TechOrder")]
+        public EntityCollection<TechOrder> TechOrder
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<TechOrder>("FOXModel.FK_Workplace_oborud", "TechOrder");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<TechOrder>("FOXModel.FK_Workplace_oborud", "TechOrder", value);
+                }
+            }
+        }
+
+        #endregion
+
     }
     
     /// <summary>
@@ -9616,113 +9666,6 @@ namespace OsnastkaDirect.Data
     /// <summary>
     /// Нет доступной документации по метаданным.
     /// </summary>
-    [EdmEntityTypeAttribute(NamespaceName="FOXModel", Name="ReferenceCode")]
-    [Serializable()]
-    [DataContractAttribute(IsReference=true)]
-    public partial class ReferenceCode : EntityObject
-    {
-        #region Фабричный метод
-    
-        /// <summary>
-        /// Создание нового объекта ReferenceCode.
-        /// </summary>
-        /// <param name="referenceCodeID">Исходное значение свойства ReferenceCodeID.</param>
-        public static ReferenceCode CreateReferenceCode(global::System.Int32 referenceCodeID)
-        {
-            ReferenceCode referenceCode = new ReferenceCode();
-            referenceCode.ReferenceCodeID = referenceCodeID;
-            return referenceCode;
-        }
-
-        #endregion
-
-        #region Свойства-примитивы
-    
-        /// <summary>
-        /// Нет доступной документации по метаданным.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Int32 ReferenceCodeID
-        {
-            get
-            {
-                return _ReferenceCodeID;
-            }
-            set
-            {
-                if (_ReferenceCodeID != value)
-                {
-                    OnReferenceCodeIDChanging(value);
-                    ReportPropertyChanging("ReferenceCodeID");
-                    _ReferenceCodeID = StructuralObject.SetValidValue(value);
-                    ReportPropertyChanged("ReferenceCodeID");
-                    OnReferenceCodeIDChanged();
-                }
-            }
-        }
-        private global::System.Int32 _ReferenceCodeID;
-        partial void OnReferenceCodeIDChanging(global::System.Int32 value);
-        partial void OnReferenceCodeIDChanged();
-    
-        /// <summary>
-        /// Нет доступной документации по метаданным.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public global::System.String ReferenceCodeDescription
-        {
-            get
-            {
-                return _ReferenceCodeDescription;
-            }
-            set
-            {
-                OnReferenceCodeDescriptionChanging(value);
-                ReportPropertyChanging("ReferenceCodeDescription");
-                _ReferenceCodeDescription = StructuralObject.SetValidValue(value, true);
-                ReportPropertyChanged("ReferenceCodeDescription");
-                OnReferenceCodeDescriptionChanged();
-            }
-        }
-        private global::System.String _ReferenceCodeDescription;
-        partial void OnReferenceCodeDescriptionChanging(global::System.String value);
-        partial void OnReferenceCodeDescriptionChanged();
-
-        #endregion
-
-    
-        #region Свойства навигации
-    
-        /// <summary>
-        /// Нет доступной документации по метаданным.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("FOXModel", "FK_ReferenceCodeID_ReferenceCode", "ReferenceInformation")]
-        public EntityCollection<ReferenceInformation> ReferenceInformation
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<ReferenceInformation>("FOXModel.FK_ReferenceCodeID_ReferenceCode", "ReferenceInformation");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<ReferenceInformation>("FOXModel.FK_ReferenceCodeID_ReferenceCode", "ReferenceInformation", value);
-                }
-            }
-        }
-
-        #endregion
-
-    }
-    
-    /// <summary>
-    /// Нет доступной документации по метаданным.
-    /// </summary>
     [EdmEntityTypeAttribute(NamespaceName="FOXModel", Name="ReferenceInformation")]
     [Serializable()]
     [DataContractAttribute(IsReference=true)]
@@ -9734,12 +9677,10 @@ namespace OsnastkaDirect.Data
         /// Создание нового объекта ReferenceInformation.
         /// </summary>
         /// <param name="referenceInformationID">Исходное значение свойства ReferenceInformationID.</param>
-        /// <param name="referenceCodeID">Исходное значение свойства ReferenceCodeID.</param>
-        public static ReferenceInformation CreateReferenceInformation(global::System.Int32 referenceInformationID, global::System.Int32 referenceCodeID)
+        public static ReferenceInformation CreateReferenceInformation(global::System.Int32 referenceInformationID)
         {
             ReferenceInformation referenceInformation = new ReferenceInformation();
             referenceInformation.ReferenceInformationID = referenceInformationID;
-            referenceInformation.ReferenceCodeID = referenceCodeID;
             return referenceInformation;
         }
 
@@ -9777,30 +9718,6 @@ namespace OsnastkaDirect.Data
         /// <summary>
         /// Нет доступной документации по метаданным.
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Int32 ReferenceCodeID
-        {
-            get
-            {
-                return _ReferenceCodeID;
-            }
-            set
-            {
-                OnReferenceCodeIDChanging(value);
-                ReportPropertyChanging("ReferenceCodeID");
-                _ReferenceCodeID = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("ReferenceCodeID");
-                OnReferenceCodeIDChanged();
-            }
-        }
-        private global::System.Int32 _ReferenceCodeID;
-        partial void OnReferenceCodeIDChanging(global::System.Int32 value);
-        partial void OnReferenceCodeIDChanged();
-    
-        /// <summary>
-        /// Нет доступной документации по метаданным.
-        /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
         [DataMemberAttribute()]
         public global::System.String ReferenceName
@@ -9826,44 +9743,6 @@ namespace OsnastkaDirect.Data
 
     
         #region Свойства навигации
-    
-        /// <summary>
-        /// Нет доступной документации по метаданным.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("FOXModel", "FK_ReferenceCodeID_ReferenceCode", "ReferenceCode")]
-        public ReferenceCode ReferenceCode
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<ReferenceCode>("FOXModel.FK_ReferenceCodeID_ReferenceCode", "ReferenceCode").Value;
-            }
-            set
-            {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<ReferenceCode>("FOXModel.FK_ReferenceCodeID_ReferenceCode", "ReferenceCode").Value = value;
-            }
-        }
-        /// <summary>
-        /// Нет доступной документации по метаданным.
-        /// </summary>
-        [BrowsableAttribute(false)]
-        [DataMemberAttribute()]
-        public EntityReference<ReferenceCode> ReferenceCodeReference
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<ReferenceCode>("FOXModel.FK_ReferenceCodeID_ReferenceCode", "ReferenceCode");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<ReferenceCode>("FOXModel.FK_ReferenceCodeID_ReferenceCode", "ReferenceCode", value);
-                }
-            }
-        }
     
         /// <summary>
         /// Нет доступной документации по метаданным.
@@ -10040,6 +9919,32 @@ namespace OsnastkaDirect.Data
         #endregion
 
     
+        #region Свойства навигации
+    
+        /// <summary>
+        /// Нет доступной документации по метаданным.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("FOXModel", "FK_OperationCode_s_oper", "TechOrder")]
+        public EntityCollection<TechOrder> TechOrder
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<TechOrder>("FOXModel.FK_OperationCode_s_oper", "TechOrder");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<TechOrder>("FOXModel.FK_OperationCode_s_oper", "TechOrder", value);
+                }
+            }
+        }
+
+        #endregion
+
     }
     
     /// <summary>
@@ -10061,9 +9966,7 @@ namespace OsnastkaDirect.Data
         /// <param name="factoryNumberOrder">Исходное значение свойства FactoryNumberOrder.</param>
         /// <param name="workshopID">Исходное значение свойства WorkshopID.</param>
         /// <param name="laborManufacturingAssume">Исходное значение свойства LaborManufacturingAssume.</param>
-        /// <param name="repairOrProduction">Исходное значение свойства RepairOrProduction.</param>
-        /// <param name="typeOsnast">Исходное значение свойства TypeOsnast.</param>
-        public static TechOrder CreateTechOrder(global::System.Int32 techOrderID, global::System.String yearTechOrder, global::System.Int16 factoryOrder, global::System.Int16 factoryNumberOrder, global::System.Int32 workshopID, global::System.Decimal laborManufacturingAssume, global::System.Int32 repairOrProduction, global::System.Int32 typeOsnast)
+        public static TechOrder CreateTechOrder(global::System.Int32 techOrderID, global::System.String yearTechOrder, global::System.Int16 factoryOrder, global::System.Int16 factoryNumberOrder, global::System.Int32 workshopID, global::System.Decimal laborManufacturingAssume)
         {
             TechOrder techOrder = new TechOrder();
             techOrder.TechOrderID = techOrderID;
@@ -10072,8 +9975,6 @@ namespace OsnastkaDirect.Data
             techOrder.FactoryNumberOrder = factoryNumberOrder;
             techOrder.WorkshopID = workshopID;
             techOrder.LaborManufacturingAssume = laborManufacturingAssume;
-            techOrder.RepairOrProduction = repairOrProduction;
-            techOrder.TypeOsnast = typeOsnast;
             return techOrder;
         }
 
@@ -10927,9 +10828,9 @@ namespace OsnastkaDirect.Data
         /// <summary>
         /// Нет доступной документации по метаданным.
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
         [DataMemberAttribute()]
-        public global::System.Int32 RepairOrProduction
+        public Nullable<global::System.Int32> RepairOrProduction
         {
             get
             {
@@ -10944,16 +10845,16 @@ namespace OsnastkaDirect.Data
                 OnRepairOrProductionChanged();
             }
         }
-        private global::System.Int32 _RepairOrProduction;
-        partial void OnRepairOrProductionChanging(global::System.Int32 value);
+        private Nullable<global::System.Int32> _RepairOrProduction;
+        partial void OnRepairOrProductionChanging(Nullable<global::System.Int32> value);
         partial void OnRepairOrProductionChanged();
     
         /// <summary>
         /// Нет доступной документации по метаданным.
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
         [DataMemberAttribute()]
-        public global::System.Int32 TypeOsnast
+        public Nullable<global::System.Int32> TypeOsnast
         {
             get
             {
@@ -10968,8 +10869,8 @@ namespace OsnastkaDirect.Data
                 OnTypeOsnastChanged();
             }
         }
-        private global::System.Int32 _TypeOsnast;
-        partial void OnTypeOsnastChanging(global::System.Int32 value);
+        private Nullable<global::System.Int32> _TypeOsnast;
+        partial void OnTypeOsnastChanging(Nullable<global::System.Int32> value);
         partial void OnTypeOsnastChanged();
     
         /// <summary>
@@ -11067,11 +10968,97 @@ namespace OsnastkaDirect.Data
         private Nullable<global::System.Int32> _DraftOsnastID;
         partial void OnDraftOsnastIDChanging(Nullable<global::System.Int32> value);
         partial void OnDraftOsnastIDChanged();
+    
+        /// <summary>
+        /// Нет доступной документации по метаданным.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> OldProosID
+        {
+            get
+            {
+                return _OldProosID;
+            }
+            set
+            {
+                OnOldProosIDChanging(value);
+                ReportPropertyChanging("OldProosID");
+                _OldProosID = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("OldProosID");
+                OnOldProosIDChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _OldProosID;
+        partial void OnOldProosIDChanging(Nullable<global::System.Int32> value);
+        partial void OnOldProosIDChanged();
+    
+        /// <summary>
+        /// Нет доступной документации по метаданным.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> OldZayvkaid
+        {
+            get
+            {
+                return _OldZayvkaid;
+            }
+            set
+            {
+                OnOldZayvkaidChanging(value);
+                ReportPropertyChanging("OldZayvkaid");
+                _OldZayvkaid = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("OldZayvkaid");
+                OnOldZayvkaidChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _OldZayvkaid;
+        partial void OnOldZayvkaidChanging(Nullable<global::System.Int32> value);
+        partial void OnOldZayvkaidChanged();
 
         #endregion
 
     
         #region Свойства навигации
+    
+        /// <summary>
+        /// Нет доступной документации по метаданным.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("FOXModel", "FK_Workplace_oborud", "oborud")]
+        public oborud oborud
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<oborud>("FOXModel.FK_Workplace_oborud", "oborud").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<oborud>("FOXModel.FK_Workplace_oborud", "oborud").Value = value;
+            }
+        }
+        /// <summary>
+        /// Нет доступной документации по метаданным.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<oborud> oborudReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<oborud>("FOXModel.FK_Workplace_oborud", "oborud");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<oborud>("FOXModel.FK_Workplace_oborud", "oborud", value);
+                }
+            }
+        }
     
         /// <summary>
         /// Нет доступной документации по метаданным.
@@ -11155,6 +11142,82 @@ namespace OsnastkaDirect.Data
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("FOXModel", "FK_OperationCode_s_oper", "s_oper")]
+        public s_oper s_oper
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<s_oper>("FOXModel.FK_OperationCode_s_oper", "s_oper").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<s_oper>("FOXModel.FK_OperationCode_s_oper", "s_oper").Value = value;
+            }
+        }
+        /// <summary>
+        /// Нет доступной документации по метаданным.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<s_oper> s_operReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<s_oper>("FOXModel.FK_OperationCode_s_oper", "s_oper");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<s_oper>("FOXModel.FK_OperationCode_s_oper", "s_oper", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// Нет доступной документации по метаданным.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("FOXModel", "FK_WorkshopID_Workshop", "Workshop")]
+        public Workshop Workshop
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Workshop>("FOXModel.FK_WorkshopID_Workshop", "Workshop").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Workshop>("FOXModel.FK_WorkshopID_Workshop", "Workshop").Value = value;
+            }
+        }
+        /// <summary>
+        /// Нет доступной документации по метаданным.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<Workshop> WorkshopReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Workshop>("FOXModel.FK_WorkshopID_Workshop", "Workshop");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Workshop>("FOXModel.FK_WorkshopID_Workshop", "Workshop", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// Нет доступной документации по метаданным.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
         [EdmRelationshipNavigationPropertyAttribute("FOXModel", "FK_TechOrderID_TechOrder", "DraftOsnast")]
         public EntityCollection<DraftOsnast> DraftOsnast
         {
@@ -11167,6 +11230,409 @@ namespace OsnastkaDirect.Data
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<DraftOsnast>("FOXModel.FK_TechOrderID_TechOrder", "DraftOsnast", value);
+                }
+            }
+        }
+
+        #endregion
+
+    }
+    
+    /// <summary>
+    /// Нет доступной документации по метаданным.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="FOXModel", Name="Workshop")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class Workshop : EntityObject
+    {
+        #region Фабричный метод
+    
+        /// <summary>
+        /// Создание нового объекта Workshop.
+        /// </summary>
+        /// <param name="workshopID">Исходное значение свойства WorkshopID.</param>
+        /// <param name="isActual">Исходное значение свойства IsActual.</param>
+        /// <param name="isWorkshop">Исходное значение свойства IsWorkshop.</param>
+        /// <param name="workshop1">Исходное значение свойства Workshop1.</param>
+        /// <param name="isRO">Исходное значение свойства IsRO.</param>
+        public static Workshop CreateWorkshop(global::System.Int32 workshopID, global::System.Boolean isActual, global::System.Boolean isWorkshop, global::System.String workshop1, global::System.Boolean isRO)
+        {
+            Workshop workshop = new Workshop();
+            workshop.WorkshopID = workshopID;
+            workshop.IsActual = isActual;
+            workshop.IsWorkshop = isWorkshop;
+            workshop.Workshop1 = workshop1;
+            workshop.IsRO = isRO;
+            return workshop;
+        }
+
+        #endregion
+
+        #region Свойства-примитивы
+    
+        /// <summary>
+        /// Нет доступной документации по метаданным.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 WorkshopID
+        {
+            get
+            {
+                return _WorkshopID;
+            }
+            set
+            {
+                if (_WorkshopID != value)
+                {
+                    OnWorkshopIDChanging(value);
+                    ReportPropertyChanging("WorkshopID");
+                    _WorkshopID = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("WorkshopID");
+                    OnWorkshopIDChanged();
+                }
+            }
+        }
+        private global::System.Int32 _WorkshopID;
+        partial void OnWorkshopIDChanging(global::System.Int32 value);
+        partial void OnWorkshopIDChanged();
+    
+        /// <summary>
+        /// Нет доступной документации по метаданным.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Boolean IsActual
+        {
+            get
+            {
+                return _IsActual;
+            }
+            set
+            {
+                OnIsActualChanging(value);
+                ReportPropertyChanging("IsActual");
+                _IsActual = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("IsActual");
+                OnIsActualChanged();
+            }
+        }
+        private global::System.Boolean _IsActual;
+        partial void OnIsActualChanging(global::System.Boolean value);
+        partial void OnIsActualChanged();
+    
+        /// <summary>
+        /// Нет доступной документации по метаданным.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Boolean IsWorkshop
+        {
+            get
+            {
+                return _IsWorkshop;
+            }
+            set
+            {
+                OnIsWorkshopChanging(value);
+                ReportPropertyChanging("IsWorkshop");
+                _IsWorkshop = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("IsWorkshop");
+                OnIsWorkshopChanged();
+            }
+        }
+        private global::System.Boolean _IsWorkshop;
+        partial void OnIsWorkshopChanging(global::System.Boolean value);
+        partial void OnIsWorkshopChanged();
+    
+        /// <summary>
+        /// Нет доступной документации по метаданным.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String Workshop1
+        {
+            get
+            {
+                return _Workshop1;
+            }
+            set
+            {
+                OnWorkshop1Changing(value);
+                ReportPropertyChanging("Workshop1");
+                _Workshop1 = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("Workshop1");
+                OnWorkshop1Changed();
+            }
+        }
+        private global::System.String _Workshop1;
+        partial void OnWorkshop1Changing(global::System.String value);
+        partial void OnWorkshop1Changed();
+    
+        /// <summary>
+        /// Нет доступной документации по метаданным.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String WorkshopDescription
+        {
+            get
+            {
+                return _WorkshopDescription;
+            }
+            set
+            {
+                OnWorkshopDescriptionChanging(value);
+                ReportPropertyChanging("WorkshopDescription");
+                _WorkshopDescription = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("WorkshopDescription");
+                OnWorkshopDescriptionChanged();
+            }
+        }
+        private global::System.String _WorkshopDescription;
+        partial void OnWorkshopDescriptionChanging(global::System.String value);
+        partial void OnWorkshopDescriptionChanged();
+    
+        /// <summary>
+        /// Нет доступной документации по метаданным.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String NameOfProduction
+        {
+            get
+            {
+                return _NameOfProduction;
+            }
+            set
+            {
+                OnNameOfProductionChanging(value);
+                ReportPropertyChanging("NameOfProduction");
+                _NameOfProduction = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("NameOfProduction");
+                OnNameOfProductionChanged();
+            }
+        }
+        private global::System.String _NameOfProduction;
+        partial void OnNameOfProductionChanging(global::System.String value);
+        partial void OnNameOfProductionChanged();
+    
+        /// <summary>
+        /// Нет доступной документации по метаданным.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String WorkshopMaterReport
+        {
+            get
+            {
+                return _WorkshopMaterReport;
+            }
+            set
+            {
+                OnWorkshopMaterReportChanging(value);
+                ReportPropertyChanging("WorkshopMaterReport");
+                _WorkshopMaterReport = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("WorkshopMaterReport");
+                OnWorkshopMaterReportChanged();
+            }
+        }
+        private global::System.String _WorkshopMaterReport;
+        partial void OnWorkshopMaterReportChanging(global::System.String value);
+        partial void OnWorkshopMaterReportChanged();
+    
+        /// <summary>
+        /// Нет доступной документации по метаданным.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String StoreroomDestination
+        {
+            get
+            {
+                return _StoreroomDestination;
+            }
+            set
+            {
+                OnStoreroomDestinationChanging(value);
+                ReportPropertyChanging("StoreroomDestination");
+                _StoreroomDestination = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("StoreroomDestination");
+                OnStoreroomDestinationChanged();
+            }
+        }
+        private global::System.String _StoreroomDestination;
+        partial void OnStoreroomDestinationChanging(global::System.String value);
+        partial void OnStoreroomDestinationChanged();
+    
+        /// <summary>
+        /// Нет доступной документации по метаданным.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String StoreroomOsnast
+        {
+            get
+            {
+                return _StoreroomOsnast;
+            }
+            set
+            {
+                OnStoreroomOsnastChanging(value);
+                ReportPropertyChanging("StoreroomOsnast");
+                _StoreroomOsnast = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("StoreroomOsnast");
+                OnStoreroomOsnastChanged();
+            }
+        }
+        private global::System.String _StoreroomOsnast;
+        partial void OnStoreroomOsnastChanging(global::System.String value);
+        partial void OnStoreroomOsnastChanged();
+    
+        /// <summary>
+        /// Нет доступной документации по метаданным.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String StoreroomDragMetal
+        {
+            get
+            {
+                return _StoreroomDragMetal;
+            }
+            set
+            {
+                OnStoreroomDragMetalChanging(value);
+                ReportPropertyChanging("StoreroomDragMetal");
+                _StoreroomDragMetal = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("StoreroomDragMetal");
+                OnStoreroomDragMetalChanged();
+            }
+        }
+        private global::System.String _StoreroomDragMetal;
+        partial void OnStoreroomDragMetalChanging(global::System.String value);
+        partial void OnStoreroomDragMetalChanged();
+    
+        /// <summary>
+        /// Нет доступной документации по метаданным.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int16> NotSplitOperation
+        {
+            get
+            {
+                return _NotSplitOperation;
+            }
+            set
+            {
+                OnNotSplitOperationChanging(value);
+                ReportPropertyChanging("NotSplitOperation");
+                _NotSplitOperation = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("NotSplitOperation");
+                OnNotSplitOperationChanged();
+            }
+        }
+        private Nullable<global::System.Int16> _NotSplitOperation;
+        partial void OnNotSplitOperationChanging(Nullable<global::System.Int16> value);
+        partial void OnNotSplitOperationChanged();
+    
+        /// <summary>
+        /// Нет доступной документации по метаданным.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int16> BalanceAccount
+        {
+            get
+            {
+                return _BalanceAccount;
+            }
+            set
+            {
+                OnBalanceAccountChanging(value);
+                ReportPropertyChanging("BalanceAccount");
+                _BalanceAccount = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("BalanceAccount");
+                OnBalanceAccountChanged();
+            }
+        }
+        private Nullable<global::System.Int16> _BalanceAccount;
+        partial void OnBalanceAccountChanging(Nullable<global::System.Int16> value);
+        partial void OnBalanceAccountChanged();
+    
+        /// <summary>
+        /// Нет доступной документации по метаданным.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Boolean IsRO
+        {
+            get
+            {
+                return _IsRO;
+            }
+            set
+            {
+                OnIsROChanging(value);
+                ReportPropertyChanging("IsRO");
+                _IsRO = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("IsRO");
+                OnIsROChanged();
+            }
+        }
+        private global::System.Boolean _IsRO;
+        partial void OnIsROChanging(global::System.Boolean value);
+        partial void OnIsROChanged();
+    
+        /// <summary>
+        /// Нет доступной документации по метаданным.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String PrintUnit
+        {
+            get
+            {
+                return _PrintUnit;
+            }
+            set
+            {
+                OnPrintUnitChanging(value);
+                ReportPropertyChanging("PrintUnit");
+                _PrintUnit = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("PrintUnit");
+                OnPrintUnitChanged();
+            }
+        }
+        private global::System.String _PrintUnit;
+        partial void OnPrintUnitChanging(global::System.String value);
+        partial void OnPrintUnitChanged();
+
+        #endregion
+
+    
+        #region Свойства навигации
+    
+        /// <summary>
+        /// Нет доступной документации по метаданным.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("FOXModel", "FK_WorkshopID_Workshop", "TechOrder")]
+        public EntityCollection<TechOrder> TechOrder
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<TechOrder>("FOXModel.FK_WorkshopID_Workshop", "TechOrder");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<TechOrder>("FOXModel.FK_WorkshopID_Workshop", "TechOrder", value);
                 }
             }
         }
