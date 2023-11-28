@@ -112,7 +112,22 @@ namespace OsnastkaDirect.ViewModels
         public void mAcceptOpen()
         {
             if (Model.pSelOsnsv == null) return;
-            Model.WindowMain.mOpenCreate();
+            //var _draft = Model.pSelOsnsv;
+            var _draftOsn = Model.pSelOsnsv;
+            //var _draftPiece = Model.pSelOsnsv;
+            var _draftWorkPlace = Model.pSelOsnsv;
+            var _osnsv = new Osnsv
+            {
+                draft = (decimal)(11111111111.22),
+                draftName = "Общее применение оснащения",
+                draftOsn = _draftOsn == null ? null : _draftOsn.draftOsn,
+                draftOsnName = _draftOsn == null ? null : _draftOsn.draftOsnName,
+               // draftPiece = _draftPiece == null ? null : _draftPiece.draft,
+               // draftPieceName = _draftPiece == null ? null : _draftPiece.draftName,
+                workPlace = _draftWorkPlace == null ? null : _draftWorkPlace.workPlace,
+                codeOperation = _draftWorkPlace == null ? null : _draftWorkPlace.codeOperation
+            };
+            Model.WindowMain.OpenCreateDraft(_osnsv);
             View.Close();
         }
         public void mNotAcceptOpen()

@@ -141,5 +141,48 @@
                 </HierarchicalDataTemplate>
             </TreeView.ItemTemplate>
         </TreeView>
+        <WrapPanel Margin="0,900,0,0"
+                   HorizontalAlignment="Center"
+                   Width="1004"
+                   Height="85"
+                   VerticalAlignment="Top">
+            <Fluent:Button Header="Выбрать"
+                           Command="{Binding pAcceptOpen}"
+                           Width="90"
+                           Height="60"
+                           Background="White"
+                           BorderBrush="Silver"
+                           CornerRadius="5">
+                <Fluent:Button.LargeIcon>
+                    <Image Source="/OsnastkaDirect;component/EmbedResources/Icons/Save.png"
+                           Width="35"
+                           Height="35"
+                           Margin="-5,0,-2,-2" />
+                </Fluent:Button.LargeIcon>
+            </Fluent:Button>
+            <Fluent:Button Header="Отмена"
+                           Command="{Binding pNotAcceptOpen}"
+                           Width="90"
+                           Height="60"
+                           Background="White"
+                           BorderBrush="Silver"
+                           CornerRadius="5">
+                <Fluent:Button.LargeIcon>
+                    <Image Source="/OsnastkaDirect;component/EmbedResources/Icons/Save.png"
+                           Width="35"
+                           Height="35"
+                           Margin="-5,0,-2,-2" />
+                </Fluent:Button.LargeIcon>
+            </Fluent:Button>
+            <Label Content="Поиск по"
+                   VerticalAlignment="Center"
+                   FontSize="14"
+                   Height="30" />
+            <control:PlaceholderBox Height="30"
+                                    Placeholder="Чертеж оснастки"
+                                    Text="{Binding model.pSearchOsn, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                    Width="120"
+                                    FontSize="14" />
+        </WrapPanel>
     </Grid>
 </Window>

@@ -28,31 +28,43 @@ namespace OsnastkaDirect.ViewModels
             /// Переменная Model
             /// </summary>
             public mOpenSparePartOsnast Model;
-            //
-        	// Переменная для свойства команды
-            //
+        //
+        // Переменная для свойства команды
+        //
 
         #endregion
 
         #region Свойства
-		
-            //CommandBase commandName;
-            //
-            // Свойство команды
-            //
-            //public CommandBase pCommand
-            //{
-            //    get { return commandName ?? (commandName = new CommandBase(MethodName)); }
-            //}
 
+        //CommandBase commandName;
+        //
+        // Свойство команды
+        //
+        //public CommandBase pCommand
+        //{
+        //    get { return commandName ?? (commandName = new CommandBase(MethodName)); }
+        //}
+        CommandBase AcceptOpen;
+
+        public CommandBase pAcceptOpen
+        {
+            get { return AcceptOpen ?? (AcceptOpen = new CommandBase(mAcceptOpen)); }
+        }
+
+        CommandBase NotAcceptOpen;
+
+        public CommandBase pNotAcceptOpen
+        {
+            get { return NotAcceptOpen ?? (NotAcceptOpen = new CommandBase(mNotAcceptOpen)); }
+        }
         #endregion
 
         #region Методы
 
-            /// <summary>
-            /// Конструктор
-            /// </summary>
-            public vmOpenSparePartOsnast()
+        /// <summary>
+        /// Конструктор
+        /// </summary>
+        public vmOpenSparePartOsnast()
             {
 
             }
@@ -78,7 +90,25 @@ namespace OsnastkaDirect.ViewModels
             {
                 ;
             }
-            
+        public void mAcceptOpen()
+        {
+            //if (Model.pSelOsnsv == null) return;
+            var _osnsv = new Osnsv
+            {
+                draft = Model.pSelDraft.draft,
+                draftName = Model.pSelDraft.draftName,
+                draftOsn = Model.pSelDraftOsn.draft,
+                draftOsnName = Model.pSelDraftOsn.draftName,
+                draftPiece = Model.pSelDraftPiece.draftPiece,
+                draftPieceName = Model.pSelDraftPiece.draftPieceName
+            };
+            Model.WindowMain.OpenCreateDraft(_osnsv);
+            View.Close();
+        }
+        public void mNotAcceptOpen()
+        {
+            View.Close();
+        }
         #endregion
     }
 }

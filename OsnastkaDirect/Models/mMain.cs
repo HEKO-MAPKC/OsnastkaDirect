@@ -323,7 +323,7 @@ namespace OsnastkaDirect.Models
         }
         public void LoadListOsn()
         {
-            // TODO (Журнал разработки)
+            // TODO (Журнал разработки, дневник дева)
             // 0.(✔ - теперь знаю) Я не понял как оно само должно присоединяться по ключам, вроде все еще джойнить надо
             // 1. Название таблицы DraftOsnast и поле DraftOsnast(1) путается
             // 2.(✔ - ну поменял) Описания напутаны!!! dop и reason перепутаны, оно влияет на то как расположено в пункте Insert + доп обрезан, надо прописать определенный размер для varchar
@@ -358,6 +358,9 @@ namespace OsnastkaDirect.Models
             // 31. zAYVKA и os_pro связаны бесконечностью к бесконечности...
             // 32. Как использовать референс таблицу в коде?
             // 33. Количеству же не нужна дробная часть?
+            // 34. Как подсоединить prod таблицу? 
+
+            //Какой воркплейс и раб_м выбирается среди трех драфтов???
             pListOsn = null;
             pListOsnLoaded = null;
             var _var1 = (from i in db.DraftOsnast.Where(i => i.TechOrder.IsApplicationFrom.Value==true)
@@ -437,11 +440,6 @@ namespace OsnastkaDirect.Models
                                   draft = i.TechOrder.Draft,
                                   draftRes = i.DraftPiece,
                                   storeroom = i.TechOrder.Workshop.StoreroomOsnast,
-                                  //nameDraft = db.ExecuteFunction<string> ("GetDraftName"),
-                                  //nameGrid= GetDraftName(_draftneed),
-                                  //nameDraft = GetDraftName(i.Draft),
-                                  //nameOsn = GetDraftName(DraftOsnastList.DraftOsnast1),
-                                  //nameRes = GetDraftName(DraftOsnastList.DraftPiece),
                                   nameGrid =
                                   _DseGrid != null ? _DseGrid.Trim() :
                                   "",
@@ -524,73 +522,11 @@ namespace OsnastkaDirect.Models
         public void OnChangeSelFilter()
         {
             SearchAllFilters();
-            //if (pListOsn == null || pListOsnLoaded == null) return;
-            //switch (pSelFilter)//"Всё", "Неопределенно", "Возврат", "Направлено в КО", "Возврат из КО", "Аннулировано", "На рассмотрении"};
-            //{
-            //    case "Всё": pListOsn = new ObservableCollection<Osn>(pListOsn);
-            //        break;
-            //    case "Утверждено":
-            //        pListOsn = new ObservableCollection<Osn>(pListOsn.Where(i => i.accepted==true));
-            //        break;
-            //    case "Неопределенно":
-            //        pListOsn = new ObservableCollection<Osn>(pListOsn.Where(i => i.accepted==false && i.returned==false && i.atConst == false && i.backFromConst==false && i.dtSrokIsNull==false && i.dtIzgIsNull==true));
-            //        break;
-            //    case "Возврат":
-            //        pListOsn = new ObservableCollection<Osn>(pListOsn.Where(i =>  i.returned==true));
-            //        break;
-            //    case "Направлено в КО":
-            //        pListOsn = new ObservableCollection<Osn>(pListOsn.Where(i => i.atConst==true));
-            //        break;
-            //    case "Возврат из КО":
-            //        pListOsn = new ObservableCollection<Osn>(pListOsn.Where(i => i.backFromConst==true));
-            //        break;
-            //    case "Аннулировано":
-            //        pListOsn = new ObservableCollection<Osn>(pListOsn.Where(i => i.dtSrokIsNull));
-            //        break;
-            //    case "На рассмотрении":
-            //        pListOsn = new ObservableCollection<Osn>(pListOsn.Where(i => i.dtIzgIsNull==false));
-            //        break;
-            //    default:
-            //        break;
-            //}
         }
         public void FindMany(bool _add = false)
         {
             SearchByName(_add);
             SearchAllFilters();
-            //if (pSearchOsn == null || pListOsnLoaded == null) return;
-            //var _gridSearch = _add ? pListOsn : pListOsnLoaded;
-            //if (_add == false)
-            //{
-            //    pSelFilter = "Всё";
-            //    pdateSearchBefore = DateTime.Now;
-            //    pdateSearchAfter = null;
-            //}
-            //var _search = pSearchOsn.ToLower();
-            //switch (pSelFilterSearch)//"предварительный № т/з", "№ техзаказа", "исполнитель", "чертеж оснастки", "наименование оснастки"
-            //{
-            //    case "предварительный № т/з":
-            //        pListOsn = new ObservableCollection<Osn>(_gridSearch.Where(i => i.nOrdPrev.ToString().ToLower().StartsWith(_search)));
-            //        break;
-            //    case "№ техзаказа":
-            //        pListOsn = new ObservableCollection<Osn>(_gridSearch.Where(i => i.nOrd.ToString().ToLower().StartsWith(_search)));
-            //        break;
-            //    case "исполнитель":
-            //        pListOsn = new ObservableCollection<Osn>(_gridSearch.Where(i => i.who.ToLower().StartsWith(_search)));
-            //        break;
-            //    case "чертеж оснастки":
-            //        pListOsn = new ObservableCollection<Osn>(_gridSearch.Where(i => i.draftGrid.ToString().ToLower().StartsWith(_search)));
-            //        break;
-            //    case "наименование оснастки":
-            //        pListOsn = new ObservableCollection<Osn>(_gridSearch.Where(i => i.nameGrid.ToLower().StartsWith(_search)));
-            //        break;
-            //    case "заказ номер":
-            //        pListOsn = new ObservableCollection<Osn>(_gridSearch.Where(i => string.Format("{0:####}{1:#}{2:###}", i.ord700, " ", i.num700)
-            //                                    .StartsWith(_search, StringComparison.OrdinalIgnoreCase)));
-            //        break;
-            //    default:
-            //        break;
-            //}
         }
         public void ChangeDate()
         {
@@ -977,7 +913,8 @@ namespace OsnastkaDirect.Models
         public void EditOrd()
         {
             if (pSelOsn == null) return;
-            OpenCreate();
+            Osnsv _osnsv = new Osnsv();
+            OpenCreate(_osnsv);
         }
         public void PrintDoc()
         {
@@ -1032,8 +969,26 @@ namespace OsnastkaDirect.Models
             pCreateTabOpen = false;
         }
 
-        public void OpenCreate()
+        public void OpenCreate(Osnsv _osnast)
         {
+            var _oborud = db.oborud.FirstOrDefault(i => i.rab_m == _osnast.workPlace);
+            var _oper = db.s_oper.FirstOrDefault(i => i.code == _osnast.codeOperation);
+            string _workName = _oborud == null ? "" : _oborud.code + " " + _oborud == null ? "" : _oborud.oborud1;
+            string _operName = _oper == null ? "" : _oper.oper;
+            pSelOsn = new Osn
+            {
+                draft = _osnast.draft,
+                nameDraft = _osnast.draftName,
+                draftOsn = _osnast.draftOsn,
+                nameOsn = _osnast.draftOsnName,
+                draftRes = _osnast.draftPiece,
+                nameRes = _osnast.draftPieceName,
+                workPlace = _osnast.workPlace,
+                operation = _osnast.codeOperation,
+                workPlaceName = _workName == " " ? "" : _workName,
+                operationName = _operName == null ? "" : _operName,
+
+            };
             pCreateTabOpen = true;
             pApproveTabOpen = false;
         }

@@ -28,31 +28,43 @@ namespace OsnastkaDirect.ViewModels
             /// Переменная Model
             /// </summary>
             public mOpenCompoundProduct Model;
-            //
-        	// Переменная для свойства команды
-            //
+        //
+        // Переменная для свойства команды
+        //
+        CommandBase AcceptOpen;
 
+        public CommandBase pAcceptOpen
+        {
+            get { return AcceptOpen ?? (AcceptOpen = new CommandBase(mAcceptOpen)); }
+        }
+
+        CommandBase NotAcceptOpen;
+
+        public CommandBase pNotAcceptOpen
+        {
+            get { return NotAcceptOpen ?? (NotAcceptOpen = new CommandBase(mNotAcceptOpen)); }
+        }
         #endregion
 
         #region Свойства
-		
-            //CommandBase commandName;
-            //
-            // Свойство команды
-            //
-            //public CommandBase pCommand
-            //{
-            //    get { return commandName ?? (commandName = new CommandBase(MethodName)); }
-            //}
+
+        //CommandBase commandName;
+        //
+        // Свойство команды
+        //
+        //public CommandBase pCommand
+        //{
+        //    get { return commandName ?? (commandName = new CommandBase(MethodName)); }
+        //}
 
         #endregion
 
         #region Методы
 
-            /// <summary>
-            /// Конструктор
-            /// </summary>
-            public vmOpenCompoundProduct()
+        /// <summary>
+        /// Конструктор
+        /// </summary>
+        public vmOpenCompoundProduct()
             {
 
             }
@@ -84,7 +96,32 @@ namespace OsnastkaDirect.ViewModels
             {
                 Model.LoadListDraftPiece();
             }
-        }  
+        }
+        public void mAcceptOpen()
+        {
+            // if (Model.pSelOsnsv == null) return;
+            var _draft = Model.pSelDraft;
+            var _draftOsn = Model.pSelDraftOsn;
+            var _draftPiece = Model.pSelDraftPiece;
+            var _draftWorkPlace = Model.pSelDraftPiece;
+            var _osnsv = new Osnsv
+            {
+                draft = _draft == null ? null : _draft.draft,
+                draftName = _draft == null ? null : _draft.draftName,
+                draftOsn = _draftOsn == null ? null : _draftOsn.draft,
+                draftOsnName = _draftOsn == null ? null : _draftOsn.draftName,
+                draftPiece = _draftPiece == null ? null : _draftPiece.draft,
+                draftPieceName = _draftPiece == null ? null : _draftPiece.draftName,
+                workPlace = _draftWorkPlace == null ? null : _draftWorkPlace.workPlace,
+                codeOperation = _draftWorkPlace == null ? null : _draftWorkPlace.codeOperation
+            };
+            Model.WindowMain.OpenCreateDraft(_osnsv);
+            View.Close();
+        }
+        public void mNotAcceptOpen()
+        {
+            View.Close();
+        }
         #endregion
     }
 }

@@ -105,7 +105,9 @@ namespace OsnastkaDirect.Models
                          select new Osnsv
                          {
                              draftOsn = i.draftosn,
-                             draftOsnName = i.naimosn
+                             draftOsnName = i.naimosn,
+                             workPlace = i.rab_m,
+                             codeOperation = i.kodop
                          }).ToList();
         }
         #endregion

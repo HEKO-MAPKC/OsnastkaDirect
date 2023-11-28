@@ -6,6 +6,7 @@ using System.Linq;
 //
 using Fox;
 using OsnastkaDirect.Data;
+using OsnastkaDirect.ViewModels;
 //
 namespace OsnastkaDirect.Models
 {
@@ -20,6 +21,7 @@ namespace OsnastkaDirect.Models
             /// Переменная для работы с базой данных
             /// </summary>
             public FOXEntities db;
+        public vmMain WindowMain;
         //
         // Переменная для свойства
         //

@@ -8,6 +8,7 @@ using System.Linq;
 //
 using Fox;
 using OsnastkaDirect.Data;
+using OsnastkaDirect.ViewModels;
 //
 namespace OsnastkaDirect.Models
 {
@@ -22,6 +23,7 @@ namespace OsnastkaDirect.Models
             /// Переменная для работы с базой данных
             /// </summary>
             public FOXEntities db;
+        public vmMain WindowMain;
         //
         // Переменная для свойства
         //
@@ -195,7 +197,7 @@ namespace OsnastkaDirect.Models
         }
         public ObservableCollection<TreeViewDraft> LoadListDraftOsnRec(decimal? _draft, ObservableCollection<TreeViewDraft> _children)
         {
-            _children = new ObservableCollection<TreeViewDraft>((from i in db.complect.Where(j => j.kuda == _draft)
+            _children = new ObservableCollection<TreeViewDraft>((from i in db.complect.Where(j => j.kuda == _draft && j.what != _draft)
 
                                                                  join db4 in db.FullDraftNameList
                                                                    on i.what equals db4.Draft into gf4

@@ -361,10 +361,14 @@ namespace OsnastkaDirect.ViewModels
         {
             Model.OpenApprove();
         }
-
+        public void OpenCreateDraft(Osnsv _osnast)
+        {
+            Model.OpenCreate(_osnast);
+        }
         public void mOpenCreate()
         {
-            Model.OpenCreate();
+            Osnsv _osnast = new Osnsv();
+            Model.OpenCreate(_osnast);
         }
         public void mFinalApprove()
         {
@@ -430,7 +434,7 @@ namespace OsnastkaDirect.ViewModels
 
             ((OpenSparePartOsnast)VMLocator.VMs[name][index].view).Loaded += ((vmOpenSparePartOsnast)VMLocator.VMs[name][index]).viewLoaded;
             ((OpenSparePartOsnast)VMLocator.VMs[name][index].view).Unloaded += (obj, args) => VMLocator.Clean((string)(((dynamic)obj).Uid));
-
+            VMLocator.VMs[name][index].model.WindowMain = this;
             VMLocator.VMs[name][index].view.Owner = View;
             VMLocator.VMs[name][index].view.ShowDialog();
         }
@@ -443,7 +447,7 @@ namespace OsnastkaDirect.ViewModels
 
             ((OpenCompoundProduct)VMLocator.VMs[name][index].view).Loaded += ((vmOpenCompoundProduct)VMLocator.VMs[name][index]).viewLoaded;
             ((OpenCompoundProduct)VMLocator.VMs[name][index].view).Unloaded += (obj, args) => VMLocator.Clean((string)(((dynamic)obj).Uid));
-
+            VMLocator.VMs[name][index].model.WindowMain = this;
             VMLocator.VMs[name][index].view.Owner = View;
             VMLocator.VMs[name][index].view.ShowDialog();
         }
@@ -456,7 +460,7 @@ namespace OsnastkaDirect.ViewModels
 
             ((OpenFinOrder)VMLocator.VMs[name][index].view).Loaded += ((vmOpenFinOrder)VMLocator.VMs[name][index]).viewLoaded;
             ((OpenFinOrder)VMLocator.VMs[name][index].view).Unloaded += (obj, args) => VMLocator.Clean((string)(((dynamic)obj).Uid));
-
+            VMLocator.VMs[name][index].model.WindowMain = this;
             VMLocator.VMs[name][index].view.Owner = View;
             VMLocator.VMs[name][index].view.ShowDialog();
         }
