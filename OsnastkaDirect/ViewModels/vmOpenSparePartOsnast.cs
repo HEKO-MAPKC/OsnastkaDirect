@@ -92,15 +92,21 @@ namespace OsnastkaDirect.ViewModels
             }
         public void mAcceptOpen()
         {
-            //if (Model.pSelOsnsv == null) return;
+            if (Model.pSelDraft == null) return;
+            var _draft = Model.pSelDraft;
+            var _draftOsn = Model.pSelDraft;
+            var _draftPiece = Model.pSelDraft;
+            var _draftWorkPlace = Model.pSelDraft;
             var _osnsv = new Osnsv
             {
-                draft = Model.pSelDraft.draft,
-                draftName = Model.pSelDraft.draftName,
-                draftOsn = Model.pSelDraftOsn.draft,
-                draftOsnName = Model.pSelDraftOsn.draftName,
-                draftPiece = Model.pSelDraftPiece.draftPiece,
-                draftPieceName = Model.pSelDraftPiece.draftPieceName
+                draft = _draft == null ? null : _draft.draft,
+                draftName = _draft == null ? null : _draft.draftName,
+                draftOsn = _draftOsn == null ? null : _draftOsn.draftOsn,
+                draftOsnName = _draftOsn == null ? null : _draftOsn.draftOsnName,
+                draftPiece = _draftPiece == null ? null : _draftPiece.draftPiece,
+                draftPieceName = _draftPiece == null ? null : _draftPiece.draftPieceName,
+                workPlace = _draftWorkPlace == null ? null : _draftWorkPlace.workPlace,
+                codeOperation = _draftWorkPlace == null ? null : _draftWorkPlace.codeOperation
             };
             Model.WindowMain.OpenCreateDraft(_osnsv);
             View.Close();

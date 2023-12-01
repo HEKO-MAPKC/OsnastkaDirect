@@ -80,7 +80,7 @@ namespace OsnastkaDirect.Models
         {
             get
             {
-                if (dtOk.Equals(null) && fioConst != " " && fioConst != null && fioConst[0] != ' ')
+                if (dtOk.Equals(null) && fioConst != "" && fioConst != null && fioConst[0] != ' ')
                     return true;
                 else
                     return false;

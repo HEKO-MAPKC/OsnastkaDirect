@@ -166,7 +166,7 @@ namespace OsnastkaDirect.Models
         }
         public void LoadListDraftOsn()
         {
-            pListDraftOutpro = new ObservableCollection<TreeViewDraft>((from i in db.outpro.Where(j => j.zakaz == pSelOrder.order && j.nom == pSelOrder.number && j.rung == 1)
+            pListDraftOutpro = new ObservableCollection<TreeViewDraft>((from i in db.outpro.Where(j => j.zakaz == pSelOrder.order && j.nom == pSelOrder.number && j.rung == 1 && j.draft != 0)
 
                                                                      join db4 in db.FullDraftNameList
                                                                        on i.draft equals db4.Draft into gf4
@@ -180,7 +180,8 @@ namespace OsnastkaDirect.Models
                                                                      select new TreeViewDraft
                                                                      {
                                                                          draft = i.draft,
-                                                                         draftName = SqlFunctions.StringConvert((double?)i.draft, 14, 2) + " " + draftName,
+                                                                         draftName = /*SqlFunctions.StringConvert((double?)i.draft, 14, 2) + " " +*/ draftName,
+                                                                         draftNameTree = SqlFunctions.StringConvert((double?)i.draft, 14, 2) + " " + draftName,
                                                                          draftAcross = i.across
                                                                      }).ToList());
             for (int i = 0; i < pListDraftOutpro.Count; i++)
@@ -211,7 +212,7 @@ namespace OsnastkaDirect.Models
                                                                  select new TreeViewDraft
                                                                  {
                                                                      draft = i.what,
-                                                                     draftName = SqlFunctions.StringConvert((double?)i.what, 14, 2) + " " + draftName,
+                                                                     draftName = /*SqlFunctions.StringConvert((double?)i.what, 14, 2) + " " +*/ draftName,
                                                                      draftAcross = i.kuda
                                                                  }).ToList());
             for (int i = 0; i < _children.Count; i++)

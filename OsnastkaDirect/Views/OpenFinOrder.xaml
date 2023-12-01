@@ -137,7 +137,7 @@
                 <HierarchicalDataTemplate ItemsSource="{Binding children,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}"
                                           DataType="{x:Type my:TreeViewDraft}">
                     <!--<TreeViewItem Header="{Binding draftName}" />-->
-                    <Label Content="{Binding draftName}" />
+                    <Label Content="{Binding draftNameTree}" />
                 </HierarchicalDataTemplate>
             </TreeView.ItemTemplate>
         </TreeView>

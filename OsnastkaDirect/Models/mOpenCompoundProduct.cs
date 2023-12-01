@@ -193,7 +193,8 @@ namespace OsnastkaDirect.Models
                              select new TreeViewDraft
                              {
                                  draft = i.what,
-                                 draftName = SqlFunctions.StringConvert((double?)i.what,14,2) + " " + draftName,
+                                 draftName = /*SqlFunctions.StringConvert((double?)i.what,14,2) + " " +*/ draftName,
+                                 draftNameTree = SqlFunctions.StringConvert((double?)i.what,14,2) + " " + draftName,
                                  draftAcross = i.kuda
                              }).ToList());
             for (int i = 0; i < pListDraftOsn.Count; i++)
@@ -224,7 +225,7 @@ namespace OsnastkaDirect.Models
                              select new TreeViewDraft
                              {
                                  draft = i.what,
-                                 draftName = SqlFunctions.StringConvert((double?)i.what, 14, 2) + " " + draftName,
+                                 draftName = /*SqlFunctions.StringConvert((double?)i.what, 14, 2) + " " +*/ draftName,
                                  draftAcross = i.kuda
                              }).ToList());
             for (int i = 0; i < _children.Count; i++)

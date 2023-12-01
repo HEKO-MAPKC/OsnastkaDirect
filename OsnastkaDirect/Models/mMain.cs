@@ -315,12 +315,12 @@ namespace OsnastkaDirect.Models
             LoadListStoreRoom();
             //OnChangeSelFilter();
         }
-        string GetDraftName(decimal? draft)
-        {
-            if (draft == null) return string.Empty;
-            FullDraftNameList list = db.FullDraftNameList.FirstOrDefault(l => l.Draft == draft);
-            return list != null ? list.DraftName.Trim() : string.Empty;
-        }
+        //string GetDraftName(decimal? draft)
+        //{
+        //    if (draft == null) return string.Empty;
+        //    FullDraftNameList list = db.FullDraftNameList.FirstOrDefault(l => l.Draft == draft);
+        //    return list != null ? list.DraftName.Trim() : string.Empty;
+        //}
         public void LoadListOsn()
         {
             // TODO (Журнал разработки, дневник дева)
@@ -361,6 +361,7 @@ namespace OsnastkaDirect.Models
             // 34. Как подсоединить prod таблицу? 
 
             //Какой воркплейс и раб_м выбирается среди трех драфтов???
+            //комплект, окомплект, продакт, оснсв, помойка,м_ценник(?), 
             pListOsn = null;
             pListOsnLoaded = null;
             var _var1 = (from i in db.DraftOsnast.Where(i => i.TechOrder.IsApplicationFrom.Value==true)
@@ -369,20 +370,33 @@ namespace OsnastkaDirect.Models
                          //         /*SqlFunctions.Equals(i.zak_1,null) ? "0" :*/ i.TechOrderID equals db6.TechOrderID /*!= null ? db6.zak_1 : "0"*/  into gf6
                          //from DraftOsnastList in gf6.DefaultIfEmpty()
                                   //where i.zak_1 != null 
-                         let _draftneed = i.DraftPiece == 0 || i.DraftPiece == null ? i.DraftOsnast1.Value : i.DraftPiece.Value
+                         let _draftneed = i.DraftPiece == 0 || i.DraftPiece == null ? i.DraftOsn.Value : i.DraftPiece.Value
 
-                         join db1 in db.FullDraftNameList.Where(i => i.IsShortDraft)
-                         on (int)(i.TechOrder.Draft.Value / 1000) equals db1.Draft into gf1
+                         //join db1 in db.FullDraftNameList.Where(i => i.IsShortDraft)
+                         //on (int)(i.TechOrder.Draft.Value / 1000) equals db1.Draft into gf1
+                         //from listDse in gf1.DefaultIfEmpty().Take(1)
+
+                         //join db2 in db.FullDraftNameList on
+                         //i.DraftPiece equals db2.Draft into gf2
+                         //from listDsePiece in gf2.DefaultIfEmpty().Take(1)
+
+                         //join db3 in db.FullDraftNameList on
+                         //i.DraftOsn equals db3.Draft into gf3
+                         //from listDseOsn in gf3.DefaultIfEmpty().Take(1)
+                         //let _DseGrid = i.DraftPiece == 0 || i.DraftPiece == null ? listDseOsn.DraftName : listDsePiece.DraftName
+
+                         join db1 in db.FullDraftList
+                         on i.TechOrder.Draft.Value equals db1.Draft into gf1
                          from listDse in gf1.DefaultIfEmpty().Take(1)
 
-                         join db2 in db.FullDraftNameList on
+                         join db2 in db.FullDraftList on
                          i.DraftPiece equals db2.Draft into gf2
                          from listDsePiece in gf2.DefaultIfEmpty().Take(1)
 
-                         join db3 in db.FullDraftNameList on
-                         i.DraftOsnast1 equals db3.Draft into gf3
+                         join db3 in db.FullDraftList on
+                         i.DraftOsn equals db3.Draft into gf3
                          from listDseOsn in gf3.DefaultIfEmpty().Take(1)
-                         let _DseGrid = i.DraftPiece == 0 || i.DraftPiece == null ? listDseOsn.DraftName : listDsePiece.DraftName
+                         let _DseGrid = i.DraftPiece == 0 || i.DraftPiece == null ? listDseOsn.ReferenceInformation.ReferenceName : listDsePiece.ReferenceInformation.ReferenceName
 
                          //let draftgrid listDse.DraftPiece == 0 || listDsePiece.DraftPiece == null ?
                          //join db2 in db.LIST_FR on
@@ -427,7 +441,7 @@ namespace OsnastkaDirect.Models
                          orderby i.TechOrderID descending
                               select new Osn
                               {
-                                  draftOsn = i.DraftOsnast1,
+                                  draftOsn = i.DraftOsn,
                                   workshop = i.TechOrder.Workshop.Workshop1,
                                   nOrdPrev = i.TechOrderID.Value,
                                   nOrd = i.TechOrder.TechOrder1,
@@ -443,10 +457,10 @@ namespace OsnastkaDirect.Models
                                   nameGrid =
                                   _DseGrid != null ? _DseGrid.Trim() :
                                   "",
-                                  draftGrid = i.DraftPiece == null || i.DraftPiece == 0 ? i.DraftOsnast1 : i.DraftPiece,
-                                  nameDraft = listDse.DraftName,
-                                  nameOsn = listDseOsn.DraftName,
-                                  nameRes = listDsePiece.DraftName,
+                                  draftGrid = i.DraftPiece == null || i.DraftPiece == 0 ? i.DraftOsn : i.DraftPiece,
+                                  nameDraft = listDse.ReferenceInformation.ReferenceName,
+                                  nameOsn = listDseOsn.ReferenceInformation.ReferenceName,
+                                  nameRes = listDsePiece.ReferenceInformation.ReferenceName,
 
 
 
@@ -986,7 +1000,7 @@ namespace OsnastkaDirect.Models
                 workPlace = _osnast.workPlace,
                 operation = _osnast.codeOperation,
                 workPlaceName = _workName == " " ? "" : _workName,
-                operationName = _operName == null ? "" : _operName,
+                operationName = _operName ?? "",
 
             };
             pCreateTabOpen = true;

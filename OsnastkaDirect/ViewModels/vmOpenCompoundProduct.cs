@@ -90,10 +90,13 @@ namespace OsnastkaDirect.ViewModels
         {
             if (_eventArgs.PropertyName == "pSelDraft" && Model.pSelDraft != null)
             {
+                Model.pSelDraftOsn = null;
+                Model.pSelDraftPiece = null;
                 Model.LoadListDraftOsn();
             }
             if (_eventArgs.PropertyName == "pSelDraftOsn" && Model.pSelDraftOsn != null)
             {
+                Model.pSelDraftPiece = null;
                 Model.LoadListDraftPiece();
             }
         }
@@ -110,8 +113,8 @@ namespace OsnastkaDirect.ViewModels
                 draftName = _draft == null ? null : _draft.draftName,
                 draftOsn = _draftOsn == null ? null : _draftOsn.draft,
                 draftOsnName = _draftOsn == null ? null : _draftOsn.draftName,
-                draftPiece = _draftPiece == null ? null : _draftPiece.draft,
-                draftPieceName = _draftPiece == null ? null : _draftPiece.draftName,
+                draftPiece = _draftPiece == null ? null : _draftPiece.draftPiece,
+                draftPieceName = _draftPiece == null ? null : _draftPiece.draftPieceName,
                 workPlace = _draftWorkPlace == null ? null : _draftWorkPlace.workPlace,
                 codeOperation = _draftWorkPlace == null ? null : _draftWorkPlace.codeOperation
             };

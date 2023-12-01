@@ -83,7 +83,7 @@ namespace OsnastkaDirect.Models
                                   /*SqlFunctions.Equals(i.zak_1,null) ? "0" :*/ i.TechOrderID equals db6.TechOrderID /*!= null ? db6.zak_1 : "0"*/  into gf6
                          from DraftOsnastList in gf6.DefaultIfEmpty()
                              //where i.zak_1 != null 
-                         let _draftneed = DraftOsnastList.DraftPiece == 0 || DraftOsnastList.DraftPiece == null ? DraftOsnastList.DraftOsnast1.Value : DraftOsnastList.DraftPiece.Value
+                         let _draftneed = DraftOsnastList.DraftPiece == 0 || DraftOsnastList.DraftPiece == null ? DraftOsnastList.DraftOsn.Value : DraftOsnastList.DraftPiece.Value
 
                          join db1 in db.FullDraftNameList
                          on (int)(i.Draft.Value / 1000) equals db1.Draft into gf1
@@ -94,15 +94,15 @@ namespace OsnastkaDirect.Models
                          from listDsePiece in gf2.DefaultIfEmpty().Take(1)
 
                          join db3 in db.FullDraftNameList on
-                         DraftOsnastList.DraftOsnast1 equals db3.Draft into gf3
+                         DraftOsnastList.DraftOsn equals db3.Draft into gf3
                          from listDseOsn in gf3.DefaultIfEmpty().Take(1)
                          let _DseGrid = DraftOsnastList.DraftPiece == 0 || DraftOsnastList.DraftPiece == null ? listDseOsn.DraftName : listDsePiece.DraftName
-                         let _DseDraft = DraftOsnastList.DraftPiece == null || DraftOsnastList.DraftPiece == 0 ? DraftOsnastList.DraftOsnast1 : DraftOsnastList.DraftPiece
+                         let _DseDraft = DraftOsnastList.DraftPiece == null || DraftOsnastList.DraftPiece == 0 ? DraftOsnastList.DraftOsn : DraftOsnastList.DraftPiece
                          where _DseDraft == _psel
                          orderby i.TechOrderID descending
                          select new Osn
                          {
-                             draftOsn = DraftOsnastList.DraftOsnast1,
+                             draftOsn = DraftOsnastList.DraftOsn,
                              // workshop = i.WorkshopID,
                              nOrdPrev = i.TechOrderID,
                              nOrd = i.TechOrder1,
@@ -123,7 +123,7 @@ namespace OsnastkaDirect.Models
                              nameGrid =
                              _DseGrid != null ? _DseGrid.Trim() :
                              "",
-                             draftGrid = DraftOsnastList.DraftPiece == null || DraftOsnastList.DraftPiece == 0 ? DraftOsnastList.DraftOsnast1 : DraftOsnastList.DraftPiece,
+                             draftGrid = DraftOsnastList.DraftPiece == null || DraftOsnastList.DraftPiece == 0 ? DraftOsnastList.DraftOsn : DraftOsnastList.DraftPiece,
                              nameDraft = listDse.DraftName,
                              nameOsn = listDseOsn.DraftName,
                              nameRes = listDsePiece.DraftName,

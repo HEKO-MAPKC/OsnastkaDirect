@@ -25,6 +25,8 @@ using System.Xml.Serialization;
 [assembly: EdmRelationshipAttribute("FOXModel", "FK_OperationCode_s_oper", "s_oper", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(OsnastkaDirect.Data.s_oper), "TechOrder", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(OsnastkaDirect.Data.TechOrder), true)]
 [assembly: EdmRelationshipAttribute("FOXModel", "FK_WorkshopID_Workshop", "Workshop", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(OsnastkaDirect.Data.Workshop), "TechOrder", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(OsnastkaDirect.Data.TechOrder), true)]
 [assembly: EdmRelationshipAttribute("FOXModel", "FK_TechOrderID_TechOrder", "TechOrder", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(OsnastkaDirect.Data.TechOrder), "DraftOsnast", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(OsnastkaDirect.Data.DraftOsnast), true)]
+[assembly: EdmRelationshipAttribute("FOXModel", "FK_DraftNameID_FullDraftList", "ReferenceInformation", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(OsnastkaDirect.Data.ReferenceInformation), "FullDraftList", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(OsnastkaDirect.Data.FullDraftList), true)]
+[assembly: EdmRelationshipAttribute("FOXModel", "FK_ProdID_TechOrder", "prod", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(OsnastkaDirect.Data.prod), "DraftOsnast", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(OsnastkaDirect.Data.DraftOsnast), true)]
 
 #endregion
 
@@ -303,22 +305,6 @@ namespace OsnastkaDirect.Data
         /// <summary>
         /// Нет доступной документации по метаданным.
         /// </summary>
-        public ObjectSet<FullDraftNameList> FullDraftNameList
-        {
-            get
-            {
-                if ((_FullDraftNameList == null))
-                {
-                    _FullDraftNameList = base.CreateObjectSet<FullDraftNameList>("FullDraftNameList");
-                }
-                return _FullDraftNameList;
-            }
-        }
-        private ObjectSet<FullDraftNameList> _FullDraftNameList;
-    
-        /// <summary>
-        /// Нет доступной документации по метаданным.
-        /// </summary>
         public ObjectSet<proos> proos
         {
             get
@@ -415,6 +401,22 @@ namespace OsnastkaDirect.Data
         /// <summary>
         /// Нет доступной документации по метаданным.
         /// </summary>
+        public ObjectSet<prodact> prodact
+        {
+            get
+            {
+                if ((_prodact == null))
+                {
+                    _prodact = base.CreateObjectSet<prodact>("prodact");
+                }
+                return _prodact;
+            }
+        }
+        private ObjectSet<prodact> _prodact;
+    
+        /// <summary>
+        /// Нет доступной документации по метаданным.
+        /// </summary>
         public ObjectSet<DraftOsnast> DraftOsnast
         {
             get
@@ -447,18 +449,34 @@ namespace OsnastkaDirect.Data
         /// <summary>
         /// Нет доступной документации по метаданным.
         /// </summary>
-        public ObjectSet<prodact> prodact
+        public ObjectSet<FullDraftList> FullDraftList
         {
             get
             {
-                if ((_prodact == null))
+                if ((_FullDraftList == null))
                 {
-                    _prodact = base.CreateObjectSet<prodact>("prodact");
+                    _FullDraftList = base.CreateObjectSet<FullDraftList>("FullDraftList");
                 }
-                return _prodact;
+                return _FullDraftList;
             }
         }
-        private ObjectSet<prodact> _prodact;
+        private ObjectSet<FullDraftList> _FullDraftList;
+    
+        /// <summary>
+        /// Нет доступной документации по метаданным.
+        /// </summary>
+        public ObjectSet<FullDraftNameList> FullDraftNameList
+        {
+            get
+            {
+                if ((_FullDraftNameList == null))
+                {
+                    _FullDraftNameList = base.CreateObjectSet<FullDraftNameList>("FullDraftNameList");
+                }
+                return _FullDraftNameList;
+            }
+        }
+        private ObjectSet<FullDraftNameList> _FullDraftNameList;
 
         #endregion
 
@@ -577,14 +595,6 @@ namespace OsnastkaDirect.Data
         }
     
         /// <summary>
-        /// Устаревший метод для добавления новых объектов в набор EntitySet FullDraftNameList. Взамен можно использовать метод .Add связанного свойства ObjectSet&lt;T&gt;.
-        /// </summary>
-        public void AddToFullDraftNameList(FullDraftNameList fullDraftNameList)
-        {
-            base.AddObject("FullDraftNameList", fullDraftNameList);
-        }
-    
-        /// <summary>
         /// Устаревший метод для добавления новых объектов в набор EntitySet proos. Взамен можно использовать метод .Add связанного свойства ObjectSet&lt;T&gt;.
         /// </summary>
         public void AddToproos(proos proos)
@@ -633,6 +643,14 @@ namespace OsnastkaDirect.Data
         }
     
         /// <summary>
+        /// Устаревший метод для добавления новых объектов в набор EntitySet prodact. Взамен можно использовать метод .Add связанного свойства ObjectSet&lt;T&gt;.
+        /// </summary>
+        public void AddToprodact(prodact prodact)
+        {
+            base.AddObject("prodact", prodact);
+        }
+    
+        /// <summary>
         /// Устаревший метод для добавления новых объектов в набор EntitySet DraftOsnast. Взамен можно использовать метод .Add связанного свойства ObjectSet&lt;T&gt;.
         /// </summary>
         public void AddToDraftOsnast(DraftOsnast draftOsnast)
@@ -649,11 +667,19 @@ namespace OsnastkaDirect.Data
         }
     
         /// <summary>
-        /// Устаревший метод для добавления новых объектов в набор EntitySet prodact. Взамен можно использовать метод .Add связанного свойства ObjectSet&lt;T&gt;.
+        /// Устаревший метод для добавления новых объектов в набор EntitySet FullDraftList. Взамен можно использовать метод .Add связанного свойства ObjectSet&lt;T&gt;.
         /// </summary>
-        public void AddToprodact(prodact prodact)
+        public void AddToFullDraftList(FullDraftList fullDraftList)
         {
-            base.AddObject("prodact", prodact);
+            base.AddObject("FullDraftList", fullDraftList);
+        }
+    
+        /// <summary>
+        /// Устаревший метод для добавления новых объектов в набор EntitySet FullDraftNameList. Взамен можно использовать метод .Add связанного свойства ObjectSet&lt;T&gt;.
+        /// </summary>
+        public void AddToFullDraftNameList(FullDraftNameList fullDraftNameList)
+        {
+            base.AddObject("FullDraftNameList", fullDraftNameList);
         }
 
         #endregion
@@ -1153,24 +1179,24 @@ namespace OsnastkaDirect.Data
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
         [DataMemberAttribute()]
-        public Nullable<global::System.Decimal> DraftOsnast1
+        public Nullable<global::System.Decimal> DraftOsn
         {
             get
             {
-                return _DraftOsnast1;
+                return _DraftOsn;
             }
             set
             {
-                OnDraftOsnast1Changing(value);
-                ReportPropertyChanging("DraftOsnast1");
-                _DraftOsnast1 = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("DraftOsnast1");
-                OnDraftOsnast1Changed();
+                OnDraftOsnChanging(value);
+                ReportPropertyChanging("DraftOsn");
+                _DraftOsn = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("DraftOsn");
+                OnDraftOsnChanged();
             }
         }
-        private Nullable<global::System.Decimal> _DraftOsnast1;
-        partial void OnDraftOsnast1Changing(Nullable<global::System.Decimal> value);
-        partial void OnDraftOsnast1Changed();
+        private Nullable<global::System.Decimal> _DraftOsn;
+        partial void OnDraftOsnChanging(Nullable<global::System.Decimal> value);
+        partial void OnDraftOsnChanged();
     
         /// <summary>
         /// Нет доступной документации по метаданным.
@@ -1843,6 +1869,30 @@ namespace OsnastkaDirect.Data
         private Nullable<global::System.Int32> _OldOsproid;
         partial void OnOldOsproidChanging(Nullable<global::System.Int32> value);
         partial void OnOldOsproidChanged();
+    
+        /// <summary>
+        /// Нет доступной документации по метаданным.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> ProdID
+        {
+            get
+            {
+                return _ProdID;
+            }
+            set
+            {
+                OnProdIDChanging(value);
+                ReportPropertyChanging("ProdID");
+                _ProdID = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("ProdID");
+                OnProdIDChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _ProdID;
+        partial void OnProdIDChanging(Nullable<global::System.Int32> value);
+        partial void OnProdIDChanged();
 
         #endregion
 
@@ -1883,6 +1933,167 @@ namespace OsnastkaDirect.Data
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<TechOrder>("FOXModel.FK_TechOrderID_TechOrder", "TechOrder", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// Нет доступной документации по метаданным.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("FOXModel", "FK_ProdID_TechOrder", "prod")]
+        public prod prod
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<prod>("FOXModel.FK_ProdID_TechOrder", "prod").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<prod>("FOXModel.FK_ProdID_TechOrder", "prod").Value = value;
+            }
+        }
+        /// <summary>
+        /// Нет доступной документации по метаданным.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<prod> prodReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<prod>("FOXModel.FK_ProdID_TechOrder", "prod");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<prod>("FOXModel.FK_ProdID_TechOrder", "prod", value);
+                }
+            }
+        }
+
+        #endregion
+
+    }
+    
+    /// <summary>
+    /// Нет доступной документации по метаданным.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="FOXModel", Name="FullDraftList")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class FullDraftList : EntityObject
+    {
+        #region Фабричный метод
+    
+        /// <summary>
+        /// Создание нового объекта FullDraftList.
+        /// </summary>
+        /// <param name="draft">Исходное значение свойства Draft.</param>
+        public static FullDraftList CreateFullDraftList(global::System.Decimal draft)
+        {
+            FullDraftList fullDraftList = new FullDraftList();
+            fullDraftList.Draft = draft;
+            return fullDraftList;
+        }
+
+        #endregion
+
+        #region Свойства-примитивы
+    
+        /// <summary>
+        /// Нет доступной документации по метаданным.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Decimal Draft
+        {
+            get
+            {
+                return _Draft;
+            }
+            set
+            {
+                if (_Draft != value)
+                {
+                    OnDraftChanging(value);
+                    ReportPropertyChanging("Draft");
+                    _Draft = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("Draft");
+                    OnDraftChanged();
+                }
+            }
+        }
+        private global::System.Decimal _Draft;
+        partial void OnDraftChanging(global::System.Decimal value);
+        partial void OnDraftChanged();
+    
+        /// <summary>
+        /// Нет доступной документации по метаданным.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> DraftNameID
+        {
+            get
+            {
+                return _DraftNameID;
+            }
+            set
+            {
+                OnDraftNameIDChanging(value);
+                ReportPropertyChanging("DraftNameID");
+                _DraftNameID = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("DraftNameID");
+                OnDraftNameIDChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _DraftNameID;
+        partial void OnDraftNameIDChanging(Nullable<global::System.Int32> value);
+        partial void OnDraftNameIDChanged();
+
+        #endregion
+
+    
+        #region Свойства навигации
+    
+        /// <summary>
+        /// Нет доступной документации по метаданным.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("FOXModel", "FK_DraftNameID_FullDraftList", "ReferenceInformation")]
+        public ReferenceInformation ReferenceInformation
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<ReferenceInformation>("FOXModel.FK_DraftNameID_FullDraftList", "ReferenceInformation").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<ReferenceInformation>("FOXModel.FK_DraftNameID_FullDraftList", "ReferenceInformation").Value = value;
+            }
+        }
+        /// <summary>
+        /// Нет доступной документации по метаданным.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<ReferenceInformation> ReferenceInformationReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<ReferenceInformation>("FOXModel.FK_DraftNameID_FullDraftList", "ReferenceInformation");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<ReferenceInformation>("FOXModel.FK_DraftNameID_FullDraftList", "ReferenceInformation", value);
                 }
             }
         }
@@ -8359,6 +8570,32 @@ namespace OsnastkaDirect.Data
         #endregion
 
     
+        #region Свойства навигации
+    
+        /// <summary>
+        /// Нет доступной документации по метаданным.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("FOXModel", "FK_ProdID_TechOrder", "DraftOsnast")]
+        public EntityCollection<DraftOsnast> DraftOsnast
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<DraftOsnast>("FOXModel.FK_ProdID_TechOrder", "DraftOsnast");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<DraftOsnast>("FOXModel.FK_ProdID_TechOrder", "DraftOsnast", value);
+                }
+            }
+        }
+
+        #endregion
+
     }
     
     /// <summary>
@@ -9787,6 +10024,28 @@ namespace OsnastkaDirect.Data
                 }
             }
         }
+    
+        /// <summary>
+        /// Нет доступной документации по метаданным.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("FOXModel", "FK_DraftNameID_FullDraftList", "FullDraftList")]
+        public EntityCollection<FullDraftList> FullDraftList
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<FullDraftList>("FOXModel.FK_DraftNameID_FullDraftList", "FullDraftList");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<FullDraftList>("FOXModel.FK_DraftNameID_FullDraftList", "FullDraftList", value);
+                }
+            }
+        }
 
         #endregion
 
@@ -9966,7 +10225,8 @@ namespace OsnastkaDirect.Data
         /// <param name="factoryNumberOrder">Исходное значение свойства FactoryNumberOrder.</param>
         /// <param name="workshopID">Исходное значение свойства WorkshopID.</param>
         /// <param name="laborManufacturingAssume">Исходное значение свойства LaborManufacturingAssume.</param>
-        public static TechOrder CreateTechOrder(global::System.Int32 techOrderID, global::System.String yearTechOrder, global::System.Int16 factoryOrder, global::System.Int16 factoryNumberOrder, global::System.Int32 workshopID, global::System.Decimal laborManufacturingAssume)
+        /// <param name="isMakeInMetal">Исходное значение свойства IsMakeInMetal.</param>
+        public static TechOrder CreateTechOrder(global::System.Int32 techOrderID, global::System.String yearTechOrder, global::System.Int16 factoryOrder, global::System.Int16 factoryNumberOrder, global::System.Int32 workshopID, global::System.Decimal laborManufacturingAssume, global::System.Boolean isMakeInMetal)
         {
             TechOrder techOrder = new TechOrder();
             techOrder.TechOrderID = techOrderID;
@@ -9975,6 +10235,7 @@ namespace OsnastkaDirect.Data
             techOrder.FactoryNumberOrder = factoryNumberOrder;
             techOrder.WorkshopID = workshopID;
             techOrder.LaborManufacturingAssume = laborManufacturingAssume;
+            techOrder.IsMakeInMetal = isMakeInMetal;
             return techOrder;
         }
 
@@ -10876,50 +11137,26 @@ namespace OsnastkaDirect.Data
         /// <summary>
         /// Нет доступной документации по метаданным.
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
-        public Nullable<global::System.DateTime> DateBackupLimitation
+        public global::System.Boolean IsMakeInMetal
         {
             get
             {
-                return _DateBackupLimitation;
+                return _IsMakeInMetal;
             }
             set
             {
-                OnDateBackupLimitationChanging(value);
-                ReportPropertyChanging("DateBackupLimitation");
-                _DateBackupLimitation = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("DateBackupLimitation");
-                OnDateBackupLimitationChanged();
+                OnIsMakeInMetalChanging(value);
+                ReportPropertyChanging("IsMakeInMetal");
+                _IsMakeInMetal = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("IsMakeInMetal");
+                OnIsMakeInMetalChanged();
             }
         }
-        private Nullable<global::System.DateTime> _DateBackupLimitation;
-        partial void OnDateBackupLimitationChanging(Nullable<global::System.DateTime> value);
-        partial void OnDateBackupLimitationChanged();
-    
-        /// <summary>
-        /// Нет доступной документации по метаданным.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public Nullable<global::System.Int32> BackupAmount
-        {
-            get
-            {
-                return _BackupAmount;
-            }
-            set
-            {
-                OnBackupAmountChanging(value);
-                ReportPropertyChanging("BackupAmount");
-                _BackupAmount = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("BackupAmount");
-                OnBackupAmountChanged();
-            }
-        }
-        private Nullable<global::System.Int32> _BackupAmount;
-        partial void OnBackupAmountChanging(Nullable<global::System.Int32> value);
-        partial void OnBackupAmountChanged();
+        private global::System.Boolean _IsMakeInMetal;
+        partial void OnIsMakeInMetalChanging(global::System.Boolean value);
+        partial void OnIsMakeInMetalChanged();
     
         /// <summary>
         /// Нет доступной документации по метаданным.
@@ -10944,30 +11181,6 @@ namespace OsnastkaDirect.Data
         private Nullable<global::System.Int32> _Grafik_id;
         partial void OnGrafik_idChanging(Nullable<global::System.Int32> value);
         partial void OnGrafik_idChanged();
-    
-        /// <summary>
-        /// Нет доступной документации по метаданным.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public Nullable<global::System.Int32> DraftOsnastID
-        {
-            get
-            {
-                return _DraftOsnastID;
-            }
-            set
-            {
-                OnDraftOsnastIDChanging(value);
-                ReportPropertyChanging("DraftOsnastID");
-                _DraftOsnastID = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("DraftOsnastID");
-                OnDraftOsnastIDChanged();
-            }
-        }
-        private Nullable<global::System.Int32> _DraftOsnastID;
-        partial void OnDraftOsnastIDChanging(Nullable<global::System.Int32> value);
-        partial void OnDraftOsnastIDChanged();
     
         /// <summary>
         /// Нет доступной документации по метаданным.

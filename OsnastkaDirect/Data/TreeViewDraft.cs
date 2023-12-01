@@ -13,22 +13,40 @@ namespace OsnastkaDirect.Data
         public TreeViewDraft()
         {
             children = new ObservableCollection<TreeViewDraft>();
+            draftNameTree = draft.ToString() + " " + draftName;
         }
         public TreeViewDraft(decimal? _dr, string _st)
         {
             draft = _dr;
             draftName = _st;
             children = new ObservableCollection<TreeViewDraft>();
+            draftNameTree = _dr.ToString() + " " + draftName;
         }
         public TreeViewDraft(decimal? _dr, string _st,ObservableCollection<TreeViewDraft> _list)
         {
             draft = _dr;
             draftName = _st;
             children = _list;
+            draftNameTree = _dr.ToString() + " " + draftName;
         }
         public decimal? draft { get; set; }
         public decimal? draftAcross { get; set; }
         public string draftName { get; set; }
+        public string draftNameTree { get; set; }
+        //private string draftNm;
+        //public string draftNameTree { 
+        //    get 
+        //    {
+        //        if (draftNm == null)
+        //            draftNm = draft.ToString() + " " + draftName;
+        //        return draftNm;
+        //    }
+        //    set 
+        //    {
+        //        draftNm = value;
+        //    } 
+        //}
+        //public string draftNameNotDraft { get; set; }
         public ObservableCollection<TreeViewDraft> children { get; set; }
         public override bool Equals(object obj)
         {
