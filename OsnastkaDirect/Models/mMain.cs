@@ -673,18 +673,6 @@ namespace OsnastkaDirect.Models
         public void HoldOrd()
         {
             if (pSelOsn == null) return;
-            /*var _osnLoad = db.proos.FirstOrDefault(i => i.tzakpred == pSelOsn.nOrdPrev);
-            if (_osnLoad == null) return;
-            if (pSelOsn.dtIzgIsNull)
-            {
-                pSelOsn.dtIzg = DateTime.Now;
-                _osnLoad.dt_izg = DateTime.Now;
-            }
-            else
-            {
-                pSelOsn.dtIzg = null;
-                _osnLoad.dt_izg = null;
-            }*/
             var _draftOsnast = db.DraftOsnast.FirstOrDefault(i => i.DraftOsnastID == pSelOsn.draftOsnastID);
             if (_draftOsnast == null) return;
             if (_draftOsnast.TechOrder.DateAtApproval == null)
@@ -710,6 +698,7 @@ namespace OsnastkaDirect.Models
              _osnLoad.back = true;
 
              pSelOsn.returned = true; */
+            if (pSelOsn == null) return;
             var _draftOsnast = db.DraftOsnast.FirstOrDefault(i => i.DraftOsnastID == pSelOsn.draftOsnastID); //TODO возможность вернуть после возврата?
             if (_draftOsnast == null) return;
             _draftOsnast.TechOrder.ReasonReturnedToTechnolog = pSelOsn.returnRes;
@@ -722,40 +711,23 @@ namespace OsnastkaDirect.Models
         public void AnnulOrd()
         {
             if (pSelOsn == null) return;
-            if (db.os_pro.FirstOrDefault(i => i.id == pSelOsn.id_os_pro)!=null &&
-                db.os_pro.FirstOrDefault(i => i.id == pSelOsn.id_os_pro).zak_nar>0)
-            {
-                MessageBox.Show("Аннулировать нельзя! Техзаказ в состоянии исполнения!", "Внимание!", MessageBoxButton.OK, MessageBoxImage.Warning);
-                return;
-            }
+            //TODO когда нельзя аннулировать?
             if (pSelOsn.nOrd > 0)
             {
-                if (true)//тут помощь нужна с ok ПОМОЩЬ, ПО ХОДУ ТИПА БОСС ИЛИ НЕТ
+                if (true)//TODO босс или нет. тут помощь нужна с ok ПОМОЩЬ, ПО ХОДУ ТИПА БОСС ИЛИ НЕТ
                 {
                     if (MessageBox.Show("Техзаказ утвержден! Хотите аннулировать?",
                         "Внимание!",
                         MessageBoxButton.YesNo,
                         MessageBoxImage.Warning) == MessageBoxResult.Yes)
                     {
-                        var _zayvka = db.zayvka.Where(i => i.tzak == pSelOsn.nOrd && i.dza==pSelOsn.getDate);
-                        foreach (zayvka _za in _zayvka)
-                        {
-                            db.zayvka.DeleteObject(_za);
-                        }
-                        var _os_pro = db.os_pro.FirstOrDefault(i => i.id == pSelOsn.id_os_pro);
-                        if (_os_pro != null)
-                        {
-                            db.os_pro.DeleteObject(_os_pro);
-                        }
-                        var _proos = db.proos.FirstOrDefault(i => i.tzakpred == pSelOsn.nOrdPrev);
-                        if (_proos != null)
-                        {
-                            db.proos.DeleteObject(_proos);
-                        }
+                        var _draftOsnast = db.DraftOsnast.FirstOrDefault(i => i.DraftOsnastID == pSelOsn.draftOsnastID);
+                        var _techOrder = _draftOsnast.TechOrder;
+                        if (_draftOsnast == null || _techOrder == null) return;
+                        db.DraftOsnast.DeleteObject(_draftOsnast);
+                        db.TechOrder.DeleteObject(_techOrder);
                         pListOsn.Remove(pSelOsn);
                         SaveChanges();
-                        //OnChangeSelFilter();
-                        //LoadListOsn();
                     }
                     else
                     {
@@ -770,42 +742,29 @@ namespace OsnastkaDirect.Models
             }
             else
             {
-                var _proos = db.proos.FirstOrDefault(i => i.tzakpred == pSelOsn.nOrdPrev);
-                if (_proos != null)
+                if (MessageBox.Show("Аннулировать?",
+                    "Внимание!",
+                    MessageBoxButton.YesNo,
+                    MessageBoxImage.Warning) == MessageBoxResult.Yes)
                 {
-                    db.proos.DeleteObject(_proos);
+                    var _draftOsnast = db.DraftOsnast.FirstOrDefault(i => i.DraftOsnastID == pSelOsn.draftOsnastID); 
+                    var _techOrder = _draftOsnast.TechOrder;
+                    if (_draftOsnast == null || _techOrder==null) return;
+                    db.DraftOsnast.DeleteObject(_draftOsnast);
+                    db.TechOrder.DeleteObject(_techOrder);
                     pListOsn.Remove(pSelOsn);
+                    SaveChanges();
                 }
-
-                SaveChanges();
-                //OnChangeSelFilter();
-                //LoadListOsn();
+                else
+                {
+                    return;
+                }
             }
         }
         public void FinalApproveOrd()
         {
-           /* if (pSelOsn == null) return;
-            var _proos = db.proos.FirstOrDefault(i => i.tzakpred == pSelOsn.nOrdPrev);
-            if (_proos != null)
-            {
-                _proos.dt_ok = DateTime.Now;
-            }
-            var _os_pro = db.os_pro.FirstOrDefault(i => i.id == pSelOsn.id_os_pro);
-            if (_os_pro != null)
-            {
-                _os_pro.pr ="so";
-            }
-            var _zayvka = db.zayvka.FirstOrDefault(i => i.tzak == pSelOsn.nOrd && i.draftosn == pSelOsn.draftGrid);
-            if (_zayvka != null)
-            {
-                _zayvka.sog2 = "*";
-                _zayvka.nsog2 = "";
-                _zayvka.dsog2 = DateTime.Now;
-                _zayvka.imyts = pSelOsn.who;
-                _zayvka.dop = pSelOsn.addition;
-            }
-            pSelOsn.dtOk = DateTime.Now;*/
-            var _draftOsnast = db.DraftOsnast.FirstOrDefault(i => i.DraftOsnastID == pSelOsn.draftOsnastID);
+            if (pSelOsn == null) return;
+            var _draftOsnast = db.DraftOsnast.FirstOrDefault(i => i.DraftOsnastID == pSelOsn.draftOsnastID); 
             if (_draftOsnast == null) return;
             _draftOsnast.DateEmployeeFinalApproved = DateTime.Now;
             _draftOsnast.IsStatusEmployeeFinalApproved = true;
@@ -818,65 +777,30 @@ namespace OsnastkaDirect.Models
             var _year = DateTime.Now.Year.ToString().Remove(0, 2);
             decimal _nOrdNew=0;
             //var _proosMAX = db.os_pro.FirstOrDefault(i => i.zak_1 == DateTime.Now.Year.ToString().Remove(0,2) + "-9999");
-            var _proosMAX = db.os_pro.Where(i => i.zak_1.Substring(0,2) == _year).Max(j => j.zak_1.Remove(0,3)).ToDecimalOrDefault(-1); //а если 24ый год
+            var _proosMAX = db.DraftOsnast.Where(i => i.YearTechOrd.Substring(0,2) == _year && i.TechOrder.IsApplicationFrom==true).Max(j => j.YearTechOrd.Remove(0,3)).ToDecimalOrDefault(-1); //TODO не работает + а если 24ый год и пусто ни одного
             if (_proosMAX == -1) _nOrdNew = 7000;
             else _nOrdNew = _proosMAX+1;
-            if (_nOrdNew == 9999) //до 9998 ?
+            if (_nOrdNew > 9999)
             {
-                MessageBox.Show("Максимум достигнут!", "Внимание!", MessageBoxButton.OK, MessageBoxImage.Warning);
+                MessageBox.Show("Максимум достигнут! Что делать? Честно, не знаю, ждите следующий год", "Внимание!", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
             var _newZak1 = _year.ToString() + "-" + _nOrdNew.ToString();
-            var _os_proNew = new os_pro
-            {
-                zak_1 = _newZak1,
-                zakf_30 = pSelOsn.ordOsn.ToString()+"/"+pSelOsn.numOsn.ToString(),
-                niz_3 = pSelOsn.usage,
-                draft_4 = pSelOsn.draft,
-                osn_6 = pSelOsn.draftGrid.ToString(),
-                osna_7 = pSelOsn.nameGrid,
-                z_p_17 = pSelOsn.workshop,
-                d_otk_23 = DateTime.Now.Date,
-                s_vn_11 = pSelOsn.dateNeed,
-                sved_26 = pSelOsn.addition.Remove(pSelOsn.addition.Length - 49),
-                klad_36 = pSelOsn.storeroom.ToDecimalOrDefault(),
+            var _draftOsnast = db.DraftOsnast.FirstOrDefault(i => i.DraftOsnastID == pSelOsn.draftOsnastID);
+            if (_draftOsnast == null) return;
+            _draftOsnast.DateEmployeeApproved = DateTime.Now;
+            _draftOsnast.TechOrder.AuthorConstructor = "я"; //TODO Имя босса
+            _draftOsnast.TechOrder.TechOrd = (short)(_nOrdNew);
+            _draftOsnast.IsStatusEmployeeApproved = true;
+            _draftOsnast.TechOrder.YearTechOrd = _newZak1;
 
-                oper = pSelOsn.operation,
-                rab_m = pSelOsn.workPlace,
-                k_pl_32 = pSelOsn.amount,
-                fio = pSelOsn.who, //НЕ УВЕРЕН, ПОМЕНЯТЬ кто фио? 
-                //n_dra_5 = pSelOsn.nameDraft.Remove(pSelOsn.nameDraft.Length - 14), //слишком длинно
-
-                to_2 = 0,
-                ko1_27 = 0,
-                z_iz_16="",
-                tr_p_24 = 0,
-                k_f_33=0,
-                tr_f_34=0,
-                zak_nar=0,
-                nom_nar=0
-            };
-            pSelOsn.zak_1 = _newZak1;
+            pSelOsn.dateBoss = DateTime.Now;
+            pSelOsn.boss = "я";
+            pSelOsn.nOrd = _nOrdNew;
             pSelOsn.accepted = true;
-            db.os_pro.AddObject(_os_proNew);
-            var _proos = db.proos.FirstOrDefault(i => i.tzakpred == pSelOsn.nOrdPrev);
-            if (_proos != null)
-            {
-                _proos.dt_boss = DateTime.Now;
-                _proos.boss = "я";
-                _proos.tzak = _nOrdNew;
-                _proos.sog = true;
-                _proos.zak_1 = _newZak1;
-
-                pSelOsn.dateBoss = DateTime.Now;
-                pSelOsn.boss = "я";
-                pSelOsn.nOrd = _nOrdNew;
-                pSelOsn.accepted = true;
-                pSelOsn.zak_1 = _newZak1;
-            }
-
+            pSelOsn.zak_1 = _newZak1;
             SaveChanges();
-           // PrintBlancOrd(); //ворк ин прогресс
+           // PrintBlancOrd(); //TODO ворк ин прогресс
         }
         public void PrintBlancOrd()
         {
@@ -914,41 +838,13 @@ namespace OsnastkaDirect.Models
                 MessageBox.Show("Заказ не подлежит согласованию в КО!", "Внимание!", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
-            var _zayvkaNew = new zayvka
-            {
-                dza = pSelOsn.dateWho,
-                ndraftiz = pSelOsn.usage,
-                draft = pSelOsn.draft,
-                prim_an = pSelOsn.draftOsn.Value.ToString(),
-                naimosn = pSelOsn.nameOsn,
-                naosnsl = pSelOsn.characterOrd,
-                prim = pSelOsn.reason,
-                cexpol = pSelOsn.workshop,
-                ksi = 9,
-                kodop = pSelOsn.operation,
-                rab_m = pSelOsn.workPlace,
-                kladov = pSelOsn.storeroom.ToDecimalOrDefault(),
-                kolzak = pSelOsn.amount,
-                zakf = pSelOsn.ordOsn.ToString() + "/" + pSelOsn.numOsn.ToString(),
-                tzak = pSelOsn.nOrd,
-                draftosn = pSelOsn.draftRes,
-                dataosn = pSelOsn.dateWho,
-                imyt = pSelOsn.who,
-                dizmt = pSelOsn.dateWho,
-                dop = pSelOsn.addition,
-                zak_1 = pSelOsn.zak_1
-            };
-            db.zayvka.AddObject(_zayvkaNew);
-            var _proos = db.proos.FirstOrDefault(i => i.tzakpred == pSelOsn.nOrdPrev);
-            if (_proos != null)
-            {
-                _proos.toko = true;
-                _proos.dt_toko = DateTime.Now;
-
-                pSelOsn.atConst = true;
-               // pSelOsn.date = DateTime.Now;
-            }
-
+            var _draftOsnast = db.DraftOsnast.FirstOrDefault(i => i.DraftOsnastID == pSelOsn.draftOsnastID);
+            if (_draftOsnast == null) return;
+            //TODO походу, надо сделать как то упоминание что я теперь заявка/или нет
+            _draftOsnast.Ksi = 9;
+            _draftOsnast.TechOrder.IsAtConstructor = true;
+            _draftOsnast.TechOrder.DateAtConstructor = DateTime.Now;
+            pSelOsn.atConst = true;
             SaveChanges();
         }
         public void WatchScanCopyOrd()
