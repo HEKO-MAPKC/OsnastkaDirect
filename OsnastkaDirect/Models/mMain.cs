@@ -441,12 +441,13 @@ namespace OsnastkaDirect.Models
                          orderby i.TechOrderID descending
                               select new Osn
                               {
+                                  draftOsnastID = i.DraftOsnastID,
                                   draftOsn = i.DraftOsn,
                                   workshop = i.TechOrder.Workshop.Workshop1,
                                   nOrdPrev = i.TechOrderID.Value,
-                                  nOrd = i.TechOrder.TechOrder1,
+                                  nOrd = i.TechOrder.TechOrd,
                                   reason = i.TechOrder.ReasonProduction,
-                                  addition = i.TechOrder.AddInformation,
+                                  addition = i.AddInformation,
                                   amount = i.AmountEquipmentProducePlan,
                                   dateWho = i.TechOrder.DateCreateApplication,
                                   who = i.TechOrder.AuthorTechnolog,
@@ -479,7 +480,8 @@ namespace OsnastkaDirect.Models
                                   numOsn = i.TechOrder.FactoryNumberOrder,
                                   workPlace = i.TechOrder.Workplace,
                                   operation = i.TechOrder.OperationCode,
-                                  characterOrd = i.TechOrder.ReferenceInformation.ReferenceName,
+                                  characterOrd = i.TechOrder.ReferenceInformation1.ReferenceName,//i.TechOrder.TypeOsnast,
+                                  //i.TechOrder.ReferenceInformation.ReferenceName,
                                   dateNeed = i.DateImplementPlan,
 
                                 //  date700 = list8.data,
@@ -490,7 +492,7 @@ namespace OsnastkaDirect.Models
                                   workPlaceName = i.TechOrder.oborud.code.Trim() + " " + i.TechOrder.oborud.oborud1.Trim(),
                                   operationName = i.TechOrder.s_oper.oper,
 
-                                  zak_1 = i.TechOrder.YearTechOrder,
+                                  zak_1 = i.TechOrder.YearTechOrd,
                                  // id_os_pro = i.os_pro_id.Value, //ПОМЕНЯТЬ ПОТОМ НА НЕ NULL
                                  // id_prod = i.prod_id.Value,
                                   dateBoss = i.TechOrder.DateReturnedToTechnolog,
@@ -633,6 +635,7 @@ namespace OsnastkaDirect.Models
         public void DisapproveOrd()
         {
             if (pSelOsn == null) return;
+            /*
             var _os_pro = db.os_pro.FirstOrDefault(i => i.id == pSelOsn.id_os_pro);
             if (_os_pro != null)
             {
@@ -651,14 +654,26 @@ namespace OsnastkaDirect.Models
             _osnLoad.boss = "";
             _osnLoad.dt_boss = null;
             _osnLoad.tzak = 0;
+            SaveChanges();*/
+            var _draftOsnast = db.DraftOsnast.FirstOrDefault(i => i.DraftOsnastID == pSelOsn.draftOsnastID);
+            if (_draftOsnast == null) return;
+            pSelOsn.zak_1 = null; //ТУТ ВОПРОС НУЛЛ ИЛИ НЕТ
+            pSelOsn.accepted = false;
+            pSelOsn.boss = "";
+            pSelOsn.dateBoss = null;
+            pSelOsn.nOrd = 0;
+            _draftOsnast.YearTechOrd = ""; //ТУТ ВОПРОС НУЛЛ ИЛИ НЕТ
+            _draftOsnast.TechOrder.YearTechOrd = "";
+            _draftOsnast.IsStatusEmployeeApproved = false;
+            _draftOsnast.TechOrder.AuthorConstructor = "";
+            _draftOsnast.DateEmployeeApproved = null;
+            _draftOsnast.TechOrder.TechOrd = 0;
             SaveChanges();
-            //LoadListOsn();
-
         }
         public void HoldOrd()
         {
             if (pSelOsn == null) return;
-            var _osnLoad = db.proos.FirstOrDefault(i => i.tzakpred == pSelOsn.nOrdPrev);
+            /*var _osnLoad = db.proos.FirstOrDefault(i => i.tzakpred == pSelOsn.nOrdPrev);
             if (_osnLoad == null) return;
             if (pSelOsn.dtIzgIsNull)
             {
@@ -669,20 +684,39 @@ namespace OsnastkaDirect.Models
             {
                 pSelOsn.dtIzg = null;
                 _osnLoad.dt_izg = null;
+            }*/
+            var _draftOsnast = db.DraftOsnast.FirstOrDefault(i => i.DraftOsnastID == pSelOsn.draftOsnastID);
+            if (_draftOsnast == null) return;
+            if (_draftOsnast.TechOrder.DateAtApproval == null)
+            {
+                pSelOsn.dtIzg = DateTime.Now;
+                _draftOsnast.TechOrder.DateAtApproval = DateTime.Now;
+            }
+            else
+            {
+                pSelOsn.dtIzg = null;
+                _draftOsnast.TechOrder.DateAtApproval = null;
             }
             OnChangeSelFilter();
             SaveChanges();
         }
         public void ReturnBackOrd()
         {
-            if (pSelOsn == null) return;
-            var _osnLoad = db.proos.FirstOrDefault(i => i.tzakpred == pSelOsn.nOrdPrev);
-            if (_osnLoad == null) return;
-            _osnLoad.why_back = pSelOsn.returnRes;
-            _osnLoad.dt_back = DateTime.Now;
-            _osnLoad.back = true;
+            /* if (pSelOsn == null) return;
+             var _osnLoad = db.proos.FirstOrDefault(i => i.tzakpred == pSelOsn.nOrdPrev);
+             if (_osnLoad == null) return;
+             _osnLoad.why_back = pSelOsn.returnRes;
+             _osnLoad.dt_back = DateTime.Now;
+             _osnLoad.back = true;
 
+             pSelOsn.returned = true; */
+            var _draftOsnast = db.DraftOsnast.FirstOrDefault(i => i.DraftOsnastID == pSelOsn.draftOsnastID); //TODO возможность вернуть после возврата?
+            if (_draftOsnast == null) return;
+            _draftOsnast.TechOrder.ReasonReturnedToTechnolog = pSelOsn.returnRes;
+            _draftOsnast.TechOrder.DateReturnedToTechnolog = DateTime.Now;
+            _draftOsnast.TechOrder.IsReturnedToTechnolog = true;
             pSelOsn.returned = true;
+            OnChangeSelFilter();
             SaveChanges();
         }
         public void AnnulOrd()
@@ -750,7 +784,7 @@ namespace OsnastkaDirect.Models
         }
         public void FinalApproveOrd()
         {
-            if (pSelOsn == null) return;
+           /* if (pSelOsn == null) return;
             var _proos = db.proos.FirstOrDefault(i => i.tzakpred == pSelOsn.nOrdPrev);
             if (_proos != null)
             {
@@ -770,6 +804,11 @@ namespace OsnastkaDirect.Models
                 _zayvka.imyts = pSelOsn.who;
                 _zayvka.dop = pSelOsn.addition;
             }
+            pSelOsn.dtOk = DateTime.Now;*/
+            var _draftOsnast = db.DraftOsnast.FirstOrDefault(i => i.DraftOsnastID == pSelOsn.draftOsnastID);
+            if (_draftOsnast == null) return;
+            _draftOsnast.DateEmployeeFinalApproved = DateTime.Now;
+            _draftOsnast.IsStatusEmployeeFinalApproved = true;
             pSelOsn.dtOk = DateTime.Now;
             SaveChanges();
         }
@@ -779,7 +818,7 @@ namespace OsnastkaDirect.Models
             var _year = DateTime.Now.Year.ToString().Remove(0, 2);
             decimal _nOrdNew=0;
             //var _proosMAX = db.os_pro.FirstOrDefault(i => i.zak_1 == DateTime.Now.Year.ToString().Remove(0,2) + "-9999");
-            var _proosMAX = db.os_pro.Where(i => i.zak_1.Substring(0,2) == _year).Max(j => j.zak_1.Remove(0,3)).ToDecimalOrDefault(-1);
+            var _proosMAX = db.os_pro.Where(i => i.zak_1.Substring(0,2) == _year).Max(j => j.zak_1.Remove(0,3)).ToDecimalOrDefault(-1); //а если 24ый год
             if (_proosMAX == -1) _nOrdNew = 7000;
             else _nOrdNew = _proosMAX+1;
             if (_nOrdNew == 9999) //до 9998 ?

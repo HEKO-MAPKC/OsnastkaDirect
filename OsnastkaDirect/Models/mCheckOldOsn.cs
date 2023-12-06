@@ -77,7 +77,7 @@ namespace OsnastkaDirect.Models
         {
             pListOsn = null;
             var _psel = WindowMain.Model.pSelOsn.draftGrid;
-            var _var1 = (from i in db.TechOrder
+            var _var1 = (from i in db.DraftOsnast
 
                          join db6 in db.DraftOsnast on
                                   /*SqlFunctions.Equals(i.zak_1,null) ? "0" :*/ i.TechOrderID equals db6.TechOrderID /*!= null ? db6.zak_1 : "0"*/  into gf6
@@ -86,7 +86,7 @@ namespace OsnastkaDirect.Models
                          let _draftneed = DraftOsnastList.DraftPiece == 0 || DraftOsnastList.DraftPiece == null ? DraftOsnastList.DraftOsn.Value : DraftOsnastList.DraftPiece.Value
 
                          join db1 in db.FullDraftNameList
-                         on (int)(i.Draft.Value / 1000) equals db1.Draft into gf1
+                         on (int)(i.TechOrder.Draft.Value / 1000) equals db1.Draft into gf1
                          from listDse in gf1.DefaultIfEmpty().Take(1)
 
                          join db2 in db.FullDraftNameList on
@@ -104,15 +104,15 @@ namespace OsnastkaDirect.Models
                          {
                              draftOsn = DraftOsnastList.DraftOsn,
                              // workshop = i.WorkshopID,
-                             nOrdPrev = i.TechOrderID,
-                             nOrd = i.TechOrder1,
-                             reason = i.ReasonProduction,
+                             nOrdPrev = i.TechOrder.TechOrderID,
+                             nOrd = i.TechOrder.TechOrd,
+                             reason = i.TechOrder.ReasonProduction,
                              addition = i.AddInformation,
                              amount = i.AmountEquipmentForOper,
-                             dateWho = i.DateCreateApplication,
-                             who = i.AuthorTechnolog,
-                             returnRes = i.ReasonReturnedToTechnolog,
-                             draft = i.Draft,
+                             dateWho = i.TechOrder.DateCreateApplication,
+                             who = i.TechOrder.AuthorTechnolog,
+                             returnRes = i.TechOrder.ReasonReturnedToTechnolog,
+                             draft = i.TechOrder.Draft,
                              draftRes = DraftOsnastList.DraftPiece,
                              // storeroom = DraftOsnastList.,
                              //nameDraft = db.ExecuteFunction<string> ("GetDraftName"),
@@ -130,19 +130,19 @@ namespace OsnastkaDirect.Models
 
 
 
-                             usage = i.NameDraftProduct,
-                             dtSrok = i.DateLimitation,
-                             dtIzg = i.DateAtApproval,
+                             usage = i.TechOrder.NameDraftProduct,
+                             dtSrok = i.TechOrder.DateLimitation,
+                             dtIzg = i.TechOrder.DateAtApproval,
                              dtOk = DraftOsnastList.DateEmployeeFinalApproved,
-                             atConst = i.IsAtConstructor,
+                             atConst = i.TechOrder.IsAtConstructor,
                              accepted = DraftOsnastList.IsStatusEmployeeApproved,
-                             returned = i.IsReturnedToTechnolog,
+                             returned = i.TechOrder.IsReturnedToTechnolog,
                              fioConst = DraftOsnastList.AuthorConstructorExecute,
 
                              // ord700 = list7 != null ? list7.zakaz : 0,
                              // num700 = list7 != null ? list7.nom : 0,
-                             ordOsn = i.FactoryOrder,
-                             numOsn = i.FactoryNumberOrder,
+                             ordOsn = i.TechOrder.FactoryOrder,
+                             numOsn = i.TechOrder.FactoryNumberOrder,
                              // workPlace = list6.rab_m,
                              // operation = list6.oper,
                              // characterOrd = i.rem_izg,
@@ -156,11 +156,11 @@ namespace OsnastkaDirect.Models
                              // workPlaceName = oborudlist.code.Trim() + " " + oborudlist.oborud1.Trim(),
                              // operationName = s_operlist.oper,
 
-                             zak_1 = i.YearTechOrder,
+                             zak_1 = i.YearTechOrd,
                              // id_os_pro = i.os_pro_id.Value, //ПОМЕНЯТЬ ПОТОМ НА НЕ NULL
                              // id_prod = i.prod_id.Value,
-                             dateBoss = i.DateReturnedToTechnolog,
-                             boss = i.AuthorConstructor,
+                             dateBoss = i.TechOrder.DateReturnedToTechnolog,
+                             boss = i.TechOrder.AuthorConstructor,
                          })/*.Distinct()*/.ToList();
             pListOsn = new ObservableCollection<Osn>( _var1);
         }

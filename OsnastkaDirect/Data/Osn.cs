@@ -7,6 +7,7 @@ namespace OsnastkaDirect.Models
 {
     class Osn
     {
+        public int draftOsnastID { get; set; }
         public decimal? draftOsn { get; set; }
 
         public string nameOsn { get; set; }
