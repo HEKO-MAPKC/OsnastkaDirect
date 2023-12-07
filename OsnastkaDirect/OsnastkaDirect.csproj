@@ -116,6 +116,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Data\BindableSelectedItemBehavior.cs" />
+    <Compile Include="Data\Clcurpl.cs" />
     <Compile Include="Data\Draft.cs" />
     <Compile Include="Data\FOXModel.Designer.cs">
       <AutoGen>True</AutoGen>

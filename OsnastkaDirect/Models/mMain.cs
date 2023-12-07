@@ -480,7 +480,7 @@ namespace OsnastkaDirect.Models
                                   numOsn = i.TechOrder.FactoryNumberOrder,
                                   workPlace = i.TechOrder.Workplace,
                                   operation = i.TechOrder.OperationCode,
-                                  characterOrd = i.TechOrder.ReferenceInformation1.ReferenceName,//i.TechOrder.TypeOsnast,
+                                  characterOrd = i.TechOrder.ReferenceInformation.ReferenceName,//i.TechOrder.TypeOsnast,
                                   //i.TechOrder.ReferenceInformation.ReferenceName,
                                   dateNeed = i.DateImplementPlan,
 

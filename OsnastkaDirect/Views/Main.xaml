@@ -67,29 +67,27 @@
                 <r:RibbonApplicationMenu SmallImageSource="/OsnastkaDirect;component/EmbedResources/Icons/help_icon.png">
 
                     <r:RibbonApplicationMenuItem Header="Утверждение"
-                                                
                                                  ImageSource="/OsnastkaDirect;component/EmbedResources/Icons/help_icon.png"
                                                  Command="{Binding pOpenApprove}" />
                     <r:RibbonApplicationMenuItem Header="Создание"
                                                  ImageSource="/OsnastkaDirect;component/EmbedResources/Icons/help_icon.png"
                                                  Command="{Binding pOpenCreate}" />
                     <r:RibbonApplicationMenuItem Header="Открытие"
-                                                      ImageSource="/OsnastkaDirect;component/EmbedResources/Icons/help_icon.png">
+                                                 ImageSource="/OsnastkaDirect;component/EmbedResources/Icons/help_icon.png">
                         <r:RibbonApplicationMenuItem Header="Вспомогательная оснастка"
                                                      Command="{Binding pOpenAuxililaryOsnastW}"
-                                                     ImageSource="/OsnastkaDirect;component/EmbedResources/Icons/help_icon.png"/>
+                                                     ImageSource="/OsnastkaDirect;component/EmbedResources/Icons/help_icon.png" />
                         <r:RibbonApplicationMenuItem Header="Заказы в производстве"
                                                      Command="{Binding pOpenFinOrderW}"
-                                                     ImageSource="/OsnastkaDirect;component/EmbedResources/Icons/help_icon.png"/>
+                                                     ImageSource="/OsnastkaDirect;component/EmbedResources/Icons/help_icon.png" />
                         <r:RibbonApplicationMenuItem Header="Запчасти к оснастке"
                                                      Command="{Binding pOpenSparePartW}"
-                                                     ImageSource="/OsnastkaDirect;component/EmbedResources/Icons/help_icon.png"/>
+                                                     ImageSource="/OsnastkaDirect;component/EmbedResources/Icons/help_icon.png" />
                         <r:RibbonApplicationMenuItem Header="Состав изделия"
                                                      Command="{Binding pOpenCompoundProductW}"
                                                      ImageSource="/OsnastkaDirect;component/EmbedResources/Icons/help_icon.png" />
                     </r:RibbonApplicationMenuItem>
                     <r:RibbonApplicationMenuItem Header="Формирование&#10;перечней"
-                                                 
                                                  ImageSource="/OsnastkaDirect;component/EmbedResources/Icons/help_icon.png"
                                                  Command="{Binding pOpenApprove}" />
                     <r:RibbonApplicationMenuItem Header="Формирование&#10;отчета выполнения"
@@ -98,18 +96,18 @@
                     <r:RibbonApplicationMenu.FooterPaneContent>
                         <DockPanel LastChildFill="False">
                             <r:RibbonButton Command="ApplicationCommands.Close"
-                                                 Label="Exit"
-                                                 SmallImageSource="/OsnastkaDirect;component/EmbedResources/Icons/help_icon.png"
-                                                 DockPanel.Dock="Right"
-                                                 Margin="2"/>
+                                            Label="Exit"
+                                            SmallImageSource="/OsnastkaDirect;component/EmbedResources/Icons/help_icon.png"
+                                            DockPanel.Dock="Right"
+                                            Margin="2" />
                         </DockPanel>
                     </r:RibbonApplicationMenu.FooterPaneContent>
                     <r:RibbonApplicationMenu.AuxiliaryPaneContent>
                         <r:RibbonGallery CanUserFilter="False"
-                                              ScrollViewer.VerticalScrollBarVisibility="Auto">
+                                         ScrollViewer.VerticalScrollBarVisibility="Auto">
                             <r:RibbonGalleryCategory Header="Recent Documents"
-                                                          Background="Transparent"
-                                                          ItemsSource="{DynamicResource MostRecentFiles}">
+                                                     Background="Transparent"
+                                                     ItemsSource="{DynamicResource MostRecentFiles}">
                                 <r:RibbonGalleryCategory.ItemsPanel>
                                     <ItemsPanelTemplate>
                                         <StackPanel Orientation="Vertical"
@@ -547,13 +545,8 @@
                         </FlowDocument>
 
                     </RichTextBox>
-                    <control:PlaceholderBox Height="26"
-                                            Width="155"
-                                            Placeholder="дата"
-                                            Text="{Binding model.pSelOsn.boss, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                            Margin="705,437,160,119" />
-                    <StackPanel Orientation="Horizontal"
-                                Margin="897,421,18,18">
+                    <WrapPanel Orientation="Horizontal"
+                               Margin="700,426,10,10">
                         <Fluent:Button Header="Аннулировать заказ"
                                        Command="{Binding Command}"
                                        CommandParameter="{Binding}"
@@ -570,7 +563,87 @@
                                        Margin="-5,0,-2,-2" />
                             </Fluent:Button.LargeIcon>
                         </Fluent:Button>
-                    </StackPanel>
+                        <Fluent:Button Header="Аннулировать заказ"
+                                       Command="{Binding Command}"
+                                       CommandParameter="{Binding}"
+                                       Width="90"
+                                       Height="70"
+                                       Background="White"
+                                       BorderBrush="Silver"
+                                       CornerRadius="5"
+                                       IsEnabled="{Binding model.pSelOsn.dtIzgIsNull, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
+                            <Fluent:Button.LargeIcon>
+                                <Image Source="/EmbedResources/Icons/save.png"
+                                       Width="35"
+                                       Height="35"
+                                       Margin="-5,0,-2,-2" />
+                            </Fluent:Button.LargeIcon>
+                        </Fluent:Button>
+                        <Fluent:Button Header="Аннулировать заказ"
+                                       Command="{Binding Command}"
+                                       CommandParameter="{Binding}"
+                                       Width="90"
+                                       Height="70"
+                                       Background="White"
+                                       BorderBrush="Silver"
+                                       CornerRadius="5"
+                                       IsEnabled="{Binding model.pSelOsn.dtIzgIsNull, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
+                            <Fluent:Button.LargeIcon>
+                                <Image Source="/EmbedResources/Icons/save.png"
+                                       Width="35"
+                                       Height="35"
+                                       Margin="-5,0,-2,-2" />
+                            </Fluent:Button.LargeIcon>
+                        </Fluent:Button>
+                        <Fluent:Button Header="Аннулировать заказ"
+                                       Command="{Binding Command}"
+                                       CommandParameter="{Binding}"
+                                       Width="90"
+                                       Height="70"
+                                       Background="White"
+                                       BorderBrush="Silver"
+                                       CornerRadius="5"
+                                       IsEnabled="{Binding model.pSelOsn.dtIzgIsNull, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
+                            <Fluent:Button.LargeIcon>
+                                <Image Source="/EmbedResources/Icons/save.png"
+                                       Width="35"
+                                       Height="35"
+                                       Margin="-5,0,-2,-2" />
+                            </Fluent:Button.LargeIcon>
+                        </Fluent:Button>
+                        <Fluent:Button Header="Аннулировать заказ"
+                                       Command="{Binding Command}"
+                                       CommandParameter="{Binding}"
+                                       Width="90"
+                                       Height="70"
+                                       Background="White"
+                                       BorderBrush="Silver"
+                                       CornerRadius="5"
+                                       IsEnabled="{Binding model.pSelOsn.dtIzgIsNull, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
+                            <Fluent:Button.LargeIcon>
+                                <Image Source="/EmbedResources/Icons/save.png"
+                                       Width="35"
+                                       Height="35"
+                                       Margin="-5,0,-2,-2" />
+                            </Fluent:Button.LargeIcon>
+                        </Fluent:Button>
+                        <Fluent:Button Header="Аннулировать заказ"
+                                       Command="{Binding Command}"
+                                       CommandParameter="{Binding}"
+                                       Width="90"
+                                       Height="70"
+                                       Background="White"
+                                       BorderBrush="Silver"
+                                       CornerRadius="5"
+                                       IsEnabled="{Binding model.pSelOsn.dtIzgIsNull, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
+                            <Fluent:Button.LargeIcon>
+                                <Image Source="/EmbedResources/Icons/save.png"
+                                       Width="35"
+                                       Height="35"
+                                       Margin="-5,0,-2,-2" />
+                            </Fluent:Button.LargeIcon>
+                        </Fluent:Button>
+                    </WrapPanel>
                     <WrapPanel Margin="10,300,0,0"
                                HorizontalAlignment="Left"
                                Width="387"
@@ -615,6 +688,39 @@
                                                 Text="{Binding model.pSelOsn.operationName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                                 Width="150" />
                     </WrapPanel>
+                    <WrapPanel Margin="400,300,0,0"
+                               HorizontalAlignment="Left"
+                               Width="200"
+                               Height="84"
+                               VerticalAlignment="Top">
+                        <control:PlaceholderBox Height="26"
+                                                Placeholder="Применение"
+                                                Text="{Binding model.pSelOsn.usage, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                ToolTip="{Binding Text, RelativeSource={RelativeSource Mode=Self}}"
+                                                Width="200"
+                                                VerticalAlignment="Top"
+                                                HorizontalAlignment="Left" />
+                        <Label Content="Заказ"
+                               FontSize="12"
+                               Width="90"
+                               Height="26" />
+                        <Label Content="Номер"
+                               FontSize="12"
+                               Width="90"
+                               Height="26" />
+                        <control:PlaceholderBox Height="26"
+                                                Placeholder="Заказ"
+                                                Text="{Binding model.pSelOsn.ordOsn, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                Width="100"
+                                                VerticalAlignment="Top"
+                                                HorizontalAlignment="Left" />
+                        <control:PlaceholderBox Height="26"
+                                                Placeholder="Номер"
+                                                Text="{Binding model.pSelOsn.numOsn, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                Width="100"
+                                                VerticalAlignment="Top"
+                                                HorizontalAlignment="Left" />
+                    </WrapPanel>
                     <WrapPanel Margin="445,437,0,0"
                                HorizontalAlignment="Left"
                                Width="255"
@@ -650,28 +756,6 @@
                                                 Placeholder="дата"
                                                 Text="{Binding model.pSelOsn.dateFact, Mode=TwoWay, StringFormat=dd.MM.yy, UpdateSourceTrigger=PropertyChanged}" />
                     </WrapPanel>
-                    <control:PlaceholderBox Height="26"
-                                            Placeholder="Применение"
-                                            Text="{Binding model.pSelOsn.usage, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                            ToolTip="{Binding Text, RelativeSource={RelativeSource Mode=Self}}"
-                                            Width="180"
-                                            Margin="402,326,0,0"
-                                            VerticalAlignment="Top"
-                                            HorizontalAlignment="Left" />
-                    <control:PlaceholderBox Height="26"
-                                            Placeholder="Заказ"
-                                            Text="{Binding model.pSelOsn.ordOsn, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                            Width="73"
-                                            Margin="402,290,0,0"
-                                            VerticalAlignment="Top"
-                                            HorizontalAlignment="Left" />
-                    <control:PlaceholderBox Height="26"
-                                            Placeholder="Номер"
-                                            Text="{Binding model.pSelOsn.numOsn, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                            Width="73"
-                                            Margin="485,291,0,0"
-                                            VerticalAlignment="Top"
-                                            HorizontalAlignment="Left" />
                 </Grid>
             </TabItem>
             <TabItem Selector.IsSelected="{Binding model.pCreateTabOpen}">
@@ -844,7 +928,7 @@
                                   ItemsSource="{Binding model.pListStoreRoom, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                                   DisplayMemberPath="stringToShow"
                                   SelectedItem="{Binding model.pSelStoreRoom}"
-                                  Width="90"/>
+                                  Width="90" />
                         <control:PlaceholderBox Height="33"
                                                 Placeholder="характер"
                                                 Text="{Binding model.pSelOsn.characterOrd, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
