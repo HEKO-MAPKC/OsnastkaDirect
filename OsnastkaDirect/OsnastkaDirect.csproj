@@ -287,40 +287,88 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="EmbedResources\Icons\add.png" />
-    <Resource Include="EmbedResources\Icons\AddSI.png" />
-    <Resource Include="EmbedResources\Icons\arrow_left.png" />
-    <Resource Include="EmbedResources\Icons\block.png" />
-    <Resource Include="EmbedResources\Icons\Calibration.png" />
-    <Resource Include="EmbedResources\Icons\CopySI.png" />
-    <Resource Include="EmbedResources\Icons\cut.png" />
-    <Resource Include="EmbedResources\Icons\delete-trash.png" />
-    <Resource Include="EmbedResources\Icons\edit-article.png" />
-    <Resource Include="EmbedResources\Icons\edit-line.png" />
-    <Resource Include="EmbedResources\Icons\edit.png" />
-    <Resource Include="EmbedResources\Icons\Editing.png" />
-    <Resource Include="EmbedResources\Icons\EditingDelete.png" />
+    <Resource Include="EmbedResources\Icons\binocleB.png" />
     <Resource Include="EmbedResources\Icons\help_icon.png" />
-    <Resource Include="EmbedResources\Icons\lock.png" />
-    <Resource Include="EmbedResources\Icons\Lost.png" />
-    <Resource Include="EmbedResources\Icons\Lost96.png" />
-    <Resource Include="EmbedResources\Icons\NO.png" />
-    <Resource Include="EmbedResources\Icons\question-icon.png" />
-    <Resource Include="EmbedResources\Icons\Receve.png" />
-    <Resource Include="EmbedResources\Icons\redo.png" />
-    <Resource Include="EmbedResources\Icons\remove.png" />
-    <Resource Include="EmbedResources\Icons\Repair.png" />
-    <Resource Include="EmbedResources\Icons\Return.png" />
     <Resource Include="EmbedResources\Icons\save.png" />
-    <Resource Include="EmbedResources\Icons\Status.png" />
-    <Resource Include="EmbedResources\Icons\Transfer.png" />
-    <Resource Include="EmbedResources\Icons\turn-on-off.png" />
-    <Resource Include="EmbedResources\Icons\undo.png" />
-    <Resource Include="EmbedResources\Icons\unlock.png" />
-    <Resource Include="EmbedResources\Icons\Verification.png" />
-    <Resource Include="EmbedResources\Icons\Waste.png" />
-    <Resource Include="EmbedResources\Icons\Work.png" />
-    <Resource Include="EmbedResources\Icons\YES.png" />
+    <Resource Include="EmbedResources\Icons\SendToB.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="EmbedResources\Icons\search.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="EmbedResources\Icons\filter.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="EmbedResources\Icons\searchall.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="EmbedResources\Icons\cancel.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="EmbedResources\Icons\cancel2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="EmbedResources\Icons\menu.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="EmbedResources\Icons\home.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="EmbedResources\Icons\watchBig.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="EmbedResources\Icons\createBig.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="EmbedResources\Icons\AdditionalBig.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="EmbedResources\Icons\listBig.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="EmbedResources\Icons\PartBig.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="EmbedResources\Icons\StandBig.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="EmbedResources\Icons\cancelS.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="EmbedResources\Icons\approveS.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="EmbedResources\Icons\approve.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="EmbedResources\Icons\ApproveBig.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="EmbedResources\Icons\WaitS.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="EmbedResources\Icons\SendFS.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="EmbedResources\Icons\ReturnS.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="EmbedResources\Icons\AnnulS.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="EmbedResources\Icons\lookS.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="EmbedResources\Icons\printS.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="EmbedResources\Icons\RedacteS.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="EmbedResources\Icons\TechOrdS.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="EmbedResources\Icons\binocleS.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

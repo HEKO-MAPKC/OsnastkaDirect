@@ -10,7 +10,7 @@
         mc:Ignorable="av"
         x:Class="OsnastkaDirect.Views.Main"
         Title="Main"
-        Height="720"
+        Height="824"
         Width="1024"
         WindowStartupLocation="CenterScreen">
     <Grid>
@@ -64,28 +64,30 @@
             </r:Ribbon.HelpPaneContent>
             <!--Ribbon Application Menu-->
             <r:Ribbon.ApplicationMenu>
-                <r:RibbonApplicationMenu SmallImageSource="/OsnastkaDirect;component/EmbedResources/Icons/help_icon.png">
+                <r:RibbonApplicationMenu SmallImageSource="/OsnastkaDirect;component/EmbedResources/Icons/home.png">
 
                     <r:RibbonApplicationMenuItem Header="Утверждение"
-                                                 ImageSource="/OsnastkaDirect;component/EmbedResources/Icons/help_icon.png"
-                                                 Command="{Binding pOpenApprove}" />
+                                                 ImageSource="/OsnastkaDirect;component/EmbedResources/Icons/watchBig.png"
+                                                 Command="{Binding pOpenApprove}"
+                                                 UseLayoutRounding="True"
+                                                 SnapsToDevicePixels="True" />
                     <r:RibbonApplicationMenuItem Header="Создание"
-                                                 ImageSource="/OsnastkaDirect;component/EmbedResources/Icons/help_icon.png"
+                                                 ImageSource="/OsnastkaDirect;component/EmbedResources/Icons/createBig.png"
                                                  Command="{Binding pOpenCreate}" />
                     <r:RibbonApplicationMenuItem Header="Открытие"
-                                                 ImageSource="/OsnastkaDirect;component/EmbedResources/Icons/help_icon.png">
+                                                 ImageSource="/OsnastkaDirect;component/EmbedResources/Icons/createBig.png">
                         <r:RibbonApplicationMenuItem Header="Вспомогательная оснастка"
                                                      Command="{Binding pOpenAuxililaryOsnastW}"
-                                                     ImageSource="/OsnastkaDirect;component/EmbedResources/Icons/help_icon.png" />
+                                                     ImageSource="/OsnastkaDirect;component/EmbedResources/Icons/AdditionalBig.png" />
                         <r:RibbonApplicationMenuItem Header="Заказы в производстве"
                                                      Command="{Binding pOpenFinOrderW}"
-                                                     ImageSource="/OsnastkaDirect;component/EmbedResources/Icons/help_icon.png" />
+                                                     ImageSource="/OsnastkaDirect;component/EmbedResources/Icons/listBig.png" />
                         <r:RibbonApplicationMenuItem Header="Запчасти к оснастке"
                                                      Command="{Binding pOpenSparePartW}"
-                                                     ImageSource="/OsnastkaDirect;component/EmbedResources/Icons/help_icon.png" />
+                                                     ImageSource="/OsnastkaDirect;component/EmbedResources/Icons/PartBig.png" />
                         <r:RibbonApplicationMenuItem Header="Состав изделия"
                                                      Command="{Binding pOpenCompoundProductW}"
-                                                     ImageSource="/OsnastkaDirect;component/EmbedResources/Icons/help_icon.png" />
+                                                     ImageSource="/OsnastkaDirect;component/EmbedResources/Icons/StandBig.png" />
                     </r:RibbonApplicationMenuItem>
                     <r:RibbonApplicationMenuItem Header="Формирование&#10;перечней"
                                                  ImageSource="/OsnastkaDirect;component/EmbedResources/Icons/help_icon.png"
@@ -125,49 +127,55 @@
                          Visibility="{Binding model.pApproveTabOpen, Converter={StaticResource boolToVisibilityConverter}}"
                          IsSelected="{Binding model.pApproveTabOpen, Mode=OneWay}">
                 <r:RibbonGroup Header="Поиск">
-                    <Label Content="Поиск по"
-                           VerticalAlignment="Center"
-                           FontSize="12" />
-                    <control:PlaceholderBox Height="23"
-                                            Placeholder="Чертеж"
-                                            Text="{Binding model.pSearchOsn, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                            Width="120"
-                                            FontSize="12" />
-
-                    <ComboBox Height="23"
+                    <WrapPanel Width="250">
+                        <Label Content="Поиск по"
+                               VerticalAlignment="Center"
+                               FontSize="11"
+                               Height="22" />
+                        <ComboBox Height="22"
                               FontSize="12"
                               HorizontalAlignment="Left"
                               ItemsSource="{Binding model.pListFilterSearch, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                               SelectedItem="{Binding model.pSelFilterSearch, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                               Width="170"
                               VerticalAlignment="Top"
-                              Margin="-30,0,0,0" />
+                              Margin="0,0,0,0" />
+                        <control:PlaceholderBox Height="22"
+                                                Placeholder="Поиск"
+                                                Text="{Binding model.pSearchOsn, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                Width="150"
+                                                FontSize="12" />
 
-                    <r:RibbonButton SmallImageSource="/OsnastkaDirect;component/EmbedResources/Icons/help_icon.png"
+                        <r:RibbonButton SmallImageSource="/OsnastkaDirect;component/EmbedResources/Icons/search.png"
+                                    Label="Найти"
+                                        Command="{Binding pFindOsn}"
+                                        Height="22" />
+                        <r:RibbonButton SmallImageSource="/OsnastkaDirect;component/EmbedResources/Icons/searchall.png"
                                     Label="Поиск"
-                                    Command="{Binding pFindOsn}" />
-                    <r:RibbonButton SmallImageSource="/OsnastkaDirect;component/EmbedResources/Icons/help_icon.png"
-                                    Label="Несколько"
-                                    Command="{Binding pFindOsnMany}" />
-                    <r:RibbonButton SmallImageSource="/OsnastkaDirect;component/EmbedResources/Icons/help_icon.png"
-                                    Label="Добавить"
-                                    Command="{Binding pFindOsnManyAdd}">
+                                    Command="{Binding pFindOsnMany}"
+                                        Height="22" />
+                    <r:RibbonButton SmallImageSource="/OsnastkaDirect;component/EmbedResources/Icons/filter.png"
+                                    Label="Фильтр"
+                                    Command="{Binding pFindOsnManyAdd}"
+                                        Height="22">
                         <r:RibbonButton.ToolTip>
                             <Fluent:ScreenTip Title="Добавить"
                                               Text="Добавляет фильтр в поиск"
                                               Image="/OsnastkaDirect;component/EmbedResources/Icons/help_icon.png" />
                         </r:RibbonButton.ToolTip>
                     </r:RibbonButton>
-                    <r:RibbonButton SmallImageSource="/OsnastkaDirect;component/EmbedResources/Icons/help_icon.png"
+                        <r:RibbonButton SmallImageSource="/OsnastkaDirect;component/EmbedResources/Icons/cancel2.png"
                                     Label="Сброс"
                                     Margin="0,0,0,0"
-                                    Command="{Binding pClearFindOsn}">
+                                    Command="{Binding pClearFindOsn}"
+                                        Height="18">
                         <r:RibbonButton.ToolTip>
                             <Fluent:ScreenTip Title="Сброс"
                                               Text="Сбросить таблицу"
                                               Image="/OsnastkaDirect;component/EmbedResources/Icons/help_icon.png" />
                         </r:RibbonButton.ToolTip>
                     </r:RibbonButton>
+                    </WrapPanel>
                 </r:RibbonGroup>
                 <r:RibbonGroup Header="Фильтр">
                     <Label Content="Отобразить:"
@@ -181,7 +189,7 @@
                               Width="130"
                               VerticalAlignment="Top" />
                 </r:RibbonGroup>
-                <r:RibbonGroup Header="Исполнитель">
+                <r:RibbonGroup Header="Дата">
                     <Label Content="C"
                            VerticalAlignment="Center"
                            FontSize="12" />
@@ -206,51 +214,50 @@
                                     Label="Поиск" />
                     <r:RibbonButton SmallImageSource="/OsnastkaDirect;component/EmbedResources/Icons/help_icon.png"
                                     Label="Format" />-->
-                    <r:RibbonMenuButton LargeImageSource="/OsnastkaDirect;component/EmbedResources/Icons/help_icon.png"
+                    <r:RibbonMenuButton LargeImageSource="/OsnastkaDirect;component/EmbedResources/Icons/ApproveBig.png"
                                         Label="Утвердить">
-                        <r:RibbonMenuItem ImageSource="/OsnastkaDirect;component/EmbedResources/Icons/help_icon.png"
+                        <r:RibbonMenuItem ImageSource="/OsnastkaDirect;component/EmbedResources/Icons/approveS.png"
                                           Header="Утвердить"
                                           Command="{Binding pApprove}" />
-                        <r:RibbonMenuItem ImageSource="/OsnastkaDirect;component/EmbedResources/Icons/help_icon.png"
+                        <r:RibbonMenuItem ImageSource="/OsnastkaDirect;component/EmbedResources/Icons/approve.png"
                                           Header="Окончательно утвердить"
                                           Command="{Binding pFinalApprove}" />
-                        <r:RibbonMenuItem ImageSource="/OsnastkaDirect;component/EmbedResources/Icons/help_icon.png"
+                        <r:RibbonMenuItem ImageSource="/OsnastkaDirect;component/EmbedResources/Icons/cancelS.png"
                                           Header="Разутвердить"
                                           Command="{Binding pDisapprove}" />
 
                     </r:RibbonMenuButton>
-                    <r:RibbonMenuButton LargeImageSource="/OsnastkaDirect;component/EmbedResources/Icons/help_icon.png"
+                    <r:RibbonMenuButton LargeImageSource="/OsnastkaDirect;component/EmbedResources/Icons/SendToB.png"
                                         Label="Направить">
-                        <r:RibbonMenuItem ImageSource="/OsnastkaDirect;component/EmbedResources/Icons/help_icon.png"
+                        <r:RibbonMenuItem ImageSource="/OsnastkaDirect;component/EmbedResources/Icons/SendFS.png"
                                           Header="В КО"
                                           Command="{Binding pSentToConst}" />
-                        <r:RibbonMenuItem ImageSource="/OsnastkaDirect;component/EmbedResources/Icons/help_icon.png"
+                        <r:RibbonMenuItem ImageSource="/OsnastkaDirect;component/EmbedResources/Icons/ReturnS.png"
                                           Header="Вернуть"
                                           Command="{Binding pReturnBack}" />
-                        <r:RibbonMenuItem ImageSource="/OsnastkaDirect;component/EmbedResources/Icons/help_icon.png"
+                        <r:RibbonMenuItem ImageSource="/OsnastkaDirect;component/EmbedResources/Icons/WaitS.png"
                                           Header="На рассмотрение/убрать"
                                           Command="{Binding pHold}" />
                     </r:RibbonMenuButton>
-                    <r:RibbonMenuButton LargeImageSource="/OsnastkaDirect;component/EmbedResources/Icons/help_icon.png"
+                    <r:RibbonMenuButton LargeImageSource="/OsnastkaDirect;component/EmbedResources/Icons/TechOrdS.png"
                                         Label="Техзаказ">
-                        <r:RibbonMenuItem ImageSource="/OsnastkaDirect;component/EmbedResources/Icons/help_icon.png"
+                        <r:RibbonMenuItem ImageSource="/OsnastkaDirect;component/EmbedResources/Icons/AnnulS.png"
                                           Header="Аннулировать"
                                           Command="{Binding pAnnul}" />
-                        <r:RibbonMenuItem ImageSource="/OsnastkaDirect;component/EmbedResources/Icons/help_icon.png"
+                        <r:RibbonMenuItem ImageSource="/OsnastkaDirect;component/EmbedResources/Icons/RedacteS.png"
                                           Header="Корректировать"
                                           Command="{Binding pEdit}" />
-                        <r:RibbonMenuItem ImageSource="/OsnastkaDirect;component/EmbedResources/Icons/help_icon.png"
+                        <r:RibbonMenuItem ImageSource="/OsnastkaDirect;component/EmbedResources/Icons/printS.png"
                                           Header="Печать бланка техзаказа"
                                           Command="{Binding pPrintBlanc}" />
-                        <r:RibbonMenuItem ImageSource="/OsnastkaDirect;component/EmbedResources/Icons/help_icon.png"
+                        <r:RibbonMenuItem ImageSource="/OsnastkaDirect;component/EmbedResources/Icons/lookS.png"
                                           Header="Просмотр скан-копии"
                                           Command="{Binding pWatchScanCopy}" />
                     </r:RibbonMenuButton>
                     <r:RibbonButton Command="{Binding pOpenCheckOldOsn}"
-                                    Label="Просмотр ранее заказанных"
-                                    LargeImageSource="/OsnastkaDirect;component/EmbedResources/Icons/help_icon.png"
-                                    DockPanel.Dock="Right"
-                                    Margin="2" />
+                                    Label="Схожие чертежи"
+                                    LargeImageSource="/OsnastkaDirect;component/EmbedResources/Icons/binocleB.png"
+                                    DockPanel.Dock="Right"/>
                 </r:RibbonGroup>
             </r:RibbonTab>
 
@@ -295,8 +302,13 @@
                     </StackPanel>
                 </TabItem.Header>
                 <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="1.33*" />
+                        <RowDefinition Height="1*" />
+                    </Grid.RowDefinitions>
                     <Rectangle Grid.Row="1"
-                               Margin="0">
+                               Margin="0"
+                               Grid.RowSpan="2">
                         <Rectangle.Fill>
                             <LinearGradientBrush StartPoint="0.5,0"
                                                  EndPoint="0.5,1">
@@ -314,8 +326,7 @@
 
 
                     <DataGrid AutoGenerateColumns="false"
-                              Height="274"
-                              Margin="2,2,2,0"
+                              Margin="2,2,2,2"
                               VerticalAlignment="Top"
                               ItemsSource="{Binding model.pListOsn, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                               SelectedItem="{Binding model.pSelOsn, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
@@ -430,331 +441,319 @@
                                                 Width="0.15*" />
                         </DataGrid.Columns>
                     </DataGrid>
-                    <WrapPanel Margin="10,389,0,0"
-                               HorizontalAlignment="Left"
-                               Width="600"
-                               Height="175"
-                               VerticalAlignment="Top">
-                        <Label Content="Запасная часть"
-                               FontSize="12"
-                               Width="100"
-                               Height="26" />
-                        <control:PlaceholderBox Height="33"
-                                                HorizontalAlignment="Left"
-                                                VerticalAlignment="Top"
-                                                Width="155"
-                                                Placeholder="чертеж"
-                                                Text="{Binding model.pSelOsn.draftRes, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                        <control:PlaceholderBox Height="33"
-                                                HorizontalAlignment="Left"
-                                                Placeholder="наименование"
-                                                Text="{Binding model.pSelOsn.nameRes, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                                VerticalAlignment="Top"
-                                                Width="155" />
-                        <Label Content=""
-                               FontSize="12"
-                               Width="140"
-                               Height="26" />
-                        <Label Content="Оснастка"
-                               FontSize="12"
-                               Width="100"
-                               Height="26" />
-                        <control:PlaceholderBox Height="33"
-                                                HorizontalAlignment="Left"
-                                                VerticalAlignment="Top"
-                                                Width="155"
-                                                Placeholder="чертеж"
-                                                ToolTip="{Binding Text, RelativeSource={RelativeSource Mode=Self}}"
-                                                Text="{Binding model.pSelOsn.draftOsn, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                        <control:PlaceholderBox Height="33"
-                                                HorizontalAlignment="Left"
-                                                Placeholder="наименование"
-                                                Text="{Binding model.pSelOsn.nameOsn, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                                ToolTip="{Binding Text, RelativeSource={RelativeSource Mode=Self}}"
-                                                VerticalAlignment="Top"
-                                                Width="155" />
-                        <Label Content=""
-                               FontSize="12"
-                               Width="140"
-                               Height="26" />
-                        <Label Content="Количество"
-                               FontSize="12"
-                               Width="90"
-                               Height="26" />
-                        <Label Content="Участок"
-                               FontSize="12"
-                               Width="90"
-                               Height="26" />
-                        <Label Content="Кладовая"
-                               FontSize="12"
-                               Width="90"
-                               Height="26" />
-                        <Label Content="Характер техзаказа"
-                               FontSize="12"
-                               Width="250"
-                               Height="26" />
-                        <control:PlaceholderBox Height="33"
-                                                HorizontalAlignment="Left"
-                                                VerticalAlignment="Top"
-                                                Width="90"
-                                                Placeholder="Количество"
-                                                ToolTip="{Binding Text, RelativeSource={RelativeSource Mode=Self}}"
-                                                Text="{Binding model.pSelOsn.amount, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                        <control:PlaceholderBox Height="33"
-                                                HorizontalAlignment="Left"
-                                                VerticalAlignment="Top"
-                                                Width="90"
-                                                Placeholder="Участок"
-                                                ToolTip="{Binding Text, RelativeSource={RelativeSource Mode=Self}}"
-                                                Text="{Binding model.pSelOsn.workshop, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                        <control:PlaceholderBox Height="33"
-                                                HorizontalAlignment="Left"
-                                                VerticalAlignment="Top"
-                                                Width="90"
-                                                Placeholder="Кладовая"
-                                                ToolTip="{Binding Text, RelativeSource={RelativeSource Mode=Self}}"
-                                                Text="{Binding model.pSelOsn.storeroom, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                        <control:PlaceholderBox Height="33"
-                                                Placeholder="характер"
-                                                Text="{Binding model.pSelOsn.characterOrd, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                                Width="155" />
-                        <Label Content=""
-                               FontSize="12"
-                               Width="100"
-                               Height="26" />
-                        <Label Content="Причина"
-                               FontSize="12"
-                               Width="100"
-                               Height="26" />
-                        <control:PlaceholderBox Height="33"
-                                                Placeholder="Причина"
-                                                Text="{Binding model.pSelOsn.reason, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                                ToolTip="{Binding Text, RelativeSource={RelativeSource Mode=Self}}"
-                                                Width="325" />
-                    </WrapPanel>
-                    <RichTextBox Height="130"
-                                 HorizontalAlignment="Left"
-                                 Margin="615,291,0,0"
-                                 x:Name="richTextBox1"
-                                 VerticalAlignment="Top"
-                                 Width="371">
-                        <FlowDocument PageHeight="180">
-                            <Paragraph>
-                                <Run Text="{Binding model.pSelOsn.addition, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                            </Paragraph>
-                        </FlowDocument>
+                    <WrapPanel Margin="2,2,2,2"
+                               Grid.Row="1">
+                        <WrapPanel HorizontalAlignment="Left"
+                                   Width="357"
+                                   Height="90"
+                                   VerticalAlignment="Top">
+                            <Label Content="Деталь"
+                                   FontSize="12"
+                                   Width="80"
+                                   Height="26" />
+                            <control:PlaceholderBox Height="26"
+                                                    Width="120"
+                                                    Placeholder="чертеж"
+                                                    Text="{Binding model.pSelOsn.draft, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                    FontSize="12" />
+                            <control:PlaceholderBox Height="26"
+                                                    Placeholder="ДСЕ"
+                                                    Text="{Binding model.pSelOsn.nameDraft, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                    Width="150"
+                                                    FontSize="12" />
+                            <Label Content="Раб. место"
+                                   FontSize="12"
+                                   Width="80"
+                                   Height="26" />
+                            <control:PlaceholderBox Height="26"
+                                                    Width="120"
+                                                    Placeholder="место"
+                                                    Text="{Binding model.pSelOsn.workPlace, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                            <control:PlaceholderBox Height="26"
+                                                    Placeholder="название"
+                                                    Text="{Binding model.pSelOsn.workPlaceName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                    Width="150" />
+                            <Label Content="Операция"
+                                   FontSize="12"
+                                   Width="80"
+                                   Height="26" />
+                            <control:PlaceholderBox Height="26"
+                                                    Width="120"
+                                                    Placeholder="операция"
+                                                    Text="{Binding model.pSelOsn.operation, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                            <control:PlaceholderBox Height="26"
+                                                    Placeholder="название"
+                                                    Text="{Binding model.pSelOsn.operationName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                    Width="150" />
+                        </WrapPanel>
+                        <WrapPanel HorizontalAlignment="Left"
+                                   Width="207"
+                                   Height="90"
+                                   VerticalAlignment="Top">
+                            <control:PlaceholderBox Height="26"
+                                                    Placeholder="Применение"
+                                                    Text="{Binding model.pSelOsn.usage, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                    ToolTip="{Binding Text, RelativeSource={RelativeSource Mode=Self}}"
+                                                    Width="200"
+                                                    VerticalAlignment="Top"
+                                                    HorizontalAlignment="Left" />
+                            <Label Content="Заказ"
+                                   FontSize="12"
+                                   Width="100"
+                                   Height="26" />
+                            <Label Content="Номер"
+                                   FontSize="12"
+                                   Width="100"
+                                   Height="26" />
+                            <control:PlaceholderBox Height="26"
+                                                    Placeholder="Заказ"
+                                                    Text="{Binding model.pSelOsn.ordOsn, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                    Width="100"
+                                                    VerticalAlignment="Top"
+                                                    HorizontalAlignment="Left" />
+                            <control:PlaceholderBox Height="26"
+                                                    Placeholder="Номер"
+                                                    Text="{Binding model.pSelOsn.numOsn, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                    Width="100"
+                                                    VerticalAlignment="Top"
+                                                    HorizontalAlignment="Left" />
+                        </WrapPanel>
+                        <RichTextBox Height="90"
+                                     HorizontalAlignment="Center"
+                                     x:Name="richTextBox1"
+                                     VerticalAlignment="Center"
+                                     Width="400"
+                                     VerticalScrollBarVisibility="Visible">
+                            <FlowDocument PageHeight="300">
+                                <Paragraph>
+                                    <Run Text="{Binding model.pSelOsn.addition, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                </Paragraph>
+                            </FlowDocument>
 
-                    </RichTextBox>
-                    <WrapPanel Orientation="Horizontal"
-                               Margin="700,426,10,10">
-                        <Fluent:Button Header="Аннулировать заказ"
-                                       Command="{Binding Command}"
-                                       CommandParameter="{Binding}"
-                                       Width="90"
-                                       Height="70"
-                                       Background="White"
-                                       BorderBrush="Silver"
-                                       CornerRadius="5"
-                                       IsEnabled="{Binding model.pSelOsn.dtIzgIsNull, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
-                            <Fluent:Button.LargeIcon>
-                                <Image Source="/OsnastkaDirect;component/EmbedResources/Icons/Save.png"
-                                       Width="35"
-                                       Height="35"
-                                       Margin="-5,0,-2,-2" />
-                            </Fluent:Button.LargeIcon>
-                        </Fluent:Button>
-                        <Fluent:Button Header="Аннулировать заказ"
-                                       Command="{Binding Command}"
-                                       CommandParameter="{Binding}"
-                                       Width="90"
-                                       Height="70"
-                                       Background="White"
-                                       BorderBrush="Silver"
-                                       CornerRadius="5"
-                                       IsEnabled="{Binding model.pSelOsn.dtIzgIsNull, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
-                            <Fluent:Button.LargeIcon>
-                                <Image Source="/EmbedResources/Icons/save.png"
-                                       Width="35"
-                                       Height="35"
-                                       Margin="-5,0,-2,-2" />
-                            </Fluent:Button.LargeIcon>
-                        </Fluent:Button>
-                        <Fluent:Button Header="Аннулировать заказ"
-                                       Command="{Binding Command}"
-                                       CommandParameter="{Binding}"
-                                       Width="90"
-                                       Height="70"
-                                       Background="White"
-                                       BorderBrush="Silver"
-                                       CornerRadius="5"
-                                       IsEnabled="{Binding model.pSelOsn.dtIzgIsNull, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
-                            <Fluent:Button.LargeIcon>
-                                <Image Source="/EmbedResources/Icons/save.png"
-                                       Width="35"
-                                       Height="35"
-                                       Margin="-5,0,-2,-2" />
-                            </Fluent:Button.LargeIcon>
-                        </Fluent:Button>
-                        <Fluent:Button Header="Аннулировать заказ"
-                                       Command="{Binding Command}"
-                                       CommandParameter="{Binding}"
-                                       Width="90"
-                                       Height="70"
-                                       Background="White"
-                                       BorderBrush="Silver"
-                                       CornerRadius="5"
-                                       IsEnabled="{Binding model.pSelOsn.dtIzgIsNull, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
-                            <Fluent:Button.LargeIcon>
-                                <Image Source="/EmbedResources/Icons/save.png"
-                                       Width="35"
-                                       Height="35"
-                                       Margin="-5,0,-2,-2" />
-                            </Fluent:Button.LargeIcon>
-                        </Fluent:Button>
-                        <Fluent:Button Header="Аннулировать заказ"
-                                       Command="{Binding Command}"
-                                       CommandParameter="{Binding}"
-                                       Width="90"
-                                       Height="70"
-                                       Background="White"
-                                       BorderBrush="Silver"
-                                       CornerRadius="5"
-                                       IsEnabled="{Binding model.pSelOsn.dtIzgIsNull, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
-                            <Fluent:Button.LargeIcon>
-                                <Image Source="/EmbedResources/Icons/save.png"
-                                       Width="35"
-                                       Height="35"
-                                       Margin="-5,0,-2,-2" />
-                            </Fluent:Button.LargeIcon>
-                        </Fluent:Button>
-                        <Fluent:Button Header="Аннулировать заказ"
-                                       Command="{Binding Command}"
-                                       CommandParameter="{Binding}"
-                                       Width="90"
-                                       Height="70"
-                                       Background="White"
-                                       BorderBrush="Silver"
-                                       CornerRadius="5"
-                                       IsEnabled="{Binding model.pSelOsn.dtIzgIsNull, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
-                            <Fluent:Button.LargeIcon>
-                                <Image Source="/EmbedResources/Icons/save.png"
-                                       Width="35"
-                                       Height="35"
-                                       Margin="-5,0,-2,-2" />
-                            </Fluent:Button.LargeIcon>
-                        </Fluent:Button>
-                    </WrapPanel>
-                    <WrapPanel Margin="10,300,0,0"
-                               HorizontalAlignment="Left"
-                               Width="387"
-                               Height="84"
-                               VerticalAlignment="Top">
-                        <Label Content="Деталь"
-                               FontSize="12"
-                               Width="80"
-                               Height="26" />
-                        <control:PlaceholderBox Height="26"
-                                                Width="155"
-                                                Placeholder="чертеж"
-                                                Text="{Binding model.pSelOsn.draft, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                                FontSize="12" />
-                        <control:PlaceholderBox Height="26"
-                                                Placeholder="ДСЕ"
-                                                Text="{Binding model.pSelOsn.nameDraft, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                                Width="150"
-                                                FontSize="12" />
-                        <Label Content="Раб. место"
-                               FontSize="12"
-                               Width="80"
-                               Height="26" />
-                        <control:PlaceholderBox Height="26"
-                                                Width="155"
-                                                Placeholder="место"
-                                                Text="{Binding model.pSelOsn.workPlace, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                        <control:PlaceholderBox Height="26"
-                                                Placeholder="название"
-                                                Text="{Binding model.pSelOsn.workPlaceName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                                Width="150" />
-                        <Label Content="Операция"
-                               FontSize="12"
-                               Width="80"
-                               Height="26" />
-                        <control:PlaceholderBox Height="26"
-                                                Width="155"
-                                                Placeholder="операция"
-                                                Text="{Binding model.pSelOsn.operation, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                        <control:PlaceholderBox Height="26"
-                                                Placeholder="название"
-                                                Text="{Binding model.pSelOsn.operationName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                                Width="150" />
-                    </WrapPanel>
-                    <WrapPanel Margin="400,300,0,0"
-                               HorizontalAlignment="Left"
-                               Width="200"
-                               Height="84"
-                               VerticalAlignment="Top">
-                        <control:PlaceholderBox Height="26"
-                                                Placeholder="Применение"
-                                                Text="{Binding model.pSelOsn.usage, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                                ToolTip="{Binding Text, RelativeSource={RelativeSource Mode=Self}}"
-                                                Width="200"
-                                                VerticalAlignment="Top"
-                                                HorizontalAlignment="Left" />
-                        <Label Content="Заказ"
-                               FontSize="12"
-                               Width="90"
-                               Height="26" />
-                        <Label Content="Номер"
-                               FontSize="12"
-                               Width="90"
-                               Height="26" />
-                        <control:PlaceholderBox Height="26"
-                                                Placeholder="Заказ"
-                                                Text="{Binding model.pSelOsn.ordOsn, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                                Width="100"
-                                                VerticalAlignment="Top"
-                                                HorizontalAlignment="Left" />
-                        <control:PlaceholderBox Height="26"
-                                                Placeholder="Номер"
-                                                Text="{Binding model.pSelOsn.numOsn, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                                Width="100"
-                                                VerticalAlignment="Top"
-                                                HorizontalAlignment="Left" />
-                    </WrapPanel>
-                    <WrapPanel Margin="445,437,0,0"
-                               HorizontalAlignment="Left"
-                               Width="255"
-                               Height="112"
-                               VerticalAlignment="Top">
-                        <Label Content="Сроки изготовления:"
-                               FontSize="12"
-                               Width="200"
-                               Height="26" />
-                        <Label Content="Требуемый"
-                               FontSize="12"
-                               Width="80"
-                               Height="26" />
-                        <control:PlaceholderBox Height="26"
-                                                Width="155"
-                                                Placeholder="дата"
-                                                Text="{Binding model.pSelOsn.dateNeed, Mode=TwoWay, StringFormat=dd.MM.yy, UpdateSourceTrigger=PropertyChanged}"
-                                                FontSize="12" />
-                        <Label Content="Плановый"
-                               FontSize="12"
-                               Width="80"
-                               Height="26" />
-                        <control:PlaceholderBox Height="26"
-                                                Width="155"
-                                                Placeholder="дата"
-                                                Text="{Binding model.pSelOsn.datePlan, Mode=TwoWay, StringFormat=dd.MM.yy, UpdateSourceTrigger=PropertyChanged}" />
-                        <Label Content="Фактический"
-                               FontSize="12"
-                               Width="80"
-                               Height="26" />
-                        <control:PlaceholderBox Height="26"
-                                                Width="155"
-                                                Placeholder="дата"
-                                                Text="{Binding model.pSelOsn.dateFact, Mode=TwoWay, StringFormat=dd.MM.yy, UpdateSourceTrigger=PropertyChanged}" />
+                        </RichTextBox>
+                        <WrapPanel HorizontalAlignment="Center"
+                                   Width="424"
+                                   Height="165"
+                                   VerticalAlignment="Center">
+                            <Label Content="Запчасть"
+                                   FontSize="12"
+                                   Width="80"
+                                   Height="26" />
+                            <control:PlaceholderBox Height="33"
+                                                    HorizontalAlignment="Left"
+                                                    VerticalAlignment="Top"
+                                                    Width="120"
+                                                    Placeholder="чертеж"
+                                                    Text="{Binding model.pSelOsn.draftRes, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                            <control:PlaceholderBox Height="33"
+                                                    HorizontalAlignment="Left"
+                                                    Placeholder="наименование"
+                                                    Text="{Binding model.pSelOsn.nameRes, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                    VerticalAlignment="Center"
+                                                    Width="215" />
+                            <Label Content="Оснастка"
+                                   FontSize="12"
+                                   Width="80"
+                                   Height="26" />
+                            <control:PlaceholderBox Height="33"
+                                                    HorizontalAlignment="Left"
+                                                    VerticalAlignment="Top"
+                                                    Width="120"
+                                                    Placeholder="чертеж"
+                                                    ToolTip="{Binding Text, RelativeSource={RelativeSource Mode=Self}}"
+                                                    Text="{Binding model.pSelOsn.draftOsn, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                            <control:PlaceholderBox Height="33"
+                                                    HorizontalAlignment="Left"
+                                                    Placeholder="наименование"
+                                                    Text="{Binding model.pSelOsn.nameOsn, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                    ToolTip="{Binding Text, RelativeSource={RelativeSource Mode=Self}}"
+                                                    VerticalAlignment="Center"
+                                                    Width="215" />
+                            <Label Content="Количество"
+                                   FontSize="12"
+                                   Width="80"
+                                   Height="26" />
+                            <Label Content="Участок"
+                                   FontSize="12"
+                                   Width="90"
+                                   Height="26" />
+                            <Label Content="Кладовая"
+                                   FontSize="12"
+                                   Width="90"
+                                   Height="26" />
+                            <Label Content="Характер техзаказа"
+                                   FontSize="12"
+                                   Width="155"
+                                   Height="26" />
+                            <control:PlaceholderBox Height="33"
+                                                    HorizontalAlignment="Left"
+                                                    VerticalAlignment="Top"
+                                                    Width="80"
+                                                    Placeholder="Количество"
+                                                    ToolTip="{Binding Text, RelativeSource={RelativeSource Mode=Self}}"
+                                                    Text="{Binding model.pSelOsn.amount, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                            <control:PlaceholderBox Height="33"
+                                                    HorizontalAlignment="Left"
+                                                    VerticalAlignment="Top"
+                                                    Width="90"
+                                                    Placeholder="Участок"
+                                                    ToolTip="{Binding Text, RelativeSource={RelativeSource Mode=Self}}"
+                                                    Text="{Binding model.pSelOsn.workshop, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                            <control:PlaceholderBox Height="33"
+                                                    HorizontalAlignment="Left"
+                                                    VerticalAlignment="Top"
+                                                    Width="90"
+                                                    Placeholder="Кладовая"
+                                                    ToolTip="{Binding Text, RelativeSource={RelativeSource Mode=Self}}"
+                                                    Text="{Binding model.pSelOsn.storeroom, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                            <control:PlaceholderBox Height="33"
+                                                    Placeholder="характер"
+                                                    Text="{Binding model.pSelOsn.characterOrd, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                    Width="155" />
+                            <Label Content="Причина"
+                                   FontSize="12"
+                                   Width="80"
+                                   Height="26" />
+                            <control:PlaceholderBox Height="33"
+                                                    Placeholder="Причина"
+                                                    Text="{Binding model.pSelOsn.reason, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                    ToolTip="{Binding Text, RelativeSource={RelativeSource Mode=Self}}"
+                                                    Width="335" />
+                        </WrapPanel>
+                        <WrapPanel HorizontalAlignment="Center"
+                                   Width="149"
+                                   Height="112"
+                                   VerticalAlignment="Top">
+                            <Label Content="Срок изготовления:"
+                                   FontSize="12"
+                                   Width="130"
+                                   Height="26" />
+                            <Label Content="Требуемый"
+                                   FontSize="12"
+                                   Width="80"
+                                   Height="26" />
+                            <control:PlaceholderBox Height="26"
+                                                    Width="50"
+                                                    Placeholder="дата"
+                                                    Text="{Binding model.pSelOsn.dateNeed, Mode=TwoWay, StringFormat=dd.MM.yy, UpdateSourceTrigger=PropertyChanged}"
+                                                    FontSize="12" />
+                            <Label Content="Плановый"
+                                   FontSize="12"
+                                   Width="80"
+                                   Height="26" />
+                            <control:PlaceholderBox Height="26"
+                                                    Width="50"
+                                                    Placeholder="дата"
+                                                    Text="{Binding model.pSelOsn.datePlan, Mode=TwoWay, StringFormat=dd.MM.yy, UpdateSourceTrigger=PropertyChanged}" />
+                            <Label Content="Фактический"
+                                   FontSize="12"
+                                   Width="80"
+                                   Height="26" />
+                            <control:PlaceholderBox Height="26"
+                                                    Width="50"
+                                                    Placeholder="дата"
+                                                    Text="{Binding model.pSelOsn.dateFact, Mode=TwoWay, StringFormat=dd.MM.yy, UpdateSourceTrigger=PropertyChanged}" />
+                        </WrapPanel>
+                        <WrapPanel Orientation="Horizontal"
+                                   Width="274"
+                                   Height="145">
+                            <Fluent:Button Header="Аннулировать заказ"
+                                           Command="{Binding Command}"
+                                           CommandParameter="{Binding}"
+                                           Width="90"
+                                           Height="70"
+                                           Background="White"
+                                           BorderBrush="Silver"
+                                           CornerRadius="5"
+                                           IsEnabled="{Binding model.pSelOsn.dtIzgIsNull, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
+                                <Fluent:Button.LargeIcon>
+                                    <Image Source="/OsnastkaDirect;component/EmbedResources/Icons/Save.png"
+                                           Width="35"
+                                           Height="35"
+                                           Margin="-5,0,-2,-2" />
+                                </Fluent:Button.LargeIcon>
+                            </Fluent:Button>
+                            <Fluent:Button Header="Аннулировать заказ"
+                                           Command="{Binding Command}"
+                                           CommandParameter="{Binding}"
+                                           Width="90"
+                                           Height="70"
+                                           Background="White"
+                                           BorderBrush="Silver"
+                                           CornerRadius="5"
+                                           IsEnabled="{Binding model.pSelOsn.dtIzgIsNull, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
+                                <Fluent:Button.LargeIcon>
+                                    <Image Source="/EmbedResources/Icons/save.png"
+                                           Width="35"
+                                           Height="35"
+                                           Margin="-5,0,-2,-2" />
+                                </Fluent:Button.LargeIcon>
+                            </Fluent:Button>
+                            <Fluent:Button Header="Аннулировать заказ"
+                                           Command="{Binding Command}"
+                                           CommandParameter="{Binding}"
+                                           Width="90"
+                                           Height="70"
+                                           Background="White"
+                                           BorderBrush="Silver"
+                                           CornerRadius="5"
+                                           IsEnabled="{Binding model.pSelOsn.dtIzgIsNull, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
+                                <Fluent:Button.LargeIcon>
+                                    <Image Source="/EmbedResources/Icons/save.png"
+                                           Width="35"
+                                           Height="35"
+                                           Margin="-5,0,-2,-2" />
+                                </Fluent:Button.LargeIcon>
+                            </Fluent:Button>
+                            <Fluent:Button Header="Аннулировать заказ"
+                                           Command="{Binding Command}"
+                                           CommandParameter="{Binding}"
+                                           Width="90"
+                                           Height="70"
+                                           Background="White"
+                                           BorderBrush="Silver"
+                                           CornerRadius="5"
+                                           IsEnabled="{Binding model.pSelOsn.dtIzgIsNull, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
+                                <Fluent:Button.LargeIcon>
+                                    <Image Source="/EmbedResources/Icons/save.png"
+                                           Width="35"
+                                           Height="35"
+                                           Margin="-5,0,-2,-2" />
+                                </Fluent:Button.LargeIcon>
+                            </Fluent:Button>
+                            <Fluent:Button Header="Аннулировать заказ"
+                                           Command="{Binding Command}"
+                                           CommandParameter="{Binding}"
+                                           Width="90"
+                                           Height="70"
+                                           Background="White"
+                                           BorderBrush="Silver"
+                                           CornerRadius="5"
+                                           IsEnabled="{Binding model.pSelOsn.dtIzgIsNull, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
+                                <Fluent:Button.LargeIcon>
+                                    <Image Source="/EmbedResources/Icons/save.png"
+                                           Width="35"
+                                           Height="35"
+                                           Margin="-5,0,-2,-2" />
+                                </Fluent:Button.LargeIcon>
+                            </Fluent:Button>
+                            <Fluent:Button Header="Аннулировать заказ"
+                                           Command="{Binding Command}"
+                                           CommandParameter="{Binding}"
+                                           Width="90"
+                                           Height="70"
+                                           Background="White"
+                                           BorderBrush="Silver"
+                                           CornerRadius="5"
+                                           IsEnabled="{Binding model.pSelOsn.dtIzgIsNull, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
+                                <Fluent:Button.LargeIcon>
+                                    <Image Source="/EmbedResources/Icons/save.png"
+                                           Width="35"
+                                           Height="35"
+                                           Margin="-5,0,-2,-2" />
+                                </Fluent:Button.LargeIcon>
+                            </Fluent:Button>
+                        </WrapPanel>
                     </WrapPanel>
                 </Grid>
             </TabItem>

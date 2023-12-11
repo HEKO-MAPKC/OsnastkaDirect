@@ -94,5 +94,85 @@ namespace OsnastkaDirect.Models
                 return dateWho.Value.Date;
             }
         }
+        public bool IsButtonReturnBackVis
+        {
+            get
+            {
+                if (true)
+                    return true;
+                else
+                    return false;
+            }
+        }
+        public bool IsButtonSendToKOVis
+        {
+            get
+            {
+                if (true)
+                    return true;
+                else
+                    return false;
+            }
+        }
+        public bool IsButtonApprovalVis
+        {
+            get
+            {
+                if (true)
+                    return true;
+                else
+                    return false;
+            }
+        }
+        public bool IsButtonApproveVis
+        {
+            get
+            {
+                if (true)
+                    return true;
+                else
+                    return false;
+            }
+        }
+        public bool IsButtonFinalApproveVis
+        {
+            get
+            {
+                if (true)
+                    return true;
+                else
+                    return false;
+            }
+        }
+        public bool IsButtonDissApproveVis
+        {
+            get
+            {
+                if (true)
+                    return true;
+                else
+                    return false;
+            }
+        }
+        public bool IsButtonRedacteVis
+        {
+            get
+            {
+                if (true)
+                    return true;
+                else
+                    return false;
+            }
+        }
+        public bool IsButtonAnnulVis
+        {
+            get
+            {
+                if (true)
+                    return true;
+                else
+                    return false;
+            }
+        }
     }
 }
