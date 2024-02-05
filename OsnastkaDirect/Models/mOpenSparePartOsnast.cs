@@ -167,7 +167,7 @@ namespace OsnastkaDirect.Models
 
                               join db3 in db.osnsv
                                 on i.kuda equals db3.draftosn into gf3
-                              from listOSNSV in gf3.DefaultIfEmpty().Take(1)
+                              from listOSNSV in gf3.DefaultIfEmpty()
 
                               join db4 in db.FullDraftNameList
                                 on listOSNSV.draft equals db4.Draft into gf4

@@ -482,4 +482,4 @@ namespace OsnastkaDirect.ViewModels
         }
         #endregion
     }
-}
+} 

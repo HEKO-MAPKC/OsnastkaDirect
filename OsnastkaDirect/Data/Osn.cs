@@ -57,7 +57,7 @@ namespace OsnastkaDirect.Models
         public bool? accepted { get; set; }
         public bool? returned { get; set; }
         public string fioConst { get; set; }
-
+        public DateTime? dateAtConstructor { get; set; }
         public bool dtSrokIsNull
         {
             get {
@@ -98,7 +98,7 @@ namespace OsnastkaDirect.Models
         {
             get
             {
-                if (true)
+                if (dtIzgIsNull == true && returned == false && atConst == false && (nOrd == null || nOrd == 0 || (dtOk == null && fioConst != null && fioConst != "" && fioConst != " ")))
                     return true;
                 else
                     return false;
@@ -108,7 +108,7 @@ namespace OsnastkaDirect.Models
         {
             get
             {
-                if (true)
+                if (dtIzgIsNull== true && (returned == null || returned==false) && (atConst == null || atConst ==false) && dateAtConstructor==null && dtSrok !=null)
                     return true;
                 else
                     return false;
@@ -118,7 +118,7 @@ namespace OsnastkaDirect.Models
         {
             get
             {
-                if (true)
+                if (returned == false && atConst == false && (nOrd == null || nOrd == 0))
                     return true;
                 else
                     return false;
@@ -128,7 +128,8 @@ namespace OsnastkaDirect.Models
         {
             get
             {
-                if (true)
+                //if (returned == null || atConst==null) return false;//TODO фиксить
+                if (dtIzgIsNull == true && (returned == null || returned == false) && (atConst == null || atConst == false) && (nOrd==null|| nOrd == 0)) 
                     return true;
                 else
                     return false;
@@ -138,7 +139,7 @@ namespace OsnastkaDirect.Models
         {
             get
             {
-                if (true)
+                if ((nOrd == null || nOrd == 0 || (dtOk == null && fioConst != null && fioConst != "" && fioConst != " ")))
                     return true;
                 else
                     return false;
@@ -148,7 +149,8 @@ namespace OsnastkaDirect.Models
         {
             get
             {
-                if (true)
+                //if (atConst == null) return true; //TODO фиксить
+                if (dtIzgIsNull == true && (atConst == null || atConst == false))
                     return true;
                 else
                     return false;
@@ -158,7 +160,7 @@ namespace OsnastkaDirect.Models
         {
             get
             {
-                if (true)
+                if (dtIzgIsNull == true && atConst == false && (nOrd == null || nOrd == 0 || (dtOk==null && fioConst!=null && fioConst != "" && fioConst != " ")))
                     return true;
                 else
                     return false;
@@ -168,7 +170,7 @@ namespace OsnastkaDirect.Models
         {
             get
             {
-                if (true)
+                if (dtIzgIsNull == true)
                     return true;
                 else
                     return false;

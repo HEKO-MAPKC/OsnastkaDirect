@@ -218,35 +218,43 @@
                                         Label="Утвердить">
                         <r:RibbonMenuItem ImageSource="/OsnastkaDirect;component/EmbedResources/Icons/approveS.png"
                                           Header="Утвердить"
-                                          Command="{Binding pApprove}" />
+                                          Command="{Binding pApprove}"
+                                          IsEnabled="{Binding model.pSelOsn.IsButtonApproveVis, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" />
                         <r:RibbonMenuItem ImageSource="/OsnastkaDirect;component/EmbedResources/Icons/approve.png"
                                           Header="Окончательно утвердить"
-                                          Command="{Binding pFinalApprove}" />
+                                          Command="{Binding pFinalApprove}"
+                                          IsEnabled="{Binding model.pSelOsn.IsButtonFinalApproveVis, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" />
                         <r:RibbonMenuItem ImageSource="/OsnastkaDirect;component/EmbedResources/Icons/cancelS.png"
                                           Header="Разутвердить"
-                                          Command="{Binding pDisapprove}" />
+                                          Command="{Binding pDisapprove}"
+                                          IsEnabled="{Binding model.pSelOsn.IsButtonDissApproveVis, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" />
 
                     </r:RibbonMenuButton>
                     <r:RibbonMenuButton LargeImageSource="/OsnastkaDirect;component/EmbedResources/Icons/SendToB.png"
                                         Label="Направить">
                         <r:RibbonMenuItem ImageSource="/OsnastkaDirect;component/EmbedResources/Icons/SendFS.png"
                                           Header="В КО"
-                                          Command="{Binding pSentToConst}" />
+                                          Command="{Binding pSentToConst}"
+                                          IsEnabled="{Binding model.pSelOsn.IsButtonSendToKOVis, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" />
                         <r:RibbonMenuItem ImageSource="/OsnastkaDirect;component/EmbedResources/Icons/ReturnS.png"
                                           Header="Вернуть"
-                                          Command="{Binding pReturnBack}" />
+                                          Command="{Binding pReturnBack}"
+                                          IsEnabled="{Binding model.pSelOsn.IsButtonReturnBackVis, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" />
                         <r:RibbonMenuItem ImageSource="/OsnastkaDirect;component/EmbedResources/Icons/WaitS.png"
                                           Header="На рассмотрение/убрать"
-                                          Command="{Binding pHold}" />
+                                          Command="{Binding pHold}"
+                                          IsEnabled="{Binding model.pSelOsn.IsButtonApprovalVis, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" />
                     </r:RibbonMenuButton>
                     <r:RibbonMenuButton LargeImageSource="/OsnastkaDirect;component/EmbedResources/Icons/TechOrdS.png"
                                         Label="Техзаказ">
                         <r:RibbonMenuItem ImageSource="/OsnastkaDirect;component/EmbedResources/Icons/AnnulS.png"
                                           Header="Аннулировать"
-                                          Command="{Binding pAnnul}" />
+                                          Command="{Binding pAnnul}"
+                                          IsEnabled="{Binding model.pSelOsn.IsButtonAnnulVis, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" />
                         <r:RibbonMenuItem ImageSource="/OsnastkaDirect;component/EmbedResources/Icons/RedacteS.png"
                                           Header="Корректировать"
-                                          Command="{Binding pEdit}" />
+                                          Command="{Binding pEdit}"
+                                          IsEnabled="{Binding model.pSelOsn.IsButtonRedacteVis, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" />
                         <r:RibbonMenuItem ImageSource="/OsnastkaDirect;component/EmbedResources/Icons/printS.png"
                                           Header="Печать бланка техзаказа"
                                           Command="{Binding pPrintBlanc}" />
