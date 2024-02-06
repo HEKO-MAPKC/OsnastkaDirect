@@ -40,7 +40,7 @@
                FontSize="120"
                Margin="250,31,250,503" />
         <WrapPanel Orientation="Horizontal"
-                   Margin="364,224,372,323">
+                   Margin="352,206,374,332">
             <Fluent:Button Header="Аннулировать заказ"
                            Command="{Binding Command}"
                            CommandParameter="{Binding}"
@@ -139,7 +139,7 @@
             </Fluent:Button>
         </WrapPanel>
         <WrapPanel Orientation="Horizontal"
-                   Margin="413,403,425,217">
+                   Margin="412,377,412,233">
             <Fluent:Button Header="Старая оснастка"
                            Command="{Binding pOpenOldOsnast}"
                            Width="84"
@@ -179,7 +179,7 @@
                      VerticalAlignment="Top"
                      Width="400"
                      VerticalScrollBarVisibility="Visible"
-                     Margin="10,604,0,0"
+                     Margin="10,581,0,0"
                      IsReadOnly="True">
             <FlowDocument PageHeight="300">
                 <Paragraph>
@@ -190,7 +190,7 @@
         </RichTextBox>
         <Label Content="Факт дня!"
                FontSize="14"
-               Margin="10,567,614,100" />
+               Margin="10,539,702,128" />
         <Image HorizontalAlignment="Left"
                Height="100"
                Margin="397,476,0,0"
