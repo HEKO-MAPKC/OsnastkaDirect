@@ -26,9 +26,9 @@ namespace OsnastkaDirect
                 //
                 if (CheckStartUp.CheckRun())
                 {
-                    string name = typeof(Main).Name;
+                    string name = typeof(WelcomeWindow).Name;
                     int index = VMLocator.CreateViewModel(name);
-                    ((Main)VMLocator.VMs[name][index].view).Loaded += ((vmMain)VMLocator.VMs[name][index]).viewLoaded;
+                    ((WelcomeWindow)VMLocator.VMs[name][index].view).Loaded += ((vmWelcomeWindow)VMLocator.VMs[name][index]).viewLoaded;
                     VMLocator.VMs[name][index].view.Show();
                 }
                 else

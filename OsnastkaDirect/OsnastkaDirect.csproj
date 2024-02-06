@@ -144,6 +144,7 @@
     <Compile Include="Models\mOpenFinOrder.cs" />
     <Compile Include="Models\mOpenSparePartOsnast.cs" />
     <Compile Include="Models\mOpenAuxililaryOsnast.cs" />
+    <Compile Include="Models\mWelcomeWindow.cs" />
     <Compile Include="Data\Osn.cs" />
     <Compile Include="ViewModels\vmMain.cs" />
     <Compile Include="ViewModels\vmDialogInput.cs" />
@@ -153,6 +154,7 @@
     <Compile Include="ViewModels\vmOpenFinOrder.cs" />
     <Compile Include="ViewModels\vmOpenSparePartOsnast.cs" />
     <Compile Include="ViewModels\vmOpenAuxililaryOsnast.cs" />
+    <Compile Include="ViewModels\vmWelcomeWindow.cs" />
     <Compile Include="Views\CheckOldOsn.xaml.cs">
       <DependentUpon>CheckOldOsn.xaml</DependentUpon>
     </Compile>
@@ -176,6 +178,9 @@
     </Compile>
     <Compile Include="Views\RedactingStoreRoom.xaml.cs">
       <DependentUpon>RedactingStoreRoom.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\WelcomeWindow.xaml.cs">
+      <DependentUpon>WelcomeWindow.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -255,6 +260,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\RedactingStoreRoom.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\WelcomeWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -369,6 +378,18 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="EmbedResources\Icons\binocleS.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="EmbedResources\Icons\nero.gif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="EmbedResources\Icons\fongr.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="EmbedResources\Icons\evil.png" />
+    <Resource Include="EmbedResources\Icons\good.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

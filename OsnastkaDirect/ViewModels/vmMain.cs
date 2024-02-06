@@ -204,6 +204,13 @@ namespace OsnastkaDirect.ViewModels
             get { return OpenCheckOldOsn ?? (OpenCheckOldOsn = new CommandBase(mOpenCheckOldOsn)); }
         }
 
+        CommandBase DoubleClickOsn;
+
+        public CommandBase pDoubleClickOsn
+        {
+            get { return DoubleClickOsn ?? (DoubleClickOsn = new CommandBase(mDoubleClickOsn)); }
+        }
+
         #endregion
 
         #region Методы
@@ -479,6 +486,12 @@ namespace OsnastkaDirect.ViewModels
             VMLocator.VMs[name][index].view.Owner = View;
             VMLocator.VMs[name][index].model.LoadOsn();
             VMLocator.VMs[name][index].view.ShowDialog();
+        }
+
+        public void mDoubleClickOsn()
+        {
+            Osnsv _osnast = new Osnsv();
+            Model.OpenCreate(_osnast);
         }
         #endregion
     }

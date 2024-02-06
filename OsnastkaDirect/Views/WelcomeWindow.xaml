@@ -1,0 +1,208 @@
+﻿<Window x:Class="OsnastkaDirect.Views.WelcomeWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:Fluent="urn:fluent-ribbon"
+        xmlns:local="clr-namespace:OsnastkaDirect.Views"
+        mc:Ignorable="d"
+        Title="Приветственное окно"
+        Height="720"
+        Width="1024"
+        WindowStartupLocation="CenterScreen">
+    <Grid>
+        <Rectangle Margin="0,0,0,0"
+                   Grid.RowSpan="2">
+            <Rectangle.Fill>
+                <LinearGradientBrush StartPoint="0.5,0"
+                                     EndPoint="0.5,1">
+                    <GradientStop Color="White"
+                                  Offset="0" />
+                    <GradientStop Color="Lavender"
+                                  Offset="1" />
+                    <!--<GradientStop Color="White"
+                                                  Offset="0.75" />
+                                    <GradientStop Color="LightBlue"
+                                                  Offset="1.0" />-->
+                </LinearGradientBrush>
+            </Rectangle.Fill>
+        </Rectangle>
+        <MediaElement  Height="200"
+                       HorizontalAlignment="Left"
+                       Margin="10,10,0,0"
+                       Name="myMediaElement"
+                       VerticalAlignment="Top"
+                       Width="200"
+                       Source="Icons/nero.gif"
+                       LoadedBehavior="Play"
+                       MediaEnded="myMediaElement_MediaEnded"></MediaElement>
+        <Label Content="выбирай"
+               FontSize="120"
+               Margin="250,31,250,503" />
+        <WrapPanel Orientation="Horizontal"
+                   Margin="364,224,372,323">
+            <Fluent:Button Header="Аннулировать заказ"
+                           Command="{Binding Command}"
+                           CommandParameter="{Binding}"
+                           Width="90"
+                           Height="70"
+                           Background="White"
+                           BorderBrush="Silver"
+                           CornerRadius="5"
+                           IsEnabled="{Binding model.pSelOsn.dtIzgIsNull, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
+                <Fluent:Button.LargeIcon>
+                    <Image Source="/OsnastkaDirect;component/EmbedResources/Icons/Save.png"
+                           Width="35"
+                           Height="35"
+                           Margin="-5,0,-2,-2" />
+                </Fluent:Button.LargeIcon>
+            </Fluent:Button>
+            <Fluent:Button Header="Аннулировать заказ"
+                           Command="{Binding Command}"
+                           CommandParameter="{Binding}"
+                           Width="90"
+                           Height="70"
+                           Background="White"
+                           BorderBrush="Silver"
+                           CornerRadius="5"
+                           IsEnabled="{Binding model.pSelOsn.dtIzgIsNull, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
+                <Fluent:Button.LargeIcon>
+                    <Image Source="/EmbedResources/Icons/save.png"
+                           Width="35"
+                           Height="35"
+                           Margin="-5,0,-2,-2" />
+                </Fluent:Button.LargeIcon>
+            </Fluent:Button>
+            <Fluent:Button Header="Аннулировать заказ"
+                           Command="{Binding Command}"
+                           CommandParameter="{Binding}"
+                           Width="90"
+                           Height="70"
+                           Background="White"
+                           BorderBrush="Silver"
+                           CornerRadius="5"
+                           IsEnabled="{Binding model.pSelOsn.dtIzgIsNull, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
+                <Fluent:Button.LargeIcon>
+                    <Image Source="/EmbedResources/Icons/save.png"
+                           Width="35"
+                           Height="35"
+                           Margin="-5,0,-2,-2" />
+                </Fluent:Button.LargeIcon>
+            </Fluent:Button>
+            <Fluent:Button Header="Аннулировать заказ"
+                           Command="{Binding Command}"
+                           CommandParameter="{Binding}"
+                           Width="90"
+                           Height="70"
+                           Background="White"
+                           BorderBrush="Silver"
+                           CornerRadius="5"
+                           IsEnabled="{Binding model.pSelOsn.dtIzgIsNull, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
+                <Fluent:Button.LargeIcon>
+                    <Image Source="/EmbedResources/Icons/save.png"
+                           Width="35"
+                           Height="35"
+                           Margin="-5,0,-2,-2" />
+                </Fluent:Button.LargeIcon>
+            </Fluent:Button>
+            <Fluent:Button Header="Аннулировать заказ"
+                           Command="{Binding Command}"
+                           CommandParameter="{Binding}"
+                           Width="90"
+                           Height="70"
+                           Background="White"
+                           BorderBrush="Silver"
+                           CornerRadius="5"
+                           IsEnabled="{Binding model.pSelOsn.dtIzgIsNull, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
+                <Fluent:Button.LargeIcon>
+                    <Image Source="/EmbedResources/Icons/save.png"
+                           Width="35"
+                           Height="35"
+                           Margin="-5,0,-2,-2" />
+                </Fluent:Button.LargeIcon>
+            </Fluent:Button>
+            <Fluent:Button Header="Аннулировать заказ"
+                           Command="{Binding Command}"
+                           CommandParameter="{Binding}"
+                           Width="90"
+                           Height="70"
+                           Background="White"
+                           BorderBrush="Silver"
+                           CornerRadius="5"
+                           IsEnabled="{Binding model.pSelOsn.dtIzgIsNull, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
+                <Fluent:Button.LargeIcon>
+                    <Image Source="/EmbedResources/Icons/save.png"
+                           Width="35"
+                           Height="35"
+                           Margin="-5,0,-2,-2" />
+                </Fluent:Button.LargeIcon>
+            </Fluent:Button>
+        </WrapPanel>
+        <WrapPanel Orientation="Horizontal"
+                   Margin="413,403,425,217">
+            <Fluent:Button Header="Старая оснастка"
+                           Command="{Binding pOpenOldOsnast}"
+                           Width="84"
+                           Height="72"
+                           Background="White"
+                           BorderBrush="Silver"
+                           CornerRadius="5"
+                           IsEnabled="{Binding model.pSelOsn.dtIzgIsNull, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
+                <Fluent:Button.LargeIcon>
+                    <Image Source="/OsnastkaDirect;component/EmbedResources/Icons/evil.png"
+                           Width="35"
+                           Height="35"
+                           Margin="-5,0,-2,-2" />
+                </Fluent:Button.LargeIcon>
+            </Fluent:Button>
+            <Fluent:Button Header="Новая оснастка"
+                           Command="{Binding pOpenOldOsnast}"
+                           Width="84"
+                           Height="72"
+                           Background="White"
+                           BorderBrush="Silver"
+                           CornerRadius="5"
+                           IsEnabled="{Binding model.pSelOsn.dtIzgIsNull, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
+                <Fluent:Button.LargeIcon>
+                    <Image Source="/EmbedResources/Icons/good.png"
+                           Width="35"
+                           Height="35"
+                           Margin="-5,0,-2,-2" />
+                </Fluent:Button.LargeIcon>
+
+            </Fluent:Button>
+        </WrapPanel>
+
+        <RichTextBox Height="90"
+                     HorizontalAlignment="Left"
+                     x:Name="richTextBox1"
+                     VerticalAlignment="Top"
+                     Width="400"
+                     VerticalScrollBarVisibility="Visible"
+                     Margin="10,604,0,0"
+                     IsReadOnly="True">
+            <FlowDocument PageHeight="300">
+                <Paragraph>
+                    <Run Text="Концепция нейросетей возникла еще в 1943 году, когда ученые Варрен Скулл и Уолтер Питтс предложили модель нейрона. Они представляли его как элементарную единицу обработки информации, которая активируется или не активируется в зависимости от входных данных." />
+                </Paragraph>
+            </FlowDocument>
+
+        </RichTextBox>
+        <Label Content="Факт дня!"
+               FontSize="14"
+               Margin="10,567,614,100" />
+        <Image HorizontalAlignment="Left"
+               Height="100"
+               Margin="397,476,0,0"
+               VerticalAlignment="Top"
+               Width="100"
+               Source="/EmbedResources/Icons/evil.png" />
+        <Image HorizontalAlignment="Left"
+               Height="100"
+               Margin="497,476,0,0"
+               VerticalAlignment="Top"
+               Width="100"
+               Source="/EmbedResources/Icons/good.png" />
+
+    </Grid>
+</Window>

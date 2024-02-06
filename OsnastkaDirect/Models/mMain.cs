@@ -892,20 +892,20 @@ namespace OsnastkaDirect.Models
             var _oper = db.s_oper.FirstOrDefault(i => i.code == _osnast.codeOperation);
             string _workName = _oborud == null ? "" : _oborud.code + " " + _oborud == null ? "" : _oborud.oborud1;
             string _operName = _oper == null ? "" : _oper.oper;
-            pSelOsn = new Osn
-            {
-                draft = _osnast.draft,
-                nameDraft = _osnast.draftName,
-                draftOsn = _osnast.draftOsn,
-                nameOsn = _osnast.draftOsnName,
-                draftRes = _osnast.draftPiece,
-                nameRes = _osnast.draftPieceName,
-                workPlace = _osnast.workPlace,
-                operation = _osnast.codeOperation,
-                workPlaceName = _workName == " " ? "" : _workName,
-                operationName = _operName ?? "",
+            //pSelOsn = new Osn
+            //{
+            //    draft = _osnast.draft,
+            //    nameDraft = _osnast.draftName,
+            //    draftOsn = _osnast.draftOsn,
+            //    nameOsn = _osnast.draftOsnName,
+            //    draftRes = _osnast.draftPiece,
+            //    nameRes = _osnast.draftPieceName,
+            //    workPlace = _osnast.workPlace,
+            //    operation = _osnast.codeOperation,
+            //    workPlaceName = _workName == " " ? "" : _workName,
+            //    operationName = _operName ?? "",
 
-            };
+            //};
             pCreateTabOpen = true;
             pApproveTabOpen = false;
         }
