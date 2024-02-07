@@ -101,6 +101,10 @@
                VerticalAlignment="Top"
                Width="100"
                Source="/EmbedResources/Icons/good.png" />
+        <Button Content="Button"
+                HorizontalAlignment="Left"
+                Margin="497,326,0,0"
+                VerticalAlignment="Top" />
 
     </Grid>
 </Window>
