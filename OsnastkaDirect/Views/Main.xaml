@@ -121,7 +121,7 @@
             </r:Ribbon.ApplicationMenu>
 
             <!--Ribbon Tab #1 Home-->
-            <r:RibbonTab Header="Утверждение оснаски"
+            <r:RibbonTab Header="Утверждение оснастки"
                          Visibility="{Binding model.pApproveTabOpen, Converter={StaticResource boolToVisibilityConverter}}"
                          IsSelected="{Binding model.pApproveTabOpen, Mode=OneWay}">
                 <r:RibbonGroup Header="Поиск">
@@ -270,10 +270,80 @@
             <r:RibbonTab Header="Техзаказ"
                          Visibility="{Binding model.pCreateTabOpen, Converter={StaticResource boolToVisibilityConverter}}"
                          IsSelected="{Binding model.pCreateTabOpen, Mode=OneWay}">
-                <r:RibbonGroup Header="Техзаказ">
-                    <r:RibbonButton LargeImageSource="/OsnastkaDirect;component/EmbedResources/Icons/help_icon.png"
-                                    Label="Закрыть"
+                <r:RibbonGroup Header="Навигация">
+                    <r:RibbonButton LargeImageSource="/OsnastkaDirect;component/EmbedResources/Icons/ReturnB.png"
+                                    Label="Вернуться"
                                     Command="{Binding pOpenApprove}" />
+                    <r:RibbonButton LargeImageSource="/OsnastkaDirect;component/EmbedResources/Icons/BackB.png"
+                                    Label="Прошлый заказ"
+                                    Command="{Binding pBackTechOrd}" />
+                    <r:RibbonButton LargeImageSource="/OsnastkaDirect;component/EmbedResources/Icons/NextB.png"
+                                    Label="Следующий заказ"
+                                    Command="{Binding pNextTechOrd}" />
+                </r:RibbonGroup>
+                <r:RibbonGroup Header="Действия">
+                    <!--<r:RibbonMenuButton LargeImageSource="/OsnastkaDirect;component/EmbedResources/Icons/help_icon.png"
+                            Label="Paste">
+            <r:RibbonMenuItem Header="Keep Text Only" />
+            <r:RibbonMenuItem Header="Keep Source Format" />
+        </r:RibbonMenuButton>
+
+        <r:RibbonButton SmallImageSource="/OsnastkaDirect;component/EmbedResources/Icons/help_icon.png"
+                        Label="Поиск" />
+        <r:RibbonButton SmallImageSource="/OsnastkaDirect;component/EmbedResources/Icons/help_icon.png"
+                        Label="Format" />-->
+                    <r:RibbonMenuButton LargeImageSource="/OsnastkaDirect;component/EmbedResources/Icons/ApproveBig.png"
+                                        Label="Утвердить">
+                        <r:RibbonMenuItem ImageSource="/OsnastkaDirect;component/EmbedResources/Icons/approveS.png"
+                                          Header="Утвердить"
+                                          Command="{Binding pApprove}"
+                                          IsEnabled="{Binding model.pSelOsn.IsButtonApproveVis, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" />
+                        <r:RibbonMenuItem ImageSource="/OsnastkaDirect;component/EmbedResources/Icons/approve.png"
+                                          Header="Окончательно утвердить"
+                                          Command="{Binding pFinalApprove}"
+                                          IsEnabled="{Binding model.pSelOsn.IsButtonFinalApproveVis, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" />
+                        <r:RibbonMenuItem ImageSource="/OsnastkaDirect;component/EmbedResources/Icons/cancelS.png"
+                                          Header="Разутвердить"
+                                          Command="{Binding pDisapprove}"
+                                          IsEnabled="{Binding model.pSelOsn.IsButtonDissApproveVis, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" />
+
+                    </r:RibbonMenuButton>
+                    <r:RibbonMenuButton LargeImageSource="/OsnastkaDirect;component/EmbedResources/Icons/SendToB.png"
+                                        Label="Направить">
+                        <r:RibbonMenuItem ImageSource="/OsnastkaDirect;component/EmbedResources/Icons/SendFS.png"
+                                          Header="В КО"
+                                          Command="{Binding pSentToConst}"
+                                          IsEnabled="{Binding model.pSelOsn.IsButtonSendToKOVis, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" />
+                        <r:RibbonMenuItem ImageSource="/OsnastkaDirect;component/EmbedResources/Icons/ReturnS.png"
+                                          Header="Вернуть"
+                                          Command="{Binding pReturnBack}"
+                                          IsEnabled="{Binding model.pSelOsn.IsButtonReturnBackVis, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" />
+                        <r:RibbonMenuItem ImageSource="/OsnastkaDirect;component/EmbedResources/Icons/WaitS.png"
+                                          Header="На рассмотрение/убрать"
+                                          Command="{Binding pHold}"
+                                          IsEnabled="{Binding model.pSelOsn.IsButtonApprovalVis, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" />
+                    </r:RibbonMenuButton>
+                    <r:RibbonMenuButton LargeImageSource="/OsnastkaDirect;component/EmbedResources/Icons/TechOrdS.png"
+                                        Label="Техзаказ">
+                        <r:RibbonMenuItem ImageSource="/OsnastkaDirect;component/EmbedResources/Icons/AnnulS.png"
+                                          Header="Аннулировать"
+                                          Command="{Binding pAnnul}"
+                                          IsEnabled="{Binding model.pSelOsn.IsButtonAnnulVis, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" />
+                        <r:RibbonMenuItem ImageSource="/OsnastkaDirect;component/EmbedResources/Icons/RedacteS.png"
+                                          Header="Корректировать"
+                                          Command="{Binding pEdit}"
+                                          IsEnabled="{Binding model.pSelOsn.IsButtonRedacteVis, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" />
+                        <r:RibbonMenuItem ImageSource="/OsnastkaDirect;component/EmbedResources/Icons/printS.png"
+                                          Header="Печать бланка техзаказа"
+                                          Command="{Binding pPrintBlanc}" />
+                        <r:RibbonMenuItem ImageSource="/OsnastkaDirect;component/EmbedResources/Icons/lookS.png"
+                                          Header="Просмотр скан-копии"
+                                          Command="{Binding pWatchScanCopy}" />
+                    </r:RibbonMenuButton>
+                    <r:RibbonButton Command="{Binding pOpenCheckOldOsn}"
+                                    Label="Схожие чертежи"
+                                    LargeImageSource="/OsnastkaDirect;component/EmbedResources/Icons/binocleB.png"
+                                    DockPanel.Dock="Right" />
                 </r:RibbonGroup>
             </r:RibbonTab>
 
@@ -504,7 +574,7 @@
                     </DataGrid>
                     <DataGrid AutoGenerateColumns="false"
                               Height="274"
-                              Margin="34,374,562,0"
+                              Margin="28,374,568,0"
                               VerticalAlignment="Top"
                               ItemsSource="{Binding model.pListTypeProduct, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                               SelectedItem="{Binding model.pSelTypeProduct, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
@@ -578,7 +648,7 @@
                                    Height="90"
                                    VerticalAlignment="Top">
                             <control:PlaceholderBox Height="26"
-                                                    Placeholder="Применение"
+                                                    Placeholder="применение"
                                                     Text="{Binding model.pSelOsn.usage, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                                     ToolTip="{Binding Text, RelativeSource={RelativeSource Mode=Self}}"
                                                     Width="200"
@@ -593,13 +663,13 @@
                                    Width="100"
                                    Height="26" />
                             <control:PlaceholderBox Height="26"
-                                                    Placeholder="Заказ"
+                                                    Placeholder="заказ"
                                                     Text="{Binding model.pSelOsn.ordOsn, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                                     Width="100"
                                                     VerticalAlignment="Top"
                                                     HorizontalAlignment="Left" />
                             <control:PlaceholderBox Height="26"
-                                                    Placeholder="Номер"
+                                                    Placeholder="номер"
                                                     Text="{Binding model.pSelOsn.numOsn, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                                     Width="100"
                                                     VerticalAlignment="Top"
@@ -622,6 +692,24 @@
                                    Width="424"
                                    Height="165"
                                    VerticalAlignment="Center">
+                            <Label Content="Оснастка"
+                                   FontSize="12"
+                                   Width="80"
+                                   Height="26" />
+                            <control:PlaceholderBox Height="33"
+                                                    HorizontalAlignment="Center"
+                                                    VerticalAlignment="Center"
+                                                    Width="120"
+                                                    Placeholder="чертеж"
+                                                    ToolTip="{Binding Text, RelativeSource={RelativeSource Mode=Self}}"
+                                                    Text="{Binding model.pSelOsn.draftOsn, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                            <control:PlaceholderBox Height="33"
+                                                    HorizontalAlignment="Center"
+                                                    Placeholder="наименование"
+                                                    Text="{Binding model.pSelOsn.nameOsn, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                    ToolTip="{Binding Text, RelativeSource={RelativeSource Mode=Self}}"
+                                                    VerticalAlignment="Center"
+                                                    Width="215" />
                             <Label Content="Запчасть"
                                    FontSize="12"
                                    Width="80"
@@ -636,24 +724,6 @@
                                                     HorizontalAlignment="Left"
                                                     Placeholder="наименование"
                                                     Text="{Binding model.pSelOsn.nameRes, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                                    VerticalAlignment="Center"
-                                                    Width="215" />
-                            <Label Content="Оснастка"
-                                   FontSize="12"
-                                   Width="80"
-                                   Height="26" />
-                            <control:PlaceholderBox Height="33"
-                                                    HorizontalAlignment="Left"
-                                                    VerticalAlignment="Top"
-                                                    Width="120"
-                                                    Placeholder="чертеж"
-                                                    ToolTip="{Binding Text, RelativeSource={RelativeSource Mode=Self}}"
-                                                    Text="{Binding model.pSelOsn.draftOsn, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                            <control:PlaceholderBox Height="33"
-                                                    HorizontalAlignment="Left"
-                                                    Placeholder="наименование"
-                                                    Text="{Binding model.pSelOsn.nameOsn, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                                    ToolTip="{Binding Text, RelativeSource={RelativeSource Mode=Self}}"
                                                     VerticalAlignment="Center"
                                                     Width="215" />
                             <Label Content="Количество"
@@ -676,21 +746,21 @@
                                                     HorizontalAlignment="Left"
                                                     VerticalAlignment="Top"
                                                     Width="80"
-                                                    Placeholder="Количество"
+                                                    Placeholder="количество"
                                                     ToolTip="{Binding Text, RelativeSource={RelativeSource Mode=Self}}"
                                                     Text="{Binding model.pSelOsn.amount, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                             <control:PlaceholderBox Height="33"
                                                     HorizontalAlignment="Left"
                                                     VerticalAlignment="Top"
                                                     Width="90"
-                                                    Placeholder="Участок"
+                                                    Placeholder="участок"
                                                     ToolTip="{Binding Text, RelativeSource={RelativeSource Mode=Self}}"
                                                     Text="{Binding model.pSelOsn.workshop, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                             <control:PlaceholderBox Height="33"
                                                     HorizontalAlignment="Left"
                                                     VerticalAlignment="Top"
                                                     Width="90"
-                                                    Placeholder="Кладовая"
+                                                    Placeholder="кладовая"
                                                     ToolTip="{Binding Text, RelativeSource={RelativeSource Mode=Self}}"
                                                     Text="{Binding model.pSelOsn.storeroom, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                             <control:PlaceholderBox Height="33"
@@ -702,7 +772,7 @@
                                    Width="80"
                                    Height="26" />
                             <control:PlaceholderBox Height="33"
-                                                    Placeholder="Причина"
+                                                    Placeholder="причина"
                                                     Text="{Binding model.pSelOsn.reason, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                                     ToolTip="{Binding Text, RelativeSource={RelativeSource Mode=Self}}"
                                                     Width="335" />
@@ -720,7 +790,7 @@
                                    Width="80"
                                    Height="26" />
                             <control:PlaceholderBox Height="26"
-                                                    Width="50"
+                                                    Width="65"
                                                     Placeholder="дата"
                                                     Text="{Binding model.pSelOsn.dateNeed, Mode=TwoWay, StringFormat=dd.MM.yy, UpdateSourceTrigger=PropertyChanged}"
                                                     FontSize="12" />
@@ -729,7 +799,7 @@
                                    Width="80"
                                    Height="26" />
                             <control:PlaceholderBox Height="26"
-                                                    Width="50"
+                                                    Width="65"
                                                     Placeholder="дата"
                                                     Text="{Binding model.pSelOsn.datePlan, Mode=TwoWay, StringFormat=dd.MM.yy, UpdateSourceTrigger=PropertyChanged}" />
                             <Label Content="Фактический"
@@ -737,7 +807,7 @@
                                    Width="80"
                                    Height="26" />
                             <control:PlaceholderBox Height="26"
-                                                    Width="50"
+                                                    Width="65"
                                                     Placeholder="дата"
                                                     Text="{Binding model.pSelOsn.dateFact, Mode=TwoWay, StringFormat=dd.MM.yy, UpdateSourceTrigger=PropertyChanged}" />
                         </WrapPanel>
@@ -843,8 +913,69 @@
                         </WrapPanel>
                         <WrapPanel HorizontalAlignment="Center"
                                    Width="433"
-                                   Height="99"
+                                   Height="115"
                                    VerticalAlignment="Center">
+                            <Label Content="Состояние"
+                                   FontSize="12"
+                                   Width="100"
+                                   Height="26" />
+                            <TextBox Height="26"
+                                      Text="{Binding model.pSelOsn.returnRes, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                      Width="300"
+                                      VerticalAlignment="Center"
+                                      HorizontalAlignment="Center">
+                                <!--<Style TargetType="{x:Type TextBox}">
+                                    <Setter Property="Background"
+                                            Value="White" />
+                                    <Setter Property="Foreground"
+                                            Value="Black" />
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding accepted}"
+                                                     Value="true">
+                                            <Setter Property="Background"
+                                                    Value="PaleGreen" />
+                                            <Setter Property="Foreground"
+                                                    Value="Black" />
+                                        </DataTrigger>
+                                        <DataTrigger Binding="{Binding atConst}"
+                                                     Value="true">
+                                            <Setter Property="Background"
+                                                    Value="DeepSkyBlue" />
+                                            <Setter Property="Foreground"
+                                                    Value="Black" />
+                                        </DataTrigger>
+                                        <DataTrigger Binding="{Binding backFromConst}"
+                                                     Value="true">
+                                            <Setter Property="Background"
+                                                    Value="LightBlue" />
+                                            <Setter Property="Foreground"
+                                                    Value="Black" />
+                                        </DataTrigger>
+                                        <DataTrigger Binding="{Binding returned}"
+                                                     Value="true">
+                                            <Setter Property="Background"
+                                                    Value="Tomato" />
+                                            <Setter Property="Foreground"
+                                                    Value="Black" />
+                                        </DataTrigger>
+                                        <DataTrigger Binding="{Binding dtIzgIsNull}"
+                                                     Value="false">
+                                            <Setter Property="Background"
+                                                    Value="Yellow" />
+                                            <Setter Property="Foreground"
+                                                    Value="Black" />
+                                        </DataTrigger>
+                                        <DataTrigger Binding="{Binding dtSrokIsNull}"
+                                                     Value="true">
+                                            <Setter Property="Background"
+                                                    Value="Silver" />
+                                            <Setter Property="Foreground"
+                                                    Value="Black" />
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>-->
+                            </TextBox>
+
                             <Label Content="Техзаказ"
                                    FontSize="12"
                                    Width="100"
@@ -861,7 +992,7 @@
                                    Height="26" />
                             <control:PlaceholderBox Height="26"
                                                     Placeholder="дата"
-                                                    Text="{Binding model.pSelOsn.dateWho, Mode=TwoWay,StringFormat=dd.MM.yy HH:mm,UpdateSourceTrigger=PropertyChanged}"
+                                                    Text="{Binding model.pSelOsn.dateWho, Mode=TwoWay, StringFormat=dd.MM.yy HH:mm, UpdateSourceTrigger=PropertyChanged}"
                                                     Width="100"
                                                     VerticalAlignment="Top"
                                                     HorizontalAlignment="Left" />

@@ -380,9 +380,7 @@
     <Resource Include="EmbedResources\Icons\binocleS.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="EmbedResources\Icons\nero.gif">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
+    <Resource Include="EmbedResources\Icons\nero.gif" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="EmbedResources\Icons\fongr.jpg" />
@@ -390,6 +388,15 @@
   <ItemGroup>
     <Resource Include="EmbedResources\Icons\evil.png" />
     <Resource Include="EmbedResources\Icons\good.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="EmbedResources\Icons\ReturnB.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="EmbedResources\Icons\BackB.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="EmbedResources\Icons\nextB.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

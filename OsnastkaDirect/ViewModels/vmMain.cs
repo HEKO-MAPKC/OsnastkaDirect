@@ -211,6 +211,20 @@ namespace OsnastkaDirect.ViewModels
             get { return DoubleClickOsn ?? (DoubleClickOsn = new CommandBase(mDoubleClickOsn)); }
         }
 
+        CommandBase BackTechOrd;
+
+        public CommandBase pBackTechOrd
+        {
+            get { return BackTechOrd ?? (BackTechOrd = new CommandBase(mBackTechOrd)); }
+        }
+
+        CommandBase NextTechOrd;
+
+        public CommandBase pNextTechOrd
+        {
+            get { return NextTechOrd ?? (NextTechOrd = new CommandBase(mNextTechOrd)); }
+        }
+
         #endregion
 
         #region Методы
@@ -316,7 +330,32 @@ namespace OsnastkaDirect.ViewModels
                 }
             }
         }
-
+        public void mBackTechOrd()
+        {
+            if (Model.pSelOsn!=null)
+            {
+                Osn i = null;
+                i = (Model.pListOsn).FirstOrDefault(r => r.draftOsnastID == Model.pSelOsn.draftOsnastID+1);
+                if (i != null)
+                {
+                    View.DataGridOsn.ScrollIntoView(i);
+                    Model.pSelOsn = i;
+                }
+            }
+        }
+        public void mNextTechOrd()
+        {
+            if (Model.pSelOsn != null)
+            {
+                Osn i = null;
+                i = (Model.pListOsn).FirstOrDefault(r => r.draftOsnastID == Model.pSelOsn.draftOsnastID - 1);
+                if (i != null)
+                {
+                    View.DataGridOsn.ScrollIntoView(i);
+                    Model.pSelOsn = i;
+                }
+            }
+        }
         public void mClearFindOsn()
         {
             Model.pSearchOsn = "";

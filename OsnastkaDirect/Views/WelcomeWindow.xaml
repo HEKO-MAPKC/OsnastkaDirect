@@ -12,7 +12,7 @@
         WindowStartupLocation="CenterScreen">
     <Grid>
         <Rectangle Margin="0,0,0,0"
-                   Grid.RowSpan="2">
+                   Grid.RowSpan="2" >
             <Rectangle.Fill>
                 <LinearGradientBrush StartPoint="0.5,0"
                                      EndPoint="0.5,1">
@@ -40,106 +40,7 @@
                FontSize="120"
                Margin="250,31,250,503" />
         <WrapPanel Orientation="Horizontal"
-                   Margin="352,206,374,332">
-            <Fluent:Button Header="Аннулировать заказ"
-                           Command="{Binding Command}"
-                           CommandParameter="{Binding}"
-                           Width="90"
-                           Height="70"
-                           Background="White"
-                           BorderBrush="Silver"
-                           CornerRadius="5"
-                           IsEnabled="{Binding model.pSelOsn.dtIzgIsNull, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
-                <Fluent:Button.LargeIcon>
-                    <Image Source="/OsnastkaDirect;component/EmbedResources/Icons/Save.png"
-                           Width="35"
-                           Height="35"
-                           Margin="-5,0,-2,-2" />
-                </Fluent:Button.LargeIcon>
-            </Fluent:Button>
-            <Fluent:Button Header="Аннулировать заказ"
-                           Command="{Binding Command}"
-                           CommandParameter="{Binding}"
-                           Width="90"
-                           Height="70"
-                           Background="White"
-                           BorderBrush="Silver"
-                           CornerRadius="5"
-                           IsEnabled="{Binding model.pSelOsn.dtIzgIsNull, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
-                <Fluent:Button.LargeIcon>
-                    <Image Source="/EmbedResources/Icons/save.png"
-                           Width="35"
-                           Height="35"
-                           Margin="-5,0,-2,-2" />
-                </Fluent:Button.LargeIcon>
-            </Fluent:Button>
-            <Fluent:Button Header="Аннулировать заказ"
-                           Command="{Binding Command}"
-                           CommandParameter="{Binding}"
-                           Width="90"
-                           Height="70"
-                           Background="White"
-                           BorderBrush="Silver"
-                           CornerRadius="5"
-                           IsEnabled="{Binding model.pSelOsn.dtIzgIsNull, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
-                <Fluent:Button.LargeIcon>
-                    <Image Source="/EmbedResources/Icons/save.png"
-                           Width="35"
-                           Height="35"
-                           Margin="-5,0,-2,-2" />
-                </Fluent:Button.LargeIcon>
-            </Fluent:Button>
-            <Fluent:Button Header="Аннулировать заказ"
-                           Command="{Binding Command}"
-                           CommandParameter="{Binding}"
-                           Width="90"
-                           Height="70"
-                           Background="White"
-                           BorderBrush="Silver"
-                           CornerRadius="5"
-                           IsEnabled="{Binding model.pSelOsn.dtIzgIsNull, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
-                <Fluent:Button.LargeIcon>
-                    <Image Source="/EmbedResources/Icons/save.png"
-                           Width="35"
-                           Height="35"
-                           Margin="-5,0,-2,-2" />
-                </Fluent:Button.LargeIcon>
-            </Fluent:Button>
-            <Fluent:Button Header="Аннулировать заказ"
-                           Command="{Binding Command}"
-                           CommandParameter="{Binding}"
-                           Width="90"
-                           Height="70"
-                           Background="White"
-                           BorderBrush="Silver"
-                           CornerRadius="5"
-                           IsEnabled="{Binding model.pSelOsn.dtIzgIsNull, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
-                <Fluent:Button.LargeIcon>
-                    <Image Source="/EmbedResources/Icons/save.png"
-                           Width="35"
-                           Height="35"
-                           Margin="-5,0,-2,-2" />
-                </Fluent:Button.LargeIcon>
-            </Fluent:Button>
-            <Fluent:Button Header="Аннулировать заказ"
-                           Command="{Binding Command}"
-                           CommandParameter="{Binding}"
-                           Width="90"
-                           Height="70"
-                           Background="White"
-                           BorderBrush="Silver"
-                           CornerRadius="5"
-                           IsEnabled="{Binding model.pSelOsn.dtIzgIsNull, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
-                <Fluent:Button.LargeIcon>
-                    <Image Source="/EmbedResources/Icons/save.png"
-                           Width="35"
-                           Height="35"
-                           Margin="-5,0,-2,-2" />
-                </Fluent:Button.LargeIcon>
-            </Fluent:Button>
-        </WrapPanel>
-        <WrapPanel Orientation="Horizontal"
-                   Margin="412,377,412,233">
+                   Margin="412,377,412,222">
             <Fluent:Button Header="Старая оснастка"
                            Command="{Binding pOpenOldOsnast}"
                            Width="84"
@@ -188,9 +89,6 @@
             </FlowDocument>
 
         </RichTextBox>
-        <Label Content="Факт дня!"
-               FontSize="14"
-               Margin="10,539,702,128" />
         <Image HorizontalAlignment="Left"
                Height="100"
                Margin="397,476,0,0"
