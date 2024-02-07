@@ -12,7 +12,7 @@
         WindowStartupLocation="CenterScreen">
     <Grid>
         <Rectangle Margin="0,0,0,0"
-                   Grid.RowSpan="2" >
+                   Grid.RowSpan="2">
             <Rectangle.Fill>
                 <LinearGradientBrush StartPoint="0.5,0"
                                      EndPoint="0.5,1">
@@ -105,6 +105,26 @@
                 HorizontalAlignment="Left"
                 Margin="497,326,0,0"
                 VerticalAlignment="Top" />
+        <MediaElement  Height="200"
+                       HorizontalAlignment="Left"
+                       Margin="30,304,0,0"
+                       x:Name="neuro"
+                       VerticalAlignment="Top"
+                       Width="340"
+                       Source="Icons/killOsnast.gif"
+                       LoadedBehavior="Manual"
+                       MediaEnded="myMediaElement_MediaEnded"
+                       MediaOpened="neuro_MediaOpened"
+                       MouseLeftButtonDown="neuro_MouseLeftButtonDown" />
+        <MediaElement  Height="200"
+                       HorizontalAlignment="Left"
+                       Margin="704,352,0,0"
+                       x:Name="myMediaElement_Copy"
+                       VerticalAlignment="Top"
+                       Width="200"
+                       Source="Icons/sus.gif"
+                       LoadedBehavior="Play"
+                       MediaEnded="myMediaElement_MediaEnded" />
 
     </Grid>
 </Window>

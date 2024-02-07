@@ -21,11 +21,25 @@ namespace OsnastkaDirect.Views
         public WelcomeWindow()
         {
             InitializeComponent();
+            //neuro.Position = new TimeSpan(0, 0, 1);
+            neuro.Play();
+            neuro.Position = new TimeSpan(10, 1, 1);
+            //neuro.Pause();
         }
 
         private void myMediaElement_MediaEnded(object sender, RoutedEventArgs e)
         {
             ((MediaElement)sender).Position = new TimeSpan(0, 0, 1);
+        }
+
+        private void neuro_MediaOpened(object sender, RoutedEventArgs e)
+        {
+            neuro.Pause();
+        }
+
+        private void neuro_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            neuro.Play();
         }
     }
 }
