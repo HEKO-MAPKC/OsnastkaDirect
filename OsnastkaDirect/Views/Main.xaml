@@ -9,7 +9,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="av"
         x:Class="OsnastkaDirect.Views.Main"
-        Title="Main"
+        Title="Дирекция оснастки"
         Height="824"
         Width="1024"
         WindowStartupLocation="CenterScreen">
@@ -344,6 +344,23 @@
                                     Label="Схожие чертежи"
                                     LargeImageSource="/OsnastkaDirect;component/EmbedResources/Icons/binocleB.png"
                                     DockPanel.Dock="Right" />
+
+                </r:RibbonGroup>
+                <r:RibbonGroup Header="Корректировка">
+                    <r:RibbonMenuButton 
+                                        Label="Применение"
+                                        LargeImageSource="/OsnastkaDirect;component/EmbedResources/Icons/UsageB.png"
+                                        DockPanel.Dock="Right">
+                        <r:RibbonMenuItem ImageSource="/OsnastkaDirect;component/EmbedResources/Icons/UseS.png"
+                                          Header="Общее применение"
+                                          Command="{Binding pSetUsageGeneral}" />
+                        <r:RibbonMenuItem ImageSource="/OsnastkaDirect;component/EmbedResources/Icons/UseS.png"
+                                          Header="Общее применение по типам продукции"
+                                          Command="{Binding pSetUsageGeneralType}" />
+                        <r:RibbonMenuItem ImageSource="/OsnastkaDirect;component/EmbedResources/Icons/UseS.png"
+                                          Header="Указать изделие"
+                                          Command="{Binding pSetUsage}" />
+                    </r:RibbonMenuButton>
                 </r:RibbonGroup>
             </r:RibbonTab>
 
@@ -653,7 +670,8 @@
                                                     ToolTip="{Binding Text, RelativeSource={RelativeSource Mode=Self}}"
                                                     Width="200"
                                                     VerticalAlignment="Top"
-                                                    HorizontalAlignment="Left" />
+                                                    HorizontalAlignment="Left">
+                            </control:PlaceholderBox>
                             <Label Content="Заказ"
                                    FontSize="12"
                                    Width="100"
@@ -920,60 +938,10 @@
                                    Width="100"
                                    Height="26" />
                             <TextBox Height="26"
-                                      Text="{Binding model.pSelOsn.returnRes, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                      Width="300"
-                                      VerticalAlignment="Center"
-                                      HorizontalAlignment="Center">
-                                <!--<Style TargetType="{x:Type TextBox}">
-                                    <Setter Property="Background"
-                                            Value="White" />
-                                    <Setter Property="Foreground"
-                                            Value="Black" />
-                                    <Style.Triggers>
-                                        <DataTrigger Binding="{Binding accepted}"
-                                                     Value="true">
-                                            <Setter Property="Background"
-                                                    Value="PaleGreen" />
-                                            <Setter Property="Foreground"
-                                                    Value="Black" />
-                                        </DataTrigger>
-                                        <DataTrigger Binding="{Binding atConst}"
-                                                     Value="true">
-                                            <Setter Property="Background"
-                                                    Value="DeepSkyBlue" />
-                                            <Setter Property="Foreground"
-                                                    Value="Black" />
-                                        </DataTrigger>
-                                        <DataTrigger Binding="{Binding backFromConst}"
-                                                     Value="true">
-                                            <Setter Property="Background"
-                                                    Value="LightBlue" />
-                                            <Setter Property="Foreground"
-                                                    Value="Black" />
-                                        </DataTrigger>
-                                        <DataTrigger Binding="{Binding returned}"
-                                                     Value="true">
-                                            <Setter Property="Background"
-                                                    Value="Tomato" />
-                                            <Setter Property="Foreground"
-                                                    Value="Black" />
-                                        </DataTrigger>
-                                        <DataTrigger Binding="{Binding dtIzgIsNull}"
-                                                     Value="false">
-                                            <Setter Property="Background"
-                                                    Value="Yellow" />
-                                            <Setter Property="Foreground"
-                                                    Value="Black" />
-                                        </DataTrigger>
-                                        <DataTrigger Binding="{Binding dtSrokIsNull}"
-                                                     Value="true">
-                                            <Setter Property="Background"
-                                                    Value="Silver" />
-                                            <Setter Property="Foreground"
-                                                    Value="Black" />
-                                        </DataTrigger>
-                                    </Style.Triggers>
-                                </Style>-->
+                                     Width="300"
+                                     VerticalAlignment="Center"
+                                     HorizontalAlignment="Center"
+                                     Style="{StaticResource TextBoxStyle1}">
                             </TextBox>
 
                             <Label Content="Техзаказ"

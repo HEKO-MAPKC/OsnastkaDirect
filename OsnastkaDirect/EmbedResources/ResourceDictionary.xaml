@@ -385,6 +385,70 @@
     <Style TargetType="{x:Type ScrollBar}"
            BasedOn="{StaticResource ResourceKey=NewScrollBar}"
            x:Key="{x:Type ScrollBar}" />
+    <Style x:Key="TextBoxStyle1" TargetType="{x:Type TextBox}">
+        <Setter Property="Background"
+                Value="White" />
+        <Setter Property="Foreground"
+                Value="Black" />
+        <Setter Property="Text"
+                Value="Неопределенно" />
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding model.pSelOsn.accepted}"
+                         Value="true">
+                <Setter Property="Background"
+                        Value="PaleGreen" />
+                <Setter Property="Foreground"
+                        Value="Black" />
+                <Setter Property="Text"
+                        Value="Утверждено" />
+            </DataTrigger>
+            <DataTrigger Binding="{Binding model.pSelOsn.atConst}"
+                         Value="true">
+                <Setter Property="Background"
+                        Value="DeepSkyBlue" />
+                <Setter Property="Foreground"
+                        Value="Black" />
+                <Setter Property="Text"
+                        Value="Направлено в КО" />
+            </DataTrigger>
+            <DataTrigger Binding="{Binding model.pSelOsn.backFromConst}"
+                         Value="true">
+                <Setter Property="Background"
+                        Value="LightBlue" />
+                <Setter Property="Foreground"
+                        Value="Black" />
+                <Setter Property="Text"
+                        Value="Возврат из КО" />
+            </DataTrigger>
+            <DataTrigger Binding="{Binding model.pSelOsn.returned}"
+                         Value="true">
+                <Setter Property="Background"
+                        Value="Tomato" />
+                <Setter Property="Foreground"
+                        Value="Black" />
+                <Setter Property="Text"
+                        Value="Возврат" />
+            </DataTrigger>
+            <DataTrigger Binding="{Binding model.pSelOsn.dtIzgIsNull}"
+                         Value="false">
+                <Setter Property="Background"
+                        Value="Yellow" />
+                <Setter Property="Foreground"
+                        Value="Black" />
+                <Setter Property="Text"
+                        Value="На рассмотрении" />
+            </DataTrigger>
+            <DataTrigger Binding="{Binding model.pSelOsn.dtSrokIsNull}"
+                         Value="true">
+                <Setter Property="Background"
+                        Value="Silver" />
+                <Setter Property="Foreground"
+                        Value="Black" />
+                <Setter Property="Text"
+                        Value="Аннулировано" />
+            </DataTrigger>
+        </Style.Triggers>
+    </Style>
     <LinearGradientBrush x:Key="RainbowStyle"
                          EndPoint="0,1">
         <GradientStop Color="Red"

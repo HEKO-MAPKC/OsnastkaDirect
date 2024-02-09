@@ -909,6 +909,11 @@ namespace OsnastkaDirect.Models
             pCreateTabOpen = true;
             pApproveTabOpen = false;
         }
+        public void ChangeUsage(string st)
+        {
+            pSelOsn.usage = st;
+            OnPropertyChanged("pSelOsn");
+        }
         #endregion
     }
 }

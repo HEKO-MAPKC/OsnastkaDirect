@@ -225,6 +225,36 @@ namespace OsnastkaDirect.ViewModels
             get { return NextTechOrd ?? (NextTechOrd = new CommandBase(mNextTechOrd)); }
         }
 
+        CommandBase OpenChooseUsage;
+
+        public CommandBase pOpenChooseUsage
+        {
+            get { return OpenChooseUsage ?? (OpenChooseUsage = new CommandBase(mOpenChooseUsage)); }
+        }
+
+
+        CommandBase SetUsageGeneral;
+
+        public CommandBase pSetUsageGeneral
+        {
+            get { return SetUsageGeneral ?? (SetUsageGeneral = new CommandBase(mSetUsageGeneral)); }
+        }
+
+        CommandBase SetUsage;
+
+        public CommandBase pSetUsage
+        {
+            get { return SetUsage ?? (SetUsage = new CommandBase(mSetUsage)); }
+        }
+
+        CommandBase SetUsageGeneralType;
+
+        public CommandBase pSetUsageGeneralType
+        {
+            get { return SetUsageGeneralType ?? (SetUsageGeneralType = new CommandBase(mSetUsageGeneralType)); }
+        }
+
+
         #endregion
 
         #region Методы
@@ -338,7 +368,7 @@ namespace OsnastkaDirect.ViewModels
                 i = (Model.pListOsn).FirstOrDefault(r => r.draftOsnastID == Model.pSelOsn.draftOsnastID+1);
                 if (i != null)
                 {
-                    View.DataGridOsn.ScrollIntoView(i);
+                    //View.DataGridOsn.ScrollIntoView(i);
                     Model.pSelOsn = i;
                 }
             }
@@ -351,7 +381,7 @@ namespace OsnastkaDirect.ViewModels
                 i = (Model.pListOsn).FirstOrDefault(r => r.draftOsnastID == Model.pSelOsn.draftOsnastID - 1);
                 if (i != null)
                 {
-                    View.DataGridOsn.ScrollIntoView(i);
+                    //View.DataGridOsn.ScrollIntoView(i);
                     Model.pSelOsn = i;
                 }
             }
@@ -405,6 +435,8 @@ namespace OsnastkaDirect.ViewModels
 
         public void mOpenApprove()
         {
+            if (model.pSelOsn != null)
+                View.DataGridOsn.ScrollIntoView(model.pSelOsn);
             Model.OpenApprove();
         }
         public void OpenCreateDraft(Osnsv _osnast)
@@ -531,6 +563,52 @@ namespace OsnastkaDirect.ViewModels
         {
             Osnsv _osnast = new Osnsv();
             Model.OpenCreate(_osnast);
+        }
+
+        public void mOpenChooseUsage()
+        {
+
+            string name = typeof(ChooseUsage).Name;
+            int index = VMLocator.CreateViewModel(name);
+
+            ((ChooseUsage)VMLocator.VMs[name][index].view).Loaded += ((vmChooseUsage)VMLocator.VMs[name][index]).viewLoaded;
+            ((ChooseUsage)VMLocator.VMs[name][index].view).Unloaded += (obj, args) => VMLocator.Clean((string)(((dynamic)obj).Uid));
+            VMLocator.VMs[name][index].view.Owner = View;
+            VMLocator.VMs[name][index].view.ShowDialog();
+        }
+        public void mSetUsageGeneral()
+        {
+            if (Model.pSelOsn != null)
+            {
+                Model.ChangeUsage("Общее применение");
+            }
+        }
+        public void mSetUsageGeneralType()
+        {
+            string name = typeof(ChooseUsage).Name;
+            int index = VMLocator.CreateViewModel(name);
+
+            ((ChooseUsage)VMLocator.VMs[name][index].view).Loaded += ((vmChooseUsage)VMLocator.VMs[name][index]).viewLoaded;
+            ((ChooseUsage)VMLocator.VMs[name][index].view).Unloaded += (obj, args) => VMLocator.Clean((string)(((dynamic)obj).Uid));
+            VMLocator.VMs[name][index].model.pIsOpenUsageGeneral = true;
+            
+            //VMLocator.VMs[name][index].model.LoadListTypeProduct();
+            VMLocator.VMs[name][index].view.Owner = View;
+            VMLocator.VMs[name][index].view.ShowDialog();
+            //mOpenChooseUsage(0);
+        }
+        public void mSetUsage()
+        {
+            string name = typeof(ChooseUsage).Name;
+            int index = VMLocator.CreateViewModel(name);
+
+            ((ChooseUsage)VMLocator.VMs[name][index].view).Loaded += ((vmChooseUsage)VMLocator.VMs[name][index]).viewLoaded;
+            ((ChooseUsage)VMLocator.VMs[name][index].view).Unloaded += (obj, args) => VMLocator.Clean((string)(((dynamic)obj).Uid));
+            VMLocator.VMs[name][index].model.pIsOpenUsageProduct = true;
+            //VMLocator.VMs[name][index].model.LoadListProduct();
+            VMLocator.VMs[name][index].view.Owner = View;
+            VMLocator.VMs[name][index].view.ShowDialog();
+            //mOpenChooseUsage(1);
         }
         #endregion
     }

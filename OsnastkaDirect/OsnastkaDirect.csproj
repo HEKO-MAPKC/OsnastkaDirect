@@ -145,6 +145,7 @@
     <Compile Include="Models\mOpenSparePartOsnast.cs" />
     <Compile Include="Models\mOpenAuxililaryOsnast.cs" />
     <Compile Include="Models\mWelcomeWindow.cs" />
+    <Compile Include="Models\mChooseUsage.cs" />
     <Compile Include="Data\Osn.cs" />
     <Compile Include="ViewModels\vmMain.cs" />
     <Compile Include="ViewModels\vmDialogInput.cs" />
@@ -155,8 +156,12 @@
     <Compile Include="ViewModels\vmOpenSparePartOsnast.cs" />
     <Compile Include="ViewModels\vmOpenAuxililaryOsnast.cs" />
     <Compile Include="ViewModels\vmWelcomeWindow.cs" />
+    <Compile Include="ViewModels\vmChooseUsage.cs" />
     <Compile Include="Views\CheckOldOsn.xaml.cs">
       <DependentUpon>CheckOldOsn.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ChooseUsage.xaml.cs">
+      <DependentUpon>ChooseUsage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\DialogInput.xaml.cs">
       <DependentUpon>DialogInput.xaml</DependentUpon>
@@ -232,6 +237,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\CheckOldOsn.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ChooseUsage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -397,6 +406,12 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="EmbedResources\Icons\nextB.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="EmbedResources\Icons\UsageB.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="EmbedResources\Icons\UseS.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
