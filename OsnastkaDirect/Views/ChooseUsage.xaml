@@ -11,34 +11,48 @@
         Height="400"
         Width="400"
         WindowStartupLocation="CenterScreen">
+    <Window.Resources>
+        <!-- You can implement your own BooleanToVisibilityConverter but there is one already implemented. So the next line creates an instance of the BooleanToVisibilityConverter that you will be able to reference with the specified key -->
+        <BooleanToVisibilityConverter x:Key="BoolToVisConverter" />
+    </Window.Resources>
+
     <Grid Margin="0,0,0,0">
         <Grid Margin="0,0,0,0">
             <WrapPanel HorizontalAlignment="Center"
-                       Width="400"
-                       Height="95"
-                       VerticalAlignment="Top">
-                <Label Content="Причина возврата:"
+                       Height="33"
+                       VerticalAlignment="Top"
+                       Margin="0,5,0,0">
+                <Label Content="Поиск чертежа:"
                        FontSize="12"
-                       Height="26" />
+                       Height="26"
+                       Visibility="{Binding model.pIsOpenUsageProduct, Converter={StaticResource BoolToVisConverter} }" />
                 <control:PlaceholderBox Height="26"
-                                        Width="223"
-                                        Placeholder="причина"
-                                        Text="{Binding model.pSelOsn.returnRes, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
-                                        FontSize="12" />
-                <Fluent:Button Width="90"
+                                        Width="259"
+                                        Placeholder="чертеж"
+                                        Text="{Binding model.pSearchDraft, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                                        FontSize="12"
+                                        Visibility="{Binding model.pIsOpenUsageProduct, Converter={StaticResource BoolToVisConverter} }" />
+            </WrapPanel>
+            <WrapPanel HorizontalAlignment="Center"
+                       Height="67"
+                       VerticalAlignment="Top"
+                       Margin="0,43,0,0"
+                       Width="138">
+                <Fluent:Button Width="50"
                                Height="40"
                                Background="White"
                                BorderBrush="Silver"
                                CornerRadius="10"
-                               Command="{Binding pSave}"
-                               LargeIcon="/OsnastkaDirect;component/EmbedResources/Icons/Cancel2.png" />
-                <Fluent:Button Width="90"
+                               Command="{Binding pCancel}"
+                               LargeIcon="/OsnastkaDirect;component/EmbedResources/Icons/Cancel2.png"
+                               Margin="10,10,10,10" />
+                <Fluent:Button Width="50"
                                Height="40"
                                Background="White"
                                BorderBrush="Silver"
                                CornerRadius="10"
+                               Command="{Binding pConfirm}"
                                LargeIcon="/OsnastkaDirect;component/EmbedResources/Icons/ApproveBig.png" />
-
             </WrapPanel>
             <TabControl BorderThickness="0"
                         Margin="0,100,0,0">
@@ -59,7 +73,7 @@
                     </Style>
 
                 </TabControl.Resources>
-                <TabItem Selector.IsSelected="{Binding model.pIsOpenUsageGeneral}">
+                <TabItem Selector.IsSelected="{Binding model.pIsOpenUsageProduct}">
                     <Grid>
                         <DataGrid AutoGenerateColumns="false"
                                   ItemsSource="{Binding model.pListProduct, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
@@ -70,6 +84,11 @@
                                   x:Name="DataGridProduct"
                                   FontSize="12"
                                   Margin="0,0,0,0">
+                            <DataGrid.InputBindings>
+                                <MouseBinding Gesture="LeftDoubleClick"
+                                              Command="{Binding pConfirm}">
+                                </MouseBinding>
+                            </DataGrid.InputBindings>
                             <DataGrid.RowStyle>
                                 <Style TargetType="{x:Type DataGridRow}"
                                        BasedOn="{StaticResource ResourceKey=DataGridRowBase}">
@@ -90,7 +109,7 @@
                         </DataGrid>
                     </Grid>
                 </TabItem>
-                <TabItem Selector.IsSelected="{Binding model.pIsOpenUsageProduct}">
+                <TabItem Selector.IsSelected="{Binding model.pIsOpenUsageGeneral}">
                     <Grid>
                         <DataGrid AutoGenerateColumns="false"
                                   ItemsSource="{Binding model.pListTypeProduct, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
@@ -101,6 +120,11 @@
                                   x:Name="DataGridTypeProduct"
                                   FontSize="12"
                                   Margin="0,0,0,0">
+                            <DataGrid.InputBindings>
+                                <MouseBinding Gesture="LeftDoubleClick"
+                                              Command="{Binding pConfirm}">
+                                </MouseBinding>
+                            </DataGrid.InputBindings>
                             <DataGrid.RowStyle>
                                 <Style TargetType="{x:Type DataGridRow}"
                                        BasedOn="{StaticResource ResourceKey=DataGridRowBase}">

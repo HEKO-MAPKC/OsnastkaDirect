@@ -347,8 +347,7 @@
 
                 </r:RibbonGroup>
                 <r:RibbonGroup Header="Корректировка">
-                    <r:RibbonMenuButton 
-                                        Label="Применение"
+                    <r:RibbonMenuButton Label="Применение"
                                         LargeImageSource="/OsnastkaDirect;component/EmbedResources/Icons/UsageB.png"
                                         DockPanel.Dock="Right">
                         <r:RibbonMenuItem ImageSource="/OsnastkaDirect;component/EmbedResources/Icons/UseS.png"
@@ -560,67 +559,78 @@
                             </LinearGradientBrush>
                         </Rectangle.Fill>
                     </Rectangle>
-                    <DataGrid AutoGenerateColumns="false"
-                              Height="274"
-                              Margin="492,374,10,0"
-                              VerticalAlignment="Top"
-                              ItemsSource="{Binding model.pListProduct, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                              SelectedItem="{Binding model.pSelProduct, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                              IsReadOnly="true"
-                              CanUserAddRows="False"
-                              HorizontalScrollBarVisibility="Disabled"
-                              x:Name="DataGridProduct"
-                              FontSize="12">
-                        <DataGrid.RowStyle>
-                            <Style TargetType="{x:Type DataGridRow}"
-                                   BasedOn="{StaticResource ResourceKey=DataGridRowBase}">
-                                <!--<Setter Property="Background"
-                                        Value="White" />
-                                <Setter Property="Foreground"
-                                        Value="Black" />-->
-                            </Style>
-                        </DataGrid.RowStyle>
-                        <DataGrid.Columns>
-                            <DataGridTextColumn Header="Общий вид"
-                                                Binding="{Binding draft}"
-                                                Width="0.1*" />
-                            <DataGridTextColumn Header="Наименование изделия"
-                                                Binding="{Binding product}"
-                                                Width="0.1*" />
-                        </DataGrid.Columns>
-                    </DataGrid>
-                    <DataGrid AutoGenerateColumns="false"
-                              Height="274"
-                              Margin="28,374,568,0"
-                              VerticalAlignment="Top"
-                              ItemsSource="{Binding model.pListTypeProduct, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                              SelectedItem="{Binding model.pSelTypeProduct, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                              IsReadOnly="true"
-                              CanUserAddRows="False"
-                              HorizontalScrollBarVisibility="Disabled"
-                              x:Name="DataGridTypeProduct"
-                              FontSize="12">
-                        <DataGrid.RowStyle>
-                            <Style TargetType="{x:Type DataGridRow}"
-                                   BasedOn="{StaticResource ResourceKey=DataGridRowBase}">
-                                <!--<Setter Property="Background"
-                     Value="White" />
-             <Setter Property="Foreground"
-                     Value="Black" />-->
-                            </Style>
-                        </DataGrid.RowStyle>
-                        <DataGrid.Columns>
-                            <DataGridTextColumn Header="Тип продукции"
-                                                Binding="{Binding product}"
-                                                Width="0.1*" />
-                        </DataGrid.Columns>
-                    </DataGrid>
-                    <WrapPanel Margin="2,2,2,2"
-                               Grid.Row="1">
+                    <WrapPanel Margin="2,2,454,2">
+                        <WrapPanel HorizontalAlignment="Center"
+                                   Width="433"
+                                   Height="128"
+                                   VerticalAlignment="Center">
+                            <Label Content="Состояние"
+                                   FontSize="12"
+                                   Width="80"
+                                   Height="26" />
+                            <TextBox Height="26"
+                                     Width="330"
+                                     VerticalAlignment="Center"
+                                     HorizontalAlignment="Center"
+                                     Style="{StaticResource TextBoxStyle1}" 
+                                     IsReadOnly="True"/>
+
+                            <Label Content="Техзаказ"
+                                   FontSize="12"
+                                   Width="80"
+                                   Height="26" />
+                            <control:PlaceholderBox Height="26"
+                                                    Placeholder="№"
+                                                    Text="{Binding model.pSelOsn.zak_1, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                    Width="100"
+                                                    VerticalAlignment="Top"
+                                                    HorizontalAlignment="Left" />
+                            <Label Content="Дата создания"
+                                   FontSize="12"
+                                   Width="100"
+                                   Height="26" />
+                            <control:PlaceholderBox Height="26"
+                                                    Placeholder="дата"
+                                                    Text="{Binding model.pSelOsn.dateWho, Mode=TwoWay, StringFormat=dd.MM.yy HH:mm, UpdateSourceTrigger=PropertyChanged}"
+                                                    Width="130"
+                                                    VerticalAlignment="Center"
+                                                    HorizontalAlignment="Left" />
+                            <Label Content="Исполнитель"
+                                   FontSize="12"
+                                   Width="80"
+                                   Height="26" />
+                            <control:PlaceholderBox Height="26"
+                                                    Placeholder="ФИО"
+                                                    Text="{Binding model.pSelOsn.who, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                    Width="100"
+                                                    VerticalAlignment="Top"
+                                                    HorizontalAlignment="Left" />
+                            <Label Content="АНН/ТАБ"
+                                   FontSize="12"
+                                   Width="100"
+                                   Height="26" />
+                            <control:PlaceholderBox Height="26"
+                                                    Placeholder="аннтаб"
+                                                    Text="{Binding model.pSelOsn.annTab, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                    Width="130"
+                                                    VerticalAlignment="Center"
+                                                    HorizontalAlignment="Left" />
+                            <Label Content="Причина &#xD;&#xA;возврата"
+                                   FontSize="12"
+                                   Width="80"
+                                   Height="43" />
+                            <control:PlaceholderBox Height="38"
+                                                    Placeholder="причина"
+                                                    Text="{Binding model.pSelOsn.returnRes, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                    Width="333"
+                                                    VerticalAlignment="Center"
+                                                    HorizontalAlignment="Center" />
+
+                        </WrapPanel>
                         <WrapPanel HorizontalAlignment="Left"
-                                   Width="357"
+                                   Width="424"
                                    Height="90"
-                                   VerticalAlignment="Top">
+                                   VerticalAlignment="Center">
                             <Label Content="Деталь"
                                    FontSize="12"
                                    Width="80"
@@ -633,7 +643,7 @@
                             <control:PlaceholderBox Height="26"
                                                     Placeholder="ДСЕ"
                                                     Text="{Binding model.pSelOsn.nameDraft, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                                    Width="150"
+                                                    Width="214"
                                                     FontSize="12" />
                             <Label Content="Раб. место"
                                    FontSize="12"
@@ -646,7 +656,7 @@
                             <control:PlaceholderBox Height="26"
                                                     Placeholder="название"
                                                     Text="{Binding model.pSelOsn.workPlaceName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                                    Width="150" />
+                                                    Width="214" />
                             <Label Content="Операция"
                                    FontSize="12"
                                    Width="80"
@@ -658,54 +668,8 @@
                             <control:PlaceholderBox Height="26"
                                                     Placeholder="название"
                                                     Text="{Binding model.pSelOsn.operationName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                                    Width="150" />
+                                                    Width="214" />
                         </WrapPanel>
-                        <WrapPanel HorizontalAlignment="Left"
-                                   Width="207"
-                                   Height="90"
-                                   VerticalAlignment="Top">
-                            <control:PlaceholderBox Height="26"
-                                                    Placeholder="применение"
-                                                    Text="{Binding model.pSelOsn.usage, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                                    ToolTip="{Binding Text, RelativeSource={RelativeSource Mode=Self}}"
-                                                    Width="200"
-                                                    VerticalAlignment="Top"
-                                                    HorizontalAlignment="Left">
-                            </control:PlaceholderBox>
-                            <Label Content="Заказ"
-                                   FontSize="12"
-                                   Width="100"
-                                   Height="26" />
-                            <Label Content="Номер"
-                                   FontSize="12"
-                                   Width="100"
-                                   Height="26" />
-                            <control:PlaceholderBox Height="26"
-                                                    Placeholder="заказ"
-                                                    Text="{Binding model.pSelOsn.ordOsn, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                                    Width="100"
-                                                    VerticalAlignment="Top"
-                                                    HorizontalAlignment="Left" />
-                            <control:PlaceholderBox Height="26"
-                                                    Placeholder="номер"
-                                                    Text="{Binding model.pSelOsn.numOsn, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                                    Width="100"
-                                                    VerticalAlignment="Top"
-                                                    HorizontalAlignment="Left" />
-                        </WrapPanel>
-                        <RichTextBox Height="90"
-                                     HorizontalAlignment="Center"
-                                     x:Name="richTextBox1"
-                                     VerticalAlignment="Center"
-                                     Width="400"
-                                     VerticalScrollBarVisibility="Visible">
-                            <FlowDocument PageHeight="300">
-                                <Paragraph>
-                                    <Run Text="{Binding model.pSelOsn.addition, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                                </Paragraph>
-                            </FlowDocument>
-
-                        </RichTextBox>
                         <WrapPanel HorizontalAlignment="Center"
                                    Width="424"
                                    Height="165"
@@ -794,6 +758,42 @@
                                                     Text="{Binding model.pSelOsn.reason, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                                     ToolTip="{Binding Text, RelativeSource={RelativeSource Mode=Self}}"
                                                     Width="335" />
+                        </WrapPanel>
+                        <WrapPanel HorizontalAlignment="Center"
+                                   Width="207"
+                                   Height="115"
+                                   VerticalAlignment="Top">
+                            <Label Content="Применение"
+                                   FontSize="12"
+                                   Width="100"
+                                   Height="26" />
+                            <control:PlaceholderBox Height="26"
+                                                    Placeholder="применение"
+                                                    Text="{Binding model.pSelOsn.usage, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                    ToolTip="{Binding Text, RelativeSource={RelativeSource Mode=Self}}"
+                                                    Width="200"
+                                                    VerticalAlignment="Top"
+                                                    HorizontalAlignment="Left" />
+                            <Label Content="Заказ"
+                                   FontSize="12"
+                                   Width="100"
+                                   Height="26" />
+                            <Label Content="Номер"
+                                   FontSize="12"
+                                   Width="100"
+                                   Height="26" />
+                            <control:PlaceholderBox Height="26"
+                                                    Placeholder="заказ"
+                                                    Text="{Binding model.pSelOsn.ordOsn, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                    Width="100"
+                                                    VerticalAlignment="Top"
+                                                    HorizontalAlignment="Left" />
+                            <control:PlaceholderBox Height="26"
+                                                    Placeholder="номер"
+                                                    Text="{Binding model.pSelOsn.numOsn, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                    Width="100"
+                                                    VerticalAlignment="Top"
+                                                    HorizontalAlignment="Left" />
                         </WrapPanel>
                         <WrapPanel HorizontalAlignment="Center"
                                    Width="149"
@@ -929,74 +929,21 @@
                                 </Fluent:Button.LargeIcon>
                             </Fluent:Button>
                         </WrapPanel>
-                        <WrapPanel HorizontalAlignment="Center"
-                                   Width="433"
-                                   Height="115"
-                                   VerticalAlignment="Center">
-                            <Label Content="Состояние"
-                                   FontSize="12"
-                                   Width="100"
-                                   Height="26" />
-                            <TextBox Height="26"
-                                     Width="300"
-                                     VerticalAlignment="Center"
-                                     HorizontalAlignment="Center"
-                                     Style="{StaticResource TextBoxStyle1}">
-                            </TextBox>
-
-                            <Label Content="Техзаказ"
-                                   FontSize="12"
-                                   Width="100"
-                                   Height="26" />
-                            <control:PlaceholderBox Height="26"
-                                                    Placeholder="№"
-                                                    Text="{Binding model.pSelOsn.zak_1, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                                    Width="100"
-                                                    VerticalAlignment="Top"
-                                                    HorizontalAlignment="Left" />
-                            <Label Content="Дата создания"
-                                   FontSize="12"
-                                   Width="100"
-                                   Height="26" />
-                            <control:PlaceholderBox Height="26"
-                                                    Placeholder="дата"
-                                                    Text="{Binding model.pSelOsn.dateWho, Mode=TwoWay, StringFormat=dd.MM.yy HH:mm, UpdateSourceTrigger=PropertyChanged}"
-                                                    Width="100"
-                                                    VerticalAlignment="Top"
-                                                    HorizontalAlignment="Left" />
-                            <Label Content="Исполнитель"
-                                   FontSize="12"
-                                   Width="100"
-                                   Height="26" />
-                            <control:PlaceholderBox Height="26"
-                                                    Placeholder="ФИО"
-                                                    Text="{Binding model.pSelOsn.who, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                                    Width="100"
-                                                    VerticalAlignment="Top"
-                                                    HorizontalAlignment="Left" />
-                            <Label Content="АНН/ТАБ"
-                                   FontSize="12"
-                                   Width="100"
-                                   Height="26" />
-                            <control:PlaceholderBox Height="26"
-                                                    Placeholder="аннтаб"
-                                                    Text="{Binding model.pSelOsn.annTab, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                                    Width="100"
-                                                    VerticalAlignment="Top"
-                                                    HorizontalAlignment="Left" />
-                            <Label Content="Причина возврата"
-                                   FontSize="12"
-                                   Width="100"
-                                   Height="26" />
-                            <control:PlaceholderBox Height="26"
-                                                    Placeholder="причина"
-                                                    Text="{Binding model.pSelOsn.returnRes, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                                    Width="300"
-                                                    VerticalAlignment="Center"
-                                                    HorizontalAlignment="Left" />
-
-                        </WrapPanel>
                     </WrapPanel>
+                    <RichTextBox Height="198"
+                                 HorizontalAlignment="Left"
+                                 x:Name="richTextBox1"
+                                 VerticalAlignment="Top"
+                                 Width="414"
+                                 VerticalScrollBarVisibility="Visible"
+                                 Margin="571,10,0,0">
+                        <FlowDocument PageHeight="300">
+                            <Paragraph>
+                                <Run Text="{Binding model.pSelOsn.addition, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                            </Paragraph>
+                        </FlowDocument>
+
+                    </RichTextBox>
                 </Grid>
             </TabItem>
         </TabControl>

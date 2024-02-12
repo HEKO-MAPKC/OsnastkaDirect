@@ -6,6 +6,8 @@ using System.Linq;
 //
 using Fox;
 using OsnastkaDirect.Data;
+using OsnastkaDirect.ViewModels;
+using OsnastkaDirect.Views;
 //
 namespace OsnastkaDirect.Models
 {
@@ -20,6 +22,7 @@ namespace OsnastkaDirect.Models
             /// Переменная для работы с базой данных
             /// </summary>
             public FOXEntities db;
+        public vmMain WindowMain;
         //
         // Переменная для свойства
         //
@@ -123,6 +126,21 @@ namespace OsnastkaDirect.Models
                 }
             }
         }
+
+        string SearchDraft;
+        public string pSearchDraft
+        {
+            get { return SearchDraft; }
+            set
+            {
+                if (SearchDraft != value)
+                {
+                    SearchDraft = value;
+                    OnPropertyChanged("pSearchDraft");
+                }
+            }
+        }
+
         #endregion
 
         #region Методы
@@ -146,8 +164,8 @@ namespace OsnastkaDirect.Models
             pListTypeProduct = (from i in db.iztyp
                                 select new TypeProduct
                                 {
-                                    product = i.izdelie,
-                                    type = i.iz,
+                                    product = i.izdelie.Trim(),
+                                    type = i.iz.Trim(),
                                 }).ToList();
         }
         public void LoadListProduct()
@@ -155,7 +173,7 @@ namespace OsnastkaDirect.Models
             pListProduct = (from i in db.prodact
                             select new Product
                             {
-                                product = i.name,
+                                product = i.name.Trim(),
                                 draft = i.draft,
                             }).ToList();
         }

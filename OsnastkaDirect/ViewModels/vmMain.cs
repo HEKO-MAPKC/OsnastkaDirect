@@ -591,7 +591,7 @@ namespace OsnastkaDirect.ViewModels
             ((ChooseUsage)VMLocator.VMs[name][index].view).Loaded += ((vmChooseUsage)VMLocator.VMs[name][index]).viewLoaded;
             ((ChooseUsage)VMLocator.VMs[name][index].view).Unloaded += (obj, args) => VMLocator.Clean((string)(((dynamic)obj).Uid));
             VMLocator.VMs[name][index].model.pIsOpenUsageGeneral = true;
-            
+            VMLocator.VMs[name][index].model.WindowMain = this;
             //VMLocator.VMs[name][index].model.LoadListTypeProduct();
             VMLocator.VMs[name][index].view.Owner = View;
             VMLocator.VMs[name][index].view.ShowDialog();
@@ -605,6 +605,7 @@ namespace OsnastkaDirect.ViewModels
             ((ChooseUsage)VMLocator.VMs[name][index].view).Loaded += ((vmChooseUsage)VMLocator.VMs[name][index]).viewLoaded;
             ((ChooseUsage)VMLocator.VMs[name][index].view).Unloaded += (obj, args) => VMLocator.Clean((string)(((dynamic)obj).Uid));
             VMLocator.VMs[name][index].model.pIsOpenUsageProduct = true;
+            VMLocator.VMs[name][index].model.WindowMain = this;
             //VMLocator.VMs[name][index].model.LoadListProduct();
             VMLocator.VMs[name][index].view.Owner = View;
             VMLocator.VMs[name][index].view.ShowDialog();
