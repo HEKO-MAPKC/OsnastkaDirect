@@ -353,14 +353,16 @@
             <r:RibbonTab Header="Редактирование"
                          Visibility="{Binding model.pRedactingModeOpen, Converter={StaticResource boolToVisibilityConverter}}"
                          IsSelected="{Binding model.pRedactingModeOpen, Mode=OneWay}">
-                <r:RibbonButton Command="{Binding pCancelRedacting}"
-                                Label="Отменить"
-                                LargeImageSource="/OsnastkaDirect;component/EmbedResources/Icons/RedacteB.png"
-                                DockPanel.Dock="Right" />
-                <r:RibbonButton Command="{Binding pSaveRedacting}"
-                                Label="Сохранить"
-                                LargeImageSource="/OsnastkaDirect;component/EmbedResources/Icons/RedacteB.png"
-                                DockPanel.Dock="Right" />
+                <r:RibbonGroup Header="Завершение">
+                    <r:RibbonButton Command="{Binding pCancelRedacting}"
+                                    Label="Отменить"
+                                    LargeImageSource="/OsnastkaDirect;component/EmbedResources/Icons/DeleteB.png"
+                                    DockPanel.Dock="Right" />
+                    <r:RibbonButton Command="{Binding pSaveRedacting}"
+                                    Label="Сохранить"
+                                    LargeImageSource="/OsnastkaDirect;component/EmbedResources/Icons/SaveB.png"
+                                    DockPanel.Dock="Right" />
+                </r:RibbonGroup>
                 <r:RibbonGroup Header="Корректировка">
                     <r:RibbonMenuButton Label="Применение"
                                         LargeImageSource="/OsnastkaDirect;component/EmbedResources/Icons/UsageB.png"

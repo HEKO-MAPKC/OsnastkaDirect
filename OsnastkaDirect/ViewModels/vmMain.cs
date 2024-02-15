@@ -262,6 +262,20 @@ namespace OsnastkaDirect.ViewModels
         }
 
 
+        CommandBase CancelRedacting;
+
+        public CommandBase pCancelRedacting
+        {
+            get { return CancelRedacting ?? (CancelRedacting = new CommandBase(mCancelRedacting)); }
+        }
+
+        CommandBase SaveRedacting;
+
+        public CommandBase pSaveRedacting
+        {
+            get { return SaveRedacting ?? (SaveRedacting = new CommandBase(mSaveRedacting)); }
+        }
+
         #endregion
 
         #region Методы
@@ -372,7 +386,9 @@ namespace OsnastkaDirect.ViewModels
             if (Model.pSelOsn!=null)
             {
                 Osn i = null;
-                i = (Model.pListOsn).FirstOrDefault(r => r.draftOsnastID == Model.pSelOsn.draftOsnastID+1);
+                int k = Model.pListOsn.IndexOf(Model.pListOsn.FirstOrDefault(r => r.draftOsnastID == Model.pSelOsn.draftOsnastID)) - 1;
+                if (k > Model.pListOsn.Count || k < 0) return;
+                i = Model.pListOsn[k];
                 if (i != null)
                 {
                     //View.DataGridOsn.ScrollIntoView(i);
@@ -386,7 +402,9 @@ namespace OsnastkaDirect.ViewModels
             if (Model.pSelOsn != null)
             {
                 Osn i = null;
-                i = (Model.pListOsn).FirstOrDefault(r => r.draftOsnastID == Model.pSelOsn.draftOsnastID - 1);
+                int k = Model.pListOsn.IndexOf(Model.pListOsn.FirstOrDefault(r => r.draftOsnastID == Model.pSelOsn.draftOsnastID)) + 1;
+                if (k > Model.pListOsn.Count || k < 0) return;
+                i = Model.pListOsn[k];
                 if (i != null)
                 {
                     //View.DataGridOsn.ScrollIntoView(i);
@@ -622,6 +640,17 @@ namespace OsnastkaDirect.ViewModels
             VMLocator.VMs[name][index].view.Owner = View;
             VMLocator.VMs[name][index].view.ShowDialog();
             //mOpenChooseUsage(1);
+        }
+
+        public void mSaveRedacting()
+        {
+            Osnsv _osnast = new Osnsv();
+            Model.OpenCreate(_osnast);
+        }
+        public void mCancelRedacting()
+        {
+            Osnsv _osnast = new Osnsv();
+            Model.OpenCreate(_osnast);
         }
         #endregion
     }

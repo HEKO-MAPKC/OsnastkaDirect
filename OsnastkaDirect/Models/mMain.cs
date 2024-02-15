@@ -398,7 +398,6 @@ namespace OsnastkaDirect.Models
             // 1. Тримнуть названия оборуд и похожего
             // 2. Отсортить по т.з/дате
             // 3. Отрубить стрелки для перехода между вкладками 
-            // 4. Если стрелка в меню просмотра не находит следующий ID потому что он удален
             pListOsn = null;
             pListOsnLoaded = null;
             var _var1 = (from i in db.vOsnastTechOrder.Where(i => i.IsApplicationFrom.Value==true)

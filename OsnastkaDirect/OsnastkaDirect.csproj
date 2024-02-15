@@ -417,6 +417,12 @@
   <ItemGroup>
     <Resource Include="EmbedResources\Icons\RedacteB.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="EmbedResources\Icons\SaveB.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="EmbedResources\Icons\DeleteB.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PreBuildEvent>
