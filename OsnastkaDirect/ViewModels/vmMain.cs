@@ -254,6 +254,13 @@ namespace OsnastkaDirect.ViewModels
             get { return SetUsageGeneralType ?? (SetUsageGeneralType = new CommandBase(mSetUsageGeneralType)); }
         }
 
+        CommandBase OpenRedactingMode;
+
+        public CommandBase pOpenRedactingMode
+        {
+            get { return OpenRedactingMode ?? (OpenRedactingMode = new CommandBase(mOpenRedactingMode)); }
+        }
+
 
         #endregion
 
@@ -371,6 +378,7 @@ namespace OsnastkaDirect.ViewModels
                     //View.DataGridOsn.ScrollIntoView(i);
                     Model.pSelOsn = i;
                 }
+                Model.LoadProd();
             }
         }
         public void mNextTechOrd()
@@ -384,6 +392,7 @@ namespace OsnastkaDirect.ViewModels
                     //View.DataGridOsn.ScrollIntoView(i);
                     Model.pSelOsn = i;
                 }
+                Model.LoadProd();
             }
         }
         public void mClearFindOsn()
@@ -452,7 +461,10 @@ namespace OsnastkaDirect.ViewModels
         {
             Model.FinalApproveOrd();
         }
-
+        public void mOpenRedactingMode()
+        {
+            Model.OpenRedactingMode();
+        }
         public void mApprove()
         {
             Model.ApproveOrd();

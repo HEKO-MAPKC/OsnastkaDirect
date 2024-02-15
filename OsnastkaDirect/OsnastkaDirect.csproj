@@ -126,6 +126,7 @@
     <Compile Include="Data\Ocomplect.cs" />
     <Compile Include="Data\OrderPlgod.cs" />
     <Compile Include="Data\Osnsv.cs" />
+    <Compile Include="Data\Prod.cs" />
     <Compile Include="Data\Product.cs" />
     <Compile Include="Data\TreeViewDraft.cs" />
     <Compile Include="Data\TreeViewItemHelper.cs" />
@@ -412,6 +413,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="EmbedResources\Icons\UseS.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="EmbedResources\Icons\RedacteB.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

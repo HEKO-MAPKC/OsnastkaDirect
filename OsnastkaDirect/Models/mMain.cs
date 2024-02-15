@@ -18,6 +18,7 @@ using System.Windows.Data;
 using System.Security.Cryptography;
 using System.Diagnostics;
 using System.Windows.Documents;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 //
 namespace OsnastkaDirect.Models
 {
@@ -36,7 +37,6 @@ namespace OsnastkaDirect.Models
         //Переменные
         //
         //тип name;
-
         #endregion
 
         #region Свойства
@@ -293,6 +293,75 @@ namespace OsnastkaDirect.Models
             }
         }
 
+        List<Prod> ListProd;
+        public List<Prod> pListProd
+        {
+            get { return ListProd; }
+            set
+            {
+                if (ListProd != value)
+                {
+                    ListProd = value;
+                    OnPropertyChanged("pListProd");
+                }
+            }
+        }
+
+        Prod SelProd;
+        public Prod pSelProd
+        {
+            get { return SelProd; }
+            set
+            {
+                if (SelProd != value)
+                {
+                    SelProd = value;
+                    OnPropertyChanged("pSelProd");
+                }
+            }
+        }
+
+        bool RedactingModeOpen = false;
+        public bool pRedactingModeOpen
+        {
+            get { return RedactingModeOpen; }
+            set
+            {
+                if (RedactingModeOpen != value)
+                {
+                    RedactingModeOpen = value;
+                    pIsReadOnlyRedacting = !value;
+                    OnPropertyChanged("pRedactingModeOpen");
+                }
+            }
+        }
+
+        bool IsReadOnlyRedacting=true;
+        public bool pIsReadOnlyRedacting
+        {
+            get { return IsReadOnlyRedacting; }
+            set
+            {
+                if (IsReadOnlyRedacting != value)
+                {
+                    IsReadOnlyRedacting = value;
+                    OnPropertyChanged("pIsReadOnlyRedacting");
+                }
+            }
+        }
+        bool CreateModeOpen = false;
+        public bool pCreateModeOpen
+        {
+            get { return CreateModeOpen; }
+            set
+            {
+                if (CreateModeOpen != value)
+                {
+                    CreateModeOpen = value;
+                    OnPropertyChanged("pCreateModeOpen");
+                }
+            }
+        }
         #endregion
 
         #region Методы
@@ -328,6 +397,8 @@ namespace OsnastkaDirect.Models
             // 0. Поменять название 0 чертежа на "чертеж отсутсвует"
             // 1. Тримнуть названия оборуд и похожего
             // 2. Отсортить по т.з/дате
+            // 3. Отрубить стрелки для перехода между вкладками 
+            // 4. Если стрелка в меню просмотра не находит следующий ID потому что он удален
             pListOsn = null;
             pListOsnLoaded = null;
             var _var1 = (from i in db.vOsnastTechOrder.Where(i => i.IsApplicationFrom.Value==true)
@@ -495,6 +566,34 @@ namespace OsnastkaDirect.Models
             //}
             pListOsn = new ObservableCollection<Osn>(pListOsnLoaded);
             //OnChangeSelFilter();
+        }
+        public void LoadProd()
+        {
+            pListProd = null;
+            if (pSelOsn == null) return;
+            if (pSelOsn.zak_1 == null || pSelOsn.zak_1 == "") return;
+            pListProd = (from i in db.prod.Where(r => r.zak_1 == pSelOsn.zak_1)
+
+                         join db8 in db.pl_god on
+                              new
+                              {
+                                  _pr1 = i.zakaz.Value,
+                                  _pr2 = i.nom.Value
+                              } equals new
+                              {
+                                  _pr1 = db8.zakaz,
+                                  _pr2 = db8.nom
+
+                              }
+                              into gf8
+                         from list8 in gf8.DefaultIfEmpty()
+
+                         select new Prod
+                            {
+                                num = i.nom,
+                                ord = i.zakaz,
+                                date = list8.data
+                         }).ToList();
         }
         public void OnClickOsn()
         {
@@ -882,12 +981,13 @@ namespace OsnastkaDirect.Models
         }
         public void OpenApprove()
         {
+            DissableTabs();
             pApproveTabOpen = true;
-            pCreateTabOpen = false;
         }
 
         public void OpenCreate(Osnsv _osnast)
         {
+            LoadProd();
             var _oborud = db.oborud.FirstOrDefault(i => i.rab_m == _osnast.workPlace);
             var _oper = db.s_oper.FirstOrDefault(i => i.code == _osnast.codeOperation);
             string _workName = _oborud == null ? "" : _oborud.code + " " + _oborud == null ? "" : _oborud.oborud1;
@@ -906,13 +1006,29 @@ namespace OsnastkaDirect.Models
             //    operationName = _operName ?? "",
 
             //};
+            DissableTabs();
             pCreateTabOpen = true;
-            pApproveTabOpen = false;
+            pCreateModeOpen = true;
         }
         public void ChangeUsage(string st)
         {
             pSelOsn.usage = st;
             OnPropertyChanged("pSelOsn");
+        }
+
+        public void OpenRedactingMode()
+        {
+            DissableTabs();
+            pRedactingModeOpen = true;
+            pCreateTabOpen = true;
+        }
+        public void DissableTabs()
+        {
+            pCreateTabOpen = false;
+            pApproveTabOpen = false;
+
+            pRedactingModeOpen = false;
+            pCreateModeOpen = false;
         }
         #endregion
     }
