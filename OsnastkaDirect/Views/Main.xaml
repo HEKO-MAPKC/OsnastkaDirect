@@ -58,6 +58,7 @@
             </r:Ribbon.QuickAccessToolBar>-->
 
             <!--Ribbon Help Pane Content-->
+
             <r:Ribbon.HelpPaneContent>
                 <r:RibbonButton SmallImageSource="/OsnastkaDirect;component/EmbedResources/Icons/help_icon.png"
                                 Command="{Binding pClearFindOsn}" />
@@ -123,6 +124,8 @@
             <!--Ribbon Tab #1 Home-->
             <r:RibbonTab Header="Утверждение оснастки"
                          Visibility="{Binding model.pApproveTabOpen, Converter={StaticResource boolToVisibilityConverter}}"
+                         IsEnabled="{Binding model.pApproveTabOpen, Converter={StaticResource boolToVisibilityConverter}}"
+                         IsManipulationEnabled="False"
                          IsSelected="{Binding model.pApproveTabOpen, Mode=OneWay}">
                 <r:RibbonGroup Header="Поиск">
                     <WrapPanel Width="250">
@@ -269,6 +272,8 @@
 
             <r:RibbonTab Header="Техзаказ"
                          Visibility="{Binding model.pCreateModeOpen, Converter={StaticResource boolToVisibilityConverter}}"
+                         IsEnabled="{Binding model.pCreateModeOpen, Converter={StaticResource boolToVisibilityConverter}}"
+                         IsManipulationEnabled="False"
                          IsSelected="{Binding model.pCreateModeOpen, Mode=OneWay}">
                 <r:RibbonGroup Header="Навигация">
                     <r:RibbonButton LargeImageSource="/OsnastkaDirect;component/EmbedResources/Icons/ReturnB.png"
@@ -347,11 +352,14 @@
                     <r:RibbonButton Command="{Binding pOpenRedactingMode}"
                                     Label="Редактировать"
                                     LargeImageSource="/OsnastkaDirect;component/EmbedResources/Icons/RedacteB.png"
+                                    IsEnabled="{Binding model.pSelOsn.IsButtonRedacteVis, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                                     DockPanel.Dock="Right" />
                 </r:RibbonGroup>
             </r:RibbonTab>
             <r:RibbonTab Header="Редактирование"
                          Visibility="{Binding model.pRedactingModeOpen, Converter={StaticResource boolToVisibilityConverter}}"
+                         IsEnabled="{Binding model.pRedactingModeOpen, Converter={StaticResource boolToVisibilityConverter}}"
+                         IsManipulationEnabled="False"
                          IsSelected="{Binding model.pRedactingModeOpen, Mode=OneWay}">
                 <r:RibbonGroup Header="Завершение">
                     <r:RibbonButton Command="{Binding pCancelRedacting}"
@@ -401,7 +409,8 @@
                 </Style>
 
             </TabControl.Resources>
-            <TabItem Selector.IsSelected="{Binding model.pApproveTabOpen}">
+            <TabItem Selector.IsSelected="{Binding model.pApproveTabOpen}"
+                     IsEnabled="{Binding model.pApproveTabOpen}">
                 <TabItem.Header>
                     <StackPanel Orientation="Horizontal">
                         <Ellipse Height="10"
@@ -541,7 +550,8 @@
                     </DataGrid>
                 </Grid>
             </TabItem>
-            <TabItem Selector.IsSelected="{Binding model.pCreateTabOpen}">
+            <TabItem Selector.IsSelected="{Binding model.pCreateTabOpen}"
+                     IsEnabled="{Binding model.pCreateTabOpen}">
                 <TabItem.Header>
                     <StackPanel Orientation="Horizontal">
                         <Rectangle Height="10"

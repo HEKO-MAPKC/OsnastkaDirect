@@ -176,5 +176,70 @@ namespace OsnastkaDirect.Models
                     return false;
             }
         }
+        public Osn ()
+        {
+        }
+        public void Copy(Osn i)
+        {
+            draftOsnastID = i.draftOsnastID;
+            draftOsn = i.draftOsn;
+            workshop = i.workshop;
+            nOrdPrev = i.nOrdPrev;
+            nOrd = i.nOrd;
+            reason = i.reason;
+            addition = i.addition;
+            amount = i.amount;
+            dateWho = i.dateWho;
+            who = i.who;
+            returnRes = i.returnRes;
+            draft = i.draft;
+            draftRes = i.draftRes;
+            storeroom = i.storeroom;
+            nameGrid = nameGrid;
+            draftGrid = i.draftGrid;
+            nameDraft = i.nameDraft;
+            nameOsn = i.nameOsn;
+            nameRes = i.nameRes;
+
+
+
+            usage = i.usage;
+            dtSrok = i.dtSrok;
+            dtIzg = i.dtIzg;
+            dtOk = i.dtOk;
+            atConst = i.atConst;
+            accepted = i.accepted;
+            returned = i.returned;
+            fioConst = i.fioConst;
+
+            // ord700 = list7 != null ? list7.zakaz : 0,
+            // num700 = list7 != null ? list7.nom : 0,
+            ordOsn = i.ordOsn;
+            numOsn = i.numOsn;
+            workPlace = i.workPlace;
+            operation = i.operation;
+            characterOrd = i.characterOrd;//i.TechOrder.TypeOsnast,
+                                          //i.TechOrder.ReferenceInformation.ReferenceName,
+            dateNeed = i.dateNeed;
+
+            //  date700 = list8.data,
+            annTab = i.annTab;
+            datePlan = i.datePlan;
+            dateFact = i.dateFact;
+
+            workPlaceName = i.workPlaceName;
+            operationName = i.operationName;
+
+            zak_1 = i.zak_1;
+            // id_os_pro = i.os_pro_id.Value, //ПОМЕНЯТЬ ПОТОМ НА НЕ NULL
+            // id_prod = i.prod_id.Value,
+            dateBoss = i.dateBoss;
+            boss = i.boss;
+            dateAtConstructor = i.dateAtConstructor;
+        }
+        public Osn(Osn i)
+        {
+            Copy(i);
+        }
     }
 }

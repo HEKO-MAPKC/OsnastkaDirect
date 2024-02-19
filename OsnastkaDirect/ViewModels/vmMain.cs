@@ -466,14 +466,13 @@ namespace OsnastkaDirect.ViewModels
                 View.DataGridOsn.ScrollIntoView(model.pSelOsn);
             Model.OpenApprove();
         }
-        public void OpenCreateDraft(Osnsv _osnast)
+        public void OpenCreateDraft(Osnsv _osn)
         {
-            Model.OpenCreate(_osnast);
+            Model.OpenCreate(_osn);
         }
         public void mOpenCreate()
         {
-            Osnsv _osnast = new Osnsv();
-            Model.OpenCreate(_osnast);
+            Model.OpenCreate();
         }
         public void mFinalApprove()
         {
@@ -591,8 +590,7 @@ namespace OsnastkaDirect.ViewModels
 
         public void mDoubleClickOsn()
         {
-            Osnsv _osnast = new Osnsv();
-            Model.OpenCreate(_osnast);
+            Model.OpenCreate();
         }
 
         public void mOpenChooseUsage()
@@ -644,13 +642,12 @@ namespace OsnastkaDirect.ViewModels
 
         public void mSaveRedacting()
         {
-            Osnsv _osnast = new Osnsv();
-            Model.OpenCreate(_osnast);
+            Model.OpenCreate();
         }
         public void mCancelRedacting()
         {
-            Osnsv _osnast = new Osnsv();
-            Model.OpenCreate(_osnast);
+            Model.LoadBackupOsn();
+            Model.OpenCreate();
         }
         #endregion
     }

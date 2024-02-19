@@ -33,6 +33,7 @@ namespace OsnastkaDirect.Models
         /// Переменная для работы с базой данных
         /// </summary>
         public FOXEntities db;
+        public Osn BackupOsn;
         //
         //Переменные
         //
@@ -398,6 +399,7 @@ namespace OsnastkaDirect.Models
             // 1. Тримнуть названия оборуд и похожего
             // 2. Отсортить по т.з/дате
             // 3. Отрубить стрелки для перехода между вкладками 
+
             pListOsn = null;
             pListOsnLoaded = null;
             var _var1 = (from i in db.vOsnastTechOrder.Where(i => i.IsApplicationFrom.Value==true)
@@ -929,7 +931,7 @@ namespace OsnastkaDirect.Models
         {
             if (pSelOsn == null) return;
             Osnsv _osnsv = new Osnsv();
-            OpenCreate(_osnsv);
+            OpenCreate();
         }
         public void PrintDoc()
         {
@@ -984,30 +986,37 @@ namespace OsnastkaDirect.Models
             pApproveTabOpen = true;
         }
 
-        public void OpenCreate(Osnsv _osnast)
+        public void OpenCreate(Osnsv _newOsn = null)
         {
             LoadProd();
-            var _oborud = db.oborud.FirstOrDefault(i => i.rab_m == _osnast.workPlace);
-            var _oper = db.s_oper.FirstOrDefault(i => i.code == _osnast.codeOperation);
-            string _workName = _oborud == null ? "" : _oborud.code + " " + _oborud == null ? "" : _oborud.oborud1;
-            string _operName = _oper == null ? "" : _oper.oper;
-            //pSelOsn = new Osn
-            //{
-            //    draft = _osnast.draft,
-            //    nameDraft = _osnast.draftName,
-            //    draftOsn = _osnast.draftOsn,
-            //    nameOsn = _osnast.draftOsnName,
-            //    draftRes = _osnast.draftPiece,
-            //    nameRes = _osnast.draftPieceName,
-            //    workPlace = _osnast.workPlace,
-            //    operation = _osnast.codeOperation,
-            //    workPlaceName = _workName == " " ? "" : _workName,
-            //    operationName = _operName ?? "",
+            if (_newOsn != null)
+            {
+                var _oborud = db.oborud.FirstOrDefault(i => i.rab_m == _newOsn.workPlace);
+                var _oper = db.s_oper.FirstOrDefault(i => i.code == _newOsn.codeOperation);
+                string _workName = _oborud == null ? "" : _oborud.code + " " + _oborud == null ? "" : _oborud.oborud1;
+                string _operName = _oper == null ? "" : _oper.oper;
+                pSelOsn = new Osn
+                {
+                    draft = _newOsn.draft,
+                    nameDraft = _newOsn.draftName,
+                    draftOsn = _newOsn.draftOsn,
+                    nameOsn = _newOsn.draftOsnName,
+                    draftRes = _newOsn.draftPiece,
+                    nameRes = _newOsn.draftPieceName,
+                    workPlace = _newOsn.workPlace,
+                    operation = _newOsn.codeOperation,
+                    workPlaceName = _workName == " " ? "" : _workName,
+                    operationName = _operName ?? "",
 
-            //};
-            DissableTabs();
-            pCreateTabOpen = true;
-            pCreateModeOpen = true;
+                };
+                OpenRedactingMode(); //todo баг, скорее всего потому что view закрывается после вызова этого окна
+            }
+            else
+            {
+                DissableTabs();
+                pCreateTabOpen = true;
+                pCreateModeOpen = true;
+            }
         }
         public void ChangeUsage(string st)
         {
@@ -1020,6 +1029,7 @@ namespace OsnastkaDirect.Models
             DissableTabs();
             pRedactingModeOpen = true;
             pCreateTabOpen = true;
+            BackupOsn = new Osn(pSelOsn); //TODO сделать бэкап и отмену    
         }
         public void DissableTabs()
         {
@@ -1028,6 +1038,11 @@ namespace OsnastkaDirect.Models
 
             pRedactingModeOpen = false;
             pCreateModeOpen = false;
+        }
+        public void LoadBackupOsn()
+        {
+            pSelOsn.Copy(BackupOsn);
+            OnPropertyChanged("pSelOsn");
         }
         #endregion
     }
