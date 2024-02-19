@@ -363,6 +363,22 @@ namespace OsnastkaDirect.Models
                 }
             }
         }
+
+        bool CreatingNewModeOpen = false;
+        public bool pCreatingNewModeOpen
+        {
+            get { return CreatingNewModeOpen; }
+            set
+            {
+                if (CreatingNewModeOpen != value)
+                {
+                    CreatingNewModeOpen = value;
+                    pIsReadOnlyRedacting = !value;
+                    OnPropertyChanged("pCreatingNewModeOpen");
+                }
+            }
+        }
+
         #endregion
 
         #region Методы
@@ -986,7 +1002,14 @@ namespace OsnastkaDirect.Models
             pApproveTabOpen = true;
         }
 
-        public void OpenCreate(Osnsv _newOsn = null)
+        public void OpenCreate()
+        {
+            LoadProd();
+            DissableTabs();
+            pCreateTabOpen = true;
+            pCreateModeOpen = true;
+        }
+        public void OpenCreateNew(Osnsv _newOsn)
         {
             LoadProd();
             if (_newOsn != null)
@@ -1009,13 +1032,11 @@ namespace OsnastkaDirect.Models
                     operationName = _operName ?? "",
 
                 };
-                OpenRedactingMode(); //todo баг, скорее всего потому что view закрывается после вызова этого окна
+                OpenCreatingNewMode(); //todo баг, скорее всего потому что view закрывается после вызова этого окна
             }
             else
             {
-                DissableTabs();
-                pCreateTabOpen = true;
-                pCreateModeOpen = true;
+                return;
             }
         }
         public void ChangeUsage(string st)
@@ -1029,7 +1050,13 @@ namespace OsnastkaDirect.Models
             DissableTabs();
             pRedactingModeOpen = true;
             pCreateTabOpen = true;
-            BackupOsn = new Osn(pSelOsn); //TODO сделать бэкап и отмену    
+            BackupOsn = new Osn(pSelOsn); 
+        }
+        public void OpenCreatingNewMode()
+        {
+            DissableTabs();
+            pCreatingNewModeOpen = true;
+            pCreateTabOpen = true;
         }
         public void DissableTabs()
         {
@@ -1038,6 +1065,7 @@ namespace OsnastkaDirect.Models
 
             pRedactingModeOpen = false;
             pCreateModeOpen = false;
+            pCreatingNewModeOpen = false;
         }
         public void LoadBackupOsn()
         {

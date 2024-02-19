@@ -276,6 +276,20 @@ namespace OsnastkaDirect.ViewModels
             get { return SaveRedacting ?? (SaveRedacting = new CommandBase(mSaveRedacting)); }
         }
 
+        CommandBase SaveCreatingNew;
+
+        public CommandBase pSaveCreatingNew
+        {
+            get { return SaveCreatingNew ?? (SaveCreatingNew = new CommandBase(mSaveCreatingNew)); }
+        }
+
+        CommandBase CancelCreatingNew;
+
+        public CommandBase pCancelCreatingNew
+        {
+            get { return CancelCreatingNew ?? (CancelCreatingNew = new CommandBase(mCancelCreatingNew)); }
+        }
+
         #endregion
 
         #region Методы
@@ -468,7 +482,7 @@ namespace OsnastkaDirect.ViewModels
         }
         public void OpenCreateDraft(Osnsv _osn)
         {
-            Model.OpenCreate(_osn);
+            Model.OpenCreateNew(_osn);
         }
         public void mOpenCreate()
         {
@@ -648,6 +662,14 @@ namespace OsnastkaDirect.ViewModels
         {
             Model.LoadBackupOsn();
             Model.OpenCreate();
+        }
+        public void mSaveCreatingNew()
+        {
+            Model.OpenApprove();
+        }
+        public void mCancelCreatingNew()
+        {
+            Model.OpenApprove();
         }
         #endregion
     }

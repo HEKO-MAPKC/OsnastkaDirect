@@ -388,7 +388,38 @@
 
                 </r:RibbonGroup>
             </r:RibbonTab>
-            <r:RibbonTab Header="Help" />
+            <r:RibbonTab Header="Открытие"
+                         Visibility="{Binding model.pCreatingNewModeOpen, Converter={StaticResource boolToVisibilityConverter}}"
+                         IsEnabled="{Binding model.pCreatingNewModeOpen, Converter={StaticResource boolToVisibilityConverter}}"
+                         IsManipulationEnabled="False"
+                         IsSelected="{Binding model.pCreatingNewModeOpen, Mode=OneWay}">
+                <r:RibbonGroup Header="Завершение">
+                    <r:RibbonButton Command="{Binding pCancelCreatingNew}"
+                                    Label="Отменить"
+                                    LargeImageSource="/OsnastkaDirect;component/EmbedResources/Icons/DeleteB.png"
+                                    DockPanel.Dock="Right" />
+                    <r:RibbonButton Command="{Binding pSaveCreatingNew}"
+                                    Label="Открыть"
+                                    LargeImageSource="/OsnastkaDirect;component/EmbedResources/Icons/SaveB.png"
+                                    DockPanel.Dock="Right" />
+                </r:RibbonGroup>
+                <r:RibbonGroup Header="Корректировка">
+                    <r:RibbonMenuButton Label="Применение"
+                                        LargeImageSource="/OsnastkaDirect;component/EmbedResources/Icons/UsageB.png"
+                                        DockPanel.Dock="Right">
+                        <r:RibbonMenuItem ImageSource="/OsnastkaDirect;component/EmbedResources/Icons/UseS.png"
+                                          Header="Общее применение"
+                                          Command="{Binding pSetUsageGeneral}" />
+                        <r:RibbonMenuItem ImageSource="/OsnastkaDirect;component/EmbedResources/Icons/UseS.png"
+                                          Header="Общее применение по типам продукции"
+                                          Command="{Binding pSetUsageGeneralType}" />
+                        <r:RibbonMenuItem ImageSource="/OsnastkaDirect;component/EmbedResources/Icons/UseS.png"
+                                          Header="Указать изделие"
+                                          Command="{Binding pSetUsage}" />
+                    </r:RibbonMenuButton>
+
+                </r:RibbonGroup>
+            </r:RibbonTab>
         </r:Ribbon>
         <TabControl Grid.Row="1"
                     BorderThickness="0">
