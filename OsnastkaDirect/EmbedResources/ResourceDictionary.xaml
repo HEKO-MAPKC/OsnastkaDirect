@@ -387,7 +387,7 @@
            x:Key="{x:Type ScrollBar}" />
     <Style x:Key="TextBoxStyle1" TargetType="{x:Type TextBox}">
         <Setter Property="Background"
-                Value="White" />
+                Value="Snow" />
         <Setter Property="Foreground"
                 Value="Black" />
         <Setter Property="Text"
@@ -446,6 +446,15 @@
                         Value="Black" />
                 <Setter Property="Text"
                         Value="Аннулировано" />
+            </DataTrigger>
+            <DataTrigger Binding="{Binding model.pCreatingNewModeOpen}"
+                         Value="true">
+                <Setter Property="Background"
+                        Value="LightGreen" />
+                <Setter Property="Foreground"
+                        Value="Black" />
+                <Setter Property="Text"
+                        Value="Открытие" />
             </DataTrigger>
         </Style.Triggers>
     </Style>

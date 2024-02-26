@@ -241,5 +241,10 @@ namespace OsnastkaDirect.Models
         {
             Copy(i);
         }
+        //public bool IsDraftOsnastIDNull()
+        //{
+        //    if (draftOsnastID == null)
+        //    return false;
+        //}
     }
 }

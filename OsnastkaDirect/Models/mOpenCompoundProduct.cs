@@ -161,14 +161,12 @@ namespace OsnastkaDirect.Models
         public void LoadOsnsv()
         {
             var _list = (from i in db.complect
-                         join dbNameFull in db.FullDraftNameList
+
+                         join dbNameFull in db.vDraftNameList
                              on i.what equals dbNameFull.Draft into gfFull
                          from listDseDraft in gfFull.DefaultIfEmpty()
+                         let draftName = listDseDraft.Name
 
-                         join dbNameSh in db.FullDraftNameList.Where(i => i.IsShortDraft)
-                             on (int)(i.what / 1000) equals dbNameSh.Draft into gfSh
-                         from listDseDraftSh in gfSh.DefaultIfEmpty()
-                         let draftName = listDseDraft.DraftName != null ? listDseDraft.DraftName : listDseDraftSh.DraftName != null ? listDseDraftSh.DraftName : ""
                          select new TreeViewDraft
                           {
                               draft = i.what,
@@ -181,16 +179,11 @@ namespace OsnastkaDirect.Models
         {
             pListDraftOsn = new ObservableCollection<TreeViewDraft>((from i in db.complect.Where(j => j.kuda == pSelDraft.draft && j.what != pSelDraft.draft)
 
-                          join db4 in db.FullDraftNameList
-                            on i.what equals db4.Draft into gf4
-                          from listDseDraft in gf4.DefaultIfEmpty()
-
-                          join db5 in db.FullDraftNameList.Where(i => i.IsShortDraft)
-                            on (int)(i.what/1000) equals db5.Draft into gf5
-                          from listDseDraftSh in gf5.DefaultIfEmpty()
-
-                          let draftName = listDseDraft.DraftName != null ? listDseDraft.DraftName : listDseDraftSh.DraftName!=null ? listDseDraftSh.DraftName : ""
-                             select new TreeViewDraft
+                              join dbNameFull in db.vDraftNameList
+                                 on i.what equals dbNameFull.Draft into gfFull
+                              from listDseDraft in gfFull.DefaultIfEmpty()
+                              let draftName = listDseDraft.Name
+                              select new TreeViewDraft
                              {
                                  draft = i.what,
                                  draftName = /*SqlFunctions.StringConvert((double?)i.what,14,2) + " " +*/ draftName,
@@ -213,16 +206,11 @@ namespace OsnastkaDirect.Models
         {
             _children = new ObservableCollection<TreeViewDraft>((from i in db.complect.Where(j => j.kuda == _draft && j.what != _draft)
 
-                          join db4 in db.FullDraftNameList
-                            on i.what equals db4.Draft into gf4
-                          from listDseDraft in gf4.DefaultIfEmpty()
-
-                          join db5 in db.FullDraftNameList.Where(i => i.IsShortDraft)
-                            on (int)(i.what/1000) equals db5.Draft into gf5
-                          from listDseDraftSh in gf5.DefaultIfEmpty()
-
-                          let draftName = listDseDraft.DraftName != null ? listDseDraft.DraftName : listDseDraftSh.DraftName!=null ? listDseDraftSh.DraftName : ""
-                             select new TreeViewDraft
+                                                                 join dbNameFull in db.vDraftNameList
+                                                                    on i.what equals dbNameFull.Draft into gfFull
+                                                                 from listDseDraft in gfFull.DefaultIfEmpty()
+                                                                 let draftName = listDseDraft.Name
+                                                                 select new TreeViewDraft
                              {
                                  draft = i.what,
                                  draftName = /*SqlFunctions.StringConvert((double?)i.what, 14, 2) + " " +*/ draftName,
@@ -245,15 +233,10 @@ namespace OsnastkaDirect.Models
         {
             pListDraftPiece = new ObservableCollection<Osnsv>((from i in db.osnsv.Where(j => j.draft == pSelDraftOsn.draft)
 
-                               join db4 in db.FullDraftNameList
-                                 on i.draftosn equals db4.Draft into gf4
-                               from listDseDraft in gf4.DefaultIfEmpty()
-
-                               join db5 in db.FullDraftNameList.Where(i => i.IsShortDraft)
-                                 on (int)(i.draftosn / 1000) equals db5.Draft into gf5
-                               from listDseDraftSh in gf5.DefaultIfEmpty()
-
-                               let draftName = listDseDraft.DraftName != null ? listDseDraft.DraftName : listDseDraftSh.DraftName != null ? listDseDraftSh.DraftName : ""
+                                                               join dbNameFull in db.vDraftNameList
+                                                             on i.draftosn equals dbNameFull.Draft into gfFull
+                                                               from listDseDraft in gfFull.DefaultIfEmpty()
+                                                               let draftName = listDseDraft.Name
                                select new Osnsv
                                {
                                    draftPiece = i.draftosn,

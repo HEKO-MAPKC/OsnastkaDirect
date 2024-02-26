@@ -656,6 +656,7 @@ namespace OsnastkaDirect.ViewModels
 
         public void mSaveRedacting()
         {
+            Model.db.SaveChanges();
             Model.OpenCreate();
         }
         public void mCancelRedacting()
@@ -665,6 +666,7 @@ namespace OsnastkaDirect.ViewModels
         }
         public void mSaveCreatingNew()
         {
+            Model.AddNewOsnDB();
             Model.OpenApprove();
         }
         public void mCancelCreatingNew()

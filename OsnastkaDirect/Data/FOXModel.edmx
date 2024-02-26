@@ -607,30 +607,6 @@
           <Property Name="LaborManufacturingAssume" Type="numeric" Precision="7" Scale="2" />
           <Property Name="OldOsnsvID" Type="int" Nullable="false" />
         </EntityType>
-        <EntityType Name="OsnastUseListJournal">
-          <Key>
-            <PropertyRef Name="OsnastUseListJournalID" />
-          </Key>
-          <Property Name="OsnastUseListJournalID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="OsnastUseListID" Type="int" Nullable="false" />
-          <Property Name="Draft" Type="numeric" Precision="13" Scale="2" Nullable="false" />
-          <Property Name="Osnast" Type="numeric" Precision="13" Scale="2" Nullable="false" />
-          <Property Name="Workplace" Type="numeric" Precision="3" Scale="0" />
-          <Property Name="OperationCode" Type="numeric" Precision="4" Scale="0" />
-          <Property Name="Ksi" Type="smallint" />
-          <Property Name="AmountEquipmentInWorkTogether" Type="numeric" Precision="2" Scale="0" />
-          <Property Name="AmountEquipmentForOper" Type="smallint" />
-          <Property Name="CorrectingCode" Type="numeric" Precision="3" Scale="0" />
-          <Property Name="DateChangeTechnolog" Type="date" />
-          <Property Name="AuthorTechnolog" Type="varchar" MaxLength="20" />
-          <Property Name="CorrectingDocument" Type="varchar" MaxLength="20" />
-          <Property Name="IsHandOverDraft" Type="bit" />
-          <Property Name="DateChangeTechnologBeforeCorr" Type="date" />
-          <Property Name="AuthorConstructor" Type="varchar" MaxLength="20" />
-          <Property Name="Note" Type="varchar" MaxLength="50" />
-          <Property Name="Analogue" Type="varchar" MaxLength="20" />
-          <Property Name="LaborManufacturingAssume" Type="numeric" Precision="7" Scale="2" />
-        </EntityType>
         <EntityType Name="TechOrder">
           <Key>
             <PropertyRef Name="TechOrderID" />
@@ -670,6 +646,15 @@
           <Property Name="OldZayvkaid" Type="int" />
         </EntityType>
         <!--Ошибки, обнаруженные при создании:
+предупреждение 6002: В таблице или представлении "FOX.dbo.vDraftNameList" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
+        <EntityType Name="vDraftNameList">
+          <Key>
+            <PropertyRef Name="Draft" />
+          </Key>
+          <Property Name="Draft" Type="decimal" Precision="13" Scale="2" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <!--Ошибки, обнаруженные при создании:
 предупреждение 6002: В таблице или представлении "FOX.Osnastka.vOsnastTechOrder" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
         <EntityType Name="vOsnastTechOrder">
           <Key>
@@ -683,13 +668,13 @@
           <Property Name="DraftName" Type="varchar" MaxLength="100" />
           <Property Name="OsnastName" Type="varchar" MaxLength="100" />
           <Property Name="WorkplaceID" Type="numeric" Precision="3" Scale="0" />
-          <Property Name="WorkplaceCode" Type="nchar" MaxLength="10" />
-          <Property Name="WorkplaceMachine" Type="nchar" MaxLength="30" />
-          <Property Name="Workshop" Type="nchar" MaxLength="3" />
-          <Property Name="StoreroomOsnast" Type="char" MaxLength="3" />
+          <Property Name="WorkplaceCode" Type="nvarchar" MaxLength="10" />
+          <Property Name="WorkplaceMachine" Type="nvarchar" MaxLength="30" />
+          <Property Name="Workshop" Type="nvarchar" MaxLength="3" />
+          <Property Name="StoreroomOsnast" Type="varchar" MaxLength="3" />
           <Property Name="OperationCodeID" Type="numeric" Precision="4" Scale="0" />
-          <Property Name="Operation" Type="nchar" MaxLength="44" />
-          <Property Name="OperationCex" Type="nchar" MaxLength="3" />
+          <Property Name="Operation" Type="nvarchar" MaxLength="44" />
+          <Property Name="OperationCex" Type="nvarchar" MaxLength="3" />
           <Property Name="IsApplicationFrom" Type="bit" />
           <Property Name="FactoryOrder" Type="smallint" />
           <Property Name="FactoryNumberOrder" Type="smallint" />
@@ -766,13 +751,13 @@
           <Property Name="DraftName" Type="varchar" MaxLength="100" />
           <Property Name="OsnastName" Type="varchar" MaxLength="100" />
           <Property Name="WorkplaceID" Type="numeric" Precision="3" Scale="0" />
-          <Property Name="WorkplaceCode" Type="nchar" MaxLength="10" />
-          <Property Name="WorkplaceMachine" Type="nchar" MaxLength="30" />
-          <Property Name="Workshop" Type="nchar" MaxLength="3" />
-          <Property Name="StoreroomOsnast" Type="char" MaxLength="3" />
+          <Property Name="WorkplaceCode" Type="nvarchar" MaxLength="10" />
+          <Property Name="WorkplaceMachine" Type="nvarchar" MaxLength="30" />
+          <Property Name="Workshop" Type="nvarchar" MaxLength="3" />
+          <Property Name="StoreroomOsnast" Type="varchar" MaxLength="3" />
           <Property Name="OperationCodeID" Type="numeric" Precision="4" Scale="0" />
-          <Property Name="Operation" Type="nchar" MaxLength="44" />
-          <Property Name="OperationCex" Type="nchar" MaxLength="3" />
+          <Property Name="Operation" Type="nvarchar" MaxLength="44" />
+          <Property Name="OperationCex" Type="nvarchar" MaxLength="3" />
           <Property Name="Ksi" Type="smallint" />
           <Property Name="AmountEquipmentInWorkTogether" Type="numeric" Precision="2" Scale="0" />
           <Property Name="AmountEquipmentForOper" Type="smallint" />
@@ -886,18 +871,6 @@
             </Principal>
             <Dependent Role="OsnastUseList">
               <PropertyRef Name="OsnastID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_OsnastUseListID_OsnastUseListJournal_OsnastUseList">
-          <End Role="OsnastUseList" Type="Self.OsnastUseList" Multiplicity="1" />
-          <End Role="OsnastUseListJournal" Type="Self.OsnastUseListJournal" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="OsnastUseList">
-              <PropertyRef Name="OsnastUseListID" />
-            </Principal>
-            <Dependent Role="OsnastUseListJournal">
-              <PropertyRef Name="OsnastUseListID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1027,8 +1000,13 @@
           <EntitySet Name="zayvka" EntityType="Self.zayvka" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="OsnastOrder" EntityType="Self.OsnastOrder" Schema="Osnastka" store:Type="Tables" />
           <EntitySet Name="OsnastUseList" EntityType="Self.OsnastUseList" Schema="Osnastka" store:Type="Tables" />
-          <EntitySet Name="OsnastUseListJournal" EntityType="Self.OsnastUseListJournal" Schema="Osnastka" store:Type="Tables" />
           <EntitySet Name="TechOrder" EntityType="Self.TechOrder" Schema="Osnastka" store:Type="Tables" />
+          <EntitySet Name="vDraftNameList" EntityType="Self.vDraftNameList" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+[vDraftNameList].[Draft] AS [Draft], 
+[vDraftNameList].[Name] AS [Name]
+FROM [dbo].[vDraftNameList] AS [vDraftNameList]</DefiningQuery>
+          </EntitySet>
           <EntitySet Name="vOsnastTechOrder" EntityType="Self.vOsnastTechOrder" store:Type="Views" store:Schema="Osnastka">
             <DefiningQuery>SELECT 
 [vOsnastTechOrder].[OsnastOrderID] AS [OsnastOrderID], 
@@ -1169,10 +1147,6 @@ FROM [Osnastka].[vOsnastUseList] AS [vOsnastUseList]</DefiningQuery>
             <End Role="DraftInfoFull" EntitySet="DraftInfoFull" />
             <End Role="OsnastUseList" EntitySet="OsnastUseList" />
           </AssociationSet>
-          <AssociationSet Name="FK_OsnastUseListID_OsnastUseListJournal_OsnastUseList" Association="Self.FK_OsnastUseListID_OsnastUseListJournal_OsnastUseList">
-            <End Role="OsnastUseList" EntitySet="OsnastUseList" />
-            <End Role="OsnastUseListJournal" EntitySet="OsnastUseListJournal" />
-          </AssociationSet>
           <AssociationSet Name="FK_ProdID_TechOrder" Association="Self.FK_ProdID_TechOrder">
             <End Role="prod" EntitySet="prod" />
             <End Role="OsnastOrder" EntitySet="OsnastOrder" />
@@ -1241,7 +1215,6 @@ FROM [Osnastka].[vOsnastUseList] AS [vOsnastUseList]</DefiningQuery>
           <EntitySet Name="DraftInfoFull" EntityType="FOXModel.DraftInfoFull" />
           <EntitySet Name="OsnastOrder" EntityType="FOXModel.OsnastOrder" />
           <EntitySet Name="OsnastUseList" EntityType="FOXModel.OsnastUseList" />
-          <EntitySet Name="OsnastUseListJournal" EntityType="FOXModel.OsnastUseListJournal" />
           <EntitySet Name="TechOrder" EntityType="FOXModel.TechOrder" />
           <AssociationSet Name="FK_DraftID_DraftID_OsnastUseList" Association="FOXModel.FK_DraftID_DraftID_OsnastUseList">
             <End Role="DraftInfoFull" EntitySet="DraftInfoFull" />
@@ -1307,12 +1280,9 @@ FROM [Osnastka].[vOsnastUseList] AS [vOsnastUseList]</DefiningQuery>
             <End Role="TechOrder" EntitySet="TechOrder" />
             <End Role="OsnastOrder" EntitySet="OsnastOrder" />
           </AssociationSet>
-          <AssociationSet Name="FK_OsnastUseListID_OsnastUseListJournal_OsnastUseList" Association="FOXModel.FK_OsnastUseListID_OsnastUseListJournal_OsnastUseList">
-            <End Role="OsnastUseList" EntitySet="OsnastUseList" />
-            <End Role="OsnastUseListJournal" EntitySet="OsnastUseListJournal" />
-          </AssociationSet>
           <EntitySet Name="vOsnastUseList" EntityType="FOXModel.vOsnastUseList" />
           <EntitySet Name="vOsnastTechOrder" EntityType="FOXModel.vOsnastTechOrder" />
+          <EntitySet Name="vDraftNameList" EntityType="FOXModel.vDraftNameList" />
           </EntityContainer>
         <EntityType Name="complect">
           <Key>
@@ -1954,32 +1924,6 @@ FROM [Osnastka].[vOsnastUseList] AS [vOsnastUseList]</DefiningQuery>
           <NavigationProperty Name="oborud" Relationship="FOXModel.FK_Workplace_oborud_OsnastUseList" FromRole="OsnastUseList" ToRole="oborud" />
           <NavigationProperty Name="s_oper" Relationship="FOXModel.FK_OperationCode_s_oper_OsnastUseList" FromRole="OsnastUseList" ToRole="s_oper" />
           <NavigationProperty Name="OsnastOrder" Relationship="FOXModel.FK_OsnastkaByDraftID_TechOrder" FromRole="OsnastUseList" ToRole="OsnastOrder" />
-          <NavigationProperty Name="OsnastUseListJournal" Relationship="FOXModel.FK_OsnastUseListID_OsnastUseListJournal_OsnastUseList" FromRole="OsnastUseList" ToRole="OsnastUseListJournal" />
-        </EntityType>
-        <EntityType Name="OsnastUseListJournal">
-          <Key>
-            <PropertyRef Name="OsnastUseListJournalID" />
-          </Key>
-          <Property Name="OsnastUseListJournalID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="OsnastUseListID" Type="Int32" Nullable="false" />
-          <Property Name="Draft" Type="Decimal" Nullable="false" Precision="13" Scale="2" />
-          <Property Name="Osnast" Type="Decimal" Nullable="false" Precision="13" Scale="2" />
-          <Property Name="Workplace" Type="Decimal" Precision="3" Scale="0" />
-          <Property Name="OperationCode" Type="Decimal" Precision="4" Scale="0" />
-          <Property Name="Ksi" Type="Int16" />
-          <Property Name="AmountEquipmentInWorkTogether" Type="Decimal" Precision="2" Scale="0" />
-          <Property Name="AmountEquipmentForOper" Type="Int16" />
-          <Property Name="CorrectingCode" Type="Decimal" Precision="3" Scale="0" />
-          <Property Name="DateChangeTechnolog" Type="DateTime" Precision="0" />
-          <Property Name="AuthorTechnolog" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="CorrectingDocument" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="IsHandOverDraft" Type="Boolean" />
-          <Property Name="DateChangeTechnologBeforeCorr" Type="DateTime" Precision="0" />
-          <Property Name="AuthorConstructor" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="Note" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Analogue" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="LaborManufacturingAssume" Type="Decimal" Precision="7" Scale="2" />
-          <NavigationProperty Name="OsnastUseList" Relationship="FOXModel.FK_OsnastUseListID_OsnastUseListJournal_OsnastUseList" FromRole="OsnastUseListJournal" ToRole="OsnastUseList" />
         </EntityType>
         <EntityType Name="TechOrder">
           <Key>
@@ -2218,18 +2162,6 @@ FROM [Osnastka].[vOsnastUseList] AS [vOsnastUseList]</DefiningQuery>
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_OsnastUseListID_OsnastUseListJournal_OsnastUseList">
-          <End Type="FOXModel.OsnastUseList" Role="OsnastUseList" Multiplicity="1" />
-          <End Type="FOXModel.OsnastUseListJournal" Role="OsnastUseListJournal" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="OsnastUseList">
-              <PropertyRef Name="OsnastUseListID" />
-            </Principal>
-            <Dependent Role="OsnastUseListJournal">
-              <PropertyRef Name="OsnastUseListID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityType Name="vOsnastUseList">
           <Key>
             <PropertyRef Name="OsnastUseListID" />
@@ -2240,13 +2172,13 @@ FROM [Osnastka].[vOsnastUseList] AS [vOsnastUseList]</DefiningQuery>
           <Property Name="DraftName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="OsnastName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="WorkplaceID" Type="Decimal" Precision="3" Scale="0" />
-          <Property Name="WorkplaceCode" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
-          <Property Name="WorkplaceMachine" Type="String" MaxLength="30" FixedLength="true" Unicode="true" />
-          <Property Name="Workshop" Type="String" MaxLength="3" FixedLength="true" Unicode="true" />
-          <Property Name="StoreroomOsnast" Type="String" MaxLength="3" FixedLength="true" Unicode="false" />
+          <Property Name="WorkplaceCode" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="WorkplaceMachine" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="Workshop" Type="String" MaxLength="3" FixedLength="false" Unicode="true" />
+          <Property Name="StoreroomOsnast" Type="String" MaxLength="3" FixedLength="false" Unicode="false" />
           <Property Name="OperationCodeID" Type="Decimal" Precision="4" Scale="0" />
-          <Property Name="Operation" Type="String" MaxLength="44" FixedLength="true" Unicode="true" />
-          <Property Name="OperationCex" Type="String" MaxLength="3" FixedLength="true" Unicode="true" />
+          <Property Name="Operation" Type="String" MaxLength="44" FixedLength="false" Unicode="true" />
+          <Property Name="OperationCex" Type="String" MaxLength="3" FixedLength="false" Unicode="true" />
           <Property Name="Ksi" Type="Int16" />
           <Property Name="AmountEquipmentInWorkTogether" Type="Decimal" Precision="2" Scale="0" />
           <Property Name="AmountEquipmentForOper" Type="Int16" />
@@ -2267,13 +2199,13 @@ FROM [Osnastka].[vOsnastUseList] AS [vOsnastUseList]</DefiningQuery>
           <Property Name="DraftName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="OsnastName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="WorkplaceID" Type="Decimal" Precision="3" Scale="0" />
-          <Property Name="WorkplaceCode" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
-          <Property Name="WorkplaceMachine" Type="String" MaxLength="30" FixedLength="true" Unicode="true" />
-          <Property Name="Workshop" Type="String" MaxLength="3" FixedLength="true" Unicode="true" />
-          <Property Name="StoreroomOsnast" Type="String" MaxLength="3" FixedLength="true" Unicode="false" />
+          <Property Name="WorkplaceCode" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="WorkplaceMachine" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="Workshop" Type="String" MaxLength="3" FixedLength="false" Unicode="true" />
+          <Property Name="StoreroomOsnast" Type="String" MaxLength="3" FixedLength="false" Unicode="false" />
           <Property Name="OperationCodeID" Type="Decimal" Precision="4" Scale="0" />
-          <Property Name="Operation" Type="String" MaxLength="44" FixedLength="true" Unicode="true" />
-          <Property Name="OperationCex" Type="String" MaxLength="3" FixedLength="true" Unicode="true" />
+          <Property Name="Operation" Type="String" MaxLength="44" FixedLength="false" Unicode="true" />
+          <Property Name="OperationCex" Type="String" MaxLength="3" FixedLength="false" Unicode="true" />
           <Property Name="IsApplicationFrom" Type="Boolean" />
           <Property Name="FactoryOrder" Type="Int16" />
           <Property Name="FactoryNumberOrder" Type="Int16" />
@@ -2337,6 +2269,13 @@ FROM [Osnastka].[vOsnastUseList] AS [vOsnastUseList]</DefiningQuery>
           <Property Name="DateAtConstructor" Type="DateTime" Precision="3" />
           <Property Name="TypeOsnast" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="RepairOrProduction" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="vDraftNameList">
+          <Key>
+            <PropertyRef Name="Draft" />
+          </Key>
+          <Property Name="Draft" Type="Decimal" Nullable="false" Precision="13" Scale="2" />
+          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
         </EntityType>
         </Schema>
     </edmx:ConceptualModels>
@@ -2954,31 +2893,6 @@ FROM [Osnastka].[vOsnastUseList] AS [vOsnastUseList]</DefiningQuery>
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="OsnastUseListJournal">
-            <EntityTypeMapping TypeName="FOXModel.OsnastUseListJournal">
-              <MappingFragment StoreEntitySet="OsnastUseListJournal">
-                <ScalarProperty Name="LaborManufacturingAssume" ColumnName="LaborManufacturingAssume" />
-                <ScalarProperty Name="Analogue" ColumnName="Analogue" />
-                <ScalarProperty Name="Note" ColumnName="Note" />
-                <ScalarProperty Name="AuthorConstructor" ColumnName="AuthorConstructor" />
-                <ScalarProperty Name="DateChangeTechnologBeforeCorr" ColumnName="DateChangeTechnologBeforeCorr" />
-                <ScalarProperty Name="IsHandOverDraft" ColumnName="IsHandOverDraft" />
-                <ScalarProperty Name="CorrectingDocument" ColumnName="CorrectingDocument" />
-                <ScalarProperty Name="AuthorTechnolog" ColumnName="AuthorTechnolog" />
-                <ScalarProperty Name="DateChangeTechnolog" ColumnName="DateChangeTechnolog" />
-                <ScalarProperty Name="CorrectingCode" ColumnName="CorrectingCode" />
-                <ScalarProperty Name="AmountEquipmentForOper" ColumnName="AmountEquipmentForOper" />
-                <ScalarProperty Name="AmountEquipmentInWorkTogether" ColumnName="AmountEquipmentInWorkTogether" />
-                <ScalarProperty Name="Ksi" ColumnName="Ksi" />
-                <ScalarProperty Name="OperationCode" ColumnName="OperationCode" />
-                <ScalarProperty Name="Workplace" ColumnName="Workplace" />
-                <ScalarProperty Name="Osnast" ColumnName="Osnast" />
-                <ScalarProperty Name="Draft" ColumnName="Draft" />
-                <ScalarProperty Name="OsnastUseListID" ColumnName="OsnastUseListID" />
-                <ScalarProperty Name="OsnastUseListJournalID" ColumnName="OsnastUseListJournalID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="TechOrder">
             <EntityTypeMapping TypeName="FOXModel.TechOrder">
               <MappingFragment StoreEntitySet="TechOrder">
@@ -3126,6 +3040,14 @@ FROM [Osnastka].[vOsnastUseList] AS [vOsnastUseList]</DefiningQuery>
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="vDraftNameList">
+            <EntityTypeMapping TypeName="FOXModel.vDraftNameList">
+              <MappingFragment StoreEntitySet="vDraftNameList">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Draft" ColumnName="Draft" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
@@ -3147,7 +3069,7 @@ FROM [Osnastka].[vOsnastUseList] AS [vOsnastUseList]</DefiningQuery>
     </Options>
     <!-- Diagram content (shape and connector positions) -->
     <Diagrams>
-      <Diagram Name="FOXModel" ZoomLevel="66" >
+      <Diagram Name="FOXModel" ZoomLevel="59" >
         <EntityTypeShape EntityType="FOXModel.complect" Width="1.5" PointX="0.75" PointY="0.75" Height="3.5186979166666665" />
         <EntityTypeShape EntityType="FOXModel.olistdse" Width="1.5" PointX="2.75" PointY="0.75" Height="1.4033821614583335" />
         <EntityTypeShape EntityType="FOXModel.os_pro" Width="1.5" PointX="2.875" PointY="2.75" Height="11.210755208333332" />
@@ -3175,7 +3097,6 @@ FROM [Osnastka].[vOsnastUseList] AS [vOsnastUseList]</DefiningQuery>
         <EntityTypeShape EntityType="FOXModel.DraftInfoFull" Width="1.5" PointX="19.375" PointY="26.625" />
         <EntityTypeShape EntityType="FOXModel.OsnastOrder" Width="1.5" PointX="29.875" PointY="6.875" />
         <EntityTypeShape EntityType="FOXModel.OsnastUseList" Width="1.5" PointX="24.625" PointY="12.125" />
-        <EntityTypeShape EntityType="FOXModel.OsnastUseListJournal" Width="1.5" PointX="26.875" PointY="12" />
         <EntityTypeShape EntityType="FOXModel.TechOrder" Width="1.5" PointX="21.625" PointY="3.75" />
         <AssociationConnector Association="FOXModel.FK_DraftID_DraftID_OsnastUseList" />
         <AssociationConnector Association="FOXModel.FK_DraftID_OsnastUseList" />
@@ -3193,9 +3114,9 @@ FROM [Osnastka].[vOsnastUseList] AS [vOsnastUseList]</DefiningQuery>
         <AssociationConnector Association="FOXModel.FK_WorkshopID_Workshop" />
         <AssociationConnector Association="FOXModel.FK_OsnastkaByDraftID_TechOrder" />
         <AssociationConnector Association="FOXModel.FK_TechOrderID_TechOrder" />
-        <AssociationConnector Association="FOXModel.FK_OsnastUseListID_OsnastUseListJournal_OsnastUseList" />
         <EntityTypeShape EntityType="FOXModel.vOsnastUseList" Width="1.5" PointX="11.75" PointY="0.75" />
         <EntityTypeShape EntityType="FOXModel.vOsnastTechOrder" Width="1.5" PointX="0.75" PointY="18.75" />
+        <EntityTypeShape EntityType="FOXModel.vDraftNameList" Width="1.5" PointX="14.375" PointY="0.75" />
         </Diagram>
     </Diagrams>
   </Designer>

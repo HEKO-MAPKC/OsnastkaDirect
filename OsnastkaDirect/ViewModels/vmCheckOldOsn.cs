@@ -28,31 +28,36 @@ namespace OsnastkaDirect.ViewModels
             /// Переменная Model
             /// </summary>
             public mCheckOldOsn Model;
-            //
-        	// Переменная для свойства команды
-            //
+        //
+        // Переменная для свойства команды
+        //
 
         #endregion
 
         #region Свойства
-		
-            //CommandBase commandName;
-            //
-            // Свойство команды
-            //
-            //public CommandBase pCommand
-            //{
-            //    get { return commandName ?? (commandName = new CommandBase(MethodName)); }
-            //}
 
+        //CommandBase commandName;
+        //
+        // Свойство команды
+        //
+        //public CommandBase pCommand
+        //{
+        //    get { return commandName ?? (commandName = new CommandBase(MethodName)); }
+        //}
+        CommandBase DoubleClickOsn;
+
+        public CommandBase pDoubleClickOsn
+        {
+            get { return DoubleClickOsn ?? (DoubleClickOsn = new CommandBase(mDoubleClickOsn)); }
+        }
         #endregion
 
         #region Методы
 
-            /// <summary>
-            /// Конструктор
-            /// </summary>
-            public vmCheckOldOsn()
+        /// <summary>
+        /// Конструктор
+        /// </summary>
+        public vmCheckOldOsn()
             {
 
             }
@@ -78,7 +83,14 @@ namespace OsnastkaDirect.ViewModels
             {
                 ;
             }
-            
+        public void mDoubleClickOsn()
+        {
+            var _modelMain = Model.WindowMain.Model;
+            if (Model.pSelOsn == null || _modelMain == null) return;
+            _modelMain.pSelOsn = _modelMain.pListOsn.FirstOrDefault(i => i.draftOsnastID == Model.pSelOsn.draftOsnastID);
+            _modelMain.OpenCreate();
+            View.Close();
+        }
         #endregion
     }
 }

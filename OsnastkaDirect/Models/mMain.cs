@@ -1072,6 +1072,109 @@ namespace OsnastkaDirect.Models
             pSelOsn.Copy(BackupOsn);
             OnPropertyChanged("pSelOsn");
         }
+        public void AddNewOsnDB()
+        {
+            var _DraftID = db.DraftInfoFull.FirstOrDefault(i => i.Draft == pSelOsn.draft).DraftID;
+            //var _WorkshopID = db.Workshop.FirstOrDefault(i => i.WorkshopID == pSelOsn.wo).DraftID;
+            //TechOrder _osnastOrder = new TechOrder
+            //{
+            //    //OsnastOrderID = pSelOsn.draftOsnastID,
+            //    //Osnast = pSelOsn.draftOsn,
+            //    Workshop = pSelOsn.workshop,
+            //    //OsnastOrderID = pSelOsn.nOrdPrev,
+            //    //TechOrd = pSelOsn.nOrd,
+            //    ReasonProduction = pSelOsn.reason,
+            //    //AddInformation = pSelOsn.addition,
+            //    //AmountEquipmentProducePlan = pSelOsn.amount,
+            //    DateCreateApplication = pSelOsn.dateWho,
+            //    AuthorTechnolog = pSelOsn.who,
+            //    ReasonReturnedToTechnolog = pSelOsn.returnRes,
+            //    DraftID = _DraftID,
+            //    //InterOsnast = pSelOsn.draftRes,
+            //    //StoreroomOsnast = pSelOsn.storeroom,
+
+
+
+            //    NameDraftProduct = pSelOsn.usage,
+            //    DateLimitation = pSelOsn.dtSrok,
+            //    DateAtApproval = pSelOsn.dtIzg,
+            //    //DateEmployeeFinalApproved = pSelOsn.dtOk,
+            //    IsAtConstructor = pSelOsn.atConst,
+            //    //IsStatusEmployeeApproved = pSelOsn.accepted,
+            //    IsReturnedToTechnolog = pSelOsn.returned,
+            //    //AuthorConstructorExecute = pSelOsn.fioConst,
+
+            //    //FactoryOrder = pSelOsn.ordOsn,
+            //    // FactoryNumberOrder = pSelOsn.numOsn,
+            //    //WorkplaceID = pSelOsn.workPlace,
+            //    //OperationCodeID = pSelOsn.operation,
+            //    RepairOrProduction = pSelOsn.characterOrd,
+
+            //    //DateImplementPlan = pSelOsn.dateNeed,
+
+            //    //ANNTab = pSelOsn.annTab,
+            //    //DateProducePlan = pSelOsn.datePlan,
+            //    //DateProduceFact = pSelOsn.dateFact,
+
+            //    //workPlaceName = i.WorkplaceCode + " " + i.WorkplaceMachine,
+            //    //operationName = i.Operation,
+
+            //    YearTechOrd = pSelOsn.zak_1,
+            //    DateReturnedToTechnolog = pSelOsn.dateBoss,
+            //    AuthorConstructor = pSelOsn.boss,
+            //    DateAtConstructor = pSelOsn.dateAtConstructor
+            //};
+            //vOsnastTechOrder _newOsn = new vOsnastTechOrder
+            //{
+            //    //OsnastOrderID = pSelOsn.draftOsnastID,
+            //    Osnast = pSelOsn.draftOsn,
+            //    Workshop= pSelOsn.workshop,
+            //    //OsnastOrderID = pSelOsn.nOrdPrev,
+            //    //TechOrd = pSelOsn.nOrd,
+            //    ReasonProduction = pSelOsn.reason,
+            //    AddInformation= pSelOsn.addition ,
+            //    AmountEquipmentProducePlan =pSelOsn.amount ,
+            //    DateCreateApplication =pSelOsn.dateWho ,
+            //    AuthorTechnolog =pSelOsn.who ,
+            //    ReasonReturnedToTechnolog =pSelOsn.returnRes ,
+            //    Draft =pSelOsn.draft ,
+            //    InterOsnast =pSelOsn.draftRes ,
+            //    StoreroomOsnast =pSelOsn.storeroom,
+
+
+
+            //    NameDraftProduct =pSelOsn.usage ,
+            //    DateLimitation =pSelOsn.dtSrok ,
+            //    DateAtApproval =pSelOsn.dtIzg,
+            //    DateEmployeeFinalApproved =pSelOsn.dtOk,
+            //    IsAtConstructor =pSelOsn.atConst,
+            //    IsStatusEmployeeApproved = pSelOsn.accepted,
+            //    IsReturnedToTechnolog =pSelOsn.returned,
+            //    AuthorConstructorExecute = pSelOsn.fioConst,
+
+            //    //FactoryOrder = pSelOsn.ordOsn,
+            //   // FactoryNumberOrder = pSelOsn.numOsn,
+            //    WorkplaceID = pSelOsn.workPlace,
+            //    OperationCodeID = pSelOsn.operation,
+            //    RepairOrProduction = pSelOsn.characterOrd,
+
+            //    DateImplementPlan = pSelOsn.dateNeed,
+
+            //    ANNTab = pSelOsn.annTab,
+            //    DateProducePlan = pSelOsn.datePlan,
+            //    DateProduceFact = pSelOsn.dateFact,
+
+            //    //workPlaceName = i.WorkplaceCode + " " + i.WorkplaceMachine,
+            //    //operationName = i.Operation,
+
+            //    YearTechOrd = pSelOsn.zak_1,
+            //    DateReturnedToTechnolog = pSelOsn.dateBoss,
+            //    AuthorConstructor = pSelOsn.boss,
+            //    DateAtConstructor = pSelOsn.dateAtConstructor 
+            //};
+           // db.vOsnastTechOrder.AddObject(_newOsn); //TODO delat'
+            db.SaveChanges();
+        }
         #endregion
     }
 }
