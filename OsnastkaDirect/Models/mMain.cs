@@ -1050,6 +1050,18 @@ namespace OsnastkaDirect.Models
             pSelOsn.storeroom = _sr;
             OnPropertyChanged("pSelOsn");
         }
+        public void ChangeWorkplace(oborud _wp)
+        {
+            pSelOsn.workPlace = _wp.rab_m;
+            pSelOsn.workPlaceName = _wp.code.Trim()+" "+_wp.oborud1.Trim();
+            OnPropertyChanged("pSelOsn");
+        }
+        public void ChangeOperation(s_oper _op)
+        {
+            pSelOsn.operation = _op.code;
+            pSelOsn.operationName = _op.oper.Trim();
+            OnPropertyChanged("pSelOsn");
+        }
         public void OpenRedactingMode()
         {
             DissableTabs();

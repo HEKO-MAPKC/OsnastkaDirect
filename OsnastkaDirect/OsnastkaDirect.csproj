@@ -148,6 +148,8 @@
     <Compile Include="Models\mWelcomeWindow.cs" />
     <Compile Include="Models\mChooseUsage.cs" />
     <Compile Include="Models\mChooseWorkshop.cs" />
+    <Compile Include="Models\mChooseOperation.cs" />
+    <Compile Include="Models\mChooseWorkplace.cs" />
     <Compile Include="Data\Osn.cs" />
     <Compile Include="ViewModels\vmMain.cs" />
     <Compile Include="ViewModels\vmDialogInput.cs" />
@@ -160,11 +162,19 @@
     <Compile Include="ViewModels\vmWelcomeWindow.cs" />
     <Compile Include="ViewModels\vmChooseUsage.cs" />
     <Compile Include="ViewModels\vmChooseWorkshop.cs" />
+    <Compile Include="ViewModels\vmChooseOperation.cs" />
+    <Compile Include="ViewModels\vmChooseWorkplace.cs" />
     <Compile Include="Views\CheckOldOsn.xaml.cs">
       <DependentUpon>CheckOldOsn.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\ChooseOperation.xaml.cs">
+      <DependentUpon>ChooseOperation.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\ChooseUsage.xaml.cs">
       <DependentUpon>ChooseUsage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ChooseWorkplace.xaml.cs">
+      <DependentUpon>ChooseWorkplace.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\ChooseWorkshop.xaml.cs">
       <DependentUpon>ChooseWorkshop.xaml</DependentUpon>
@@ -246,7 +256,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\ChooseOperation.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\ChooseUsage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ChooseWorkplace.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -437,6 +455,12 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="EmbedResources\Icons\FactoryB.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="EmbedResources\Icons\MolotB.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="EmbedResources\Icons\PressB.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

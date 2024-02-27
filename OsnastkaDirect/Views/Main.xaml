@@ -389,6 +389,14 @@
                                     Label="Участок"
                                     LargeImageSource="/OsnastkaDirect;component/EmbedResources/Icons/FactoryB.png"
                                     DockPanel.Dock="Right" />
+                    <r:RibbonButton Command="{Binding pSetWorkplace}"
+                                    Label="Участок"
+                                    LargeImageSource="/OsnastkaDirect;component/EmbedResources/Icons/PressB.png"
+                                    DockPanel.Dock="Right" />
+                    <r:RibbonButton Command="{Binding pSetOperation}"
+                                    Label="Участок"
+                                    LargeImageSource="/OsnastkaDirect;component/EmbedResources/Icons/MolotB.png"
+                                    DockPanel.Dock="Right" />
                 </r:RibbonGroup>
             </r:RibbonTab>
             <r:RibbonTab Header="Открытие"
@@ -424,6 +432,14 @@
                     <r:RibbonButton Command="{Binding pSetWorkshop}"
                                     Label="Участок"
                                     LargeImageSource="/OsnastkaDirect;component/EmbedResources/Icons/FactoryB.png"
+                                    DockPanel.Dock="Right" />
+                    <r:RibbonButton Command="{Binding pSetWorkplace}"
+                                    Label="Участок"
+                                    LargeImageSource="/OsnastkaDirect;component/EmbedResources/Icons/PressB.png"
+                                    DockPanel.Dock="Right" />
+                    <r:RibbonButton Command="{Binding pSetOperation}"
+                                    Label="Участок"
+                                    LargeImageSource="/OsnastkaDirect;component/EmbedResources/Icons/MolotB.png"
                                     DockPanel.Dock="Right" />
                 </r:RibbonGroup>
             </r:RibbonTab>

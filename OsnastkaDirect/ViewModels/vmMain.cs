@@ -297,6 +297,20 @@ namespace OsnastkaDirect.ViewModels
             get { return SetWorkshop ?? (SetWorkshop = new CommandBase(mSetWorkshop)); }
         }
 
+        CommandBase SetWorkplace;
+
+        public CommandBase pSetWorkplace
+        {
+            get { return SetWorkplace ?? (SetWorkplace = new CommandBase(mSetWorkplace)); }
+        }
+
+        CommandBase SetOperation;
+
+        public CommandBase pSetOperation
+        {
+            get { return SetOperation ?? (SetOperation = new CommandBase(mSetOperation)); }
+        }
+        
         #endregion
 
         #region Методы
@@ -668,6 +682,36 @@ namespace OsnastkaDirect.ViewModels
 
             ((ChooseWorkshop)VMLocator.VMs[name][index].view).Loaded += ((vmChooseWorkshop)VMLocator.VMs[name][index]).viewLoaded;
             ((ChooseWorkshop)VMLocator.VMs[name][index].view).Unloaded += (obj, args) => VMLocator.Clean((string)(((dynamic)obj).Uid));
+            //
+            //VMLocator.VMs[name][index].model.pTmcnet = Model.tmcnet;
+            VMLocator.VMs[name][index].model.WindowMain = this;
+            //
+            VMLocator.VMs[name][index].view.Owner = View;
+            VMLocator.VMs[name][index].view.ShowDialog();
+        }
+        public void mSetWorkplace()
+        {
+
+            string name = typeof(ChooseWorkplace).Name;
+            int index = VMLocator.CreateViewModel(name);
+
+            ((ChooseWorkplace)VMLocator.VMs[name][index].view).Loaded += ((vmChooseWorkplace)VMLocator.VMs[name][index]).viewLoaded;
+            ((ChooseWorkplace)VMLocator.VMs[name][index].view).Unloaded += (obj, args) => VMLocator.Clean((string)(((dynamic)obj).Uid));
+            //
+            //VMLocator.VMs[name][index].model.pTmcnet = Model.tmcnet;
+            VMLocator.VMs[name][index].model.WindowMain = this;
+            //
+            VMLocator.VMs[name][index].view.Owner = View;
+            VMLocator.VMs[name][index].view.ShowDialog();
+        }
+        public void mSetOperation()
+        {
+
+            string name = typeof(ChooseOperation).Name;
+            int index = VMLocator.CreateViewModel(name);
+
+            ((ChooseOperation)VMLocator.VMs[name][index].view).Loaded += ((vmChooseOperation)VMLocator.VMs[name][index]).viewLoaded;
+            ((ChooseOperation)VMLocator.VMs[name][index].view).Unloaded += (obj, args) => VMLocator.Clean((string)(((dynamic)obj).Uid));
             //
             //VMLocator.VMs[name][index].model.pTmcnet = Model.tmcnet;
             VMLocator.VMs[name][index].model.WindowMain = this;
