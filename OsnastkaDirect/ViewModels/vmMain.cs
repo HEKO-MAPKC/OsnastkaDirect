@@ -290,6 +290,13 @@ namespace OsnastkaDirect.ViewModels
             get { return CancelCreatingNew ?? (CancelCreatingNew = new CommandBase(mCancelCreatingNew)); }
         }
 
+        CommandBase SetWorkshop;
+
+        public CommandBase pSetWorkshop
+        {
+            get { return SetWorkshop ?? (SetWorkshop = new CommandBase(mSetWorkshop)); }
+        }
+
         #endregion
 
         #region Методы
@@ -653,7 +660,21 @@ namespace OsnastkaDirect.ViewModels
             VMLocator.VMs[name][index].view.ShowDialog();
             //mOpenChooseUsage(1);
         }
+        public void mSetWorkshop()
+        {
 
+            string name = typeof(ChooseWorkshop).Name;
+            int index = VMLocator.CreateViewModel(name);
+
+            ((ChooseWorkshop)VMLocator.VMs[name][index].view).Loaded += ((vmChooseWorkshop)VMLocator.VMs[name][index]).viewLoaded;
+            ((ChooseWorkshop)VMLocator.VMs[name][index].view).Unloaded += (obj, args) => VMLocator.Clean((string)(((dynamic)obj).Uid));
+            //
+            //VMLocator.VMs[name][index].model.pTmcnet = Model.tmcnet;
+            VMLocator.VMs[name][index].model.WindowMain = this;
+            //
+            VMLocator.VMs[name][index].view.Owner = View;
+            VMLocator.VMs[name][index].view.ShowDialog();
+        }
         public void mSaveRedacting()
         {
             Model.db.SaveChanges();

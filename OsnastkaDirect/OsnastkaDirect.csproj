@@ -147,6 +147,7 @@
     <Compile Include="Models\mOpenAuxililaryOsnast.cs" />
     <Compile Include="Models\mWelcomeWindow.cs" />
     <Compile Include="Models\mChooseUsage.cs" />
+    <Compile Include="Models\mChooseWorkshop.cs" />
     <Compile Include="Data\Osn.cs" />
     <Compile Include="ViewModels\vmMain.cs" />
     <Compile Include="ViewModels\vmDialogInput.cs" />
@@ -158,11 +159,15 @@
     <Compile Include="ViewModels\vmOpenAuxililaryOsnast.cs" />
     <Compile Include="ViewModels\vmWelcomeWindow.cs" />
     <Compile Include="ViewModels\vmChooseUsage.cs" />
+    <Compile Include="ViewModels\vmChooseWorkshop.cs" />
     <Compile Include="Views\CheckOldOsn.xaml.cs">
       <DependentUpon>CheckOldOsn.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\ChooseUsage.xaml.cs">
       <DependentUpon>ChooseUsage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ChooseWorkshop.xaml.cs">
+      <DependentUpon>ChooseWorkshop.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\DialogInput.xaml.cs">
       <DependentUpon>DialogInput.xaml</DependentUpon>
@@ -242,6 +247,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\ChooseUsage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ChooseWorkshop.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -422,6 +431,12 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="EmbedResources\Icons\DeleteB.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="EmbedResources\Icons\FactoryS.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="EmbedResources\Icons\FactoryB.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

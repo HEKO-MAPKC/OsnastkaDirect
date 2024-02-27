@@ -1044,7 +1044,12 @@ namespace OsnastkaDirect.Models
             pSelOsn.usage = st;
             OnPropertyChanged("pSelOsn");
         }
-
+        public void ChangeWorkshop(string _st, string _sr)
+        {
+            pSelOsn.workshop = _st;
+            pSelOsn.storeroom = _sr;
+            OnPropertyChanged("pSelOsn");
+        }
         public void OpenRedactingMode()
         {
             DissableTabs();
@@ -1074,105 +1079,121 @@ namespace OsnastkaDirect.Models
         }
         public void AddNewOsnDB()
         {
-            var _DraftID = db.DraftInfoFull.FirstOrDefault(i => i.Draft == pSelOsn.draft).DraftID;
-            //var _WorkshopID = db.Workshop.FirstOrDefault(i => i.WorkshopID == pSelOsn.wo).DraftID;
-            //TechOrder _osnastOrder = new TechOrder
-            //{
-            //    //OsnastOrderID = pSelOsn.draftOsnastID,
-            //    //Osnast = pSelOsn.draftOsn,
-            //    Workshop = pSelOsn.workshop,
-            //    //OsnastOrderID = pSelOsn.nOrdPrev,
-            //    //TechOrd = pSelOsn.nOrd,
-            //    ReasonProduction = pSelOsn.reason,
-            //    //AddInformation = pSelOsn.addition,
-            //    //AmountEquipmentProducePlan = pSelOsn.amount,
-            //    DateCreateApplication = pSelOsn.dateWho,
-            //    AuthorTechnolog = pSelOsn.who,
-            //    ReasonReturnedToTechnolog = pSelOsn.returnRes,
-            //    DraftID = _DraftID,
-            //    //InterOsnast = pSelOsn.draftRes,
-            //    //StoreroomOsnast = pSelOsn.storeroom,
+            var _DraftDB = db.DraftInfoFull.FirstOrDefault(i => i.Draft == pSelOsn.draft);
+            var _OsnastDB = db.DraftInfoFull.FirstOrDefault(i => i.Draft == pSelOsn.draftOsn);
+            var _DraftInterDB = db.DraftInfoFull.FirstOrDefault(i => i.Draft == pSelOsn.draftRes);
+            var _WorkshopDB = db.Workshop.FirstOrDefault(i => i.WorkshopID == pSelOsn.WorkshopID);
+
+            int _DraftID;
+            int _OsnastID;
+            int _DraftInterID;
+            int _WorkshopID;
+            if (_DraftDB != null) _DraftID = _DraftDB.DraftID;
+            else _DraftID = 0;
+            if (_OsnastDB != null) _OsnastID = _OsnastDB.DraftID;
+            else _OsnastID = 0;
+            if (_DraftInterDB != null) _DraftInterID = _DraftInterDB.DraftID;
+            else _DraftInterID = 0;
+            if (_WorkshopDB != null) _WorkshopID = _WorkshopDB.WorkshopID;
+            else _WorkshopID = 0; //TODO разобраться с null и ?
+            TechOrder _TechOrder = new TechOrder
+            {
+                //OsnastOrderID = pSelOsn.draftOsnastID,
+                //Osnast = pSelOsn.draftOsn,
+                WorkshopID = _WorkshopID,
+                //OsnastOrderID = pSelOsn.nOrdPrev,
+                //TechOrd = pSelOsn.nOrd,
+                ReasonProduction = pSelOsn.reason,
+                //AddInformation = pSelOsn.addition,
+                //AmountEquipmentProducePlan = pSelOsn.amount,
+                DateCreateApplication = pSelOsn.dateWho,
+                AuthorTechnolog = pSelOsn.who,
+                ReasonReturnedToTechnolog = pSelOsn.returnRes,
+                DraftID = _DraftID,
+                //InterOsnast = pSelOsn.draftRes,
+                //StoreroomOsnast = pSelOsn.storeroom,
 
 
 
-            //    NameDraftProduct = pSelOsn.usage,
-            //    DateLimitation = pSelOsn.dtSrok,
-            //    DateAtApproval = pSelOsn.dtIzg,
-            //    //DateEmployeeFinalApproved = pSelOsn.dtOk,
-            //    IsAtConstructor = pSelOsn.atConst,
-            //    //IsStatusEmployeeApproved = pSelOsn.accepted,
-            //    IsReturnedToTechnolog = pSelOsn.returned,
-            //    //AuthorConstructorExecute = pSelOsn.fioConst,
+                NameDraftProduct = pSelOsn.usage,
+                DateLimitation = pSelOsn.dtSrok,
+                DateAtApproval = pSelOsn.dtIzg,
+                //DateEmployeeFinalApproved = pSelOsn.dtOk,
+                IsAtConstructor = pSelOsn.atConst,
+                //IsStatusEmployeeApproved = pSelOsn.accepted,
+                IsReturnedToTechnolog = pSelOsn.returned,
+                //AuthorConstructorExecute = pSelOsn.fioConst,
 
-            //    //FactoryOrder = pSelOsn.ordOsn,
-            //    // FactoryNumberOrder = pSelOsn.numOsn,
-            //    //WorkplaceID = pSelOsn.workPlace,
-            //    //OperationCodeID = pSelOsn.operation,
-            //    RepairOrProduction = pSelOsn.characterOrd,
+                //FactoryOrder = pSelOsn.ordOsn,
+                // FactoryNumberOrder = pSelOsn.numOsn,
+                //WorkplaceID = pSelOsn.workPlace,
+                //OperationCodeID = pSelOsn.operation,
+                //RepairOrProduction = pSelOsn.characterOrd,
 
-            //    //DateImplementPlan = pSelOsn.dateNeed,
+                //DateImplementPlan = pSelOsn.dateNeed,
 
-            //    //ANNTab = pSelOsn.annTab,
-            //    //DateProducePlan = pSelOsn.datePlan,
-            //    //DateProduceFact = pSelOsn.dateFact,
+                //ANNTab = pSelOsn.annTab,
+                //DateProducePlan = pSelOsn.datePlan,
+                //DateProduceFact = pSelOsn.dateFact,
 
-            //    //workPlaceName = i.WorkplaceCode + " " + i.WorkplaceMachine,
-            //    //operationName = i.Operation,
+                //workPlaceName = i.WorkplaceCode + " " + i.WorkplaceMachine,
+                //operationName = i.Operation,
 
-            //    YearTechOrd = pSelOsn.zak_1,
-            //    DateReturnedToTechnolog = pSelOsn.dateBoss,
-            //    AuthorConstructor = pSelOsn.boss,
-            //    DateAtConstructor = pSelOsn.dateAtConstructor
-            //};
-            //vOsnastTechOrder _newOsn = new vOsnastTechOrder
-            //{
-            //    //OsnastOrderID = pSelOsn.draftOsnastID,
-            //    Osnast = pSelOsn.draftOsn,
-            //    Workshop= pSelOsn.workshop,
-            //    //OsnastOrderID = pSelOsn.nOrdPrev,
-            //    //TechOrd = pSelOsn.nOrd,
-            //    ReasonProduction = pSelOsn.reason,
-            //    AddInformation= pSelOsn.addition ,
-            //    AmountEquipmentProducePlan =pSelOsn.amount ,
-            //    DateCreateApplication =pSelOsn.dateWho ,
-            //    AuthorTechnolog =pSelOsn.who ,
-            //    ReasonReturnedToTechnolog =pSelOsn.returnRes ,
-            //    Draft =pSelOsn.draft ,
-            //    InterOsnast =pSelOsn.draftRes ,
-            //    StoreroomOsnast =pSelOsn.storeroom,
+                YearTechOrd = pSelOsn.zak_1 == null ? "0" : pSelOsn.zak_1,
+                DateReturnedToTechnolog = pSelOsn.dateBoss,
+                AuthorConstructor = pSelOsn.boss,
+                DateAtConstructor = pSelOsn.dateAtConstructor
+            };
+            OsnastOrder _OsnastOrder = new OsnastOrder
+            {
+                //OsnastOrderID = pSelOsn.draftOsnastID,
+                OsnastID = _OsnastID,
+                //Workshop = pSelOsn.workshop,
+                //OsnastOrderID = pSelOsn.nOrdPrev,
+                TechOrderID = _TechOrder.TechOrderID,
+                //ReasonProduction = pSelOsn.reason,
+                AddInformation = pSelOsn.addition,
+                AmountEquipmentProducePlan = pSelOsn.amount,
+                //DateCreateApplication = pSelOsn.dateWho,
+                //AuthorTechnolog = pSelOsn.who,
+                //ReasonReturnedToTechnolog = pSelOsn.returnRes,
+                //Draft = pSelOsn.draft,
+                InterOsnastID = _DraftInterID,
+                //StoreroomOsnast = pSelOsn.storeroom,
 
 
 
-            //    NameDraftProduct =pSelOsn.usage ,
-            //    DateLimitation =pSelOsn.dtSrok ,
-            //    DateAtApproval =pSelOsn.dtIzg,
-            //    DateEmployeeFinalApproved =pSelOsn.dtOk,
-            //    IsAtConstructor =pSelOsn.atConst,
-            //    IsStatusEmployeeApproved = pSelOsn.accepted,
-            //    IsReturnedToTechnolog =pSelOsn.returned,
-            //    AuthorConstructorExecute = pSelOsn.fioConst,
+                //NameDraftProduct = pSelOsn.usage,
+                //DateLimitation = pSelOsn.dtSrok,
+                //DateAtApproval = pSelOsn.dtIzg,
+                DateEmployeeFinalApproved = pSelOsn.dtOk,
+                //IsAtConstructor = pSelOsn.atConst,
+                IsStatusEmployeeApproved = pSelOsn.accepted,
+                //IsReturnedToTechnolog = pSelOsn.returned,
+                AuthorConstructorExecute = pSelOsn.fioConst,
 
-            //    //FactoryOrder = pSelOsn.ordOsn,
-            //   // FactoryNumberOrder = pSelOsn.numOsn,
-            //    WorkplaceID = pSelOsn.workPlace,
-            //    OperationCodeID = pSelOsn.operation,
-            //    RepairOrProduction = pSelOsn.characterOrd,
+                //FactoryOrder = pSelOsn.ordOsn,
+                // FactoryNumberOrder = pSelOsn.numOsn,
+                //WorkplaceID = pSelOsn.workPlace,
+                //OperationCodeID = pSelOsn.operation,
+                //RepairOrProduction = pSelOsn.characterOrd,
 
-            //    DateImplementPlan = pSelOsn.dateNeed,
+                DateImplementPlan = pSelOsn.dateNeed,
 
-            //    ANNTab = pSelOsn.annTab,
-            //    DateProducePlan = pSelOsn.datePlan,
-            //    DateProduceFact = pSelOsn.dateFact,
+                ANNTab = pSelOsn.annTab,
+                DateProducePlan = pSelOsn.datePlan,
+                DateProduceFact = pSelOsn.dateFact,
 
-            //    //workPlaceName = i.WorkplaceCode + " " + i.WorkplaceMachine,
-            //    //operationName = i.Operation,
+                //workPlaceName = i.WorkplaceCode + " " + i.WorkplaceMachine,
+                //operationName = i.Operation,
 
-            //    YearTechOrd = pSelOsn.zak_1,
-            //    DateReturnedToTechnolog = pSelOsn.dateBoss,
-            //    AuthorConstructor = pSelOsn.boss,
-            //    DateAtConstructor = pSelOsn.dateAtConstructor 
-            //};
-           // db.vOsnastTechOrder.AddObject(_newOsn); //TODO delat'
+                YearTechOrd = pSelOsn.zak_1 == null ? "0" : pSelOsn.zak_1,
+                //DateReturnedToTechnolog = pSelOsn.dateBoss,
+                //AuthorConstructor = pSelOsn.boss,
+                //DateAtConstructor = pSelOsn.dateAtConstructor
+            };
+            db.TechOrder.AddObject(_TechOrder); //TODO delat'
+            db.OsnastOrder.AddObject(_OsnastOrder); //TODO delat'
             db.SaveChanges();
         }
         #endregion

@@ -385,7 +385,10 @@
                                           Header="Указать изделие"
                                           Command="{Binding pSetUsage}" />
                     </r:RibbonMenuButton>
-
+                    <r:RibbonButton Command="{Binding pSetWorkshop}"
+                                    Label="Участок"
+                                    LargeImageSource="/OsnastkaDirect;component/EmbedResources/Icons/FactoryB.png"
+                                    DockPanel.Dock="Right" />
                 </r:RibbonGroup>
             </r:RibbonTab>
             <r:RibbonTab Header="Открытие"
@@ -416,8 +419,12 @@
                         <r:RibbonMenuItem ImageSource="/OsnastkaDirect;component/EmbedResources/Icons/UseS.png"
                                           Header="Указать изделие"
                                           Command="{Binding pSetUsage}" />
+                        
                     </r:RibbonMenuButton>
-
+                    <r:RibbonButton Command="{Binding pSetWorkshop}"
+                                    Label="Участок"
+                                    LargeImageSource="/OsnastkaDirect;component/EmbedResources/Icons/FactoryB.png"
+                                    DockPanel.Dock="Right" />
                 </r:RibbonGroup>
             </r:RibbonTab>
         </r:Ribbon>
