@@ -120,7 +120,7 @@ namespace OsnastkaDirect.ViewModels
             if (Model.pSelWorkshop != null)
             {
                 if (Model.pSelWorkshop.Workshop1 != null || Model.pSelWorkshop.Workshop1 != "")
-                    Model.WindowMain.Model.ChangeWorkshop(Model.pSelWorkshop.Workshop1, Model.pSelWorkshop.StoreroomOsnast);
+                    Model.WindowMain.Model.ChangeWorkshop(Model.pSelWorkshop);
             }
             View.Close();
         }

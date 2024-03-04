@@ -1281,8 +1281,8 @@ FROM [Osnastka].[vOsnastUseList] AS [vOsnastUseList]</DefiningQuery>
             <End Role="OsnastOrder" EntitySet="OsnastOrder" />
           </AssociationSet>
           <EntitySet Name="vOsnastUseList" EntityType="FOXModel.vOsnastUseList" />
-          <EntitySet Name="vOsnastTechOrder" EntityType="FOXModel.vOsnastTechOrder" />
           <EntitySet Name="vDraftNameList" EntityType="FOXModel.vDraftNameList" />
+          <EntitySet Name="vOsnastTechOrder" EntityType="FOXModel.vOsnastTechOrder" />
           </EntityContainer>
         <EntityType Name="complect">
           <Key>
@@ -2187,6 +2187,13 @@ FROM [Osnastka].[vOsnastUseList] AS [vOsnastUseList]</DefiningQuery>
           <Property Name="Analogue" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="LaborManufacturingAssume" Type="Decimal" Precision="7" Scale="2" />
         </EntityType>
+        <EntityType Name="vDraftNameList">
+          <Key>
+            <PropertyRef Name="Draft" />
+          </Key>
+          <Property Name="Draft" Type="Decimal" Nullable="false" Precision="13" Scale="2" />
+          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+        </EntityType>
         <EntityType Name="vOsnastTechOrder">
           <Key>
             <PropertyRef Name="OsnastOrderID" />
@@ -2269,13 +2276,6 @@ FROM [Osnastka].[vOsnastUseList] AS [vOsnastUseList]</DefiningQuery>
           <Property Name="DateAtConstructor" Type="DateTime" Precision="3" />
           <Property Name="TypeOsnast" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="RepairOrProduction" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-        </EntityType>
-        <EntityType Name="vDraftNameList">
-          <Key>
-            <PropertyRef Name="Draft" />
-          </Key>
-          <Property Name="Draft" Type="Decimal" Nullable="false" Precision="13" Scale="2" />
-          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
         </EntityType>
         </Schema>
     </edmx:ConceptualModels>
@@ -2958,6 +2958,14 @@ FROM [Osnastka].[vOsnastUseList] AS [vOsnastUseList]</DefiningQuery>
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="vDraftNameList">
+            <EntityTypeMapping TypeName="FOXModel.vDraftNameList">
+              <MappingFragment StoreEntitySet="vDraftNameList">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Draft" ColumnName="Draft" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="vOsnastTechOrder">
             <EntityTypeMapping TypeName="FOXModel.vOsnastTechOrder">
               <MappingFragment StoreEntitySet="vOsnastTechOrder">
@@ -3040,14 +3048,6 @@ FROM [Osnastka].[vOsnastUseList] AS [vOsnastUseList]</DefiningQuery>
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="vDraftNameList">
-            <EntityTypeMapping TypeName="FOXModel.vDraftNameList">
-              <MappingFragment StoreEntitySet="vDraftNameList">
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Draft" ColumnName="Draft" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
@@ -3115,8 +3115,8 @@ FROM [Osnastka].[vOsnastUseList] AS [vOsnastUseList]</DefiningQuery>
         <AssociationConnector Association="FOXModel.FK_OsnastkaByDraftID_TechOrder" />
         <AssociationConnector Association="FOXModel.FK_TechOrderID_TechOrder" />
         <EntityTypeShape EntityType="FOXModel.vOsnastUseList" Width="1.5" PointX="11.75" PointY="0.75" />
-        <EntityTypeShape EntityType="FOXModel.vOsnastTechOrder" Width="1.5" PointX="0.75" PointY="18.75" />
         <EntityTypeShape EntityType="FOXModel.vDraftNameList" Width="1.5" PointX="14.375" PointY="0.75" />
+        <EntityTypeShape EntityType="FOXModel.vOsnastTechOrder" Width="1.5" PointX="0.75" PointY="18.75" />
         </Diagram>
     </Diagrams>
   </Designer>

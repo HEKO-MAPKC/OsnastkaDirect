@@ -538,22 +538,6 @@ namespace OsnastkaDirect.Data
         /// <summary>
         /// Нет доступной документации по метаданным.
         /// </summary>
-        public ObjectSet<vOsnastTechOrder> vOsnastTechOrder
-        {
-            get
-            {
-                if ((_vOsnastTechOrder == null))
-                {
-                    _vOsnastTechOrder = base.CreateObjectSet<vOsnastTechOrder>("vOsnastTechOrder");
-                }
-                return _vOsnastTechOrder;
-            }
-        }
-        private ObjectSet<vOsnastTechOrder> _vOsnastTechOrder;
-    
-        /// <summary>
-        /// Нет доступной документации по метаданным.
-        /// </summary>
         public ObjectSet<vDraftNameList> vDraftNameList
         {
             get
@@ -566,6 +550,22 @@ namespace OsnastkaDirect.Data
             }
         }
         private ObjectSet<vDraftNameList> _vDraftNameList;
+    
+        /// <summary>
+        /// Нет доступной документации по метаданным.
+        /// </summary>
+        public ObjectSet<vOsnastTechOrder> vOsnastTechOrder
+        {
+            get
+            {
+                if ((_vOsnastTechOrder == null))
+                {
+                    _vOsnastTechOrder = base.CreateObjectSet<vOsnastTechOrder>("vOsnastTechOrder");
+                }
+                return _vOsnastTechOrder;
+            }
+        }
+        private ObjectSet<vOsnastTechOrder> _vOsnastTechOrder;
 
         #endregion
 
@@ -796,19 +796,19 @@ namespace OsnastkaDirect.Data
         }
     
         /// <summary>
-        /// Устаревший метод для добавления новых объектов в набор EntitySet vOsnastTechOrder. Взамен можно использовать метод .Add связанного свойства ObjectSet&lt;T&gt;.
-        /// </summary>
-        public void AddTovOsnastTechOrder(vOsnastTechOrder vOsnastTechOrder)
-        {
-            base.AddObject("vOsnastTechOrder", vOsnastTechOrder);
-        }
-    
-        /// <summary>
         /// Устаревший метод для добавления новых объектов в набор EntitySet vDraftNameList. Взамен можно использовать метод .Add связанного свойства ObjectSet&lt;T&gt;.
         /// </summary>
         public void AddTovDraftNameList(vDraftNameList vDraftNameList)
         {
             base.AddObject("vDraftNameList", vDraftNameList);
+        }
+    
+        /// <summary>
+        /// Устаревший метод для добавления новых объектов в набор EntitySet vOsnastTechOrder. Взамен можно использовать метод .Add связанного свойства ObjectSet&lt;T&gt;.
+        /// </summary>
+        public void AddTovOsnastTechOrder(vOsnastTechOrder vOsnastTechOrder)
+        {
+            base.AddObject("vOsnastTechOrder", vOsnastTechOrder);
         }
 
         #endregion

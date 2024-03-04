@@ -7,12 +7,20 @@
         xmlns:uc="clr-namespace:ElsibNewLibrary.UserControls;assembly=ElsibNewLibrary"
         xmlns:av="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:my="clr-namespace:OsnastkaDirect.Data"
+        xmlns:xcdg="http://schemas.xceed.com/wpf/xaml/datagrid"
         mc:Ignorable="av"
         x:Class="OsnastkaDirect.Views.Main"
         Title="Дирекция оснастки"
         Height="824"
         Width="1024"
         WindowStartupLocation="CenterScreen">
+    
+    <Window.Resources>
+        <!-- You can implement your own BooleanToVisibilityConverter but there is one already implemented. So the next line creates an instance of the BooleanToVisibilityConverter that you will be able to reference with the specified key -->
+        <BooleanToVisibilityConverter x:Key="BoolToVisConverter" />
+        <my:InverseBooleanConverter x:Key="InverseBooleanConverter" />
+    </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
@@ -268,6 +276,11 @@
                                     LargeImageSource="/OsnastkaDirect;component/EmbedResources/Icons/binocleB.png"
                                     DockPanel.Dock="Right" />
                 </r:RibbonGroup>
+                <r:RibbonGroup>
+                    <r:RibbonButton LargeImageSource="/OsnastkaDirect;component/EmbedResources/Icons/UpdateB.png"
+                                    Label="Обновить"
+                                    Command="{Binding pUpdate}" />
+                </r:RibbonGroup>
             </r:RibbonTab>
 
             <r:RibbonTab Header="Техзаказ"
@@ -390,11 +403,11 @@
                                     LargeImageSource="/OsnastkaDirect;component/EmbedResources/Icons/FactoryB.png"
                                     DockPanel.Dock="Right" />
                     <r:RibbonButton Command="{Binding pSetWorkplace}"
-                                    Label="Участок"
+                                    Label="Оборудование"
                                     LargeImageSource="/OsnastkaDirect;component/EmbedResources/Icons/PressB.png"
                                     DockPanel.Dock="Right" />
                     <r:RibbonButton Command="{Binding pSetOperation}"
-                                    Label="Участок"
+                                    Label="Операция"
                                     LargeImageSource="/OsnastkaDirect;component/EmbedResources/Icons/MolotB.png"
                                     DockPanel.Dock="Right" />
                 </r:RibbonGroup>
@@ -434,11 +447,11 @@
                                     LargeImageSource="/OsnastkaDirect;component/EmbedResources/Icons/FactoryB.png"
                                     DockPanel.Dock="Right" />
                     <r:RibbonButton Command="{Binding pSetWorkplace}"
-                                    Label="Участок"
+                                    Label="Оборудование"
                                     LargeImageSource="/OsnastkaDirect;component/EmbedResources/Icons/PressB.png"
                                     DockPanel.Dock="Right" />
                     <r:RibbonButton Command="{Binding pSetOperation}"
-                                    Label="Участок"
+                                    Label="Операция"
                                     LargeImageSource="/OsnastkaDirect;component/EmbedResources/Icons/MolotB.png"
                                     DockPanel.Dock="Right" />
                 </r:RibbonGroup>
@@ -851,11 +864,21 @@
                                    FontSize="12"
                                    Width="155"
                                    Height="26" />
-                            <control:PlaceholderBox Height="33"
+                            <ComboBox Height="33"
+                                      FontSize="12"
+                                      HorizontalAlignment="Left"
+                                      ItemsSource="{Binding model.pListCharacter, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                      SelectedItem="{Binding model.pSelOsn.characterOrd, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                      Width="145"
+                                      VerticalAlignment="Top"
+                                      Margin="0,0,0,0"
+                                      IsHitTestVisible="{Binding model.pIsReadOnlyRedacting, Converter={StaticResource InverseBooleanConverter}}"
+                                      IsTabStop="{Binding model.pIsReadOnlyRedacting, Converter={StaticResource InverseBooleanConverter}}"/>
+                            <!--<control:PlaceholderBox Height="33"
                                                     Placeholder="характер"
                                                     Text="{Binding model.pSelOsn.characterOrd, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                                    Width="145"
-                                                    IsReadOnly="{Binding model.pIsReadOnlyRedacting}" />
+                                                    Width="0"
+                                                    IsReadOnly="{Binding model.pIsReadOnlyRedacting}" />-->
                         </StackPanel>
                         <StackPanel Width="auto"
                                     Orientation="Horizontal">
@@ -876,7 +899,7 @@
                                    FontSize="12"
                                    Width="90"
                                    Height="26" />
-                            <control:PlaceholderBox Height="26"
+                            <control:PlaceholderBox Height="33"
                                                     Placeholder="применение"
                                                     Text="{Binding model.pSelOsn.usage, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                                     ToolTip="{Binding Text, RelativeSource={RelativeSource Mode=Self}}"
@@ -890,7 +913,7 @@
                                    FontSize="12"
                                    Width="90"
                                    Height="26" />
-                            <control:PlaceholderBox Height="26"
+                            <control:PlaceholderBox Height="33"
                                                     Placeholder="заказ"
                                                     Text="{Binding model.pSelOsn.ordOsn, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                                     Width="100"
@@ -901,7 +924,7 @@
                                    FontSize="12"
                                    Width="100"
                                    Height="26" />
-                            <control:PlaceholderBox Height="26"
+                            <control:PlaceholderBox Height="33"
                                                     Placeholder="номер"
                                                     Text="{Binding model.pSelOsn.numOsn, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                                     Width="100"
@@ -925,7 +948,7 @@
                                        FontSize="12"
                                        Width="80"
                                        Height="26" />
-                                <control:PlaceholderBox Height="26"
+                                <control:PlaceholderBox Height="33"
                                                         Width="80"
                                                         Placeholder="дата"
                                                         Text="{Binding model.pSelOsn.dateNeed, Mode=TwoWay, StringFormat=dd.MM.yy, UpdateSourceTrigger=PropertyChanged}"
@@ -938,7 +961,7 @@
                                        FontSize="12"
                                        Width="80"
                                        Height="26" />
-                                <control:PlaceholderBox Height="26"
+                                <control:PlaceholderBox Height="33"
                                                         Width="80"
                                                         Placeholder="дата"
                                                         Text="{Binding model.pSelOsn.datePlan, Mode=TwoWay, StringFormat=dd.MM.yy, UpdateSourceTrigger=PropertyChanged}"
@@ -950,14 +973,27 @@
                                        FontSize="12"
                                        Width="80"
                                        Height="26" />
-                                <control:PlaceholderBox Height="26"
+                                <control:PlaceholderBox Height="33"
                                                         Width="80"
                                                         Placeholder="дата"
                                                         Text="{Binding model.pSelOsn.dateFact, Mode=TwoWay, StringFormat=dd.MM.yy, UpdateSourceTrigger=PropertyChanged}"
                                                         IsReadOnly="{Binding model.pIsReadOnlyRedacting}" />
                             </StackPanel>
                         </StackPanel>
+                        <StackPanel Width="auto"
+                                    Orientation="Horizontal">
+                            <Label Content="Срок окончания:"
+                                   FontSize="12"
+                                   Width="160"
+                                   Height="26" />
+                            <control:PlaceholderBox Height="33"
+                                                    Width="80"
+                                                    Placeholder="дата"
+                                                    Text="{Binding model.pSelOsn.dtSrok, Mode=TwoWay, StringFormat=dd.MM.yy, UpdateSourceTrigger=PropertyChanged}"
+                                                    IsReadOnly="{Binding model.pIsReadOnlyRedacting}" />
+                        </StackPanel>
                     </StackPanel>
+
                     <StackPanel Width="auto"
                                 Orientation="Vertical"
                                 Margin="10,0,10,10"
@@ -1023,7 +1059,7 @@
                         </DataGrid.Columns>
                     </DataGrid>
                     </StackPanel>
-                    <WrapPanel Orientation="Horizontal"
+                    <!--<WrapPanel Orientation="Horizontal"
                                Width="274"
                                Height="145"
                                Grid.Column="0"
@@ -1124,7 +1160,7 @@
                                        Margin="-5,0,-2,-2" />
                             </Fluent:Button.LargeIcon>
                         </Fluent:Button>
-                    </WrapPanel>
+                    </WrapPanel>-->
                 </Grid>
             </TabItem>
         </TabControl>

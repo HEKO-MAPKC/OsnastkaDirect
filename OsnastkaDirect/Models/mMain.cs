@@ -379,6 +379,19 @@ namespace OsnastkaDirect.Models
             }
         }
 
+        List<string> ListCharacter = new List<string> { "Ремонт","Изготовление" };
+        public List<string> pListCharacter
+        {
+            get { return ListCharacter; }
+            set
+            {
+                if (ListCharacter != value)
+                {
+                    ListCharacter = value;
+                    OnPropertyChanged("pListCharacter");
+                }
+            }
+        }
         #endregion
 
         #region Методы
@@ -397,9 +410,9 @@ namespace OsnastkaDirect.Models
             // Инициализация свойств
             // pName = значение;
             LoadListOsn();
-            LoadListProduct();
-            LoadListTypeProduct();
-            LoadListStoreRoom();
+            //LoadListProduct();
+            //LoadListTypeProduct();
+            //LoadListStoreRoom();
             //OnChangeSelFilter();
         }
         //string GetDraftName(decimal? draft)
@@ -1044,10 +1057,11 @@ namespace OsnastkaDirect.Models
             pSelOsn.usage = st;
             OnPropertyChanged("pSelOsn");
         }
-        public void ChangeWorkshop(string _st, string _sr)
+        public void ChangeWorkshop(Workshop _w)
         {
-            pSelOsn.workshop = _st;
-            pSelOsn.storeroom = _sr;
+            pSelOsn.workshop = _w.Workshop1;
+            pSelOsn.storeroom = _w.StoreroomOsnast;
+            pSelOsn.WorkshopID = _w.WorkshopID;
             OnPropertyChanged("pSelOsn");
         }
         public void ChangeWorkplace(oborud _wp)
@@ -1063,7 +1077,7 @@ namespace OsnastkaDirect.Models
             OnPropertyChanged("pSelOsn");
         }
         public void OpenRedactingMode()
-        {
+        { 
             DissableTabs();
             pRedactingModeOpen = true;
             pCreateTabOpen = true;
@@ -1074,6 +1088,12 @@ namespace OsnastkaDirect.Models
             DissableTabs();
             pCreatingNewModeOpen = true;
             pCreateTabOpen = true;
+            pSelOsn.dateWho = DateTime.Now;
+            pSelOsn.who = "lol";
+            pSelOsn.returned = false;
+            pSelOsn.atConst = false;
+            //pSelOsn.dateAtConstructor = null;
+            OnPropertyChanged("pSelOsn");
         }
         public void DissableTabs()
         {
@@ -1093,7 +1113,12 @@ namespace OsnastkaDirect.Models
         {
             var _DraftDB = db.DraftInfoFull.FirstOrDefault(i => i.Draft == pSelOsn.draft);
             var _OsnastDB = db.DraftInfoFull.FirstOrDefault(i => i.Draft == pSelOsn.draftOsn);
-            var _DraftInterDB = db.DraftInfoFull.FirstOrDefault(i => i.Draft == pSelOsn.draftRes);
+
+            DraftInfoFull _DraftInterDB;
+            if (pSelOsn.draftRes != null)
+                _DraftInterDB = db.DraftInfoFull.FirstOrDefault(i => i.Draft == pSelOsn.draftRes);
+            else
+                _DraftInterDB = db.DraftInfoFull.FirstOrDefault(i => i.Draft == 0);
             var _WorkshopDB = db.Workshop.FirstOrDefault(i => i.WorkshopID == pSelOsn.WorkshopID);
 
             int _DraftID;
@@ -1110,51 +1135,26 @@ namespace OsnastkaDirect.Models
             else _WorkshopID = 0; //TODO разобраться с null и ?
             TechOrder _TechOrder = new TechOrder
             {
-                //OsnastOrderID = pSelOsn.draftOsnastID,
-                //Osnast = pSelOsn.draftOsn,
+                IsApplicationFrom = true,
+                DateCreateApplication = DateTime.Now,
+                DraftID = _DraftID,
                 WorkshopID = _WorkshopID,
-                //OsnastOrderID = pSelOsn.nOrdPrev,
-                //TechOrd = pSelOsn.nOrd,
+                Workplace = pSelOsn.workPlace,
+                OperationCode = pSelOsn.operation,
                 ReasonProduction = pSelOsn.reason,
-                //AddInformation = pSelOsn.addition,
-                //AmountEquipmentProducePlan = pSelOsn.amount,
-                DateCreateApplication = pSelOsn.dateWho,
+                AuthorBoss = pSelOsn.boss,
                 AuthorTechnolog = pSelOsn.who,
                 ReasonReturnedToTechnolog = pSelOsn.returnRes,
-                DraftID = _DraftID,
-                //InterOsnast = pSelOsn.draftRes,
-                //StoreroomOsnast = pSelOsn.storeroom,
-
-
-
                 NameDraftProduct = pSelOsn.usage,
                 DateLimitation = pSelOsn.dtSrok,
                 DateAtApproval = pSelOsn.dtIzg,
-                //DateEmployeeFinalApproved = pSelOsn.dtOk,
                 IsAtConstructor = pSelOsn.atConst,
-                //IsStatusEmployeeApproved = pSelOsn.accepted,
                 IsReturnedToTechnolog = pSelOsn.returned,
-                //AuthorConstructorExecute = pSelOsn.fioConst,
-
-                //FactoryOrder = pSelOsn.ordOsn,
-                // FactoryNumberOrder = pSelOsn.numOsn,
-                //WorkplaceID = pSelOsn.workPlace,
-                //OperationCodeID = pSelOsn.operation,
-                //RepairOrProduction = pSelOsn.characterOrd,
-
-                //DateImplementPlan = pSelOsn.dateNeed,
-
-                //ANNTab = pSelOsn.annTab,
-                //DateProducePlan = pSelOsn.datePlan,
-                //DateProduceFact = pSelOsn.dateFact,
-
-                //workPlaceName = i.WorkplaceCode + " " + i.WorkplaceMachine,
-                //operationName = i.Operation,
-
                 YearTechOrd = pSelOsn.zak_1 == null ? "0" : pSelOsn.zak_1,
                 DateReturnedToTechnolog = pSelOsn.dateBoss,
-                AuthorConstructor = pSelOsn.boss,
-                DateAtConstructor = pSelOsn.dateAtConstructor
+                AuthorConstructor = pSelOsn.fioConst,
+                DateAtConstructor = pSelOsn.dateAtConstructor,
+                RepairOrProduction = pSelOsn.characterOrd == "Ремонт" ? 0:1,
             };
             OsnastOrder _OsnastOrder = new OsnastOrder
             {
@@ -1188,14 +1188,13 @@ namespace OsnastkaDirect.Models
                 // FactoryNumberOrder = pSelOsn.numOsn,
                 //WorkplaceID = pSelOsn.workPlace,
                 //OperationCodeID = pSelOsn.operation,
-                //RepairOrProduction = pSelOsn.characterOrd,
+                
 
                 DateImplementPlan = pSelOsn.dateNeed,
 
                 ANNTab = pSelOsn.annTab,
                 DateProducePlan = pSelOsn.datePlan,
                 DateProduceFact = pSelOsn.dateFact,
-
                 //workPlaceName = i.WorkplaceCode + " " + i.WorkplaceMachine,
                 //operationName = i.Operation,
 

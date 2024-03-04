@@ -310,7 +310,14 @@ namespace OsnastkaDirect.ViewModels
         {
             get { return SetOperation ?? (SetOperation = new CommandBase(mSetOperation)); }
         }
-        
+
+        CommandBase Update;
+
+        public CommandBase pUpdate
+        {
+            get { return Update ?? (Update = new CommandBase(mUpdate)); }
+        }
+
         #endregion
 
         #region Методы
@@ -454,11 +461,19 @@ namespace OsnastkaDirect.ViewModels
             Model.pSelFilter = "Всё";
             Model.pdateSearchBefore = DateTime.Now;
             Model.pdateSearchAfter = null;
+            //Model.LoadListOsn();
             Model.pListOsnNonFilters = Model.pListOsnLoaded;
             Model.pListOsn = new ObservableCollection<Osn>(Model.pListOsnLoaded);
 
         }
-
+        public void mUpdate()
+        {
+            Model.pSearchOsn = "";
+            Model.pSelFilter = "Всё";
+            Model.pdateSearchBefore = DateTime.Now;
+            Model.pdateSearchAfter = null;
+            Model.LoadListOsn();
+        }
         public void mDisapprove()
         {
             Model.DisapproveOrd();

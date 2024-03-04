@@ -16,7 +16,8 @@
                          MaxLength="{Binding MaxLength,RelativeSource={RelativeSource TemplatedParent}}"
                          Text="{Binding Text,UpdateSourceTrigger=PropertyChanged,RelativeSource={RelativeSource TemplatedParent}, Mode=TwoWay}"
                          ContextMenu="{Binding ContextMenu, RelativeSource={RelativeSource TemplatedParent}}"
-                         ToolTip="{Binding RelativeSource={RelativeSource Self}, Path=Text}" />
+                         ToolTip="{Binding RelativeSource={RelativeSource Self}, Path=Text}">
+                </TextBox>
                 <TextBlock Visibility="Collapsed"
                            IsHitTestVisible="False"
                            VerticalAlignment="Center"
@@ -24,10 +25,14 @@
                            Text="{Binding Placeholder, RelativeSource={RelativeSource TemplatedParent}}"
                            FontSize="{Binding FontSize,RelativeSource={RelativeSource TemplatedParent}}"
                            Foreground="{Binding PlaceholderColor, RelativeSource={RelativeSource TemplatedParent}}"
-                           TextAlignment="{Binding PlaceholderAlignment,RelativeSource={RelativeSource TemplatedParent}}" />
+                           TextAlignment="{Binding PlaceholderAlignment,RelativeSource={RelativeSource TemplatedParent}}">
+
+                </TextBlock>
             </Grid>
         </ControlTemplate>
     </TextBox.Template>
+
+
     <!--<TextBox.Effect>
         <DropShadowEffect Color="Black"
                           ShadowDepth="1"

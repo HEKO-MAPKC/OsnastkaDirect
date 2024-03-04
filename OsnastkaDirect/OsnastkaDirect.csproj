@@ -123,6 +123,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>FOXModel.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Data\InverseBooleanConverter.cs" />
     <Compile Include="Data\Ocomplect.cs" />
     <Compile Include="Data\OrderPlgod.cs" />
     <Compile Include="Data\Osnsv.cs" />
@@ -461,6 +462,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="EmbedResources\Icons\PressB.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="EmbedResources\Icons\UpdateB.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
