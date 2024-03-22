@@ -5,6 +5,7 @@ using System.Collections.ObjectModel;
 using System.Data.Objects.SqlClient;
 using System.IO;
 using System.Linq;
+using System.Windows.Forms;
 //
 using Fox;
 using OsnastkaDirect.Data;
@@ -23,6 +24,7 @@ namespace OsnastkaDirect.Models
             /// Переменная для работы с базой данных
             /// </summary>
             public FOXEntities db;
+        public List<vDraftNameList> DraftNameList;
         public vmMain WindowMain;
         //
         // Переменная для свойства
@@ -85,8 +87,8 @@ namespace OsnastkaDirect.Models
                 }
             }
         }
-        Osnsv SelDraftPiece;
-        public Osnsv pSelDraftPiece
+        Draft SelDraftPiece;
+        public Draft pSelDraftPiece
         {
             get { return SelDraftPiece; }
             set
@@ -98,8 +100,8 @@ namespace OsnastkaDirect.Models
                 }
             }
         }
-        ObservableCollection<Osnsv> ListDraftPiece;
-        public ObservableCollection<Osnsv> pListDraftPiece
+        ObservableCollection<Draft> ListDraftPiece;
+        public ObservableCollection<Draft> pListDraftPiece
         {
             get { return ListDraftPiece; }
             set
@@ -108,6 +110,46 @@ namespace OsnastkaDirect.Models
                 {
                     ListDraftPiece = value;
                     OnPropertyChanged("pListDraftPiece");
+                }
+            }
+        }
+        string OrderSearch;
+        public string pOrderSearch
+        {
+            get { return OrderSearch; }
+            set
+            {
+                if (OrderSearch != value)
+                {
+                    OrderSearch = value.Replace('+', ' ');
+                    OnPropertyChanged("pOrderSearch");
+                }
+            }
+        }
+
+        string DraftSearch;
+        public string pDraftSearch
+        {
+            get { return DraftSearch; }
+            set
+            {
+                if (DraftSearch != value)
+                {
+                    DraftSearch = value;
+                    OnPropertyChanged("pDraftSearch");
+                }
+            }
+        }
+        string OsnastSearch;
+        public string pOsnastSearch
+        {
+            get { return OsnastSearch; }
+            set
+            {
+                if (OsnastSearch != value)
+                {
+                    OsnastSearch = value;
+                    OnPropertyChanged("pOsnastSearch");
                 }
             }
         }
@@ -138,6 +180,7 @@ namespace OsnastkaDirect.Models
         public mOpenFinOrder()
         {
             db = VMLocator.VMs["Main"][VMLocator.mainKey].model.db;
+            DraftNameList = db.vDraftNameList.ToList();
             //
             // Инициализация свойств
             // pName = значение;
@@ -146,20 +189,11 @@ namespace OsnastkaDirect.Models
         public void LoadOrder()
         {
             var _list = (from i in db.pl_god
-                         join db4 in db.FullDraftNameList
-                            on i.draft equals db4.Draft into gf4
-                         from listDseDraft in gf4.DefaultIfEmpty()
-
-                         join db5 in db.FullDraftNameList.Where(i => i.IsShortDraft)
-                           on (int)(i.draft / 1000) equals db5.Draft into gf5
-                         from listDseDraftSh in gf5.DefaultIfEmpty()
-
-                         let draftName = listDseDraft.DraftName != null ? listDseDraft.DraftName : listDseDraftSh.DraftName != null ? listDseDraftSh.DraftName : ""
                          select new OrderPlgod
                          {
                              order = i.zakaz,
                              number = i.nom,
-                             draftName = draftName,
+                             draftName = i.name,
                              draft = i.draft
                          }).ToList();
             pListOrder = new ObservableCollection<OrderPlgod>(_list);
@@ -168,22 +202,23 @@ namespace OsnastkaDirect.Models
         {
             pListDraftOutpro = new ObservableCollection<TreeViewDraft>((from i in db.outpro.Where(j => j.zakaz == pSelOrder.order && j.nom == pSelOrder.number && j.rung == 1 && j.draft != 0)
 
-                                                                     join db4 in db.FullDraftNameList
-                                                                       on i.draft equals db4.Draft into gf4
-                                                                     from listDseDraft in gf4.DefaultIfEmpty()
+                                                                        //join dbNameFull in db.vDraftNameList
+                                                                        //on i.draft equals dbNameFull.Draft into gfFull
+                                                                        //from listDseDraft in gfFull.DefaultIfEmpty()
+                                                                        //let draftName = listDseDraft.Name
 
-                                                                     join db5 in db.FullDraftNameList.Where(i => i.IsShortDraft)
-                                                                       on (int)(i.draft / 1000) equals db5.Draft into gf5
-                                                                     from listDseDraftSh in gf5.DefaultIfEmpty()
-
-                                                                     let draftName = listDseDraft.DraftName != null ? listDseDraft.DraftName : listDseDraftSh.DraftName != null ? listDseDraftSh.DraftName : ""
-                                                                     select new TreeViewDraft
+                                                                        select new TreeViewDraft
                                                                      {
                                                                          draft = i.draft,
-                                                                         draftName = /*SqlFunctions.StringConvert((double?)i.draft, 14, 2) + " " +*/ draftName,
-                                                                         draftNameTree = SqlFunctions.StringConvert((double?)i.draft, 14, 2) + " " + draftName,
+                                                                         //draftName = /*SqlFunctions.StringConvert((double?)i.draft, 14, 2) + " " +*/ draftName,
+                                                                         //draftNameTree = SqlFunctions.StringConvert((double?)i.draft, 14, 2) + " " + draftName,
                                                                          draftAcross = i.across
                                                                      }).ToList());
+            foreach (var item in pListDraftOutpro)
+            {
+                item.draftName = DraftNameList.FirstOrDefault(i => i.Draft == item.draft).Name;
+                item.draftNameTree = item.draft.ToString() + " " + item.draftName;
+            }
             for (int i = 0; i < pListDraftOutpro.Count; i++)
             {
                 if (pListDraftOutpro[i].draft != pListDraftOutpro[i].draftAcross)
@@ -198,23 +233,23 @@ namespace OsnastkaDirect.Models
         }
         public ObservableCollection<TreeViewDraft> LoadListDraftOsnRec(decimal? _draft, ObservableCollection<TreeViewDraft> _children)
         {
-            _children = new ObservableCollection<TreeViewDraft>((from i in db.complect.Where(j => j.kuda == _draft && j.what != _draft)
+            _children = new ObservableCollection<TreeViewDraft>((from i in db.vComplectWithNames.Where(j => j.across == _draft && j.draft != _draft)
 
-                                                                 join db4 in db.FullDraftNameList
-                                                                   on i.what equals db4.Draft into gf4
-                                                                 from listDseDraft in gf4.DefaultIfEmpty()
+                                                                 //join dbNameFull in db.vDraftNameList
+                                                                 //   on i.what equals dbNameFull.Draft into gfFull
+                                                                 //from listDseDraft in gfFull.DefaultIfEmpty()
+                                                                 //let draftName = listDseDraft.Name
 
-                                                                 join db5 in db.FullDraftNameList.Where(i => i.IsShortDraft)
-                                                                   on (int)(i.what / 1000) equals db5.Draft into gf5
-                                                                 from listDseDraftSh in gf5.DefaultIfEmpty()
-
-                                                                 let draftName = listDseDraft.DraftName != null ? listDseDraft.DraftName : listDseDraftSh.DraftName != null ? listDseDraftSh.DraftName : ""
                                                                  select new TreeViewDraft
                                                                  {
-                                                                     draft = i.what,
-                                                                     draftName = /*SqlFunctions.StringConvert((double?)i.what, 14, 2) + " " +*/ draftName,
-                                                                     draftAcross = i.kuda
+                                                                     draft = i.draft,
+                                                                     draftAcross = i.across,
+                                                                     draftName = i.draftName,
                                                                  }).ToList());
+            //foreach (var item in _children)
+            //{
+            //    item.draftName = DraftNameList.FirstOrDefault(i => i.Draft == item.draft).Name;//db.vDraftNameList.FirstOrDefault(i => i.Draft == item.draft).Name;
+            //}
             for (int i = 0; i < _children.Count; i++)
             {
                 if (_children[i].draft != _children[i].draftAcross)
@@ -230,22 +265,37 @@ namespace OsnastkaDirect.Models
         }
         public void LoadListDraftPiece()
         {
-            pListDraftPiece = new ObservableCollection<Osnsv>((from i in db.osnsv.Where(j => j.draft == pSelDraftOutpro.draft)
+            //pListDraftPiece = new ObservableCollection<Osnsv>((from i in db.vResPart.Where(j => j.Draft == pSelDraftOutpro.draft)
 
-                                                               join db4 in db.FullDraftNameList
-                                                                 on i.draftosn equals db4.Draft into gf4
-                                                               from listDseDraft in gf4.DefaultIfEmpty()
+            //                                                   //join dbNameFull in db.vDraftNameList
+            //                                                   //on i.draftosn equals dbNameFull.Draft into gfFull
+            //                                                   //from listDseDraft in gfFull.DefaultIfEmpty()
+            //                                                   //let draftName = listDseDraft.Name
 
-                                                               join db5 in db.FullDraftNameList.Where(i => i.IsShortDraft)
-                                                                 on (int)(i.draftosn / 1000) equals db5.Draft into gf5
-                                                               from listDseDraftSh in gf5.DefaultIfEmpty()
+            //                                                   select new Osnsv
+            //                                                   {
+            //                                                       draftPiece = i.Osnast,
+            //                                                       draftPieceName = i.OsnastName,
+            //                                                   }).ToList());
+            pSelDraftPiece = null;
+            pListDraftPiece = new ObservableCollection<Draft>((from i in db.osnsv.Where(j => j.draft == pSelDraftOutpro.draft)
 
-                                                               let draftName = listDseDraft.DraftName != null ? listDseDraft.DraftName : listDseDraftSh.DraftName != null ? listDseDraftSh.DraftName : ""
-                                                               select new Osnsv
+                                                               join dbNameFull in db.vDraftNameList
+                                                               on i.draftosn equals dbNameFull.Draft into gfFull
+                                                               from listDseDraft in gfFull.DefaultIfEmpty()
+                                                               let draftName = listDseDraft.Name
+
+                                                               orderby i.draftosn
+                                                               select new Draft
                                                                {
-                                                                   draftPiece = i.draftosn,
-                                                                   draftPieceName = i.naimosn,
+                                                                   draft = i.draftosn,
+                                                                   draftName = i.naimosn,
                                                                }).ToList());
+        }
+        public void FindOsnast()
+        {
+            OnPropertyChanged("pSelDraftOutpro");
+            OnPropertyChanged("pListDraftOutpro");
         }
         #endregion
     }

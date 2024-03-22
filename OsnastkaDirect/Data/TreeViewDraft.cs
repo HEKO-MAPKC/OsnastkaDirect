@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Xml.Linq;
@@ -53,6 +54,23 @@ namespace OsnastkaDirect.Data
             if (obj is TreeViewDraft person) return draft == person.draft;
             return false;
         }
+
         public override int GetHashCode() => draft.GetHashCode();
+        Boolean _isSelected;
+        public Boolean IsSelected
+        {
+            get { return _isSelected; }
+            set
+            {
+                _isSelected = value;
+                OnPropertyChanged("IsSelected");
+            }
+        }
+        public event PropertyChangedEventHandler PropertyChanged;
+        protected void OnPropertyChanged(string _propertyName)
+        {
+            var handler = PropertyChanged;
+            if (handler != null) handler(this, new PropertyChangedEventArgs(_propertyName));
+        }
     }
 }

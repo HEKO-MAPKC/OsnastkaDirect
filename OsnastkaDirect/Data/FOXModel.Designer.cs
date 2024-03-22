@@ -566,6 +566,38 @@ namespace OsnastkaDirect.Data
             }
         }
         private ObjectSet<vOsnastTechOrder> _vOsnastTechOrder;
+    
+        /// <summary>
+        /// Нет доступной документации по метаданным.
+        /// </summary>
+        public ObjectSet<vComplectWithNames> vComplectWithNames
+        {
+            get
+            {
+                if ((_vComplectWithNames == null))
+                {
+                    _vComplectWithNames = base.CreateObjectSet<vComplectWithNames>("vComplectWithNames");
+                }
+                return _vComplectWithNames;
+            }
+        }
+        private ObjectSet<vComplectWithNames> _vComplectWithNames;
+    
+        /// <summary>
+        /// Нет доступной документации по метаданным.
+        /// </summary>
+        public ObjectSet<vResPart> vResPart
+        {
+            get
+            {
+                if ((_vResPart == null))
+                {
+                    _vResPart = base.CreateObjectSet<vResPart>("vResPart");
+                }
+                return _vResPart;
+            }
+        }
+        private ObjectSet<vResPart> _vResPart;
 
         #endregion
 
@@ -809,6 +841,22 @@ namespace OsnastkaDirect.Data
         public void AddTovOsnastTechOrder(vOsnastTechOrder vOsnastTechOrder)
         {
             base.AddObject("vOsnastTechOrder", vOsnastTechOrder);
+        }
+    
+        /// <summary>
+        /// Устаревший метод для добавления новых объектов в набор EntitySet vComplectWithNames. Взамен можно использовать метод .Add связанного свойства ObjectSet&lt;T&gt;.
+        /// </summary>
+        public void AddTovComplectWithNames(vComplectWithNames vComplectWithNames)
+        {
+            base.AddObject("vComplectWithNames", vComplectWithNames);
+        }
+    
+        /// <summary>
+        /// Устаревший метод для добавления новых объектов в набор EntitySet vResPart. Взамен можно использовать метод .Add связанного свойства ObjectSet&lt;T&gt;.
+        /// </summary>
+        public void AddTovResPart(vResPart vResPart)
+        {
+            base.AddObject("vResPart", vResPart);
         }
 
         #endregion
@@ -12717,6 +12765,116 @@ namespace OsnastkaDirect.Data
     /// <summary>
     /// Нет доступной документации по метаданным.
     /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="FOXModel", Name="vComplectWithNames")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class vComplectWithNames : EntityObject
+    {
+        #region Фабричный метод
+    
+        /// <summary>
+        /// Создание нового объекта vComplectWithNames.
+        /// </summary>
+        /// <param name="draft">Исходное значение свойства draft.</param>
+        /// <param name="across">Исходное значение свойства across.</param>
+        public static vComplectWithNames CreatevComplectWithNames(global::System.Decimal draft, global::System.Decimal across)
+        {
+            vComplectWithNames vComplectWithNames = new vComplectWithNames();
+            vComplectWithNames.draft = draft;
+            vComplectWithNames.across = across;
+            return vComplectWithNames;
+        }
+
+        #endregion
+
+        #region Свойства-примитивы
+    
+        /// <summary>
+        /// Нет доступной документации по метаданным.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Decimal draft
+        {
+            get
+            {
+                return _draft;
+            }
+            set
+            {
+                if (_draft != value)
+                {
+                    OndraftChanging(value);
+                    ReportPropertyChanging("draft");
+                    _draft = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("draft");
+                    OndraftChanged();
+                }
+            }
+        }
+        private global::System.Decimal _draft;
+        partial void OndraftChanging(global::System.Decimal value);
+        partial void OndraftChanged();
+    
+        /// <summary>
+        /// Нет доступной документации по метаданным.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String draftName
+        {
+            get
+            {
+                return _draftName;
+            }
+            set
+            {
+                OndraftNameChanging(value);
+                ReportPropertyChanging("draftName");
+                _draftName = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("draftName");
+                OndraftNameChanged();
+            }
+        }
+        private global::System.String _draftName;
+        partial void OndraftNameChanging(global::System.String value);
+        partial void OndraftNameChanged();
+    
+        /// <summary>
+        /// Нет доступной документации по метаданным.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Decimal across
+        {
+            get
+            {
+                return _across;
+            }
+            set
+            {
+                if (_across != value)
+                {
+                    OnacrossChanging(value);
+                    ReportPropertyChanging("across");
+                    _across = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("across");
+                    OnacrossChanged();
+                }
+            }
+        }
+        private global::System.Decimal _across;
+        partial void OnacrossChanging(global::System.Decimal value);
+        partial void OnacrossChanged();
+
+        #endregion
+
+    
+    }
+    
+    /// <summary>
+    /// Нет доступной документации по метаданным.
+    /// </summary>
     [EdmEntityTypeAttribute(NamespaceName="FOXModel", Name="vDraftNameList")]
     [Serializable()]
     [DataContractAttribute(IsReference=true)]
@@ -13042,6 +13200,30 @@ namespace OsnastkaDirect.Data
         private global::System.String _Workshop;
         partial void OnWorkshopChanging(global::System.String value);
         partial void OnWorkshopChanged();
+    
+        /// <summary>
+        /// Нет доступной документации по метаданным.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> WorkshopID
+        {
+            get
+            {
+                return _WorkshopID;
+            }
+            set
+            {
+                OnWorkshopIDChanging(value);
+                ReportPropertyChanging("WorkshopID");
+                _WorkshopID = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("WorkshopID");
+                OnWorkshopIDChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _WorkshopID;
+        partial void OnWorkshopIDChanging(Nullable<global::System.Int32> value);
+        partial void OnWorkshopIDChanged();
     
         /// <summary>
         /// Нет доступной документации по метаданным.
@@ -15072,6 +15254,591 @@ namespace OsnastkaDirect.Data
         }
         private Nullable<global::System.Int16> _AmountEquipmentForOper;
         partial void OnAmountEquipmentForOperChanging(Nullable<global::System.Int16> value);
+        partial void OnAmountEquipmentForOperChanged();
+    
+        /// <summary>
+        /// Нет доступной документации по метаданным.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Boolean> IsHandOverDraft
+        {
+            get
+            {
+                return _IsHandOverDraft;
+            }
+            set
+            {
+                OnIsHandOverDraftChanging(value);
+                ReportPropertyChanging("IsHandOverDraft");
+                _IsHandOverDraft = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("IsHandOverDraft");
+                OnIsHandOverDraftChanged();
+            }
+        }
+        private Nullable<global::System.Boolean> _IsHandOverDraft;
+        partial void OnIsHandOverDraftChanging(Nullable<global::System.Boolean> value);
+        partial void OnIsHandOverDraftChanged();
+    
+        /// <summary>
+        /// Нет доступной документации по метаданным.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String Note
+        {
+            get
+            {
+                return _Note;
+            }
+            set
+            {
+                OnNoteChanging(value);
+                ReportPropertyChanging("Note");
+                _Note = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("Note");
+                OnNoteChanged();
+            }
+        }
+        private global::System.String _Note;
+        partial void OnNoteChanging(global::System.String value);
+        partial void OnNoteChanged();
+    
+        /// <summary>
+        /// Нет доступной документации по метаданным.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String Analogue
+        {
+            get
+            {
+                return _Analogue;
+            }
+            set
+            {
+                OnAnalogueChanging(value);
+                ReportPropertyChanging("Analogue");
+                _Analogue = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("Analogue");
+                OnAnalogueChanged();
+            }
+        }
+        private global::System.String _Analogue;
+        partial void OnAnalogueChanging(global::System.String value);
+        partial void OnAnalogueChanged();
+    
+        /// <summary>
+        /// Нет доступной документации по метаданным.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Decimal> LaborManufacturingAssume
+        {
+            get
+            {
+                return _LaborManufacturingAssume;
+            }
+            set
+            {
+                OnLaborManufacturingAssumeChanging(value);
+                ReportPropertyChanging("LaborManufacturingAssume");
+                _LaborManufacturingAssume = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("LaborManufacturingAssume");
+                OnLaborManufacturingAssumeChanged();
+            }
+        }
+        private Nullable<global::System.Decimal> _LaborManufacturingAssume;
+        partial void OnLaborManufacturingAssumeChanging(Nullable<global::System.Decimal> value);
+        partial void OnLaborManufacturingAssumeChanged();
+
+        #endregion
+
+    
+    }
+    
+    /// <summary>
+    /// Нет доступной документации по метаданным.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="FOXModel", Name="vResPart")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class vResPart : EntityObject
+    {
+        #region Фабричный метод
+    
+        /// <summary>
+        /// Создание нового объекта vResPart.
+        /// </summary>
+        /// <param name="id">Исходное значение свойства id.</param>
+        public static vResPart CreatevResPart(global::System.Int64 id)
+        {
+            vResPart vResPart = new vResPart();
+            vResPart.id = id;
+            return vResPart;
+        }
+
+        #endregion
+
+        #region Свойства-примитивы
+    
+        /// <summary>
+        /// Нет доступной документации по метаданным.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int64 id
+        {
+            get
+            {
+                return _id;
+            }
+            set
+            {
+                if (_id != value)
+                {
+                    OnidChanging(value);
+                    ReportPropertyChanging("id");
+                    _id = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("id");
+                    OnidChanged();
+                }
+            }
+        }
+        private global::System.Int64 _id;
+        partial void OnidChanging(global::System.Int64 value);
+        partial void OnidChanged();
+    
+        /// <summary>
+        /// Нет доступной документации по метаданным.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> OsnastUseListID
+        {
+            get
+            {
+                return _OsnastUseListID;
+            }
+            set
+            {
+                OnOsnastUseListIDChanging(value);
+                ReportPropertyChanging("OsnastUseListID");
+                _OsnastUseListID = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("OsnastUseListID");
+                OnOsnastUseListIDChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _OsnastUseListID;
+        partial void OnOsnastUseListIDChanging(Nullable<global::System.Int32> value);
+        partial void OnOsnastUseListIDChanged();
+    
+        /// <summary>
+        /// Нет доступной документации по метаданным.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Decimal> Draft
+        {
+            get
+            {
+                return _Draft;
+            }
+            set
+            {
+                OnDraftChanging(value);
+                ReportPropertyChanging("Draft");
+                _Draft = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("Draft");
+                OnDraftChanged();
+            }
+        }
+        private Nullable<global::System.Decimal> _Draft;
+        partial void OnDraftChanging(Nullable<global::System.Decimal> value);
+        partial void OnDraftChanged();
+    
+        /// <summary>
+        /// Нет доступной документации по метаданным.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String DraftName
+        {
+            get
+            {
+                return _DraftName;
+            }
+            set
+            {
+                OnDraftNameChanging(value);
+                ReportPropertyChanging("DraftName");
+                _DraftName = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("DraftName");
+                OnDraftNameChanged();
+            }
+        }
+        private global::System.String _DraftName;
+        partial void OnDraftNameChanging(global::System.String value);
+        partial void OnDraftNameChanged();
+    
+        /// <summary>
+        /// Нет доступной документации по метаданным.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Decimal> Osnast
+        {
+            get
+            {
+                return _Osnast;
+            }
+            set
+            {
+                OnOsnastChanging(value);
+                ReportPropertyChanging("Osnast");
+                _Osnast = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("Osnast");
+                OnOsnastChanged();
+            }
+        }
+        private Nullable<global::System.Decimal> _Osnast;
+        partial void OnOsnastChanging(Nullable<global::System.Decimal> value);
+        partial void OnOsnastChanged();
+    
+        /// <summary>
+        /// Нет доступной документации по метаданным.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String OsnastName
+        {
+            get
+            {
+                return _OsnastName;
+            }
+            set
+            {
+                OnOsnastNameChanging(value);
+                ReportPropertyChanging("OsnastName");
+                _OsnastName = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("OsnastName");
+                OnOsnastNameChanged();
+            }
+        }
+        private global::System.String _OsnastName;
+        partial void OnOsnastNameChanging(global::System.String value);
+        partial void OnOsnastNameChanged();
+    
+        /// <summary>
+        /// Нет доступной документации по метаданным.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Decimal> ResPart
+        {
+            get
+            {
+                return _ResPart;
+            }
+            set
+            {
+                OnResPartChanging(value);
+                ReportPropertyChanging("ResPart");
+                _ResPart = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("ResPart");
+                OnResPartChanged();
+            }
+        }
+        private Nullable<global::System.Decimal> _ResPart;
+        partial void OnResPartChanging(Nullable<global::System.Decimal> value);
+        partial void OnResPartChanged();
+    
+        /// <summary>
+        /// Нет доступной документации по метаданным.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String ResPartName
+        {
+            get
+            {
+                return _ResPartName;
+            }
+            set
+            {
+                OnResPartNameChanging(value);
+                ReportPropertyChanging("ResPartName");
+                _ResPartName = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("ResPartName");
+                OnResPartNameChanged();
+            }
+        }
+        private global::System.String _ResPartName;
+        partial void OnResPartNameChanging(global::System.String value);
+        partial void OnResPartNameChanged();
+    
+        /// <summary>
+        /// Нет доступной документации по метаданным.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Decimal> WorkplaceID
+        {
+            get
+            {
+                return _WorkplaceID;
+            }
+            set
+            {
+                OnWorkplaceIDChanging(value);
+                ReportPropertyChanging("WorkplaceID");
+                _WorkplaceID = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("WorkplaceID");
+                OnWorkplaceIDChanged();
+            }
+        }
+        private Nullable<global::System.Decimal> _WorkplaceID;
+        partial void OnWorkplaceIDChanging(Nullable<global::System.Decimal> value);
+        partial void OnWorkplaceIDChanged();
+    
+        /// <summary>
+        /// Нет доступной документации по метаданным.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String WorkplaceCode
+        {
+            get
+            {
+                return _WorkplaceCode;
+            }
+            set
+            {
+                OnWorkplaceCodeChanging(value);
+                ReportPropertyChanging("WorkplaceCode");
+                _WorkplaceCode = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("WorkplaceCode");
+                OnWorkplaceCodeChanged();
+            }
+        }
+        private global::System.String _WorkplaceCode;
+        partial void OnWorkplaceCodeChanging(global::System.String value);
+        partial void OnWorkplaceCodeChanged();
+    
+        /// <summary>
+        /// Нет доступной документации по метаданным.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String WorkplaceMachine
+        {
+            get
+            {
+                return _WorkplaceMachine;
+            }
+            set
+            {
+                OnWorkplaceMachineChanging(value);
+                ReportPropertyChanging("WorkplaceMachine");
+                _WorkplaceMachine = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("WorkplaceMachine");
+                OnWorkplaceMachineChanged();
+            }
+        }
+        private global::System.String _WorkplaceMachine;
+        partial void OnWorkplaceMachineChanging(global::System.String value);
+        partial void OnWorkplaceMachineChanged();
+    
+        /// <summary>
+        /// Нет доступной документации по метаданным.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String Workshop
+        {
+            get
+            {
+                return _Workshop;
+            }
+            set
+            {
+                OnWorkshopChanging(value);
+                ReportPropertyChanging("Workshop");
+                _Workshop = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("Workshop");
+                OnWorkshopChanged();
+            }
+        }
+        private global::System.String _Workshop;
+        partial void OnWorkshopChanging(global::System.String value);
+        partial void OnWorkshopChanged();
+    
+        /// <summary>
+        /// Нет доступной документации по метаданным.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String StoreroomOsnast
+        {
+            get
+            {
+                return _StoreroomOsnast;
+            }
+            set
+            {
+                OnStoreroomOsnastChanging(value);
+                ReportPropertyChanging("StoreroomOsnast");
+                _StoreroomOsnast = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("StoreroomOsnast");
+                OnStoreroomOsnastChanged();
+            }
+        }
+        private global::System.String _StoreroomOsnast;
+        partial void OnStoreroomOsnastChanging(global::System.String value);
+        partial void OnStoreroomOsnastChanged();
+    
+        /// <summary>
+        /// Нет доступной документации по метаданным.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Decimal> OperationCodeID
+        {
+            get
+            {
+                return _OperationCodeID;
+            }
+            set
+            {
+                OnOperationCodeIDChanging(value);
+                ReportPropertyChanging("OperationCodeID");
+                _OperationCodeID = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("OperationCodeID");
+                OnOperationCodeIDChanged();
+            }
+        }
+        private Nullable<global::System.Decimal> _OperationCodeID;
+        partial void OnOperationCodeIDChanging(Nullable<global::System.Decimal> value);
+        partial void OnOperationCodeIDChanged();
+    
+        /// <summary>
+        /// Нет доступной документации по метаданным.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String Operation
+        {
+            get
+            {
+                return _Operation;
+            }
+            set
+            {
+                OnOperationChanging(value);
+                ReportPropertyChanging("Operation");
+                _Operation = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("Operation");
+                OnOperationChanged();
+            }
+        }
+        private global::System.String _Operation;
+        partial void OnOperationChanging(global::System.String value);
+        partial void OnOperationChanged();
+    
+        /// <summary>
+        /// Нет доступной документации по метаданным.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String OperationCex
+        {
+            get
+            {
+                return _OperationCex;
+            }
+            set
+            {
+                OnOperationCexChanging(value);
+                ReportPropertyChanging("OperationCex");
+                _OperationCex = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("OperationCex");
+                OnOperationCexChanged();
+            }
+        }
+        private global::System.String _OperationCex;
+        partial void OnOperationCexChanging(global::System.String value);
+        partial void OnOperationCexChanged();
+    
+        /// <summary>
+        /// Нет доступной документации по метаданным.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Decimal> Ksi
+        {
+            get
+            {
+                return _Ksi;
+            }
+            set
+            {
+                OnKsiChanging(value);
+                ReportPropertyChanging("Ksi");
+                _Ksi = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("Ksi");
+                OnKsiChanged();
+            }
+        }
+        private Nullable<global::System.Decimal> _Ksi;
+        partial void OnKsiChanging(Nullable<global::System.Decimal> value);
+        partial void OnKsiChanged();
+    
+        /// <summary>
+        /// Нет доступной документации по метаданным.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Decimal> AmountEquipmentInWorkTogether
+        {
+            get
+            {
+                return _AmountEquipmentInWorkTogether;
+            }
+            set
+            {
+                OnAmountEquipmentInWorkTogetherChanging(value);
+                ReportPropertyChanging("AmountEquipmentInWorkTogether");
+                _AmountEquipmentInWorkTogether = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("AmountEquipmentInWorkTogether");
+                OnAmountEquipmentInWorkTogetherChanged();
+            }
+        }
+        private Nullable<global::System.Decimal> _AmountEquipmentInWorkTogether;
+        partial void OnAmountEquipmentInWorkTogetherChanging(Nullable<global::System.Decimal> value);
+        partial void OnAmountEquipmentInWorkTogetherChanged();
+    
+        /// <summary>
+        /// Нет доступной документации по метаданным.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Decimal> AmountEquipmentForOper
+        {
+            get
+            {
+                return _AmountEquipmentForOper;
+            }
+            set
+            {
+                OnAmountEquipmentForOperChanging(value);
+                ReportPropertyChanging("AmountEquipmentForOper");
+                _AmountEquipmentForOper = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("AmountEquipmentForOper");
+                OnAmountEquipmentForOperChanged();
+            }
+        }
+        private Nullable<global::System.Decimal> _AmountEquipmentForOper;
+        partial void OnAmountEquipmentForOperChanging(Nullable<global::System.Decimal> value);
         partial void OnAmountEquipmentForOperChanged();
     
         /// <summary>

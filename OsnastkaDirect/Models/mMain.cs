@@ -564,7 +564,8 @@ namespace OsnastkaDirect.Models
                                  // id_prod = i.prod_id.Value,
                                   dateBoss = i.DateReturnedToTechnolog,
                                   boss = i.AuthorConstructor,
-                                  dateAtConstructor = i.DateAtConstructor
+                                  dateAtConstructor = i.DateAtConstructor,
+                                  WorkshopID = i.WorkshopID
                               })/*.Distinct()*/.ToList();
             ////dtplan WITH os_pro.s_iz_10;
             //dtfact WITH os_pro.d_iz_13;
@@ -867,6 +868,7 @@ namespace OsnastkaDirect.Models
             _draftOsnast.IsStatusEmployeeFinalApproved = true;
             pSelOsn.dtOk = DateTime.Now;
             SaveChanges();
+            SaveOsnDB();
         }
         public void ApproveOrd()
         {
@@ -896,7 +898,8 @@ namespace OsnastkaDirect.Models
             pSelOsn.nOrd = _nOrdNew;
             pSelOsn.accepted = true;
             pSelOsn.zak_1 = _newZak1;
-            SaveChanges();
+            //SaveChanges();
+            SaveOsnDB();
            // PrintBlancOrd(); //TODO ворк ин прогресс
         }
         public void PrintBlancOrd()
@@ -1109,28 +1112,18 @@ namespace OsnastkaDirect.Models
             pSelOsn.Copy(BackupOsn);
             OnPropertyChanged("pSelOsn");
         }
-        public void AddNewOsnDB()
+        public TechOrder GenerateTechOrder()
         {
             var _DraftDB = db.DraftInfoFull.FirstOrDefault(i => i.Draft == pSelOsn.draft);
-            var _OsnastDB = db.DraftInfoFull.FirstOrDefault(i => i.Draft == pSelOsn.draftOsn);
-
-            DraftInfoFull _DraftInterDB;
-            if (pSelOsn.draftRes != null)
-                _DraftInterDB = db.DraftInfoFull.FirstOrDefault(i => i.Draft == pSelOsn.draftRes);
-            else
-                _DraftInterDB = db.DraftInfoFull.FirstOrDefault(i => i.Draft == 0);
+            
             var _WorkshopDB = db.Workshop.FirstOrDefault(i => i.WorkshopID == pSelOsn.WorkshopID);
 
             int _DraftID;
-            int _OsnastID;
-            int _DraftInterID;
+
             int _WorkshopID;
             if (_DraftDB != null) _DraftID = _DraftDB.DraftID;
             else _DraftID = 0;
-            if (_OsnastDB != null) _OsnastID = _OsnastDB.DraftID;
-            else _OsnastID = 0;
-            if (_DraftInterDB != null) _DraftInterID = _DraftInterDB.DraftID;
-            else _DraftInterID = 0;
+            
             if (_WorkshopDB != null) _WorkshopID = _WorkshopDB.WorkshopID;
             else _WorkshopID = 0; //TODO разобраться с null и ?
             TechOrder _TechOrder = new TechOrder
@@ -1154,8 +1147,25 @@ namespace OsnastkaDirect.Models
                 DateReturnedToTechnolog = pSelOsn.dateBoss,
                 AuthorConstructor = pSelOsn.fioConst,
                 DateAtConstructor = pSelOsn.dateAtConstructor,
-                RepairOrProduction = pSelOsn.characterOrd == "Ремонт" ? 0:1,
+                RepairOrProduction = pSelOsn.characterOrd == "Ремонт" ? 2 : 1,
             };
+            return _TechOrder;
+        }
+        public OsnastOrder GenerateOsnastOrder(TechOrder _TechOrder)
+        {
+            var _OsnastDB = db.DraftInfoFull.FirstOrDefault(i => i.Draft == pSelOsn.draftOsn);
+
+            DraftInfoFull _DraftInterDB;
+            if (pSelOsn.draftRes != null)
+                _DraftInterDB = db.DraftInfoFull.FirstOrDefault(i => i.Draft == pSelOsn.draftRes);
+            else
+                _DraftInterDB = db.DraftInfoFull.FirstOrDefault(i => i.Draft == 0);
+            int _OsnastID;
+            int _DraftInterID;
+            if (_OsnastDB != null) _OsnastID = _OsnastDB.DraftID;
+            else _OsnastID = 0;
+            if (_DraftInterDB != null) _DraftInterID = _DraftInterDB.DraftID;
+            else _DraftInterID = 0;
             OsnastOrder _OsnastOrder = new OsnastOrder
             {
                 //OsnastOrderID = pSelOsn.draftOsnastID,
@@ -1167,7 +1177,7 @@ namespace OsnastkaDirect.Models
                 AddInformation = pSelOsn.addition,
                 AmountEquipmentProducePlan = pSelOsn.amount,
                 //DateCreateApplication = pSelOsn.dateWho,
-                //AuthorTechnolog = pSelOsn.who,
+                //AuthorTechnolog = p0SelOsn.who,
                 //ReasonReturnedToTechnolog = pSelOsn.returnRes,
                 //Draft = pSelOsn.draft,
                 InterOsnastID = _DraftInterID,
@@ -1188,7 +1198,7 @@ namespace OsnastkaDirect.Models
                 // FactoryNumberOrder = pSelOsn.numOsn,
                 //WorkplaceID = pSelOsn.workPlace,
                 //OperationCodeID = pSelOsn.operation,
-                
+
 
                 DateImplementPlan = pSelOsn.dateNeed,
 
@@ -1203,9 +1213,78 @@ namespace OsnastkaDirect.Models
                 //AuthorConstructor = pSelOsn.boss,
                 //DateAtConstructor = pSelOsn.dateAtConstructor
             };
+            return _OsnastOrder;
+        }
+        public void AddNewOsnDB()
+        {
+            var _TechOrder = GenerateTechOrder();
+            var _OsnastOrder = GenerateOsnastOrder(_TechOrder);
             db.TechOrder.AddObject(_TechOrder); //TODO delat'
             db.OsnastOrder.AddObject(_OsnastOrder); //TODO delat'
             db.SaveChanges();
+        }
+        public void SaveOsnDB()
+        {
+            var _OsnastOrderDB = db.OsnastOrder.FirstOrDefault(i => i.OsnastOrderID == pSelOsn.nOrdPrev);
+            var _TechOrderDB = db.TechOrder.FirstOrDefault(i => i.TechOrderID == _OsnastOrderDB.TechOrderID);
+
+            var _DraftDB = db.DraftInfoFull.FirstOrDefault(i => i.Draft == pSelOsn.draft);
+            var _WorkshopDB = db.Workshop.FirstOrDefault(i => i.WorkshopID == pSelOsn.WorkshopID);
+            int _DraftID;
+            int _WorkshopID;
+            if (_DraftDB != null) _DraftID = _DraftDB.DraftID;
+            else _DraftID = 0;
+            if (_WorkshopDB != null) _WorkshopID = _WorkshopDB.WorkshopID;
+            else _WorkshopID = 0; //TODO разобраться с null и ?
+
+            _TechOrderDB.IsApplicationFrom = true;
+            _TechOrderDB.DateCreateApplication = DateTime.Now;
+            _TechOrderDB.DraftID = _DraftID;
+            _TechOrderDB.WorkshopID = _WorkshopID;
+            _TechOrderDB.Workplace = pSelOsn.workPlace;
+            _TechOrderDB.OperationCode = pSelOsn.operation;
+            _TechOrderDB.ReasonProduction = pSelOsn.reason;
+            _TechOrderDB.AuthorBoss = pSelOsn.boss;
+            _TechOrderDB.AuthorTechnolog = pSelOsn.who;
+            _TechOrderDB.ReasonReturnedToTechnolog = pSelOsn.returnRes;
+            _TechOrderDB.NameDraftProduct = pSelOsn.usage;
+            _TechOrderDB.DateLimitation = pSelOsn.dtSrok;
+            _TechOrderDB.DateAtApproval = pSelOsn.dtIzg;
+            _TechOrderDB.IsAtConstructor = pSelOsn.atConst;
+            _TechOrderDB.IsReturnedToTechnolog = pSelOsn.returned;
+            _TechOrderDB.YearTechOrd = pSelOsn.zak_1 == null ? "0" : pSelOsn.zak_1;
+            _TechOrderDB.DateReturnedToTechnolog = pSelOsn.dateBoss;
+            _TechOrderDB.AuthorConstructor = pSelOsn.fioConst;
+            _TechOrderDB.DateAtConstructor = pSelOsn.dateAtConstructor;
+            _TechOrderDB.RepairOrProduction = pSelOsn.characterOrd == "Ремонт" ? 2 : 1;
+            //
+            var _OsnastDB = db.DraftInfoFull.FirstOrDefault(i => i.Draft == pSelOsn.draftOsn);
+
+            DraftInfoFull _DraftInterDB;
+            if (pSelOsn.draftRes != null)
+                _DraftInterDB = db.DraftInfoFull.FirstOrDefault(i => i.Draft == pSelOsn.draftRes);
+            else
+                _DraftInterDB = db.DraftInfoFull.FirstOrDefault(i => i.Draft == 0);
+            int _OsnastID;
+            int _DraftInterID;
+            if (_OsnastDB != null) _OsnastID = _OsnastDB.DraftID;
+            else _OsnastID = 0;
+            if (_DraftInterDB != null) _DraftInterID = _DraftInterDB.DraftID;
+            else _DraftInterID = 0;
+                _OsnastOrderDB.OsnastID = _OsnastID;
+                _OsnastOrderDB.TechOrderID = _TechOrderDB.TechOrderID;
+                _OsnastOrderDB.AddInformation = pSelOsn.addition;
+                _OsnastOrderDB.AmountEquipmentProducePlan = pSelOsn.amount;
+                _OsnastOrderDB.InterOsnastID = _DraftInterID;
+                _OsnastOrderDB.DateEmployeeFinalApproved = pSelOsn.dtOk;
+                _OsnastOrderDB.IsStatusEmployeeApproved = pSelOsn.accepted;
+                _OsnastOrderDB.AuthorConstructorExecute = pSelOsn.fioConst;
+                _OsnastOrderDB.DateImplementPlan = pSelOsn.dateNeed;
+                _OsnastOrderDB.ANNTab = pSelOsn.annTab;
+                _OsnastOrderDB.DateProducePlan = pSelOsn.datePlan;
+                _OsnastOrderDB.DateProduceFact = pSelOsn.dateFact;
+                _OsnastOrderDB.YearTechOrd = pSelOsn.zak_1 == null ? "0" : pSelOsn.zak_1;
+            db.SaveChanges(); // TODO пофиксить время
         }
         #endregion
     }

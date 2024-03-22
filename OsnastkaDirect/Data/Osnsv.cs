@@ -15,7 +15,7 @@ namespace OsnastkaDirect.Data
         public string draftName { get; set; }
         public decimal? workPlace { get; set; }
         public decimal? codeOperation { get; set; }
-        public override bool Equals(object obj)
+        public override bool Equals(object obj) //TODO 
         {
             if (obj is Osnsv person) return draft == person.draft;
             return false;

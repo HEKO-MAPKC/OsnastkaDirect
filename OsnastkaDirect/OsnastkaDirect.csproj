@@ -101,6 +101,7 @@
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
+    <Reference Include="WindowsFormsIntegration" />
     <Reference Include="ZakDocs, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\DLLs\ZakDocs.dll</HintPath>
@@ -127,6 +128,8 @@
     <Compile Include="Data\Ocomplect.cs" />
     <Compile Include="Data\OrderPlgod.cs" />
     <Compile Include="Data\Osnsv.cs" />
+    <Compile Include="Data\perDispatcherHelper.cs" />
+    <Compile Include="Data\perTreeViewItemHelper.cs" />
     <Compile Include="Data\Prod.cs" />
     <Compile Include="Data\Product.cs" />
     <Compile Include="Data\TreeViewDraft.cs" />

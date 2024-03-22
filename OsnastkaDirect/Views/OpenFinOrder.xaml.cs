@@ -1,4 +1,5 @@
-﻿using System;
+﻿using OsnastkaDirect.Data;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -21,6 +22,17 @@ namespace OsnastkaDirect.Views
         public OpenFinOrder()
         {
             InitializeComponent();
+        }
+
+        private void TreeViewSelectedItemChanged(object sender, RoutedEventArgs e)
+        {
+            TreeViewItem item = sender as TreeViewItem;
+            if (item != null)
+            {
+                item.BringIntoView();
+                e.Handled = true;
+            }
+
         }
     }
 }

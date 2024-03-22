@@ -9,34 +9,57 @@
         xmlns:control="clr-namespace:Metrology.EmbedResources.Controls"
         mc:Ignorable="d"
         Title="Заказ"
-        Height="1024"
+        Height="824"
         Width="1024"
         WindowStartupLocation="CenterScreen">
-    <Grid>
-        <Rectangle Grid.Row="1"
-                   Margin="0">
+    <Window.Resources>
+        <Style x:Key="{x:Type TreeViewItem}"
+               TargetType="{x:Type TreeViewItem}"
+               >
+            <Setter Property="Background"
+                    Value="Transparent" />
+            <Setter Property="Padding"
+                    Value="1,0,0,0" />
+            <!--<Setter Property="i:BringSelectedItemIntoViewBehavior.IsBringSelectedIntoView" Value="True"/>-->
+            <Setter Property="IsSelected"
+                    Value="{Binding IsSelected,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" />
+            <Setter Property="IsExpanded"
+                    Value="{Binding IsExpanded,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" />
+            <EventSetter Event="Selected"
+                         Handler="TreeViewSelectedItemChanged" />
+            </Style>
+    </Window.Resources>
+        <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+        <Rectangle Margin="2,2,2,2"
+                   Grid.RowSpan="3">
             <Rectangle.Fill>
                 <LinearGradientBrush StartPoint="0.5,0"
                                      EndPoint="0.5,1">
                     <GradientStop Color="White"
                                   Offset="0" />
                     <GradientStop Color="Lavender"
-                                  Offset="2" />
+                                  Offset="1" />
                 </LinearGradientBrush>
             </Rectangle.Fill>
         </Rectangle>
 
 
         <DataGrid AutoGenerateColumns="false"
-                  Height="274"
-                  Margin="2,2,2,0"
+                  Height="257"
+                  Margin="419,2,2,2"
+                  Grid.Row="0"
                   VerticalAlignment="Top"
                   ItemsSource="{Binding model.pListOrder, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                   SelectedItem="{Binding model.pSelOrder, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                   IsReadOnly="true"
                   CanUserAddRows="False"
                   HorizontalScrollBarVisibility="Disabled"
-                  x:Name="DataGridOsn"
+                  x:Name="DataGridOrder"
                   FontSize="12">
             <DataGrid.RowStyle>
                 <Style TargetType="{x:Type DataGridRow}"
@@ -46,28 +69,29 @@
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Заказ"
                                     Binding="{Binding order}"
-                                    Width="0.1*" />
+                                    Width="0.2*" />
                 <DataGridTextColumn Header="Номер"
                                     Binding="{Binding number}"
-                                    Width="0.1*" />
-                <DataGridTextColumn Header="Номер"
+                                    Width="0.2*" />
+                <DataGridTextColumn Header="Чертеж"
                                     Binding="{Binding draft}"
                                     Width="0.5*" />
-                <DataGridTextColumn Header="Номер"
+                <DataGridTextColumn Header="Наименование"
                                     Binding="{Binding draftName}"
                                     Width="0.5*" />
             </DataGrid.Columns>
         </DataGrid>
         <DataGrid AutoGenerateColumns="false"
-                  Height="274"
-                  Margin="2,640,2,0"
+                  Height="264"
+                  Margin="2,2,2,2"
+                  Grid.Row="2"
                   VerticalAlignment="Top"
                   ItemsSource="{Binding model.pListDraftPiece, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                   SelectedItem="{Binding model.pSelDraftPiece, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                   IsReadOnly="true"
                   CanUserAddRows="False"
                   HorizontalScrollBarVisibility="Disabled"
-                  x:Name="DataGridOsn3"
+                  x:Name="DataGridOrderOsn"
                   FontSize="12">
             <DataGrid.RowStyle>
                 <Style TargetType="{x:Type DataGridRow}"
@@ -75,59 +99,17 @@
                 </Style>
             </DataGrid.RowStyle>
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Чертеж запчасти"
-                                    Binding="{Binding draftPiece}"
+                <DataGridTextColumn Header="Чертеж оснастки"
+                                    Binding="{Binding draft}"
                                     Width="0.1*" />
-                <DataGridTextColumn Header="Наименование запчасти"
-                                    Binding="{Binding draftPieceName}"
+                <DataGridTextColumn Header="Наименование оснастки"
+                                    Binding="{Binding draftName}"
                                     Width="0.1*" />
             </DataGrid.Columns>
         </DataGrid>
-        <WrapPanel Margin="0,281,0,0"
-                   HorizontalAlignment="Center"
-                   Width="1004"
-                   Height="85"
-                   VerticalAlignment="Top">
-            <Fluent:Button Header="Выбрать"
-                           Command="{Binding pAcceptOpen}"
-                           Width="90"
-                           Height="60"
-                           Background="White"
-                           BorderBrush="Silver"
-                           CornerRadius="5">
-                <Fluent:Button.LargeIcon>
-                    <Image Source="/OsnastkaDirect;component/EmbedResources/Icons/Save.png"
-                           Width="35"
-                           Height="35"
-                           Margin="-5,0,-2,-2" />
-                </Fluent:Button.LargeIcon>
-            </Fluent:Button>
-            <Fluent:Button Header="Отмена"
-                           Command="{Binding pNotAcceptOpen}"
-                           Width="90"
-                           Height="60"
-                           Background="White"
-                           BorderBrush="Silver"
-                           CornerRadius="5">
-                <Fluent:Button.LargeIcon>
-                    <Image Source="/OsnastkaDirect;component/EmbedResources/Icons/Save.png"
-                           Width="35"
-                           Height="35"
-                           Margin="-5,0,-2,-2" />
-                </Fluent:Button.LargeIcon>
-            </Fluent:Button>
-            <Label Content="Поиск по"
-                   VerticalAlignment="Center"
-                   FontSize="14"
-                   Height="30" />
-            <control:PlaceholderBox Height="30"
-                                    Placeholder="Чертеж оснастки"
-                                    Text="{Binding model.pSearchOsn, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                    Width="120"
-                                    FontSize="14" />
-        </WrapPanel>
-        <TreeView Name="viewsTreeView"
-                  Margin="0,281,0,373"
+        <TreeView Name="TreeView"
+                  Margin="2,2,2,2"
+                  Grid.Row="1"
                   ItemsSource="{Binding model.pListDraftOutpro, UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}"
                   ScrollViewer.CanContentScroll="True">
             <e:Interaction.Behaviors>
@@ -141,10 +123,39 @@
                 </HierarchicalDataTemplate>
             </TreeView.ItemTemplate>
         </TreeView>
-        <WrapPanel Margin="0,900,0,0"
-                   HorizontalAlignment="Center"
-                   Width="1004"
-                   Height="85"
+        <WrapPanel Margin="10,190,0,0"
+                   HorizontalAlignment="Left"
+                   Width="404"
+                   Height="44"
+                   VerticalAlignment="Top">
+            <Label Content="Поиск оснастки:"
+                   VerticalAlignment="Center"
+                   FontSize="14"
+                   Height="30"
+                   Width="150" />
+            <control:PlaceholderBox Height="30"
+                                    Placeholder="Чертеж оснастки"
+                                    Text="{Binding model.pOsnastSearch, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                                    Width="158"
+                                    FontSize="14">
+                <control:PlaceholderBox.InputBindings>
+                    <KeyBinding Gesture="Enter"
+                                Command="{Binding UpdateBindingOnEnterCommand}"></KeyBinding>
+                </control:PlaceholderBox.InputBindings>
+            </control:PlaceholderBox>
+            <Fluent:Button Command="{Binding pFindOsnast}"
+                           Width="40"
+                           Height="40"
+                           Background="White"
+                           BorderBrush="Silver"
+                           CornerRadius="5"
+                           LargeIcon="/OsnastkaDirect;component/EmbedResources/Icons/Save.png">
+            </Fluent:Button>
+        </WrapPanel>
+        <WrapPanel Margin="10,10,0,0"
+                   HorizontalAlignment="Left"
+                   Width="404"
+                   Height="70"
                    VerticalAlignment="Top">
             <Fluent:Button Header="Выбрать"
                            Command="{Binding pAcceptOpen}"
@@ -154,7 +165,7 @@
                            BorderBrush="Silver"
                            CornerRadius="5">
                 <Fluent:Button.LargeIcon>
-                    <Image Source="/OsnastkaDirect;component/EmbedResources/Icons/Save.png"
+                    <Image Source="/EmbedResources/Icons/save.png"
                            Width="35"
                            Height="35"
                            Margin="-5,0,-2,-2" />
@@ -168,21 +179,68 @@
                            BorderBrush="Silver"
                            CornerRadius="5">
                 <Fluent:Button.LargeIcon>
-                    <Image Source="/OsnastkaDirect;component/EmbedResources/Icons/Save.png"
+                    <Image Source="/EmbedResources/Icons/save.png"
                            Width="35"
                            Height="35"
                            Margin="-5,0,-2,-2" />
                 </Fluent:Button.LargeIcon>
             </Fluent:Button>
-            <Label Content="Поиск по"
+        </WrapPanel>
+        <WrapPanel Margin="10,141,0,0"
+                   HorizontalAlignment="Left"
+                   Width="404"
+                   Height="44"
+                   VerticalAlignment="Top">
+            <Label Content="Поиск чертежа:"
                    VerticalAlignment="Center"
                    FontSize="14"
-                   Height="30" />
+                   Height="30"
+                   Width="150" />
             <control:PlaceholderBox Height="30"
-                                    Placeholder="Чертеж оснастки"
-                                    Text="{Binding model.pSearchOsn, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                    Width="120"
-                                    FontSize="14" />
+                                    Placeholder="Чертеж"
+                                    Text="{Binding model.pDraftSearch, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                    Width="158"
+                                    FontSize="14">
+                <control:PlaceholderBox.InputBindings>
+                    <KeyBinding Gesture="Enter"
+                                Command="{Binding UpdateBindingOnEnterCommand}" />
+                </control:PlaceholderBox.InputBindings>
+            </control:PlaceholderBox>
+            <Fluent:Button Command="{Binding pFindDraft}"
+                           Width="40"
+                           Height="40"
+                           Background="White"
+                           BorderBrush="Silver"
+                           CornerRadius="5"
+                           LargeIcon="/OsnastkaDirect;component/EmbedResources/Icons/Save.png" />
+        </WrapPanel>
+        <WrapPanel Margin="10,92,0,0"
+                   HorizontalAlignment="Left"
+                   Width="404"
+                   Height="44"
+                   VerticalAlignment="Top">
+            <Label Content="Поиск заказ+номер:"
+                   VerticalAlignment="Center"
+                   FontSize="14"
+                   Height="30"
+                   Width="150" />
+            <control:PlaceholderBox Height="30"
+                                    Placeholder="Заказ+номер"
+                                    Text="{Binding model.pOrderSearch, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                    Width="158"
+                                    FontSize="14">
+                <control:PlaceholderBox.InputBindings>
+                    <KeyBinding Gesture="Enter"
+                                Command="{Binding UpdateBindingOnEnterCommand}" />
+                </control:PlaceholderBox.InputBindings>
+            </control:PlaceholderBox>
+            <Fluent:Button Command="{Binding pFindOrd}"
+                           Width="40"
+                           Height="40"
+                           Background="White"
+                           BorderBrush="Silver"
+                           CornerRadius="5"
+                           LargeIcon="/OsnastkaDirect;component/EmbedResources/Icons/Save.png" />
         </WrapPanel>
     </Grid>
 </Window>

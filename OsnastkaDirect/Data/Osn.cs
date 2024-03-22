@@ -59,7 +59,7 @@ namespace OsnastkaDirect.Models
         public string fioConst { get; set; }
         public DateTime? dateAtConstructor { get; set; }
         //l
-        public int  WorkshopID { get; set; }
+        public int?  WorkshopID { get; set; }
         public bool dtSrokIsNull
         {
             get {

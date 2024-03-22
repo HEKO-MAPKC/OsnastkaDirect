@@ -9,6 +9,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:my="clr-namespace:OsnastkaDirect.Data"
         xmlns:xcdg="http://schemas.xceed.com/wpf/xaml/datagrid"
+        xmlns:wf="clr-namespace:System.Windows.Forms;assembly=System.Windows.Forms"
         mc:Ignorable="av"
         x:Class="OsnastkaDirect.Views.Main"
         Title="Дирекция оснастки"
@@ -681,12 +682,23 @@
                                    FontSize="12"
                                    Width="100"
                                    Height="26" />
-                            <control:PlaceholderBox Height="26"
-                                                    Placeholder="дата"
-                                                    Text="{Binding model.pSelOsn.dateWho, Mode=TwoWay, StringFormat=dd.MM.yy HH:mm, UpdateSourceTrigger=PropertyChanged}"
-                                                    Width="180"
-                                                    VerticalAlignment="Center"
-                                                    IsReadOnly="{Binding model.pIsReadOnlyRedacting}" />
+                            <DatePicker FontSize="12"
+                                        Width="180"
+                                        Height="26"
+                                        HorizontalContentAlignment="Stretch"
+                                        VerticalContentAlignment="Stretch"
+                                        IsHitTestVisible="{Binding model.pIsReadOnlyRedacting, Converter={StaticResource InverseBooleanConverter}}"
+                                        IsTabStop="{Binding model.pIsReadOnlyRedacting, Converter={StaticResource InverseBooleanConverter}}"
+                                        SelectedDate="{Binding model.pSelOsn.dateWho}">
+                                <DatePicker.Resources>
+                                    <Style TargetType="DatePickerTextBox">
+                                        <Setter Property="IsReadOnly"
+                                                Value="{Binding model.pIsReadOnlyRedacting}" />
+                                        <Setter Property="VerticalContentAlignment"
+                                                Value="Center" />
+                                    </Style>
+                                </DatePicker.Resources>
+                            </DatePicker> 
                         </StackPanel>
                         <StackPanel Width="auto"
                                     Orientation="Horizontal">
@@ -948,12 +960,29 @@
                                        FontSize="12"
                                        Width="80"
                                        Height="26" />
-                                <control:PlaceholderBox Height="33"
-                                                        Width="80"
-                                                        Placeholder="дата"
-                                                        Text="{Binding model.pSelOsn.dateNeed, Mode=TwoWay, StringFormat=dd.MM.yy, UpdateSourceTrigger=PropertyChanged}"
-                                                        FontSize="12"
-                                                        IsReadOnly="{Binding model.pIsReadOnlyRedacting}" />
+                                <DatePicker FontSize="12"
+                                            Width="100"
+                                            Height="33"
+                                            HorizontalContentAlignment="Stretch"
+                                            VerticalContentAlignment="Stretch"
+                                            IsHitTestVisible="{Binding model.pIsReadOnlyRedacting, Converter={StaticResource InverseBooleanConverter}}"
+                                            IsTabStop="{Binding model.pIsReadOnlyRedacting, Converter={StaticResource InverseBooleanConverter}}"
+                                            SelectedDate="{Binding model.pSelOsn.dateNeed}">
+                                    <DatePicker.Resources>
+                                    <Style TargetType="DatePickerTextBox">
+                                        <Setter Property="IsReadOnly"
+                                                Value="{Binding model.pIsReadOnlyRedacting}" />
+                                        <Setter Property="VerticalContentAlignment"
+                                                Value="Center" />
+                                            <Setter Property="VerticalAlignment"
+                                                    Value="Stretch" />
+                                            <Setter Property="HorizontalAlignment"
+                                                    Value="Stretch" />
+                                            <Setter Property="Height"
+                                                    Value="33" />
+                                        </Style>
+                                    </DatePicker.Resources>
+                                </DatePicker> 
                             </StackPanel>
                             <StackPanel Width="auto"
                                         Orientation="Vertical">
@@ -961,11 +990,23 @@
                                        FontSize="12"
                                        Width="80"
                                        Height="26" />
-                                <control:PlaceholderBox Height="33"
-                                                        Width="80"
-                                                        Placeholder="дата"
-                                                        Text="{Binding model.pSelOsn.datePlan, Mode=TwoWay, StringFormat=dd.MM.yy, UpdateSourceTrigger=PropertyChanged}"
-                                                        IsReadOnly="{Binding model.pIsReadOnlyRedacting}" />
+                                <DatePicker FontSize="12"
+                                            Width="100"
+                                            Height="33"
+                                            HorizontalContentAlignment="Stretch"
+                                            VerticalContentAlignment="Stretch"
+                                            IsHitTestVisible="{Binding model.pIsReadOnlyRedacting, Converter={StaticResource InverseBooleanConverter}}"
+                                            IsTabStop="{Binding model.pIsReadOnlyRedacting, Converter={StaticResource InverseBooleanConverter}}"
+                                            SelectedDate="{Binding model.pSelOsn.datePlan}">
+                                    <DatePicker.Resources>
+                                        <Style TargetType="DatePickerTextBox">
+                                            <Setter Property="IsReadOnly"
+                                                    Value="{Binding model.pIsReadOnlyRedacting}" />
+                                            <Setter Property="VerticalContentAlignment"
+                                                    Value="Center" />
+                                        </Style>
+                                    </DatePicker.Resources>
+                                </DatePicker>
                             </StackPanel>
                             <StackPanel Width="auto"
                                         Orientation="Vertical">
@@ -973,11 +1014,23 @@
                                        FontSize="12"
                                        Width="80"
                                        Height="26" />
-                                <control:PlaceholderBox Height="33"
-                                                        Width="80"
-                                                        Placeholder="дата"
-                                                        Text="{Binding model.pSelOsn.dateFact, Mode=TwoWay, StringFormat=dd.MM.yy, UpdateSourceTrigger=PropertyChanged}"
-                                                        IsReadOnly="{Binding model.pIsReadOnlyRedacting}" />
+                                <DatePicker FontSize="12"
+                                            Width="100"
+                                            Height="33"
+                                            HorizontalContentAlignment="Stretch"
+                                            VerticalContentAlignment="Stretch"
+                                            IsHitTestVisible="{Binding model.pIsReadOnlyRedacting, Converter={StaticResource InverseBooleanConverter}}"
+                                            IsTabStop="{Binding model.pIsReadOnlyRedacting, Converter={StaticResource InverseBooleanConverter}}"
+                                            SelectedDate="{Binding model.pSelOsn.dateFact}">
+                                    <DatePicker.Resources>
+                                        <Style TargetType="DatePickerTextBox">
+                                            <Setter Property="IsReadOnly"
+                                                    Value="{Binding model.pIsReadOnlyRedacting}" />
+                                            <Setter Property="VerticalContentAlignment"
+                                                    Value="Center" />
+                                        </Style>
+                                    </DatePicker.Resources>
+                                </DatePicker> 
                             </StackPanel>
                         </StackPanel>
                         <StackPanel Width="auto"
@@ -986,11 +1039,23 @@
                                    FontSize="12"
                                    Width="160"
                                    Height="26" />
-                            <control:PlaceholderBox Height="33"
-                                                    Width="80"
-                                                    Placeholder="дата"
-                                                    Text="{Binding model.pSelOsn.dtSrok, Mode=TwoWay, StringFormat=dd.MM.yy, UpdateSourceTrigger=PropertyChanged}"
-                                                    IsReadOnly="{Binding model.pIsReadOnlyRedacting}" />
+                            <DatePicker FontSize="12"
+                                        Width="100"
+                                        Height="33"
+                                        HorizontalContentAlignment="Stretch"
+                                        VerticalContentAlignment="Stretch"
+                                        IsHitTestVisible="{Binding model.pIsReadOnlyRedacting, Converter={StaticResource InverseBooleanConverter}}"
+                                        IsTabStop="{Binding model.pIsReadOnlyRedacting, Converter={StaticResource InverseBooleanConverter}}"
+                                        SelectedDate="{Binding model.pSelOsn.dtSrok}">
+                                <DatePicker.Resources>
+                                    <Style TargetType="DatePickerTextBox">
+                                        <Setter Property="IsReadOnly"
+                                                Value="{Binding model.pIsReadOnlyRedacting}" />
+                                        <Setter Property="VerticalContentAlignment"
+                                                Value="Center" />
+                                    </Style>
+                                </DatePicker.Resources>
+                            </DatePicker> 
                         </StackPanel>
                     </StackPanel>
 
