@@ -143,6 +143,46 @@ namespace OsnastkaDirect.Models
                 }
             }
         }
+        string OrderSearch;
+        public string pOrderSearch
+        {
+            get { return OrderSearch; }
+            set
+            {
+                if (OrderSearch != value)
+                {
+                    OrderSearch = value.Replace('+', ' ');
+                    OnPropertyChanged("pOrderSearch");
+                }
+            }
+        }
+
+        string DraftSearch;
+        public string pDraftSearch
+        {
+            get { return DraftSearch; }
+            set
+            {
+                if (DraftSearch != value)
+                {
+                    DraftSearch = value;
+                    OnPropertyChanged("pDraftSearch");
+                }
+            }
+        }
+        string OsnastSearch;
+        public string pOsnastSearch
+        {
+            get { return OsnastSearch; }
+            set
+            {
+                if (OsnastSearch != value)
+                {
+                    OsnastSearch = value;
+                    OnPropertyChanged("pOsnastSearch");
+                }
+            }
+        }
         #endregion
 
         #region Методы

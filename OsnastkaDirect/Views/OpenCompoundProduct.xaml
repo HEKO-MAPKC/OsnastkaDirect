@@ -14,34 +14,33 @@
         Width="1024"
         WindowStartupLocation="CenterScreen">
     <Grid>
-        <Rectangle Grid.Row="1"
-                   Margin="0">
+        <Grid.RowDefinitions>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+        <Rectangle Margin="2,2,2,2"
+                   Grid.RowSpan="3">
             <Rectangle.Fill>
                 <LinearGradientBrush StartPoint="0.5,0"
                                      EndPoint="0.5,1">
                     <GradientStop Color="White"
                                   Offset="0" />
                     <GradientStop Color="Lavender"
-                                  Offset="2" />
-                    <!--<GradientStop Color="White"
-                               Offset="0.75" />
-                 <GradientStop Color="LightBlue"
-                               Offset="1.0" />-->
+                                  Offset="1" />
                 </LinearGradientBrush>
             </Rectangle.Fill>
         </Rectangle>
 
 
         <DataGrid AutoGenerateColumns="false"
-                  Height="274"
-                  Margin="2,2,2,0"
-                  VerticalAlignment="Top"
+                  Margin="512,2,2,2"
                   ItemsSource="{Binding model.pListDraft, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                   SelectedItem="{Binding model.pSelDraft, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                   IsReadOnly="true"
                   CanUserAddRows="False"
                   HorizontalScrollBarVisibility="Disabled"
-                  x:Name="DataGridOsn"
+                  x:Name="DataGridOrder"
                   FontSize="12">
             <DataGrid.RowStyle>
                 <Style TargetType="{x:Type DataGridRow}"
@@ -83,15 +82,14 @@
             </DataGrid.Columns>
         </DataGrid>-->
         <DataGrid AutoGenerateColumns="false"
-                  Height="274"
-                  Margin="2,640,2,0"
-                  VerticalAlignment="Top"
+                  Margin="2,2,2,2"
+                  Grid.Row="2"
                   ItemsSource="{Binding model.pListDraftPiece, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                   SelectedItem="{Binding model.pSelDraftPiece, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                   IsReadOnly="true"
                   CanUserAddRows="False"
                   HorizontalScrollBarVisibility="Disabled"
-                  x:Name="DataGridOsn3"
+                  x:Name="DataGridOrderOsn"
                   FontSize="12">
             <DataGrid.RowStyle>
                 <Style TargetType="{x:Type DataGridRow}"
@@ -107,9 +105,9 @@
                                     Width="0.1*" />
             </DataGrid.Columns>
         </DataGrid>
-        <WrapPanel Margin="0,281,0,0"
-                   HorizontalAlignment="Center"
-                   Width="1004"
+        <WrapPanel Margin="10,234,0,0"
+                   HorizontalAlignment="Left"
+                   Width="418"
                    Height="85"
                    VerticalAlignment="Top">
             <Fluent:Button Header="Выбрать"
@@ -151,13 +149,14 @@
                                     FontSize="14" />
         </WrapPanel>
         <TreeView Name="viewsTreeView"
-                  Margin="0,281,0,373"
+                  Margin="2,2,2,2"
+                  Grid.Row="1"
                   ItemsSource="{Binding model.pListDraftOsn, UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}"
                   ScrollViewer.CanContentScroll="True">
             <e:Interaction.Behaviors>
                 <my:BindableSelectedItemBehavior SelectedItem="{Binding model.pSelDraftOsn, Mode=TwoWay}" />
             </e:Interaction.Behaviors>
-                <TreeView.ItemTemplate>
+            <TreeView.ItemTemplate>
                 <HierarchicalDataTemplate ItemsSource="{Binding children,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}"
                                           DataType="{x:Type my:TreeViewDraft}">
                     <!--<TreeViewItem Header="{Binding draftName}" />-->
@@ -165,10 +164,39 @@
                 </HierarchicalDataTemplate>
             </TreeView.ItemTemplate>
         </TreeView>
-        <WrapPanel Margin="0,900,0,0"
-                   HorizontalAlignment="Center"
-                   Width="1004"
-                   Height="85"
+        <WrapPanel Margin="10,190,0,0"
+                   HorizontalAlignment="Left"
+                   Width="404"
+                   Height="44"
+                   VerticalAlignment="Top">
+            <Label Content="Поиск оснастки:"
+                   VerticalAlignment="Center"
+                   FontSize="14"
+                   Height="30"
+                   Width="150" />
+            <control:PlaceholderBox Height="35"
+                                    Placeholder="Чертеж оснастки"
+                                    Text="{Binding model.pOsnastSearch, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                    Width="158"
+                                    FontSize="14">
+                <control:PlaceholderBox.InputBindings>
+                    <KeyBinding Gesture="Enter"
+                                Command="{Binding UpdateBindingOnEnterCommand}" />
+                </control:PlaceholderBox.InputBindings>
+            </control:PlaceholderBox>
+            <Fluent:Button Command="{Binding pFindOsnast}"
+                           Width="40"
+                           Height="40"
+                           Background="White"
+                           BorderBrush="Silver"
+                           CornerRadius="5"
+                           UseLayoutRounding="true"
+                           LargeIcon="/OsnastkaDirect;component/EmbedResources/Icons/findBut.png" />
+        </WrapPanel>
+        <WrapPanel Margin="10,10,0,0"
+                   HorizontalAlignment="Left"
+                   Width="404"
+                   Height="70"
                    VerticalAlignment="Top">
             <Fluent:Button Header="Выбрать"
                            Command="{Binding pAcceptOpen}"
@@ -176,11 +204,15 @@
                            Height="60"
                            Background="White"
                            BorderBrush="Silver"
+                           UseLayoutRounding="true"
+                           SnapsToDevicePixels="true"
                            CornerRadius="5">
                 <Fluent:Button.LargeIcon>
-                    <Image Source="/OsnastkaDirect;component/EmbedResources/Icons/Save.png"
+                    <Image Source="/EmbedResources/Icons/okBut.png"
                            Width="35"
                            Height="35"
+                           UseLayoutRounding="true"
+                           SnapsToDevicePixels="true"
                            Margin="-5,0,-2,-2" />
                 </Fluent:Button.LargeIcon>
             </Fluent:Button>
@@ -190,23 +222,76 @@
                            Height="60"
                            Background="White"
                            BorderBrush="Silver"
+                           SnapsToDevicePixels="true"
+                           UseLayoutRounding="true"
                            CornerRadius="5">
                 <Fluent:Button.LargeIcon>
-                    <Image Source="/OsnastkaDirect;component/EmbedResources/Icons/Save.png"
+                    <Image Source="/EmbedResources/Icons/cancelBut.png"
                            Width="35"
                            Height="35"
+                           UseLayoutRounding="true"
                            Margin="-5,0,-2,-2" />
                 </Fluent:Button.LargeIcon>
             </Fluent:Button>
-            <Label Content="Поиск по"
+        </WrapPanel>
+        <WrapPanel Margin="10,141,0,0"
+                   HorizontalAlignment="Left"
+                   Width="404"
+                   Height="44"
+                   VerticalAlignment="Top">
+            <Label Content="Поиск чертежа:"
                    VerticalAlignment="Center"
                    FontSize="14"
-                   Height="30" />
-            <control:PlaceholderBox Height="30"
-                                    Placeholder="Чертеж оснастки"
-                                    Text="{Binding model.pSearchOsn, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                    Width="120"
-                                    FontSize="14" />
+                   Height="30"
+                   Width="150" />
+            <control:PlaceholderBox Height="35"
+                                    Placeholder="Чертеж НЕ РАБОТАЕТ"
+                                    Text="{Binding model.pDraftSearch, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                    Width="158"
+                                    FontSize="14">
+                <control:PlaceholderBox.InputBindings>
+                    <KeyBinding Gesture="Enter"
+                                Command="{Binding UpdateBindingOnEnterCommand}" />
+                </control:PlaceholderBox.InputBindings>
+            </control:PlaceholderBox>
+            <Fluent:Button Command="{Binding pFindDraft}"
+                           Width="40"
+                           Height="40"
+                           Background="White"
+                           BorderBrush="Silver"
+                           CornerRadius="5"
+                           UseLayoutRounding="true"
+                           LargeIcon="/OsnastkaDirect;component/EmbedResources/Icons/findBut.png" />
+        </WrapPanel>
+        <WrapPanel Margin="10,92,0,0"
+                   HorizontalAlignment="Left"
+                   Width="404"
+                   Height="44"
+                   VerticalAlignment="Top">
+            <Label Content="Поиск заказ+номер:"
+                   VerticalAlignment="Center"
+                   FontSize="14"
+                   Height="30"
+                   Width="150" />
+            <control:PlaceholderBox Height="35"
+                                    Placeholder="Заказ+номер"
+                                    Text="{Binding model.pOrderSearch, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                    Width="158"
+                                    FontSize="14">
+                <control:PlaceholderBox.InputBindings>
+                    <KeyBinding Gesture="Enter"
+                                Command="{Binding UpdateBindingOnEnterCommand}" />
+                </control:PlaceholderBox.InputBindings>
+            </control:PlaceholderBox>
+            <Fluent:Button Command="{Binding pFindOrd}"
+                           Width="40"
+                           Height="40"
+                           Background="White"
+                           BorderBrush="Silver"
+                           CornerRadius="5"
+                           UseLayoutRounding="true"
+                           LargeIcon="/OsnastkaDirect;component/EmbedResources/Icons/findBut.png" />
+
         </WrapPanel>
     </Grid>
 </Window>

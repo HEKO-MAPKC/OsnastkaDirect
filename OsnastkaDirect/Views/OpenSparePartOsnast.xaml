@@ -97,7 +97,7 @@
                            BorderBrush="Silver"
                            CornerRadius="5">
                 <Fluent:Button.LargeIcon>
-                    <Image Source="/OsnastkaDirect;component/EmbedResources/Icons/Save.png"
+                    <Image Source="/OsnastkaDirect;component/EmbedResources/Icons/okBut.png"
                            Width="35"
                            Height="35"
                            Margin="-5,0,-2,-2" />
@@ -111,7 +111,7 @@
                            BorderBrush="Silver"
                            CornerRadius="5">
                 <Fluent:Button.LargeIcon>
-                    <Image Source="/OsnastkaDirect;component/EmbedResources/Icons/Save.png"
+                    <Image Source="/OsnastkaDirect;component/EmbedResources/Icons/cancelBut.png"
                            Width="35"
                            Height="35"
                            Margin="-5,0,-2,-2" />

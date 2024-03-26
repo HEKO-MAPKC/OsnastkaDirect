@@ -87,8 +87,8 @@ namespace OsnastkaDirect.Models
                 }
             }
         }
-        Draft SelDraftPiece;
-        public Draft pSelDraftPiece
+        Osnsv SelDraftPiece;
+        public Osnsv pSelDraftPiece
         {
             get { return SelDraftPiece; }
             set
@@ -100,8 +100,8 @@ namespace OsnastkaDirect.Models
                 }
             }
         }
-        ObservableCollection<Draft> ListDraftPiece;
-        public ObservableCollection<Draft> pListDraftPiece
+        ObservableCollection<Osnsv> ListDraftPiece;
+        public ObservableCollection<Osnsv> pListDraftPiece
         {
             get { return ListDraftPiece; }
             set
@@ -202,11 +202,11 @@ namespace OsnastkaDirect.Models
         {
             pListDraftOutpro = new ObservableCollection<TreeViewDraft>((from i in db.outpro.Where(j => j.zakaz == pSelOrder.order && j.nom == pSelOrder.number && j.rung == 1 && j.draft != 0)
 
-                                                                        //join dbNameFull in db.vDraftNameList
-                                                                        //on i.draft equals dbNameFull.Draft into gfFull
-                                                                        //from listDseDraft in gfFull.DefaultIfEmpty()
-                                                                        //let draftName = listDseDraft.Name
-
+                                                                            //join dbNameFull in db.vDraftNameList
+                                                                            //on i.draft equals dbNameFull.Draft into gfFull
+                                                                            //from listDseDraft in gfFull.DefaultIfEmpty()
+                                                                            //let draftName = listDseDraft.Name
+                                                                        orderby i.draft
                                                                         select new TreeViewDraft
                                                                      {
                                                                          draft = i.draft,
@@ -235,11 +235,11 @@ namespace OsnastkaDirect.Models
         {
             _children = new ObservableCollection<TreeViewDraft>((from i in db.vComplectWithNames.Where(j => j.across == _draft && j.draft != _draft)
 
-                                                                 //join dbNameFull in db.vDraftNameList
-                                                                 //   on i.what equals dbNameFull.Draft into gfFull
-                                                                 //from listDseDraft in gfFull.DefaultIfEmpty()
-                                                                 //let draftName = listDseDraft.Name
-
+                                                                     //join dbNameFull in db.vDraftNameList
+                                                                     //   on i.what equals dbNameFull.Draft into gfFull
+                                                                     //from listDseDraft in gfFull.DefaultIfEmpty()
+                                                                     //let draftName = listDseDraft.Name
+                                                                 orderby i.draft
                                                                  select new TreeViewDraft
                                                                  {
                                                                      draft = i.draft,
@@ -278,7 +278,7 @@ namespace OsnastkaDirect.Models
             //                                                       draftPieceName = i.OsnastName,
             //                                                   }).ToList());
             pSelDraftPiece = null;
-            pListDraftPiece = new ObservableCollection<Draft>((from i in db.osnsv.Where(j => j.draft == pSelDraftOutpro.draft)
+            pListDraftPiece = new ObservableCollection<Osnsv>((from i in db.osnsv.Where(j => j.draft == pSelDraftOutpro.draft)
 
                                                                join dbNameFull in db.vDraftNameList
                                                                on i.draftosn equals dbNameFull.Draft into gfFull
@@ -286,10 +286,12 @@ namespace OsnastkaDirect.Models
                                                                let draftName = listDseDraft.Name
 
                                                                orderby i.draftosn
-                                                               select new Draft
+                                                               select new Osnsv
                                                                {
                                                                    draft = i.draftosn,
                                                                    draftName = i.naimosn,
+                                                                   codeOperation = i.kodop,
+                                                                   workPlace = i.rab_m
                                                                }).ToList());
         }
         public void FindOsnast()

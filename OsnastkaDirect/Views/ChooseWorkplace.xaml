@@ -41,16 +41,18 @@
                                Background="White"
                                BorderBrush="Silver"
                                CornerRadius="10"
+                               UseLayoutRounding="true"
                                Command="{Binding pCancel}"
-                               LargeIcon="/OsnastkaDirect;component/EmbedResources/Icons/Cancel2.png"
+                               LargeIcon="/OsnastkaDirect;component/EmbedResources/Icons/cancelBut.png"
                                Margin="10,10,10,10" />
                 <Fluent:Button Width="50"
                                Height="40"
                                Background="White"
                                BorderBrush="Silver"
                                CornerRadius="10"
+                               UseLayoutRounding="true"
                                Command="{Binding pConfirm}"
-                               LargeIcon="/OsnastkaDirect;component/EmbedResources/Icons/ApproveBig.png" />
+                               LargeIcon="/OsnastkaDirect;component/EmbedResources/Icons/okBut.png" />
             </WrapPanel>
             <DataGrid AutoGenerateColumns="false"
                       ItemsSource="{Binding model.pListWorkplace, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"

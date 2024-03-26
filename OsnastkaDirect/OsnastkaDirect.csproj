@@ -469,6 +469,15 @@
   <ItemGroup>
     <Resource Include="EmbedResources\Icons\UpdateB.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="EmbedResources\Icons\cancelBut.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="EmbedResources\Icons\okBut.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="EmbedResources\Icons\findBut.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PreBuildEvent>

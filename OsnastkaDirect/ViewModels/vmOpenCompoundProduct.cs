@@ -44,6 +44,27 @@ namespace OsnastkaDirect.ViewModels
         {
             get { return NotAcceptOpen ?? (NotAcceptOpen = new CommandBase(mNotAcceptOpen)); }
         }
+
+        CommandBase FindOrd;
+
+        public CommandBase pFindOrd
+        {
+            get { return FindOrd ?? (FindOrd = new CommandBase(mFindOrd)); }
+        }
+
+        CommandBase FindDraft;
+
+        public CommandBase pFindDraft
+        {
+            get { return FindDraft ?? (FindDraft = new CommandBase(mFindDraft)); }
+        }
+
+        CommandBase FindOsnast;
+
+        public CommandBase pFindOsnast
+        {
+            get { return FindOsnast ?? (FindOsnast = new CommandBase(mFindOsnast)); }
+        }
         #endregion
 
         #region Свойства
@@ -99,13 +120,73 @@ namespace OsnastkaDirect.ViewModels
                 Model.pSelDraftPiece = null;
                 Model.LoadListDraftPiece();
             }
+                        if (_eventArgs.PropertyName == "pDraftSearch" && Model.pDraftSearch != null)
+            {
+                mFindDraft();
+            }
+            if (_eventArgs.PropertyName == "pOsnastSearch" && Model.pOsnastSearch != null)
+            {
+                mFindOsnast();
+            }
+        }
+        public void mFindOrd()
+        {
+            if (!string.IsNullOrEmpty(Model.pOrderSearch))
+            {
+                var i = (Model.pListDraft).FirstOrDefault(r => r.draft.ToString()
+                                                .StartsWith(Model.pOrderSearch, StringComparison.OrdinalIgnoreCase)
+                                         );
+                if (i != null)
+                {
+                    View.DataGridOrder.ScrollIntoView(i);
+                    Model.pSelDraft = i;
+                }
+            }
+        }
+
+        public void mFindDraft()
+        {
+            //if (Model.pListDraftOutpro == null) return;
+            //if (!string.IsNullOrEmpty(Model.pDraftSearch))
+            //{
+            //    var i = (Model.pListDraftOutpro).FirstOrDefault(r => r.draft.Value.ToString()
+            //                                    .StartsWith(Model.pDraftSearch, StringComparison.OrdinalIgnoreCase));
+            //    if (i != null)
+            //    {
+            //        // View.TreeView.//ScrollIntoView(i);
+            //        foreach (var item in Model.pListDraftOutpro)
+            //        {
+            //            item.IsSelected = false;
+            //        }
+            //        Model.pSelDraftOutpro = i;
+            //        Model.pSelDraftOutpro.IsSelected = true;
+            //        Model.FindOsnast();
+            //        View.TreeViewSelectedItemChanged2();
+            //    }
+            //}
+        }
+
+        public void mFindOsnast()
+        {
+            //CollectionViewSource.GetDefaultView(Model.pListDraftPiece).Refresh();
+            if (Model.pListDraftPiece == null) return;
+            if (!string.IsNullOrEmpty(Model.pOsnastSearch))
+            {
+                var i = (Model.pListDraftPiece).FirstOrDefault(r => r.draftPiece.ToString()
+                                                .StartsWith(Model.pOsnastSearch, StringComparison.OrdinalIgnoreCase));
+                if (i != null)
+                {
+                    View.DataGridOrderOsn.ScrollIntoView(i);
+                    Model.pSelDraftPiece = i;
+                }
+            }
         }
         public void mAcceptOpen()
         {
-            // if (Model.pSelOsnsv == null) return;
+            //if (Model.pSelOsnsv == null) return;
             var _draft = Model.pSelDraft;
-            var _draftOsn = Model.pSelDraftOsn;
-            var _draftPiece = Model.pSelDraftPiece;
+            var _draftOsn = Model.pSelDraftPiece;
+            //object _draftPiece = null;
             var _draftWorkPlace = Model.pSelDraftPiece;
             var _osnsv = new Osnsv
             {
@@ -113,8 +194,8 @@ namespace OsnastkaDirect.ViewModels
                 draftName = _draft == null ? null : _draft.draftName,
                 draftOsn = _draftOsn == null ? null : _draftOsn.draft,
                 draftOsnName = _draftOsn == null ? null : _draftOsn.draftName,
-                draftPiece = _draftPiece == null ? null : _draftPiece.draftPiece,
-                draftPieceName = _draftPiece == null ? null : _draftPiece.draftPieceName,
+                //draftPiece = _draftPiece == null ? null : _draftPiece.draftPiece,
+                //draftPieceName = _draftPiece == null ? null : _draftPiece.draftPieceName,
                 workPlace = _draftWorkPlace == null ? null : _draftWorkPlace.workPlace,
                 codeOperation = _draftWorkPlace == null ? null : _draftWorkPlace.codeOperation
             };

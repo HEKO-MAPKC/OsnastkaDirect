@@ -170,10 +170,14 @@ namespace OsnastkaDirect.ViewModels
                 if (i != null)
                 {
                     // View.TreeView.//ScrollIntoView(i);
-
+                    foreach (var item in Model.pListDraftOutpro)
+                    {
+                        item.IsSelected = false;
+                    }
                     Model.pSelDraftOutpro = i;
                     Model.pSelDraftOutpro.IsSelected = true;
                     Model.FindOsnast();
+                    View.TreeViewSelectedItemChanged2();
                 }
             }
         }
@@ -196,9 +200,9 @@ namespace OsnastkaDirect.ViewModels
         public void mAcceptOpen()
         {
             //if (Model.pSelOsnsv == null) return;
-            var _draft = Model.pSelOrder;
-            var _draftOsn = Model.pSelDraftOutpro;
-            var _draftPiece = Model.pSelDraftPiece;
+            var _draft = Model.pSelDraftOutpro;
+            var _draftOsn = Model.pSelDraftPiece;
+            //object _draftPiece = null;
             var _draftWorkPlace = Model.pSelDraftPiece;
             var _osnsv = new Osnsv
             {
@@ -208,8 +212,8 @@ namespace OsnastkaDirect.ViewModels
                 draftOsnName = _draftOsn == null ? null : _draftOsn.draftName,
                 //draftPiece = _draftPiece == null ? null : _draftPiece.draftPiece,
                 //draftPieceName = _draftPiece == null ? null : _draftPiece.draftPieceName,
-                //workPlace = _draftWorkPlace == null ? null : _draftWorkPlace.workPlace,
-                //codeOperation = _draftWorkPlace == null ? null : _draftWorkPlace.codeOperation
+                workPlace = _draftWorkPlace == null ? null : _draftWorkPlace.workPlace,
+                codeOperation = _draftWorkPlace == null ? null : _draftWorkPlace.codeOperation
             };
             Model.WindowMain.OpenCreateDraft(_osnsv);
             View.Close();

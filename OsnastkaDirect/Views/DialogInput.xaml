@@ -31,16 +31,14 @@
                            BorderBrush="Silver"
                            CornerRadius="10"
                 Command="{Binding pSave}"
-                          
-                           LargeIcon="/OsnastkaDirect;component/EmbedResources/Icons/Save.png" />
+                           LargeIcon="/OsnastkaDirect;component/EmbedResources/Icons/okBut.png" />
             <Fluent:Button 
                            Width="90"
                            Height="40"
                            Background="White"
                            BorderBrush="Silver"
                            CornerRadius="10"
-                  
-                           LargeIcon="/OsnastkaDirect;component/EmbedResources/Icons/Save.png" />
+                           LargeIcon="/OsnastkaDirect;component/EmbedResources/Icons/cancelBut.png" />
 
         </WrapPanel>
     </Grid>
