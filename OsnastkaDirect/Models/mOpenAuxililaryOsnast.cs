@@ -102,7 +102,8 @@ namespace OsnastkaDirect.Models
         public void LoadOsnsv()
         {
             pListOsnsv = (from i in db.osnsv//.Where(j => j.draft)
-                         select new Osnsv
+                          orderby i.draftosn
+                          select new Osnsv
                          {
                              draftOsn = i.draftosn,
                              draftOsnName = i.naimosn,

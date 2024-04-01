@@ -322,15 +322,6 @@
                                 Command="{Binding UpdateBindingOnEnterCommand}"></KeyBinding>
                 </control:PlaceholderBox.InputBindings>
             </control:PlaceholderBox>
-            <Fluent:Button Command="{Binding pFindOsnast}"
-                           Width="40"
-                           Height="40"
-                           Background="White"
-                           BorderBrush="Silver"
-                           CornerRadius="5"
-                           UseLayoutRounding="true"
-                           LargeIcon="/OsnastkaDirect;component/EmbedResources/Icons/findBut.png">
-            </Fluent:Button>
         </WrapPanel>
         <WrapPanel Margin="10,10,0,0"
                    HorizontalAlignment="Left"

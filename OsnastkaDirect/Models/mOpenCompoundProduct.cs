@@ -206,7 +206,7 @@ namespace OsnastkaDirect.Models
                              on i.what equals dbNameFull.Draft into gfFull
                          from listDseDraft in gfFull.DefaultIfEmpty()
                          let draftName = listDseDraft.Name
-
+                         orderby i.what
                          select new TreeViewDraft
                           {
                               draft = i.what,
@@ -223,7 +223,8 @@ namespace OsnastkaDirect.Models
                                  on i.what equals dbNameFull.Draft into gfFull
                               from listDseDraft in gfFull.DefaultIfEmpty()
                               let draftName = listDseDraft.Name
-                              select new TreeViewDraft
+                                                                     orderby i.what
+                                                                     select new TreeViewDraft
                              {
                                  draft = i.what,
                                  draftName = /*SqlFunctions.StringConvert((double?)i.what,14,2) + " " +*/ draftName,
@@ -250,6 +251,7 @@ namespace OsnastkaDirect.Models
                                                                     on i.what equals dbNameFull.Draft into gfFull
                                                                  from listDseDraft in gfFull.DefaultIfEmpty()
                                                                  let draftName = listDseDraft.Name
+                                                                 orderby i.what
                                                                  select new TreeViewDraft
                              {
                                  draft = i.what,
@@ -277,7 +279,8 @@ namespace OsnastkaDirect.Models
                                                              on i.draftosn equals dbNameFull.Draft into gfFull
                                                                from listDseDraft in gfFull.DefaultIfEmpty()
                                                                let draftName = listDseDraft.Name
-                               select new Osnsv
+                                                               orderby i.draftosn
+                                                               select new Osnsv
                                {
                                    draftPiece = i.draftosn,
                                    draftPieceName = i.naimosn,

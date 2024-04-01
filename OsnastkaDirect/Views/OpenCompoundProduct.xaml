@@ -105,49 +105,6 @@
                                     Width="0.1*" />
             </DataGrid.Columns>
         </DataGrid>
-        <WrapPanel Margin="10,234,0,0"
-                   HorizontalAlignment="Left"
-                   Width="418"
-                   Height="85"
-                   VerticalAlignment="Top">
-            <Fluent:Button Header="Выбрать"
-                           Command="{Binding pAcceptOpen}"
-                           Width="90"
-                           Height="60"
-                           Background="White"
-                           BorderBrush="Silver"
-                           CornerRadius="5">
-                <Fluent:Button.LargeIcon>
-                    <Image Source="/OsnastkaDirect;component/EmbedResources/Icons/Save.png"
-                           Width="35"
-                           Height="35"
-                           Margin="-5,0,-2,-2" />
-                </Fluent:Button.LargeIcon>
-            </Fluent:Button>
-            <Fluent:Button Header="Отмена"
-                           Command="{Binding pNotAcceptOpen}"
-                           Width="90"
-                           Height="60"
-                           Background="White"
-                           BorderBrush="Silver"
-                           CornerRadius="5">
-                <Fluent:Button.LargeIcon>
-                    <Image Source="/OsnastkaDirect;component/EmbedResources/Icons/Save.png"
-                           Width="35"
-                           Height="35"
-                           Margin="-5,0,-2,-2" />
-                </Fluent:Button.LargeIcon>
-            </Fluent:Button>
-            <Label Content="Поиск по"
-                   VerticalAlignment="Center"
-                   FontSize="14"
-                   Height="30" />
-            <control:PlaceholderBox Height="30"
-                                    Placeholder="Чертеж оснастки"
-                                    Text="{Binding model.pSearchOsn, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                    Width="120"
-                                    FontSize="14" />
-        </WrapPanel>
         <TreeView Name="viewsTreeView"
                   Margin="2,2,2,2"
                   Grid.Row="1"
@@ -184,14 +141,6 @@
                                 Command="{Binding UpdateBindingOnEnterCommand}" />
                 </control:PlaceholderBox.InputBindings>
             </control:PlaceholderBox>
-            <Fluent:Button Command="{Binding pFindOsnast}"
-                           Width="40"
-                           Height="40"
-                           Background="White"
-                           BorderBrush="Silver"
-                           CornerRadius="5"
-                           UseLayoutRounding="true"
-                           LargeIcon="/OsnastkaDirect;component/EmbedResources/Icons/findBut.png" />
         </WrapPanel>
         <WrapPanel Margin="10,10,0,0"
                    HorizontalAlignment="Left"
@@ -268,13 +217,13 @@
                    Width="404"
                    Height="44"
                    VerticalAlignment="Top">
-            <Label Content="Поиск заказ+номер:"
+            <Label Content="Поиск ДСЕ:"
                    VerticalAlignment="Center"
                    FontSize="14"
                    Height="30"
                    Width="150" />
             <control:PlaceholderBox Height="35"
-                                    Placeholder="Заказ+номер"
+                                    Placeholder="Чертеж"
                                     Text="{Binding model.pOrderSearch, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                     Width="158"
                                     FontSize="14">
@@ -283,14 +232,6 @@
                                 Command="{Binding UpdateBindingOnEnterCommand}" />
                 </control:PlaceholderBox.InputBindings>
             </control:PlaceholderBox>
-            <Fluent:Button Command="{Binding pFindOrd}"
-                           Width="40"
-                           Height="40"
-                           Background="White"
-                           BorderBrush="Silver"
-                           CornerRadius="5"
-                           UseLayoutRounding="true"
-                           LargeIcon="/OsnastkaDirect;component/EmbedResources/Icons/findBut.png" />
 
         </WrapPanel>
     </Grid>

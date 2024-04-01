@@ -57,6 +57,14 @@ namespace OsnastkaDirect.ViewModels
         {
             get { return NotAcceptOpen ?? (NotAcceptOpen = new CommandBase(mNotAcceptOpen)); }
         }
+
+        CommandBase SearchByAll;
+
+        public CommandBase pSearchByAll
+        {
+            get { return SearchByAll ?? (SearchByAll = new CommandBase(mSearchByAll)); }
+        }
+
         #endregion
 
         #region Методы
@@ -88,8 +96,31 @@ namespace OsnastkaDirect.ViewModels
             /// <param name="_eventArgs"></param>
             public void modelPropertyChangedHandler(object _sender, PropertyChangedEventArgs _eventArgs)
             {
-                ;
+            //if (_eventArgs.PropertyName == "pSearch" && Model.pSearch != null)
+            //{
+            //    mFindDraft();
+            //}
+        }
+        public void mSearchByAll()
+        {
+            //CollectionViewSource.GetDefaultView(Model.pListDraftPiece).Refresh();
+            if (Model.pListOcomplect == null) return;
+            if (!string.IsNullOrEmpty(Model.pSearch)|| !string.IsNullOrEmpty(Model.pSearchOsn) || !string.IsNullOrEmpty(Model.pSearchDSE))
+            {
+                var i = (Model.pListOcomplect).FirstOrDefault(r => (string.IsNullOrEmpty(Model.pSearch) || r.draftPiece.ToString()
+                                                .StartsWith(Model.pSearch,    StringComparison.OrdinalIgnoreCase) ) &&(string.IsNullOrEmpty(Model.pSearchOsn) ||
+                                                r.draftOsn.ToString()
+                                                .StartsWith(Model.pSearchOsn, StringComparison.OrdinalIgnoreCase) ) && (string.IsNullOrEmpty(Model.pSearchDSE) ||
+                                                r.draft.ToString()
+                                                .StartsWith(Model.pSearchDSE, StringComparison.OrdinalIgnoreCase))
+                                                );
+                if (i != null)
+                {
+                    View.DataGridOsn.ScrollIntoView(i);
+                    Model.pSelDraft = i;
+                }
             }
+        }
         public void mAcceptOpen()
         {
             if (Model.pSelDraft == null) return;

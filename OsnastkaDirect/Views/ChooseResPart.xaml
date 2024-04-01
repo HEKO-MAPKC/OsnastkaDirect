@@ -1,0 +1,94 @@
+﻿<Window x:Class="OsnastkaDirect.Views.ChooseResPart"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:OsnastkaDirect.Views"
+        xmlns:Fluent="urn:fluent-ribbon"
+        xmlns:control="clr-namespace:Metrology.EmbedResources.Controls"
+        mc:Ignorable="d"
+        Title="Выбор рабочего места"
+        Height="720"
+        Width="600"
+        WindowStartupLocation="CenterScreen">
+    <Window.Resources>
+        <!-- You can implement your own BooleanToVisibilityConverter but there is one already implemented. So the next line creates an instance of the BooleanToVisibilityConverter that you will be able to reference with the specified key -->
+        <BooleanToVisibilityConverter x:Key="BoolToVisConverter" />
+    </Window.Resources>
+
+    <Grid Margin="0,0,0,0">
+        <Grid Margin="0,0,0,0">
+            <WrapPanel HorizontalAlignment="Center"
+                       Height="33"
+                       VerticalAlignment="Top"
+                       Margin="0,5,0,0">
+                <Label Content="Поиск запчасти:"
+                       FontSize="12"
+                       Height="26" />
+                <control:PlaceholderBox Height="26"
+                                        Width="221"
+                                        Placeholder="чертеж"
+                                        Text="{Binding model.pSearchDraft, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                                        FontSize="12" />
+            </WrapPanel>
+            <WrapPanel HorizontalAlignment="Center"
+                       Height="67"
+                       VerticalAlignment="Top"
+                       Margin="0,43,0,0"
+                       Width="138">
+                <Fluent:Button Width="50"
+                               Height="40"
+                               Background="White"
+                               BorderBrush="Silver"
+                               CornerRadius="10"
+                               UseLayoutRounding="true"
+                               Command="{Binding pCancel}"
+                               LargeIcon="/OsnastkaDirect;component/EmbedResources/Icons/cancelBut.png"
+                               Margin="10,10,10,10" />
+                <Fluent:Button Width="50"
+                               Height="40"
+                               Background="White"
+                               BorderBrush="Silver"
+                               CornerRadius="10"
+                               UseLayoutRounding="true"
+                               Command="{Binding pConfirm}"
+                               LargeIcon="/OsnastkaDirect;component/EmbedResources/Icons/okBut.png" />
+            </WrapPanel>
+            <DataGrid AutoGenerateColumns="false"
+                      ItemsSource="{Binding model.pListResPart, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                      SelectedItem="{Binding model.pSelResPart, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                      IsReadOnly="true"
+                      CanUserAddRows="False"
+                      HorizontalScrollBarVisibility="Disabled"
+                      x:Name="DataGridResPart"
+                      FontSize="12"
+                      Margin="0,110,0,0">
+                <DataGrid.InputBindings>
+                    <MouseBinding Gesture="LeftDoubleClick"
+                                  Command="{Binding pConfirm}">
+                    </MouseBinding>
+                </DataGrid.InputBindings>
+                <DataGrid.RowStyle>
+                    <Style TargetType="{x:Type DataGridRow}"
+                           BasedOn="{StaticResource ResourceKey=DataGridRowBase}">
+                        <!--<Setter Property="Background"
+                            Value="White" />
+                    <Setter Property="Foreground"
+                            Value="Black" />-->
+                    </Style>
+                </DataGrid.RowStyle>
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Чертеж"
+                                        Binding="{Binding draftPiece}"
+                                        Width="0.2*" />
+                    <DataGridTextColumn Header="Оснастка"
+                                        Binding="{Binding code}"
+                                        Width="0.2*" />
+                    <DataGridTextColumn Header="Запчасть"
+                                        Binding="{Binding draftPiece}"
+                                        Width="0.2*" />
+                </DataGrid.Columns>
+            </DataGrid>
+        </Grid>
+    </Grid>
+</Window>

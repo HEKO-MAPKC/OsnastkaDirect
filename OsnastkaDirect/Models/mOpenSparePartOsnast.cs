@@ -43,8 +43,8 @@ namespace OsnastkaDirect.Models
         //        OnPropertyChanged("pName");
         //    }
         //}    
-        List<Ocomplect> ListOcomplect;
-        public List<Ocomplect> pListOcomplect
+        List<Osnsv> ListOcomplect;
+        public List<Osnsv> pListOcomplect
         {
             get { return ListOcomplect; }
             set
@@ -53,47 +53,6 @@ namespace OsnastkaDirect.Models
                 {
                     ListOcomplect = value;
                     OnPropertyChanged("pListOcomplect");
-                }
-            }
-        }
-        List<Osnsv> ListDraft;
-        public List<Osnsv> pListDraft
-        {
-            get { return ListDraft; }
-            set
-            {
-                if (ListDraft != value)
-                {
-                    ListDraft = value;
-                    OnPropertyChanged("pListDraft");
-                }
-            }
-        }
-
-        List<Osnsv> ListDraftOsn;
-        public List<Osnsv> pListDraftOsn
-        {
-            get { return ListDraftOsn; }
-            set
-            {
-                if (ListDraftOsn != value)
-                {
-                    ListDraftOsn = value;
-                    OnPropertyChanged("pListDraftOsn");
-                }
-            }
-        }
-
-        List<Osnsv> ListDraftPiece;
-        public List<Osnsv> pListDraftPiece
-        {
-            get { return ListDraftPiece; }
-            set
-            {
-                if (ListDraftPiece != value)
-                {
-                    ListDraftPiece = value;
-                    OnPropertyChanged("pListDraftPiece");
                 }
             }
         }
@@ -112,30 +71,44 @@ namespace OsnastkaDirect.Models
             }
         }
 
-        Osnsv SelDraftOsn;
-        public Osnsv pSelDraftOsn
+        string Search;
+        public string pSearch
         {
-            get { return SelDraftOsn; }
+            get { return Search; }
             set
             {
-                if (SelDraftOsn != value)
+                if (Search != value)
                 {
-                    SelDraftOsn = value;
-                    OnPropertyChanged("pSelDraftOsn");
+                    Search = value;
+                    OnPropertyChanged("pSearch");
                 }
             }
         }
 
-        Osnsv SelDraftPiece;
-        public Osnsv pSelDraftPiece
+        string SearchOsn;
+        public string pSearchOsn
         {
-            get { return SelDraftPiece; }
+            get { return SearchOsn; }
             set
             {
-                if (SelDraftPiece != value)
+                if (SearchOsn != value)
                 {
-                    SelDraftPiece = value;
-                    OnPropertyChanged("pSelDraftPiece");
+                    SearchOsn = value;
+                    OnPropertyChanged("pSearchOsn");
+                }
+            }
+        }
+
+        string SearchDSE;
+        public string pSearchDSE
+        {
+            get { return SearchDSE; }
+            set
+            {
+                if (SearchDSE != value)
+                {
+                    SearchDSE = value;
+                    OnPropertyChanged("pSearchDSE");
                 }
             }
         }
@@ -156,31 +129,18 @@ namespace OsnastkaDirect.Models
         }
         public void LoadOsnsv()
         {
-            pListOcomplect = (from i in db.ocomplect//.Where(j => j.draft)
-                              join db1 in db.FullDraftNameList
-                                on i.kuda equals db1.Draft into gf1
-                              from listDse in gf1.DefaultIfEmpty().Take(1)
-
-                              join db2 in db.FullDraftNameList
-                                on i.what equals db2.Draft into gf2
-                              from listDsePiece in gf2.DefaultIfEmpty().Take(1)
-
-                              join db3 in db.osnsv
-                                on i.kuda equals db3.draftosn into gf3
-                              from listOSNSV in gf3.DefaultIfEmpty()
-
-                              join db4 in db.FullDraftNameList
-                                on listOSNSV.draft equals db4.Draft into gf4
-                              from listDseDraft in gf4.DefaultIfEmpty().Take(1)
-
-                              select new Ocomplect
+            pListOcomplect = (from i in db.vResPart.Where(i => i.ResPart != null || i.ResPart !=0)
+                              orderby i.ResPart
+                              select new Osnsv
                               {
-                                  draftOsn = i.kuda,
-                                  draftOsnName = listDse.DraftName,
-                                  draftPiece = i.what,
-                                  draftPieceName = listDsePiece.DraftName,
-                                  draft = listOSNSV.draft,
-                                  draftName = listDseDraft.DraftName
+                                  draftOsn = i.Osnast,
+                                  draftOsnName = i.OsnastName,
+                                  draftPiece = i.ResPart,
+                                  draftPieceName = i.ResPartName,
+                                  draft = i.Draft,
+                                  draftName = i.DraftName,
+                                  workPlace = i.WorkplaceID,
+                                  codeOperation = i.OperationCodeID
                               }).ToList();
         }
         #endregion

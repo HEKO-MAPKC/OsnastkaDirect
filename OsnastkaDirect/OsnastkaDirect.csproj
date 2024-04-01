@@ -11,8 +11,7 @@
     <RootNamespace>OsnastkaDirect</RootNamespace>
     <AssemblyName>OsnastkaDirect</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
-    <TargetFrameworkProfile>
-    </TargetFrameworkProfile>
+    <TargetFrameworkProfile></TargetFrameworkProfile>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <WarningLevel>4</WarningLevel>
@@ -154,6 +153,7 @@
     <Compile Include="Models\mChooseWorkshop.cs" />
     <Compile Include="Models\mChooseOperation.cs" />
     <Compile Include="Models\mChooseWorkplace.cs" />
+    <Compile Include="Models\mChooseResPart.cs" />
     <Compile Include="Data\Osn.cs" />
     <Compile Include="ViewModels\vmMain.cs" />
     <Compile Include="ViewModels\vmDialogInput.cs" />
@@ -168,11 +168,15 @@
     <Compile Include="ViewModels\vmChooseWorkshop.cs" />
     <Compile Include="ViewModels\vmChooseOperation.cs" />
     <Compile Include="ViewModels\vmChooseWorkplace.cs" />
+    <Compile Include="ViewModels\vmChooseResPart.cs" />
     <Compile Include="Views\CheckOldOsn.xaml.cs">
       <DependentUpon>CheckOldOsn.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\ChooseOperation.xaml.cs">
       <DependentUpon>ChooseOperation.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ChooseResPart.xaml.cs">
+      <DependentUpon>ChooseResPart.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\ChooseUsage.xaml.cs">
       <DependentUpon>ChooseUsage.xaml</DependentUpon>
@@ -261,6 +265,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\ChooseOperation.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ChooseResPart.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -480,8 +488,7 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PreBuildEvent>
-    </PreBuildEvent>
+    <PreBuildEvent></PreBuildEvent>
   </PropertyGroup>
   <PropertyGroup>
     <PostBuildEvent>RD /S /Q  "$(TargetDir)Inc"

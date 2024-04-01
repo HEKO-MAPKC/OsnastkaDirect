@@ -120,13 +120,17 @@ namespace OsnastkaDirect.ViewModels
                 Model.pSelDraftPiece = null;
                 Model.LoadListDraftPiece();
             }
-                        if (_eventArgs.PropertyName == "pDraftSearch" && Model.pDraftSearch != null)
+            if (_eventArgs.PropertyName == "pDraftSearch" && Model.pDraftSearch != null)
             {
                 mFindDraft();
             }
             if (_eventArgs.PropertyName == "pOsnastSearch" && Model.pOsnastSearch != null)
             {
                 mFindOsnast();
+            }
+            if (_eventArgs.PropertyName == "pOrderSearch" && Model.pOrderSearch != null)
+            {
+                mFindOrd();
             }
         }
         public void mFindOrd()
@@ -184,7 +188,7 @@ namespace OsnastkaDirect.ViewModels
         public void mAcceptOpen()
         {
             //if (Model.pSelOsnsv == null) return;
-            var _draft = Model.pSelDraft;
+            var _draft = Model.pSelDraftOsn;
             var _draftOsn = Model.pSelDraftPiece;
             //object _draftPiece = null;
             var _draftWorkPlace = Model.pSelDraftPiece;
@@ -192,8 +196,8 @@ namespace OsnastkaDirect.ViewModels
             {
                 draft = _draft == null ? null : _draft.draft,
                 draftName = _draft == null ? null : _draft.draftName,
-                draftOsn = _draftOsn == null ? null : _draftOsn.draft,
-                draftOsnName = _draftOsn == null ? null : _draftOsn.draftName,
+                draftOsn = _draftOsn == null ? null : _draftOsn.draftPiece,
+                draftOsnName = _draftOsn == null ? null : _draftOsn.draftPieceName,
                 //draftPiece = _draftPiece == null ? null : _draftPiece.draftPiece,
                 //draftPieceName = _draftPiece == null ? null : _draftPiece.draftPieceName,
                 workPlace = _draftWorkPlace == null ? null : _draftWorkPlace.workPlace,

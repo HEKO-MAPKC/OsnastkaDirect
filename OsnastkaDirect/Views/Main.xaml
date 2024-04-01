@@ -412,6 +412,20 @@
                                     LargeImageSource="/OsnastkaDirect;component/EmbedResources/Icons/MolotB.png"
                                     DockPanel.Dock="Right" />
                 </r:RibbonGroup>
+                <r:RibbonGroup Header="Чертежи">
+                    <r:RibbonButton Command="{Binding pSetOperation}"
+                                    Label="Выбрать запчасть"
+                                    LargeImageSource="/OsnastkaDirect;component/EmbedResources/Icons/MolotB.png"
+                                    DockPanel.Dock="Right" />
+                    <r:RibbonButton Command="{Binding pSetOperation}"
+                                    Label="Выбрать оснастку"
+                                    LargeImageSource="/OsnastkaDirect;component/EmbedResources/Icons/MolotB.png"
+                                    DockPanel.Dock="Right" />
+                    <r:RibbonButton Command="{Binding pSetOperation}"
+                                    Label="Выбрать чертеж"
+                                    LargeImageSource="/OsnastkaDirect;component/EmbedResources/Icons/MolotB.png"
+                                    DockPanel.Dock="Right" />
+                </r:RibbonGroup>
             </r:RibbonTab>
             <r:RibbonTab Header="Открытие"
                          Visibility="{Binding model.pCreatingNewModeOpen, Converter={StaticResource boolToVisibilityConverter}}"
