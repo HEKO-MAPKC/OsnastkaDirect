@@ -16,7 +16,7 @@
         Height="824"
         Width="1024"
         WindowStartupLocation="CenterScreen">
-    
+
     <Window.Resources>
         <!-- You can implement your own BooleanToVisibilityConverter but there is one already implemented. So the next line creates an instance of the BooleanToVisibilityConverter that you will be able to reference with the specified key -->
         <BooleanToVisibilityConverter x:Key="BoolToVisConverter" />
@@ -413,7 +413,7 @@
                                     DockPanel.Dock="Right" />
                 </r:RibbonGroup>
                 <r:RibbonGroup Header="Чертежи">
-                    <r:RibbonButton Command="{Binding pSetOperation}"
+                    <r:RibbonButton Command="{Binding pOpenChooseResPart}"
                                     Label="Выбрать запчасть"
                                     LargeImageSource="/OsnastkaDirect;component/EmbedResources/Icons/MolotB.png"
                                     DockPanel.Dock="Right" />
@@ -455,7 +455,7 @@
                         <r:RibbonMenuItem ImageSource="/OsnastkaDirect;component/EmbedResources/Icons/UseS.png"
                                           Header="Указать изделие"
                                           Command="{Binding pSetUsage}" />
-                        
+
                     </r:RibbonMenuButton>
                     <r:RibbonButton Command="{Binding pSetWorkshop}"
                                     Label="Участок"
@@ -547,7 +547,7 @@
                                 </MenuItem>
                                 <MenuItem Header="Вставить" />
                                 <MenuItem Header="Вырезать" />
-                                <MenuItem Header="Удалить" />
+                                <MenuItem Header="Удалить"  />
                             </ContextMenu>
                         </DataGrid.ContextMenu>
                         <DataGrid.RowStyle>
@@ -647,8 +647,8 @@
                         <ColumnDefinition></ColumnDefinition>
                         <ColumnDefinition></ColumnDefinition>
                     </Grid.ColumnDefinitions>
-                    <Rectangle Grid.Row="1"
-                               Margin="0"
+
+                    <Rectangle Margin="10,0,-10,0"
                                Grid.ColumnSpan="2">
                         <Rectangle.Fill>
                             <LinearGradientBrush StartPoint="0.5,0"
@@ -666,6 +666,7 @@
                     </Rectangle>
                     <StackPanel Margin="0,0,27,0">
                         <StackPanel Width="auto"
+                                    Margin="1,1,1,1"
                                     Orientation="Horizontal">
                             <Label Content="Состояние"
                                    FontSize="12"
@@ -675,11 +676,12 @@
                                      Width="380"
                                      VerticalAlignment="Center"
                                      Style="{StaticResource TextBoxStyle1}"
-                                     IsReadOnly="True" 
-                                     VerticalContentAlignment="Center"/>
+                                     IsReadOnly="True"
+                                     VerticalContentAlignment="Center" />
                         </StackPanel>
 
                         <StackPanel Width="auto"
+                                    Margin="1,1,1,1"
                                     Orientation="Horizontal">
                             <Label Content="Техзаказ"
                                    FontSize="12"
@@ -688,16 +690,20 @@
                             <control:PlaceholderBox Height="26"
                                                     Placeholder="№"
                                                     Text="{Binding model.pSelOsn.zak_1, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                                    Width="100"
+                                                    Width="380"
                                                     VerticalAlignment="Top"
                                                     HorizontalAlignment="Left"
-                                                    IsReadOnly="{Binding model.pIsReadOnlyRedacting}"/>
+                                                    IsReadOnly="True" />
+                        </StackPanel>
+                        <StackPanel Width="auto"
+                                    Margin="1,1,1,1"
+                                    Orientation="Horizontal">
                             <Label Content="Дата создания"
                                    FontSize="12"
-                                   Width="100"
+                                   Width="90"
                                    Height="26" />
                             <DatePicker FontSize="12"
-                                        Width="180"
+                                        Width="380"
                                         Height="26"
                                         HorizontalContentAlignment="Stretch"
                                         VerticalContentAlignment="Stretch"
@@ -707,14 +713,15 @@
                                 <DatePicker.Resources>
                                     <Style TargetType="DatePickerTextBox">
                                         <Setter Property="IsReadOnly"
-                                                Value="{Binding model.pIsReadOnlyRedacting}" />
+                                                Value="True" />
                                         <Setter Property="VerticalContentAlignment"
                                                 Value="Center" />
                                     </Style>
                                 </DatePicker.Resources>
-                            </DatePicker> 
+                            </DatePicker>
                         </StackPanel>
                         <StackPanel Width="auto"
+                                    Margin="1,1,1,1"
                                     Orientation="Horizontal">
                             <Label Content="Исполнитель"
                                    FontSize="12"
@@ -723,241 +730,351 @@
                             <control:PlaceholderBox Height="26"
                                                     Placeholder="ФИО"
                                                     Text="{Binding model.pSelOsn.who, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                                    Width="100"
+                                                    Width="380"
                                                     VerticalAlignment="Top"
                                                     HorizontalAlignment="Left"
                                                     IsReadOnly="{Binding model.pIsReadOnlyRedacting}" />
-                            <Label Content="АНН/ТАБ"
-                                   FontSize="12"
-                                   Width="100"
-                                   Height="26" />
-                            <control:PlaceholderBox Height="26"
-                                                    Placeholder="аннтаб"
-                                                    Text="{Binding model.pSelOsn.annTab, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                                    Width="180"
-                                                    VerticalAlignment="Center"
-                                                    IsReadOnly="{Binding model.pIsReadOnlyRedacting}" />
+
                         </StackPanel>
                         <StackPanel Width="auto"
-                                    Orientation="Horizontal">
-                            <Label Content="Возврат"
-                                   FontSize="12"
-                                   Width="90"
-                                   Height="26" />
-                            <control:PlaceholderBox Height="26"
-                                                    Placeholder="причина"
-                                                    Text="{Binding model.pSelOsn.returnRes, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                                    Width="380"
-                                                    VerticalAlignment="Center"
-                                                    HorizontalAlignment="Center"
-                                                    IsReadOnly="{Binding model.pIsReadOnlyRedacting}" />
-                        </StackPanel>
-                        <StackPanel Width="auto"
-                                    Orientation="Horizontal">
-                            <Label Content="Раб. место"
-                                   FontSize="12"
-                                   Width="90"
-                                   Height="26" />
-                            <control:PlaceholderBox Height="26"
-                                                    Width="120"
-                                                    Placeholder="место"
-                                                    Text="{Binding model.pSelOsn.workPlace, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                                    IsReadOnly="{Binding model.pIsReadOnlyRedacting}" />
-                            <control:PlaceholderBox Height="26"
-                                                    Placeholder="название"
-                                                    Text="{Binding model.pSelOsn.workPlaceName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                                    Width="260"
-                                                    IsReadOnly="{Binding model.pIsReadOnlyRedacting}" />
-                        </StackPanel>
-                        <StackPanel Width="auto"
-                                    Orientation="Horizontal">
-                            <Label Content="Операция"
-                                   FontSize="12"
-                                   Width="90"
-                                   Height="26" />
-                            <control:PlaceholderBox Height="26"
-                                                    Width="120"
-                                                    Placeholder="операция"
-                                                    Text="{Binding model.pSelOsn.operation, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                                    IsReadOnly="{Binding model.pIsReadOnlyRedacting}" />
-                            <control:PlaceholderBox Height="26"
-                                                    Placeholder="название"
-                                                    Text="{Binding model.pSelOsn.operationName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                                    Width="260"
-                                                    IsReadOnly="{Binding model.pIsReadOnlyRedacting}" />
-                        </StackPanel>
-                        <StackPanel Width="auto"
+                                    Margin="1,1,1,1"
                                     Orientation="Horizontal">
                             <Label Content="Деталь"
                                    FontSize="12"
                                    Width="90"
                                    Height="26" />
                             <control:PlaceholderBox Height="26"
-                                                    Width="120"
+                                                    Width="354"
                                                     Placeholder="чертеж"
                                                     Text="{Binding model.pSelOsn.draft, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                                     FontSize="12"
-                                                    IsReadOnly="{Binding model.pIsReadOnlyRedacting}" />
+                                                    IsReadOnly="True" />
+                            <Fluent:Button Header="Выбрать"
+                                           Command="{Binding pSetWorkplace}"
+                                           Width="26"
+                                           Height="26"
+                                           Background="White"
+                                           BorderBrush="Silver"
+                                           CornerRadius="2"
+                                           IsEnabled="{Binding model.pRedactingModeOpen, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
+                                <Fluent:Button.LargeIcon>
+                                    <Image Source="/OsnastkaDirect;component/EmbedResources/Icons/RedacteB.png"
+                                           Width="23"
+                                           Height="23"
+                                           Margin="0,-11,0,0" />
+                                </Fluent:Button.LargeIcon>
+                            </Fluent:Button>
+                        </StackPanel>
+                        <StackPanel Width="auto"
+                                    Margin="1,1,1,1"
+                                    Orientation="Horizontal">
                             <control:PlaceholderBox Height="26"
                                                     Placeholder="ДСЕ"
                                                     Text="{Binding model.pSelOsn.nameDraft, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                                    Width="260"
+                                                    Width="380"
+                                                    Margin="90,0,0,0"
                                                     FontSize="12"
-                                                    IsReadOnly="{Binding model.pIsReadOnlyRedacting}" />
+                                                    IsReadOnly="True" />
                         </StackPanel>
                         <StackPanel Width="auto"
+                                    Margin="1,1,1,1"
                                     Orientation="Horizontal">
                             <Label Content="Оснастка"
                                    FontSize="12"
                                    Width="90"
                                    Height="26" />
-                            <control:PlaceholderBox Height="33"
+                            <control:PlaceholderBox Height="26"
                                                     HorizontalAlignment="Center"
                                                     VerticalAlignment="Center"
-                                                    Width="120"
+                                                    Width="354"
                                                     Placeholder="чертеж"
                                                     ToolTip="{Binding Text, RelativeSource={RelativeSource Mode=Self}}"
                                                     Text="{Binding model.pSelOsn.draftOsn, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                                    IsReadOnly="{Binding model.pIsReadOnlyRedacting}" />
-                            <control:PlaceholderBox Height="33"
+                                                    IsReadOnly="True" />
+                            <Fluent:Button Header="Выбрать"
+                                           Command="{Binding pSetWorkplace}"
+                                           Width="26"
+                                           Height="26"
+                                           Background="White"
+                                           BorderBrush="Silver"
+                                           CornerRadius="2"
+                                           IsEnabled="{Binding model.pRedactingModeOpen, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
+                                <Fluent:Button.LargeIcon>
+                                    <Image Source="/OsnastkaDirect;component/EmbedResources/Icons/RedacteB.png"
+                                           Width="23"
+                                           Height="23"
+                                           Margin="0,-11,0,0" />
+                                </Fluent:Button.LargeIcon>
+                            </Fluent:Button>
+                        </StackPanel>
+                        <StackPanel Width="auto"
+                                    Margin="1,1,1,1"
+                                    Orientation="Horizontal">
+                            <control:PlaceholderBox Height="26"
                                                     Placeholder="наименование"
                                                     Text="{Binding model.pSelOsn.nameOsn, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                                     ToolTip="{Binding Text, RelativeSource={RelativeSource Mode=Self}}"
                                                     VerticalAlignment="Center"
-                                                    Width="260"
-                                                    IsReadOnly="{Binding model.pIsReadOnlyRedacting}" />
+                                                    Width="380"
+                                                    Margin="90,0,0,0"
+                                                    IsReadOnly="True" />
                         </StackPanel>
                         <StackPanel Width="auto"
+                                    Margin="1,1,1,1"
                                     Orientation="Horizontal">
                             <Label Content="Запчасть"
                                    FontSize="12"
                                    Width="90"
                                    Height="26" />
-                            <control:PlaceholderBox Height="33"
+                            <control:PlaceholderBox Height="26"
                                                     HorizontalAlignment="Left"
                                                     VerticalAlignment="Top"
-                                                    Width="120"
+                                                    Width="354"
                                                     Placeholder="чертеж"
                                                     Text="{Binding model.pSelOsn.draftRes, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                                    IsReadOnly="{Binding model.pIsReadOnlyRedacting}" />
-                            <control:PlaceholderBox Height="33"
+                                                    IsReadOnly="True" />
+                            <Fluent:Button Header="Выбрать"
+                                           Command="{Binding pChooseResPart}"
+                                           Width="26"
+                                           Height="26"
+                                           Background="White"
+                                           BorderBrush="Silver"
+                                           CornerRadius="2"
+                                           IsEnabled="{Binding model.pRedactingModeOpen, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
+                                <Fluent:Button.LargeIcon>
+                                    <Image Source="/OsnastkaDirect;component/EmbedResources/Icons/RedacteB.png"
+                                           Width="23"
+                                           Height="23"
+                                           Margin="0,-11,0,0" />
+                                </Fluent:Button.LargeIcon>
+                            </Fluent:Button>
+                        </StackPanel>
+                        <StackPanel Width="auto"
+                                    Margin="1,1,1,1"
+                                    Orientation="Horizontal">
+                            <control:PlaceholderBox Height="26"
                                                     Placeholder="наименование"
                                                     Text="{Binding model.pSelOsn.nameRes, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                                     VerticalAlignment="Center"
-                                                    Width="260"
-                                                    IsReadOnly="{Binding model.pIsReadOnlyRedacting}" />
+                                                    Width="380"
+                                                    Margin="90,0,0,0"
+                                                    IsReadOnly="True" />
                         </StackPanel>
                         <StackPanel Width="auto"
+                                    Orientation="Horizontal"
+                                    Margin="1,1,1,1">
+                            <Label Content="Раб. место"
+                                   FontSize="12"
+                                   Width="90"
+                                   Height="26" />
+                            <control:PlaceholderBox Height="26"
+                                                    Width="354"
+                                                    Placeholder="место"
+                                                    Text="{Binding model.pSelOsn.workPlace, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                    IsReadOnly="True" />
+                            <Fluent:Button Header="Выбрать"
+                                           Command="{Binding pSetWorkplace}"
+                                           Width="26"
+                                           Height="26"
+                                           Background="White"
+                                           BorderBrush="Silver"
+                                           CornerRadius="2"
+                                           IsEnabled="{Binding model.pRedactingModeOpen, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
+                                <Fluent:Button.LargeIcon>
+                                    <Image Source="/OsnastkaDirect;component/EmbedResources/Icons/RedacteB.png"
+                                           Width="23"
+                                           Height="23"
+                                           Margin="0,-11,0,0" />
+                                </Fluent:Button.LargeIcon>
+                            </Fluent:Button>
+                        </StackPanel>
+                        <StackPanel Width="auto"
+                                    Orientation="Horizontal"
+                                    Margin="1,1,1,1">
+                            <control:PlaceholderBox Height="26"
+                                                    Margin="90,0,0,0"
+                                                    Placeholder="название"
+                                                    Text="{Binding model.pSelOsn.workPlaceName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                    Width="380"
+                                                    IsReadOnly="True" />
+
+                        </StackPanel>
+                        <StackPanel Width="auto"
+                                    Orientation="Horizontal"
+                                    Margin="1,1,1,1">
+                            <Label Content="Операция"
+                                   FontSize="12"
+                                   Width="90"
+                                   Height="26" />
+                            <control:PlaceholderBox Height="26"
+                                                    Width="354"
+                                                    Placeholder="операция"
+                                                    Text="{Binding model.pSelOsn.operation, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                    IsReadOnly="True" />
+                            <Fluent:Button Header="Выбрать"
+                                           Command="{Binding pSetOperation}"
+                                           Width="26"
+                                           Height="26"
+                                           Background="White"
+                                           BorderBrush="Silver"
+                                           CornerRadius="2"
+                                           IsEnabled="{Binding model.pRedactingModeOpen, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
+                                <Fluent:Button.LargeIcon>
+                                    <Image Source="/OsnastkaDirect;component/EmbedResources/Icons/RedacteB.png"
+                                           Width="23"
+                                           Height="23"
+                                           Margin="0,-11,0,0" />
+                                </Fluent:Button.LargeIcon>
+                            </Fluent:Button>
+
+                        </StackPanel>
+                        <StackPanel Width="auto"
+                                    Orientation="Horizontal"
+                                    Margin="1,1,1,1">
+                            <control:PlaceholderBox Height="26"
+                                                    Placeholder="название"
+                                                    Text="{Binding model.pSelOsn.operationName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                    Width="380"
+                                                    Margin="90,0,0,0"
+                                                    IsReadOnly="True" />
+                        </StackPanel>
+                        <StackPanel Width="auto"
+                                    Margin="1,1,1,1"
                                     Orientation="Horizontal">
                             <Label Content="Участок"
                                    FontSize="12"
                                    Width="90"
                                    Height="26" />
-                            <control:PlaceholderBox Height="33"
+                            <control:PlaceholderBox Height="26"
                                                     VerticalAlignment="Center"
-                                                    Width="120"
+                                                    Width="354"
                                                     Placeholder="участок"
                                                     ToolTip="{Binding Text, RelativeSource={RelativeSource Mode=Self}}"
                                                     Text="{Binding model.pSelOsn.workshop, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                                    IsReadOnly="{Binding model.pIsReadOnlyRedacting}" />
+                                                    IsReadOnly="True">
+                                <TextBox.InputBindings>
+                                    <MouseBinding Gesture="LeftDoubleClick"
+                                                  Command="{Binding pSetWorkshop}">
+                                    </MouseBinding>
+                                </TextBox.InputBindings>
+                            </control:PlaceholderBox>
+                            <Fluent:Button Header="Выбрать"
+                                           Command="{Binding pSetWorkshop}"
+                                           Width="26"
+                                           Height="26"
+                                           Background="White"
+                                           BorderBrush="Silver"
+                                           CornerRadius="2"
+                                           IsEnabled="{Binding model.pRedactingModeOpen, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
+                                <Fluent:Button.LargeIcon>
+                                    <Image Source="/OsnastkaDirect;component/EmbedResources/Icons/RedacteB.png"
+                                           Width="23"
+                                           Height="23"
+                                           Margin="0,-11,0,0" />
+                                </Fluent:Button.LargeIcon>
+                            </Fluent:Button>
+                        </StackPanel>
+                        <StackPanel Width="auto"
+                                    Margin="1,1,1,1"
+                                    Orientation="Horizontal">
                             <Label Content="Кладовая"
                                    FontSize="12"
-                                   Width="115"
+                                   Width="90"
                                    Height="26" />
-                            <control:PlaceholderBox Height="33"
+                            <control:PlaceholderBox Height="26"
                                                     VerticalAlignment="Center"
-                                                    Width="145"
+                                                    Width="380"
                                                     Placeholder="кладовая"
                                                     ToolTip="{Binding Text, RelativeSource={RelativeSource Mode=Self}}"
                                                     Text="{Binding model.pSelOsn.storeroom, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                                     IsReadOnly="{Binding model.pIsReadOnlyRedacting}" />
                         </StackPanel>
                         <StackPanel Width="auto"
+                                    Orientation="Horizontal"
+                                    Margin="1,1,1,1">
+                            <Label Content="Применение"
+                                   FontSize="12"
+                                   Width="90"
+                                   Height="26" />
+                            <control:PlaceholderBox Height="26"
+                                                    Placeholder="применение"
+                                                    Text="{Binding model.pSelOsn.usage, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                    ToolTip="{Binding Text, RelativeSource={RelativeSource Mode=Self}}"
+                                                    Width="354"
+                                                    VerticalAlignment="Center"
+                                                    IsReadOnly="True" />
+                            <Fluent:DropDownButton Header="Test3"
+                                                   Width="26"
+                                                   Height="26"
+                                                   Background="White"
+                                                   BorderBrush="Silver"
+                                                   IsEnabled="{Binding model.pRedactingModeOpen, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
+                                <Fluent:DropDownButton.LargeIcon>
+                                    <Image Source="/OsnastkaDirect;component/EmbedResources/Icons/RedacteB.png"
+                                           Width="23"
+                                           Height="23"
+                                           Margin="0,-11,0,0" />
+                                </Fluent:DropDownButton.LargeIcon>
+                                <Fluent:Button    Size="Middle"
+                                                  Header="Общее применение"
+                                                  Command="{Binding pSetUsageGeneral}" />
+                                <Fluent:Button    Size="Middle"
+                                                  Header="Общее применение по типам продукции"
+                                                  Command="{Binding pSetUsageGeneralType}" />
+                                <Fluent:Button    Size="Middle"
+                                                  Header="Указать изделие"
+                                                  Command="{Binding pSetUsage}" />
+                            </Fluent:DropDownButton>
+                        </StackPanel>
+                        <StackPanel Width="auto"
+                                    Margin="1,1,1,1"
                                     Orientation="Horizontal">
                             <Label Content="Количество"
                                    FontSize="12"
                                    Width="90"
                                    Height="26" />
-                            <control:PlaceholderBox Height="33"
+                            <control:PlaceholderBox Height="26"
                                                     HorizontalAlignment="Center"
                                                     VerticalAlignment="Center"
-                                                    Width="80"
+                                                    Width="380"
                                                     Placeholder="количество"
                                                     ToolTip="{Binding Text, RelativeSource={RelativeSource Mode=Self}}"
                                                     Text="{Binding model.pSelOsn.amount, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                                     IsReadOnly="{Binding model.pIsReadOnlyRedacting}" />
-                            <Label Content="Характер техзаказа"
+                        </StackPanel>
+                        <StackPanel Width="auto"
+                                    Margin="1,1,1,1"
+                                    Orientation="Horizontal">
+                            <Label Content="Характер"
                                    FontSize="12"
-                                   Width="155"
+                                   Width="90"
                                    Height="26" />
-                            <ComboBox Height="33"
+                            <ComboBox Height="26"
                                       FontSize="12"
                                       HorizontalAlignment="Left"
                                       ItemsSource="{Binding model.pListCharacter, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                       SelectedItem="{Binding model.pSelOsn.characterOrd, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                      Width="145"
+                                      Width="380"
                                       VerticalAlignment="Top"
                                       Margin="0,0,0,0"
                                       IsHitTestVisible="{Binding model.pIsReadOnlyRedacting, Converter={StaticResource InverseBooleanConverter}}"
-                                      IsTabStop="{Binding model.pIsReadOnlyRedacting, Converter={StaticResource InverseBooleanConverter}}"/>
-                            <!--<control:PlaceholderBox Height="33"
-                                                    Placeholder="характер"
-                                                    Text="{Binding model.pSelOsn.characterOrd, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                                    Width="0"
-                                                    IsReadOnly="{Binding model.pIsReadOnlyRedacting}" />-->
+                                      IsTabStop="{Binding model.pIsReadOnlyRedacting, Converter={StaticResource InverseBooleanConverter}}" />
                         </StackPanel>
                         <StackPanel Width="auto"
+                                    Margin="1,1,1,1"
                                     Orientation="Horizontal">
                             <Label Content="Причина"
                                    FontSize="12"
                                    Width="90"
                                    Height="26" />
-                            <control:PlaceholderBox Height="33"
-                                                    Placeholder="причина"
+                            <control:PlaceholderBox Height="26"
+                                                    Placeholder="причина заказа"
                                                     Text="{Binding model.pSelOsn.reason, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                                     ToolTip="{Binding Text, RelativeSource={RelativeSource Mode=Self}}"
                                                     Width="380"
                                                     IsReadOnly="{Binding model.pIsReadOnlyRedacting}" />
                         </StackPanel>
-                        <StackPanel Width="auto"
-                                    Orientation="Horizontal">
-                            <Label Content="Применение"
-                                   FontSize="12"
-                                   Width="90"
-                                   Height="26" />
-                            <control:PlaceholderBox Height="33"
-                                                    Placeholder="применение"
-                                                    Text="{Binding model.pSelOsn.usage, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                                    ToolTip="{Binding Text, RelativeSource={RelativeSource Mode=Self}}"
-                                                    Width="380"
-                                                    VerticalAlignment="Center"
-                                                    IsReadOnly="{Binding model.pIsReadOnlyRedacting}" />
-                        </StackPanel>
-                        <StackPanel Width="auto"
-                                    Orientation="Horizontal">
-                            <Label Content="Заказ"
-                                   FontSize="12"
-                                   Width="90"
-                                   Height="26" />
-                            <control:PlaceholderBox Height="33"
-                                                    Placeholder="заказ"
-                                                    Text="{Binding model.pSelOsn.ordOsn, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                                    Width="100"
-                                                    VerticalAlignment="Center"
-                                                    HorizontalAlignment="Center"
-                                                    IsReadOnly="{Binding model.pIsReadOnlyRedacting}" />
-                            <Label Content="Номер"
-                                   FontSize="12"
-                                   Width="100"
-                                   Height="26" />
-                            <control:PlaceholderBox Height="33"
-                                                    Placeholder="номер"
-                                                    Text="{Binding model.pSelOsn.numOsn, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                                    Width="100"
-                                                    VerticalAlignment="Top"
-                                                    HorizontalAlignment="Left"
-                                                    IsReadOnly="{Binding model.pIsReadOnlyRedacting}" />
-                        </StackPanel>
+
                         <StackPanel Width="auto"
                                     Orientation="Horizontal">
                             <Label Content="Срок изготовления:"
@@ -976,18 +1093,18 @@
                                        Height="26" />
                                 <DatePicker FontSize="12"
                                             Width="100"
-                                            Height="33"
+                                            Height="26"
                                             HorizontalContentAlignment="Stretch"
                                             VerticalContentAlignment="Stretch"
                                             IsHitTestVisible="{Binding model.pIsReadOnlyRedacting, Converter={StaticResource InverseBooleanConverter}}"
                                             IsTabStop="{Binding model.pIsReadOnlyRedacting, Converter={StaticResource InverseBooleanConverter}}"
                                             SelectedDate="{Binding model.pSelOsn.dateNeed}">
                                     <DatePicker.Resources>
-                                    <Style TargetType="DatePickerTextBox">
-                                        <Setter Property="IsReadOnly"
-                                                Value="{Binding model.pIsReadOnlyRedacting}" />
-                                        <Setter Property="VerticalContentAlignment"
-                                                Value="Center" />
+                                        <Style TargetType="DatePickerTextBox">
+                                            <Setter Property="IsReadOnly"
+                                                    Value="{Binding model.pIsReadOnlyRedacting}" />
+                                            <Setter Property="VerticalContentAlignment"
+                                                    Value="Center" />
                                             <Setter Property="VerticalAlignment"
                                                     Value="Stretch" />
                                             <Setter Property="HorizontalAlignment"
@@ -996,7 +1113,7 @@
                                                     Value="33" />
                                         </Style>
                                     </DatePicker.Resources>
-                                </DatePicker> 
+                                </DatePicker>
                             </StackPanel>
                             <StackPanel Width="auto"
                                         Orientation="Vertical">
@@ -1006,7 +1123,7 @@
                                        Height="26" />
                                 <DatePicker FontSize="12"
                                             Width="100"
-                                            Height="33"
+                                            Height="26"
                                             HorizontalContentAlignment="Stretch"
                                             VerticalContentAlignment="Stretch"
                                             IsHitTestVisible="{Binding model.pIsReadOnlyRedacting, Converter={StaticResource InverseBooleanConverter}}"
@@ -1030,7 +1147,7 @@
                                        Height="26" />
                                 <DatePicker FontSize="12"
                                             Width="100"
-                                            Height="33"
+                                            Height="26"
                                             HorizontalContentAlignment="Stretch"
                                             VerticalContentAlignment="Stretch"
                                             IsHitTestVisible="{Binding model.pIsReadOnlyRedacting, Converter={StaticResource InverseBooleanConverter}}"
@@ -1044,18 +1161,19 @@
                                                     Value="Center" />
                                         </Style>
                                     </DatePicker.Resources>
-                                </DatePicker> 
+                                </DatePicker>
                             </StackPanel>
                         </StackPanel>
                         <StackPanel Width="auto"
-                                    Orientation="Horizontal">
+                                    Orientation="Horizontal"
+                                    Margin="1,1,1,1">
                             <Label Content="Срок окончания:"
                                    FontSize="12"
                                    Width="160"
                                    Height="26" />
                             <DatePicker FontSize="12"
                                         Width="100"
-                                        Height="33"
+                                        Height="26"
                                         HorizontalContentAlignment="Stretch"
                                         VerticalContentAlignment="Stretch"
                                         IsHitTestVisible="{Binding model.pIsReadOnlyRedacting, Converter={StaticResource InverseBooleanConverter}}"
@@ -1069,7 +1187,69 @@
                                                 Value="Center" />
                                     </Style>
                                 </DatePicker.Resources>
-                            </DatePicker> 
+                            </DatePicker>
+                        </StackPanel>
+                        <StackPanel Width="auto"
+                                    Orientation="Horizontal"
+                                    Margin="1,1,1,1">
+                            <Label Content="Возврат"
+                                   FontSize="12"
+                                   Width="90"
+                                   Height="26" />
+                            <control:PlaceholderBox Height="26"
+                                                    Placeholder="причина возврата"
+                                                    Text="{Binding model.pSelOsn.returnRes, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                    Width="380"
+                                                    VerticalAlignment="Center"
+                                                    HorizontalAlignment="Center"
+                                                    IsReadOnly="{Binding model.pIsReadOnlyRedacting}" />
+                        </StackPanel>
+                    </StackPanel>
+                    <StackPanel Width="auto"
+                                Orientation="Vertical"
+                                Margin="20,244,0,0"
+                                Grid.Column="1"
+                                Height="116"
+                                VerticalAlignment="Top">
+                        <StackPanel Width="auto"
+                                    Margin="1,1,1,1"
+                                    Orientation="Horizontal">
+                            <Label Content="АНН/ТАБ"
+                                   FontSize="12"
+                                   Width="90"
+                                   Height="26" />
+                            <control:PlaceholderBox Height="26"
+                                                    Placeholder="аннтаб"
+                                                    Text="{Binding model.pSelOsn.annTab, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                    Width="380"
+                                                    VerticalAlignment="Center"
+                                                    IsReadOnly="{Binding model.pIsReadOnlyRedacting}" />
+                        </StackPanel>
+                        <StackPanel Width="auto"
+                                    Margin="1,1,1,1"
+                                    Orientation="Horizontal">
+                            <Label Content="Заказ"
+                                   FontSize="12"
+                                   Width="90"
+                                   Height="26" />
+                            <control:PlaceholderBox Height="26"
+                                                    Placeholder="заказ"
+                                                    Text="{Binding model.pSelOsn.ordOsn, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                    Width="100"
+                                                    VerticalAlignment="Center"
+                                                    HorizontalAlignment="Center"
+                                                    IsReadOnly="{Binding model.pIsReadOnlyRedacting}" />
+                            <Label Content="Номер"
+                                   FontSize="12"
+                                   Width="100"
+                                   Height="26" />
+                            <control:PlaceholderBox Height="26"
+                                                    Placeholder="номер"
+                                                    Text="{Binding model.pSelOsn.numOsn, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                    Width="100"
+                                                    VerticalAlignment="Top"
+                                                    HorizontalAlignment="Left"
+                                                    IsReadOnly="{Binding model.pIsReadOnlyRedacting}" />
                         </StackPanel>
                     </StackPanel>
 
@@ -1084,17 +1264,17 @@
                                Width="auto"
                                Height="33" />
                         <RichTextBox Height="200"
-                                 HorizontalAlignment="Left"
-                                 x:Name="richTextBox1"
-                                 VerticalScrollBarVisibility="Visible"
-                                 IsReadOnly="{Binding model.pIsReadOnlyRedacting}">
-                        <FlowDocument PageHeight="300">
-                            <Paragraph>
-                                <Run Text="{Binding model.pSelOsn.addition, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                            </Paragraph>
-                        </FlowDocument>
+                                     HorizontalAlignment="Left"
+                                     x:Name="richTextBox1"
+                                     VerticalScrollBarVisibility="Visible"
+                                     IsReadOnly="{Binding model.pIsReadOnlyRedacting}">
+                            <FlowDocument PageHeight="300">
+                                <Paragraph>
+                                    <Run Text="{Binding model.pSelOsn.addition, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                </Paragraph>
+                            </FlowDocument>
 
-                    </RichTextBox>
+                        </RichTextBox>
                     </StackPanel>
                     <StackPanel Width="auto"
                                 Orientation="Vertical"
@@ -1107,36 +1287,36 @@
                                Width="auto"
                                Height="33" />
                         <DataGrid AutoGenerateColumns="false"
-                              ItemsSource="{Binding model.pListProd, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                              SelectedItem="{Binding model.pSelProd, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                              IsReadOnly="true"
-                              CanUserAddRows="False"
-                              HorizontalScrollBarVisibility="Disabled"
-                              x:Name="DataGridProd"
-                              FontSize="12"
+                                  ItemsSource="{Binding model.pListProd, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                  SelectedItem="{Binding model.pSelProd, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                  IsReadOnly="true"
+                                  CanUserAddRows="False"
+                                  HorizontalScrollBarVisibility="Disabled"
+                                  x:Name="DataGridProd"
+                                  FontSize="12"
                                   Height="266">
-                        <DataGrid.InputBindings>
-                            <MouseBinding Gesture="LeftDoubleClick"
-                                          Command="{Binding pConfirm}">
-                            </MouseBinding>
-                        </DataGrid.InputBindings>
-                        <DataGrid.RowStyle>
-                            <Style TargetType="{x:Type DataGridRow}"
-                                   BasedOn="{StaticResource ResourceKey=DataGridRowBase}">
-                            </Style>
-                        </DataGrid.RowStyle>
-                        <DataGrid.Columns>
-                            <DataGridTextColumn Header="Заказ"
-                                                Binding="{Binding ord}"
-                                                Width="0.1*" />
-                            <DataGridTextColumn Header="Номер"
-                                                Binding="{Binding num}"
-                                                Width="0.1*" />
-                            <DataGridTextColumn Header="Дата выпуска"
-                                                Binding="{Binding date, StringFormat=dd.MM.yy}"
-                                                Width="0.1*" />
-                        </DataGrid.Columns>
-                    </DataGrid>
+                            <DataGrid.InputBindings>
+                                <MouseBinding Gesture="LeftDoubleClick"
+                                              Command="{Binding pConfirm}">
+                                </MouseBinding>
+                            </DataGrid.InputBindings>
+                            <DataGrid.RowStyle>
+                                <Style TargetType="{x:Type DataGridRow}"
+                                       BasedOn="{StaticResource ResourceKey=DataGridRowBase}">
+                                </Style>
+                            </DataGrid.RowStyle>
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="Заказ"
+                                                    Binding="{Binding ord}"
+                                                    Width="0.1*" />
+                                <DataGridTextColumn Header="Номер"
+                                                    Binding="{Binding num}"
+                                                    Width="0.1*" />
+                                <DataGridTextColumn Header="Дата выпуска"
+                                                    Binding="{Binding date, StringFormat=dd.MM.yy}"
+                                                    Width="0.1*" />
+                            </DataGrid.Columns>
+                        </DataGrid>
                     </StackPanel>
                     <!--<WrapPanel Orientation="Horizontal"
                                Width="274"
@@ -1240,7 +1420,35 @@
                             </Fluent:Button.LargeIcon>
                         </Fluent:Button>
                     </WrapPanel>-->
+                    <Image HorizontalAlignment="Left"
+                           Height="590"
+                           Margin="20,116,0,0"
+                           VerticalAlignment="Top"
+                           Width="567"
+                           Source="/EmbedResources/Icons/lisa.png"
+                           Grid.Column="1" />
+                    <Image HorizontalAlignment="Left"
+                           Height="590"
+                           Margin="20,116,0,0"
+                           VerticalAlignment="Top"
+                           Width="567"
+                           Source="{Binding model.p, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                           Grid.Column="1" />
+                    <Image HorizontalAlignment="Left"
+                           Height="298"
+                           Margin="0,116,0,0"
+                           VerticalAlignment="Top"
+                           Width="219"
+                           Source="/EmbedResources/Icons/textB.png"
+                           Grid.Column="1" />
+                    <Label Content="     Оснастка?&#10;А может лучше&#10;  домой спать?~"
+                           FontSize="22"
+                           Grid.Column="1"
+                           Margin="16,125,306,10"
+                           HorizontalContentAlignment="Center"
+                           FontFamily="Neo Sans" />
                 </Grid>
+
             </TabItem>
         </TabControl>
     </Grid>

@@ -318,6 +318,13 @@ namespace OsnastkaDirect.ViewModels
             get { return Update ?? (Update = new CommandBase(mUpdate)); }
         }
 
+        CommandBase OpenChooseResPart;
+
+        public CommandBase pOpenChooseResPart
+        {
+            get { return OpenChooseResPart ?? (OpenChooseResPart = new CommandBase(mOpenChooseResPart)); }
+        }
+
         #endregion
 
         #region Методы
@@ -653,6 +660,23 @@ namespace OsnastkaDirect.ViewModels
             ((ChooseUsage)VMLocator.VMs[name][index].view).Unloaded += (obj, args) => VMLocator.Clean((string)(((dynamic)obj).Uid));
             VMLocator.VMs[name][index].view.Owner = View;
             VMLocator.VMs[name][index].view.ShowDialog();
+        }
+
+        public void mOpenChooseResPart()
+        {
+
+            string name = typeof(ChooseResPart).Name;
+            int index = VMLocator.CreateViewModel(name);
+
+            ((ChooseResPart)VMLocator.VMs[name][index].view).Loaded += ((vmChooseResPart)VMLocator.VMs[name][index]).viewLoaded;
+            ((ChooseResPart)VMLocator.VMs[name][index].view).Unloaded += (obj, args) => VMLocator.Clean((string)(((dynamic)obj).Uid));
+            //
+            //VMLocator.VMs[name][index].model.pTmcnet = Model.tmcnet;
+
+            //
+            VMLocator.VMs[name][index].view.Owner = View;
+            VMLocator.VMs[name][index].view.ShowDialog();
+            //View.Hide();
         }
         public void mSetUsageGeneral()
         {

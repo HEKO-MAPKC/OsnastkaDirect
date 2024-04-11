@@ -34,6 +34,8 @@ namespace OsnastkaDirect.Models
         /// </summary>
         public FOXEntities db;
         public Osn BackupOsn;
+        public int minYearTechOrder = 7000;
+        public int maxYearTechOrder = 9999;
         //
         //Переменные
         //
@@ -405,7 +407,7 @@ namespace OsnastkaDirect.Models
 
             db.Connection.Open();
             //db.CommandTimeout(600);
-            db.CommandTimeout = 600;
+            //db.CommandTimeout = 600;
             //
             // Инициализация свойств
             // pName = значение;
@@ -875,17 +877,17 @@ namespace OsnastkaDirect.Models
             if (pSelOsn == null) return;
             var _year = DateTime.Now.Year.ToString().Remove(0, 2);
             decimal _nOrdNew=0;
-            //var _proosMAX = db.os_pro.FirstOrDefault(i => i.zak_1 == DateTime.Now.Year.ToString().Remove(0,2) + "-9999");
-            var _proosMAX = db.OsnastOrder.Where(i => i.YearTechOrd.Substring(0,2) == _year && i.TechOrder.IsApplicationFrom==true).Max(j => j.YearTechOrd.Remove(0,3)).ToDecimalOrDefault(-1); //TODO не работает + а если 24ый год и пусто ни одного
-            if (_proosMAX == -1) _nOrdNew = 7000;
+            var _proosMAX = db.vOsnastTechOrder.Where(i => i.YearTechOrd.Substring(0,2) == _year && i.IsApplicationFrom==true).Max(j => j.YearTechOrd.Remove(0,3)).ToDecimalOrDefault(-1); 
+            if (_proosMAX == -1) _nOrdNew = minYearTechOrder;
             else _nOrdNew = _proosMAX+1;
-            if (_nOrdNew > 9999)
+            if (_nOrdNew > maxYearTechOrder)
             {
                 MessageBox.Show("Максимум достигнут! Что делать? Честно, не знаю, ждите следующий год", "Внимание!", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
             var _newZak1 = _year.ToString() + "-" + _nOrdNew.ToString();
-            var _draftOsnast = db.OsnastOrder.FirstOrDefault(i => i.OsnastOrderID == pSelOsn.draftOsnastID);
+            var _draftOsnast = db.OsnastOrder.FirstOrDefault(i => i.OsnastOrderID == pSelOsn.draftOsnastID);                                              
+           
             if (_draftOsnast == null) return;
             _draftOsnast.DateEmployeeApproved = DateTime.Now;
             _draftOsnast.TechOrder.AuthorConstructor = "я"; //TODO Имя босса
@@ -1285,6 +1287,9 @@ namespace OsnastkaDirect.Models
                 _OsnastOrderDB.DateProduceFact = pSelOsn.dateFact;
                 _OsnastOrderDB.YearTechOrd = pSelOsn.zak_1 == null ? "0" : pSelOsn.zak_1;
             db.SaveChanges(); // TODO пофиксить время
+            OnPropertyChanged("pSelOsn");
+            OnPropertyChanged("pListOsn");
+            CollectionViewSource.GetDefaultView(pListOsn).Refresh();
         }
         #endregion
     }

@@ -28,31 +28,43 @@ namespace OsnastkaDirect.ViewModels
             /// Переменная Model
             /// </summary>
             public mChooseResPart Model;
-            //
-        	// Переменная для свойства команды
-            //
+        //
+        // Переменная для свойства команды
+        //
 
         #endregion
 
         #region Свойства
-		
-            //CommandBase commandName;
-            //
-            // Свойство команды
-            //
-            //public CommandBase pCommand
-            //{
-            //    get { return commandName ?? (commandName = new CommandBase(MethodName)); }
-            //}
 
+        //CommandBase commandName;
+        //
+        // Свойство команды
+        //
+        //public CommandBase pCommand
+        //{
+        //    get { return commandName ?? (commandName = new CommandBase(MethodName)); }
+        //}
+        CommandBase Cancel;
+
+        public CommandBase pCancel
+        {
+            get { return Cancel ?? (Cancel = new CommandBase(mCancel)); }
+        }
+
+        CommandBase Confirm;
+
+        public CommandBase pConfirm
+        {
+            get { return Confirm ?? (Confirm = new CommandBase(mConfirm)); }
+        }
         #endregion
 
         #region Методы
 
-            /// <summary>
-            /// Конструктор
-            /// </summary>
-            public vmChooseResPart()
+        /// <summary>
+        /// Конструктор
+        /// </summary>
+        public vmChooseResPart()
             {
 
             }
@@ -78,7 +90,20 @@ namespace OsnastkaDirect.ViewModels
             {
                 ;
             }
-            
+        public void mCancel()
+        {
+            View.Close();
+        }
+
+        public void mConfirm()
+        {
+            //if (Model.pSelWorkshop != null)
+            //{
+            //    if (Model.pSelWorkshop.Workshop1 != null || Model.pSelWorkshop.Workshop1 != "")
+            //        Model.WindowMain.Model.ChangeWorkshop(Model.pSelWorkshop);
+            //}
+            View.Close();
+        }
         #endregion
     }
 }
